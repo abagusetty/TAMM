@@ -93,8 +93,8 @@ void copy_data_to_gpu_trans(bool& isgpuOp, gpuStream_t& thandle, const T2* ainte
 
     // host-->device copy
 #if defined(USE_DPCPP)
-  thandle.memcpy(*ainter_buf_dev, ainter_buf, asize * sizeof(T2));
-  thandle.memcpy(*binter_buf_dev, binter_buf, bsize * sizeof(T3));
+  thandle.memcpy(*ainter_buf_dev, ainter_buf, asize * sizeof(T2)).wait();
+  thandle.memcpy(*binter_buf_dev, binter_buf, bsize * sizeof(T3)).wait();
 #elif defined(USE_CUDA)
   CUDA_CHECK(cudaMemcpyAsync(*ainter_buf_dev, ainter_buf, asize * sizeof(T2),
                              cudaMemcpyHostToDevice, thandle));
@@ -176,7 +176,6 @@ void gemm_wrapper(bool& isgpuOp, gpuStream_t& thandle, int AR, int BR, int B, in
                 cinter_buf_dev + i * cbatch_ld, cinter_ld);
               dgemm.wait();
             }
-
           } catch(oneapi::mkl::exception const& ex) {
             std::stringstream msg;
             msg << "oneMKL Exception at " << __FILE__ << " : " << __LINE__ << std::endl;
@@ -291,24 +290,15 @@ void gemm_wrapper(bool& isgpuOp, gpuStream_t& thandle, int AR, int BR, int B, in
                               cinter_buf_dev + i * cbatch_ld, cinter_ld));
             }
           }
-
+          
           continue;
         }
 #endif
-
         // CPU only ops (i.e., for CPU builds or isgpuOp=false)
-        if(N == 1 and M != 1 and K != 1) {
-          blas::gemv(blas::Layout::ColMajor, blas::Op::Trans, K, M, alpha,
-                     ainter_buf.data() + ari * areduce_ld + i * abatch_ld, ainter_ld,
-                     binter_buf.data() + bri * breduce_ld + i * bbatch_ld, 1, beta,
-                     cinter_buf.data() + i * cbatch_ld, 1);
-        }
-        else {
-          blas::gemm(blas::Layout::RowMajor, blas::Op::NoTrans, blas::Op::NoTrans, M, N, K, alpha,
-                     ainter_buf.data() + ari * areduce_ld + i * abatch_ld, ainter_ld,
-                     binter_buf.data() + bri * breduce_ld + i * bbatch_ld, binter_ld, beta,
-                     cinter_buf.data() + i * cbatch_ld, cinter_ld);
-        }
+        blas::gemm(blas::Layout::RowMajor, blas::Op::NoTrans, blas::Op::NoTrans, M, N, K, alpha,
+                    ainter_buf.data() + ari * areduce_ld + i * abatch_ld, ainter_ld,
+                    binter_buf.data() + bri * breduce_ld + i * bbatch_ld, binter_ld, beta,
+                    cinter_buf.data() + i * cbatch_ld, cinter_ld);
 
       } // for-i
     }   // for-bri
@@ -322,7 +312,7 @@ void copy_result_to_host(ExecutionHW hw, gpuStream_t& thandle, std::vector<T1>& 
 
 // device-->host copy
 #if defined(USE_DPCPP)
-  thandle.memcpy(cinter_buf.data(), cinter_buf_dev, cinter_buf.size() * sizeof(T1));
+  thandle.memcpy(cinter_buf.data(), cinter_buf_dev, cinter_buf.size() * sizeof(T1)).wait();
 #elif defined(USE_CUDA)
   CUDA_CHECK(cudaMemcpyAsync(cinter_buf.data(), cinter_buf_dev, cinter_buf.size() * sizeof(T1),
                              cudaMemcpyDeviceToHost, thandle));
@@ -366,7 +356,7 @@ void assign_gpu(gpuStream_t& thandle, T* dst, const SizeVec& ddims, const IntLab
     HIP_CHECK(
       hipMemcpyAsync(dst, src, ssize.value() * sizeof(T), hipMemcpyDeviceToDevice, thandle));
 #elif defined(USE_DPCPP)
-    thandle.memcpy(dst, src, ssize.value() * sizeof(T));
+    thandle.memcpy(dst, src, ssize.value() * sizeof(T)).wait();
 #endif
     return;
   }
@@ -598,6 +588,7 @@ void block_multiply(bool& isgpuOp,
   int areduce_ld = B * abatch_ld;
   int breduce_ld = B * bbatch_ld;
 
+<<<<<<< HEAD
   // optimization to run on CPU instead of GPU
   #if(defined(USE_CUDA) || defined(USE_HIP) || defined(USE_DPCPP))
   if(isgpuOp && M < 1000 && N < 1000 && K < 1000) {
@@ -606,6 +597,8 @@ void block_multiply(bool& isgpuOp,
   }
   #endif
 
+=======
+>>>>>>> 6a8d825d3a67867aae2e2bbc11d0bcc5d63cb9f0
   auto bmult_lambda = [&]() {
     bool            gpu_trans = false;
     std::vector<T1> cinter_buf;
