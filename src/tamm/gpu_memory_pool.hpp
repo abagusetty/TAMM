@@ -76,6 +76,31 @@ public:
 #endif
   }
 
+  void gpuMemcpyAsync(void* dst, const void* src, size_t sizeInBytes, std::string copyDir, gpuStream_t& stream) {
+#if defined(USE_DPCPP)
+    stream.memcpy(dts, src, sizeInBytes);
+#elif defined(USE_HIP)
+    if (copyDir == "H2D")
+      HIP_SAFE(hipMemcpyHtoDAsync(dst, src, sizeInBytes, stream));
+    else
+      HIP_SAFE(hipMemcpyDtoHAsync(dst, src, sizeInBytes, stream));
+#elif defined(USE_CUDA)
+    cudaMemcpyKind kind;
+    kind = (copyDir == "H2D") ? cudaMemcpyHostToDevice : cudaMemcpyDeviceToHost;
+    CUDA_SAFE(cudaMemcpyAsync(dst, src, sizeInBytes, kind, stream));
+#endif
+  }
+
+  void gpuEventSynchronize(gpuStream_t& event) {
+#if defined(USE_DPCPP)]
+    event.wait();
+#elif defined(USE_HIP)
+    HIP_SAFE(hipEventSynchronize(event));
+#elif defined(USE_CUDA)
+    CUDA_SAFE(cudaEventSynchronize(event));
+#endif
+  }
+
   void ReleaseAll() {
     for(auto&& i: memory_pool_) {
       for(auto&& j: i.second) {
