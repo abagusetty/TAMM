@@ -92,6 +92,17 @@ public:
 #endif
   }
 
+  bool gpuEventQuery(gpuEvent_t& event) {
+#if defined(USE_DPCPP)
+    return (sycl::info::event_command_status::complete ==
+            event.get_info<sycl::info::event::event_execution_status>());
+    return (event.wait());
+#elif defined(USE_HIP)
+    return (hipSuccess == hipEventQuery(event));
+#elif defined(USE_CUDA)
+    return (cudaSuccess == cudaEventQuery(event));
+#endif
+  }
   void gpuEventSynchronize(gpuEvent_t& event) {
 #if defined(USE_DPCPP)
     event.wait();
@@ -99,6 +110,16 @@ public:
     hipEventSynchronize(event);
 #elif defined(USE_CUDA)
     cudaEventSynchronize(event);
+#endif
+  }
+
+  void gpuStreamWaitEvent(gpuStream_t& stream, gpuEvent_t& event) {
+#if defined(USE_DPCPP)
+    stream.ext_oneapi_submit_barrier({event});
+#elif defined(USE_HIP)
+    hipStreamWaitEvent(stream, event);
+#elif defined(USE_CUDA)
+    cudaStreamWaitEvent(stream, event);
 #endif
   }
 
