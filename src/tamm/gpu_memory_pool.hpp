@@ -95,8 +95,7 @@ public:
   bool gpuEventQuery(gpuEvent_t& event) {
 #if defined(USE_DPCPP)
     return (sycl::info::event_command_status::complete ==
-            event.get_info<sycl::info::event::event_execution_status>());
-    return (event.wait());
+            event.get_info<sycl::info::event::command_execution_status>());
 #elif defined(USE_HIP)
     return (hipSuccess == hipEventQuery(event));
 #elif defined(USE_CUDA)

@@ -95,7 +95,7 @@ private:
         gpuStream_t* stream = nullptr;
 #if defined(USE_CUDA)
         stream = new cudaStream_t;
-        cudaStreamCreate(stream);
+        cudaStreamCreateWithFlags(stream, cudaStreamNonBlocking);
 
         if(streamID == 0) {
           gpuBlasHandle_t* handle = new gpuBlasHandle_t;
@@ -105,7 +105,7 @@ private:
         }
 #elif defined(USE_HIP)
         stream = new hipStream_t;
-        hipStreamCreate(stream);
+        hipStreamCreateWithFlags(stream, hipStreamNonBlocking);
 
         if(streamID == 0) {
           gpuBlasHandle_t* handle = new gpuBlasHandle_t;
