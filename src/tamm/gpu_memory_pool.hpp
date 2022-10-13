@@ -76,28 +76,29 @@ public:
 #endif
   }
 
-  void gpuMemcpyAsync(void* dst, const void* src, size_t sizeInBytes, std::string copyDir, gpuStream_t& stream) {
+  void gpuMemcpyAsync(void* dst, const void* src, size_t sizeInBytes, std::string copyDir,
+                      gpuStream_t& stream) {
 #if defined(USE_DPCPP)
     stream.memcpy(dst, src, sizeInBytes);
 #elif defined(USE_HIP)
-    if (copyDir == "H2D")
-      HIP_SAFE(hipMemcpyHtoDAsync(dst, src, sizeInBytes, stream));
+    if(copyDir == "H2D")
+      hipMemcpyHtoDAsync(dst, src, sizeInBytes, stream);
     else
-      HIP_SAFE(hipMemcpyDtoHAsync(dst, src, sizeInBytes, stream));
+      hipMemcpyDtoHAsync(dst, src, sizeInBytes, stream);
 #elif defined(USE_CUDA)
     cudaMemcpyKind kind;
     kind = (copyDir == "H2D") ? cudaMemcpyHostToDevice : cudaMemcpyDeviceToHost;
-    CUDA_SAFE(cudaMemcpyAsync(dst, src, sizeInBytes, kind, stream));
+    cudaMemcpyAsync(dst, src, sizeInBytes, kind, stream);
 #endif
   }
 
-  void gpuEventSynchronize(gpuStream_t& event) {
+  void gpuEventSynchronize(gpuEvent_t& event) {
 #if defined(USE_DPCPP)
     event.wait();
 #elif defined(USE_HIP)
-    HIP_SAFE(hipEventSynchronize(event));
+    hipEventSynchronize(event);
 #elif defined(USE_CUDA)
-    CUDA_SAFE(cudaEventSynchronize(event));
+    cudaEventSynchronize(event);
 #endif
   }
 

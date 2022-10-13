@@ -1,7 +1,7 @@
 #pragma once
 
 #include "tamm/errors.hpp"
-#include <map>
+#include <vector>
 
 #ifdef USE_CUDA
 #include <cublas_v2.h>
@@ -97,39 +97,40 @@ private:
         stream = new cudaStream_t;
         cudaStreamCreate(stream);
 
-        if (streamID==0) {
+        if(streamID == 0) {
           gpuBlasHandle_t* handle = new gpuBlasHandle_t;
           cublasCreate(handle);
           cublasSetStream(*handle, *stream);
-          _devID2Handle.push_back( handle );
+          _devID2Handle.push_back(handle);
         }
 #elif defined(USE_HIP)
         stream = new hipStream_t;
         hipStreamCreate(stream);
 
-        if (streamID==0) {
+        if(streamID == 0) {
           gpuBlasHandle_t* handle = new gpuBlasHandle_t;
           rocblas_create_handle(handle);
           rocblas_set_stream(*handle, *stream);
-          _devID2Handle.push_back( handle );
+          _devID2Handle.push_back(handle);
         }
 #elif defined(USE_DPCPP)
-        stream = new sycl::queue(*sycl_get_context(devID), *sycl_get_device(devID), sycl_asynchandler,
+        stream = new sycl::queue(*sycl_get_context(devID), *sycl_get_device(devID),
+                                 sycl_asynchandler,
                                  sycl::property_list{sycl::property::queue::in_order{}});
 #endif
 
-        _devID2Stream.push_back( stream );
+        _devID2Stream.push_back(stream);
 
       } // streamID
-    } // devID
+    }   // devID
 
     _initialized = false;
-    _count = 0;
+    _count       = 0;
   }
 
   ~GPUStreamPool() {
     _initialized = false;
-    _count = 0;
+    _count       = 0;
 
     for(int devID = 0; devID < _ngpus; devID++) { // # of GPUs per node
       gpuSetDevice(devID);
@@ -139,7 +140,7 @@ private:
 #if defined(USE_CUDA)
         cudaStreamDestroy(*stream);
 
-        if (streamID==0) {
+        if(streamID == 0) {
           gpuBlasHandle_t* handle = _devID2Handle[devID];
           cublasDestroy(*handle);
           handle = nullptr;
@@ -147,7 +148,7 @@ private:
 #elif defined(USE_HIP)
         hipStreamDestroy(*stream);
 
-        if (streamID==0) {
+        if(streamID == 0) {
           gpuBlasHandle_t* handle = _devID2Handle[devID];
           rocblas_destroy_handle(*handle);
           handle = nullptr;
@@ -158,7 +159,7 @@ private:
 
         stream = nullptr;
       } // streamID
-    } // devID
+    }   // devID
 
     _devID2Stream.clear();
 #if defined(USE_CUDA) || defined(USE_HIP)
