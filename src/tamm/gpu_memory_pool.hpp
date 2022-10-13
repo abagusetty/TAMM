@@ -78,7 +78,7 @@ public:
 
   void gpuMemcpyAsync(void* dst, const void* src, size_t sizeInBytes, std::string copyDir, gpuStream_t& stream) {
 #if defined(USE_DPCPP)
-    stream.memcpy(dts, src, sizeInBytes);
+    stream.memcpy(dst, src, sizeInBytes);
 #elif defined(USE_HIP)
     if (copyDir == "H2D")
       HIP_SAFE(hipMemcpyHtoDAsync(dst, src, sizeInBytes, stream));
@@ -92,7 +92,7 @@ public:
   }
 
   void gpuEventSynchronize(gpuStream_t& event) {
-#if defined(USE_DPCPP)]
+#if defined(USE_DPCPP)
     event.wait();
 #elif defined(USE_HIP)
     HIP_SAFE(hipEventSynchronize(event));

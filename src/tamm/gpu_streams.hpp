@@ -17,6 +17,8 @@
 
 namespace tamm {
 
+constexpr unsigned short int max_gpu_streams = 2;
+
 #if defined(USE_HIP)
 using gpuStream_t     = hipStream_t;
 using gpuEvent_t      = hipEvent_t;
@@ -70,12 +72,15 @@ protected:
   int _ngpus{0};
 
   // Map of GPU-IDs and stream
-  std::map<int, gpuStream_t*> _devID2Stream;
+  std::vector<gpuStream_t*> _devID2Stream;
 
 #if defined(USE_CUDA) || defined(USE_HIP)
   // Map of GPU-IDs and blashandle
-  std::map<int, gpuBlasHandle_t*> _devID2Handle;
+  std::vector<gpuBlasHandle_t*> _devID2Handle;
 #endif
+
+  // counter for getting a round-robin stream used by (T) code
+  unsigned int _count{0};
 
 private:
   GPUStreamPool() {
@@ -85,61 +90,80 @@ private:
       _active_device = devID;
       gpuSetDevice(devID);
 
-      // 1. populate gpu-streams, gpu-blas handles per GPU
-      gpuStream_t* stream = nullptr;
+      for(int streamID = 0; streamID < max_gpu_streams; streamID++) { // # of streams per GPU
+
+        gpuStream_t* stream = nullptr;
 #if defined(USE_CUDA)
-      stream = new cudaStream_t;
-      cudaStreamCreate(stream);
+        stream = new cudaStream_t;
+        cudaStreamCreate(stream);
 
-      gpuBlasHandle_t* handle = new gpuBlasHandle_t;
-      cublasCreate(handle);
-      cublasSetStream(*handle, *stream);
-      _devID2Handle[devID] = handle;
+        if (streamID==0) {
+          gpuBlasHandle_t* handle = new gpuBlasHandle_t;
+          cublasCreate(handle);
+          cublasSetStream(*handle, *stream);
+          _devID2Handle.push_back( handle );
+        }
 #elif defined(USE_HIP)
-      stream = new hipStream_t;
-      hipStreamCreate(stream);
+        stream = new hipStream_t;
+        hipStreamCreate(stream);
 
-      gpuBlasHandle_t* handle = new gpuBlasHandle_t;
-      rocblas_create_handle(handle);
-      rocblas_set_stream(*handle, *stream);
-      _devID2Handle[devID] = handle;
+        if (streamID==0) {
+          gpuBlasHandle_t* handle = new gpuBlasHandle_t;
+          rocblas_create_handle(handle);
+          rocblas_set_stream(*handle, *stream);
+          _devID2Handle.push_back( handle );
+        }
 #elif defined(USE_DPCPP)
-      stream = new sycl::queue(*sycl_get_context(devID), *sycl_get_device(devID), sycl_asynchandler,
-                               sycl::property_list{sycl::property::queue::in_order{}});
+        stream = new sycl::queue(*sycl_get_context(devID), *sycl_get_device(devID), sycl_asynchandler,
+                                 sycl::property_list{sycl::property::queue::in_order{}});
 #endif
 
-      _devID2Stream[devID] = stream;
+        _devID2Stream.push_back( stream );
+
+      } // streamID
     } // devID
 
     _initialized = false;
+    _count = 0;
   }
 
   ~GPUStreamPool() {
     _initialized = false;
+    _count = 0;
 
     for(int devID = 0; devID < _ngpus; devID++) { // # of GPUs per node
       gpuSetDevice(devID);
 
-      // 1. destroy gpu-streams, gpu-blas handles per GPU
-      gpuStream_t* stream = _devID2Stream[devID];
+      for(int streamID = 0; streamID < max_gpu_streams; streamID++) { // # of streams per GPU
+        gpuStream_t* stream = _devID2Stream[devID * max_gpu_streams + streamID];
 #if defined(USE_CUDA)
-      cudaStreamDestroy(*stream);
+        cudaStreamDestroy(*stream);
 
-      gpuBlasHandle_t* handle = _devID2Handle[devID];
-      cublasDestroy(*handle);
-      handle = nullptr;
+        if (streamID==0) {
+          gpuBlasHandle_t* handle = _devID2Handle[devID];
+          cublasDestroy(*handle);
+          handle = nullptr;
+        }
 #elif defined(USE_HIP)
-      hipStreamDestroy(*stream);
+        hipStreamDestroy(*stream);
 
-      gpuBlasHandle_t* handle = _devID2Handle[devID];
-      rocblas_destroy_handle(*handle);
-      handle = nullptr;
+        if (streamID==0) {
+          gpuBlasHandle_t* handle = _devID2Handle[devID];
+          rocblas_destroy_handle(*handle);
+          handle = nullptr;
+        }
 #elif defined(USE_DPCPP)
-      delete stream;
+        delete stream;
 #endif
 
-      stream = nullptr;
+        stream = nullptr;
+      } // streamID
     } // devID
+
+    _devID2Stream.clear();
+#if defined(USE_CUDA) || defined(USE_HIP)
+    _devID2Handle.clear();
+#endif
   }
 
   void check_device() {
@@ -159,9 +183,16 @@ public:
   }
 
   /// Returns a GPU stream in a round-robin fashion
+  // Note: This function is used only in (T) method
+  gpuStream_t& getRRStream() {
+    check_device();
+    unsigned short int counter = _count++ % max_gpu_streams;
+    return *(_devID2Stream[_active_device * max_gpu_streams + counter]);
+  }
+
   gpuStream_t& getStream() {
     check_device();
-    return *(_devID2Stream[_active_device]);
+    return *(_devID2Stream[_active_device * max_gpu_streams]);
   }
 
 #if !defined(USE_DPCPP)
