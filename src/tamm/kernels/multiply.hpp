@@ -253,7 +253,7 @@ void assign_gpu(gpuStream_t& thandle, T*& dst, const SizeVec& ddims, const IntLa
 //   // ABB: following casts were required since librett API only accepts void* as args
 //   librettExecute(plan, reinterpret_cast<void*>(const_cast<T*>(src)), reinterpret_cast<void*>(dst));
 //   librettDestroy(plan);
-// #endif
+#endif
 }
 
 template<typename T2, typename T3>
