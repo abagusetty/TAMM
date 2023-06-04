@@ -398,6 +398,7 @@ public:
       auto& memHostPool   = RMMMemoryManager::getInstance().getHostMemoryPool();
       auto& memDevicePool = RMMMemoryManager::getInstance().getDeviceMemoryPool();
       auto& thandle       = GPUStreamPool::getInstance().getStream();
+      // gpuStream_t thandle{}; // for CPU only build
 
       {
         // determine set of all labels
@@ -483,10 +484,10 @@ public:
 #endif
           kernels::block_multiply<T, TensorElType1, TensorElType2, TensorElType3>(
 #if defined(USE_CUDA) || defined(USE_HIP) || defined(USE_DPCPP)
-            th_a, th_b, thandle,
+            th_a, th_b,
 #endif
-            alpha_, abuf, adims_sz, rhs1_int_labels_, bbuf, bdims_sz, rhs2_int_labels_, cscale,
-            ab->cbuf_, cdims_sz, lhs_int_labels_, hw, true, cbuf_dev_ptr, cbuf_tmp_dev_ptr);
+            thandle, alpha_, abuf, adims_sz, rhs1_int_labels_, bbuf, bdims_sz, rhs2_int_labels_,
+            cscale, ab->cbuf_, cdims_sz, lhs_int_labels_, hw, true, cbuf_dev_ptr, cbuf_tmp_dev_ptr);
 
 #if defined(USE_CUDA) || defined(USE_HIP) || defined(USE_DPCPP)
           if(hw == ExecutionHW::GPU) {
@@ -504,11 +505,10 @@ public:
 
             memHostPool.deallocate(cbuf_tmp, csize * sizeof(TensorElType1));
           }
+          memDevicePool.deallocate(th_a, asize * sizeof(TensorElType2));
+          memDevicePool.deallocate(th_b, bsize * sizeof(TensorElType3));
 #endif
         }
-
-        memDevicePool.deallocate(th_a, asize * sizeof(TensorElType2));
-        memDevicePool.deallocate(th_b, bsize * sizeof(TensorElType3));
 
         memHostPool.deallocate(cbuf, csize * sizeof(TensorElType1));
         memHostPool.deallocate(abuf, asize * sizeof(TensorElType2));
@@ -626,6 +626,7 @@ public:
     auto& memHostPool   = RMMMemoryManager::getInstance().getHostMemoryPool();
     auto& memDevicePool = RMMMemoryManager::getInstance().getDeviceMemoryPool();
     auto& thandle       = GPUStreamPool::getInstance().getStream();
+    // gpuStream_t thandle{}; // for CPU only build
 
     // function to compute one block
     auto lambda = [&](const IndexVector itval) { // i, j
@@ -777,10 +778,10 @@ public:
 
             kernels::block_multiply<T, TensorElType1, TensorElType2, TensorElType3>(
 #if defined(USE_CUDA) || defined(USE_HIP) || defined(USE_DPCPP)
-              abuf_dev, bbuf_dev, thandle,
+              abuf_dev, bbuf_dev,
 #endif
-              alpha_, abuf, adims_sz, rhs1_int_labels_, bbuf, bdims_sz, rhs2_int_labels_, cscale,
-              cbuf, cdims_sz, lhs_int_labels_, hw, false, cbuf_dev_ptr, cbuf_tmp_dev_ptr);
+              thandle, alpha_, abuf, adims_sz, rhs1_int_labels_, bbuf, bdims_sz, rhs2_int_labels_,
+              cscale, cbuf, cdims_sz, lhs_int_labels_, hw, false, cbuf_dev_ptr, cbuf_tmp_dev_ptr);
 
 #if defined(USE_CUDA) || defined(USE_HIP) || defined(USE_DPCPP)
             if(hw == ExecutionHW::GPU) {
