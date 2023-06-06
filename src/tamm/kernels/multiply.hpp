@@ -4,8 +4,8 @@
 #include "tamm/kernels/assign.hpp"
 #include "tamm/types.hpp"
 
-#include <cstring> // for std::memset
 #include <complex>
+#include <cstring> // for std::memset
 #include <numeric>
 #include <vector>
 
@@ -52,18 +52,15 @@ void gemm_wrapper(ExecutionHW hw, gpuStream_t& thandle, int AR, int BR, int B, i
   for(size_t ari = 0; ari < AR; ari++) {
     for(size_t bri = 0; bri < BR; bri++) {
       for(size_t i = 0; i < B; i++) {
-
 #if defined(USE_CUDA) || defined(USE_HIP) || defined(USE_DPCPP)
         if(hw == ExecutionHW::GPU) {
-          gpu::blas(N, M, K, alpha,
-                    binter_buf_dev + bri * breduce_ld + i * bbatch_ld, binter_ld,
+          gpu::blas(N, M, K, alpha, binter_buf_dev + bri * breduce_ld + i * bbatch_ld, binter_ld,
                     ainter_buf_dev + ari * areduce_ld + i * abatch_ld, ainter_ld, beta,
                     cinter_buf_dev + i * cbatch_ld, cinter_ld, thandle);
           continue;
         }
 #endif
-        cpu::blas(M, N, K, alpha,
-                  ainter_buf + ari * areduce_ld + i * abatch_ld, ainter_ld,
+        cpu::blas(M, N, K, alpha, ainter_buf + ari * areduce_ld + i * abatch_ld, ainter_ld,
                   binter_buf + bri * breduce_ld + i * bbatch_ld, binter_ld, beta,
                   cinter_buf + i * cbatch_ld, cinter_ld);
 
