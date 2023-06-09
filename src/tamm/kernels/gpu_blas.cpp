@@ -59,7 +59,7 @@ void tamm::kernels::gpu::blas(int m, int n, int k, const T alpha, const T2* A, i
 #if defined(USE_DPCPP)
 // #ifdef USE_SYCL_BLAS
   blas::SB_Handle sb_handle(handle.first);
-  blas::_gemm(sb_handle, 'n', 'n', n, m, k, alpha, B, ldb, A, lda, beta, C, ldc, {});
+  auto event = blas::_gemm(sb_handle, 'n', 'n', n, m, k, alpha, B, ldb, A, lda, beta, C, ldc, {});
 // #else
 //   try {
 //     auto dgemm = oneapi::mkl::blas::column_major::gemm(handle.first, oneapi::mkl::transpose::N,
@@ -102,10 +102,10 @@ void tamm::kernels::gpu::blas(int m, int n, int k, const T alpha, const T2* A, i
 
 
 // Explicit template instantiations
-extern template blas::SB_Handle::event_t blas::internal::_gemm(blas::SB_Handle& sb_handle, char _TransA, char _TransB, int _M, int _N, int _K, double _alpha, double const* a_, int _lda, double const* b_, int _ldb, double _beta, double* _C, int _ldc, const blas::SB_Handle::event_t& _dependencies = {});
-extern template blas::SB_Handle::event_t blas::internal::_gemm(blas::SB_Handle& sb_handle, char _TransA, char _TransB, int _M, int _N, int _K, std::complex<double> _alpha, std::complex<double> const* a_, int _lda, std::complex<double> const* b_, int _ldb, std::complex<double> _beta, std::complex<double>* _C, int _ldc, const blas::SB_Handle::event_t& _dependencies = {});
-extern template blas::SB_Handle::event_t blas::internal::_gemm(blas::SB_Handle& sb_handle, char _TransA, char _TransB, int _M, int _N, int _K, float _alpha, float const* a_, int _lda, float const* b_, int _ldb, float _beta, float* _C, int _ldc, const blas::SB_Handle::event_t& _dependencies = {});
-extern template blas::SB_Handle::event_t blas::internal::_gemm(blas::SB_Handle& sb_handle, char _TransA, char _TransB, int _M, int _N, int _K, std::complex<float> _alpha, std::complex<float> const* a_, int _lda, std::complex<float> const* b_, int _ldb, std::complex<float> _beta, std::complex<float>* _C, int _ldc, const blas::SB_Handle::event_t& _dependencies = {});
+extern template blas::SB_Handle::event_t blas::_gemm(blas::SB_Handle& sb_handle, char _TransA, char _TransB, int _M, int _N, int _K, double _alpha, double const* a_, int _lda, double const* b_, int _ldb, double _beta, double* _C, int _ldc, const blas::SB_Handle::event_t& _dependencies = {});
+extern template blas::SB_Handle::event_t blas::_gemm(blas::SB_Handle& sb_handle, char _TransA, char _TransB, int _M, int _N, int _K, std::complex<double> _alpha, std::complex<double> const* a_, int _lda, std::complex<double> const* b_, int _ldb, std::complex<double> _beta, std::complex<double>* _C, int _ldc, const blas::SB_Handle::event_t& _dependencies = {});
+extern template blas::SB_Handle::event_t blas::_gemm(blas::SB_Handle& sb_handle, char _TransA, char _TransB, int _M, int _N, int _K, float _alpha, float const* a_, int _lda, float const* b_, int _ldb, float _beta, float* _C, int _ldc, const blas::SB_Handle::event_t& _dependencies = {});
+template blas::SB_Handle::event_t blas::_gemm(blas::SB_Handle& sb_handle, char _TransA, char _TransB, int _M, int _N, int _K, std::complex<float> _alpha, std::complex<float> const* a_, int _lda, std::complex<float> const* b_, int _ldb, std::complex<float> _beta, std::complex<float>* _C, int _ldc, const blas::SB_Handle::event_t& _dependencies = {});
 
 template void tamm::kernels::gpu::blas(int m, int n, int k, const double alpha, const double* A, int lda, const double* B, int ldb, const double beta, double* C, int ldc, gpuStream_t& handle);
 template void tamm::kernels::gpu::blas(int m, int n, int k, const std::complex<double> alpha, const std::complex<double>* A, int lda, const std::complex<double>* B, int ldb, const std::complex<double> beta, std::complex<double>* C, int ldc, gpuStream_t& handle);
