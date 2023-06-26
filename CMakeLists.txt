@@ -40,6 +40,18 @@ set(CMSB_PROJECTS TAMM)
 set(TAMM_DEPENDENCIES NJSON MSGSL DOCTEST Eigen3 HPTT HDF5)
 
 if(USE_CUDA OR USE_HIP OR USE_DPCPP)
+  option( USE_SYCL_BLAS "Enable SYCL-BLAS Bindings" ON )
+  option( USE_MCDRAM "Enable MEMBIND Bindings" ON )
+  if (USE_SYCL_BLAS)
+    MESSAGE(STATUS "Enabled SYCL-BLAS Bindings")
+    add_definitions(-DUSE_SYCL_BLAS)
+  endif()
+
+  if (USE_MCDRAM)
+    MESSAGE(STATUS "Enabled MEMBIND Bindings")
+    add_definitions(-DUSE_MCDRAM)
+  endif()
+
   list(APPEND TAMM_DEPENDENCIES Librett)
 endif()
 

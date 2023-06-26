@@ -15,15 +15,15 @@
  */
 #pragma once
 
-#include "host_memory_resource.hpp"
 #include "aligned.hpp"
+#include "host_memory_resource.hpp"
 
 #include <cstddef>
 #include <utility>
 
 // Guards added since HBM availability is only for ALCF Aurora
 #ifdef USE_MCDRAM
-#include <memkind.h>
+// #include <memkind.h>
 #include <hbwmalloc.h>
 #endif
 
@@ -33,8 +33,8 @@ namespace tamm::rmm::mr {
  * @brief A `host_memory_resource` that uses the global `operator new` and `operator delete` to
  * allocate host memory.
  */
-class new_delete_resource final : public host_memory_resource {
- public:
+class new_delete_resource final: public host_memory_resource {
+public:
   new_delete_resource()                                      = default;
   ~new_delete_resource() override                            = default;
   new_delete_resource(new_delete_resource const&)            = default;
@@ -42,7 +42,7 @@ class new_delete_resource final : public host_memory_resource {
   new_delete_resource& operator=(new_delete_resource const&) = default;
   new_delete_resource& operator=(new_delete_resource&&)      = default;
 
- private:
+private:
   /**
    * @brief Allocates memory on the host of size at least `bytes` bytes.
    *
@@ -56,23 +56,22 @@ class new_delete_resource final : public host_memory_resource {
    * @return Pointer to the newly allocated memory
    */
   void* do_allocate(std::size_t bytes,
-                    std::size_t alignment = rmm::detail::RMM_DEFAULT_HOST_ALIGNMENT) override
-  {
+                    std::size_t alignment = rmm::detail::RMM_DEFAULT_HOST_ALIGNMENT) override {
     // If the requested alignment isn't supported, use default
     alignment = (rmm::detail::is_supported_alignment(alignment))
                   ? alignment
                   : rmm::detail::RMM_DEFAULT_HOST_ALIGNMENT;
 
-    #if defined(USE_MCDRAM)
-    if (hbw_check_available() == 0) { //returns zero if hbw_malloc is availiable.
+#if defined(USE_MCDRAM)
+    if(hbw_check_available() == 0) { // returns zero if hbw_malloc is availiable.
       std::cout << "1. allocates memory from the HBM area\n";
-      return rmm::detail::aligned_allocate(
-        bytes, alignment, [](std::size_t size) { return hbm_malloc(size); });
+      return rmm::detail::aligned_allocate(bytes, alignment,
+                                           [](std::size_t size) { return hbw_malloc(size); });
     }
-    #else
-    return rmm::detail::aligned_allocate(
-      bytes, alignment, [](std::size_t size) { return ::operator new(size); });
-    #endif
+#else
+    return rmm::detail::aligned_allocate(bytes, alignment,
+                                         [](std::size_t size) { return ::operator new(size); });
+#endif
   }
 
   /**
@@ -90,19 +89,16 @@ class new_delete_resource final : public host_memory_resource {
    * @param alignment Alignment of the allocation. This must be equal to the value of `alignment`
    *                  that was passed to the `allocate` call that returned `ptr`.
    */
-  void do_deallocate(void* ptr,
-                     std::size_t bytes,
-                     std::size_t alignment = rmm::detail::RMM_DEFAULT_HOST_ALIGNMENT) override
-  {
+  void do_deallocate(void* ptr, std::size_t bytes,
+                     std::size_t alignment = rmm::detail::RMM_DEFAULT_HOST_ALIGNMENT) override {
 #if defined(USE_MCDRAM)
-    std::cout << "1. free memory from the HBM area\n";    
-    rmm::detail::aligned_deallocate(
-      ptr, bytes, alignment, [](void* ptr) { ::operator hbm_free(ptr); });    
-#else    
-    rmm::detail::aligned_deallocate(
-      ptr, bytes, alignment, [](void* ptr) { ::operator delete(ptr); });
-    #endif
+    std::cout << "1. free memory from the HBM area\n";
+    rmm::detail::aligned_deallocate(ptr, bytes, alignment, [](void* ptr) { hbw_free(ptr); });
+#else
+    rmm::detail::aligned_deallocate(ptr, bytes, alignment,
+                                    [](void* ptr) { ::operator delete(ptr); });
+#endif
   }
 };
 
-}  // namespace rmm::mr
+} // namespace tamm::rmm::mr
