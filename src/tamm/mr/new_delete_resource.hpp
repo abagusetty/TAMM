@@ -21,6 +21,12 @@
 #include <cstddef>
 #include <utility>
 
+// Guards added since HBM availability is only for ALCF Aurora
+#ifdef USE_MCDRAM
+#include <memkind.h>
+#include <hbwmalloc.h>
+#endif
+
 namespace tamm::rmm::mr {
 
 /**
@@ -57,8 +63,16 @@ class new_delete_resource final : public host_memory_resource {
                   ? alignment
                   : rmm::detail::RMM_DEFAULT_HOST_ALIGNMENT;
 
+    #if defined(USE_MCDRAM)
+    if (hbw_check_available() == 0) { //returns zero if hbw_malloc is availiable.
+      std::cout << "1. allocates memory from the HBM area\n";
+      return rmm::detail::aligned_allocate(
+        bytes, alignment, [](std::size_t size) { return hbm_malloc(size); });
+    }
+    #else
     return rmm::detail::aligned_allocate(
       bytes, alignment, [](std::size_t size) { return ::operator new(size); });
+    #endif
   }
 
   /**
@@ -80,8 +94,14 @@ class new_delete_resource final : public host_memory_resource {
                      std::size_t bytes,
                      std::size_t alignment = rmm::detail::RMM_DEFAULT_HOST_ALIGNMENT) override
   {
+#if defined(USE_MCDRAM)
+    std::cout << "1. free memory from the HBM area\n";    
+    rmm::detail::aligned_deallocate(
+      ptr, bytes, alignment, [](void* ptr) { ::operator hbm_free(ptr); });    
+#else    
     rmm::detail::aligned_deallocate(
       ptr, bytes, alignment, [](void* ptr) { ::operator delete(ptr); });
+    #endif
   }
 };
 
