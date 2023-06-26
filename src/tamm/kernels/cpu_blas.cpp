@@ -26,8 +26,3 @@ template void tamm::kernels::cpu::blas(int m, int n, int k, const std::complex<f
                                        const std::complex<float>* B, int ldb,
                                        const std::complex<float> beta, std::complex<float>* C,
                                        int ldc);
-
-// blas::gemm(blas::Layout, blas::Op, blas::Op, long, long, long, double, double const*, long,
-// double const*, long, double, double*, long); blas::gemm(blas::Layout, blas::Op, blas::Op, long,
-// long, long, std::complex<double>, std::complex<double> const*, long, std::complex<double> const*,
-// long, std::complex<double>, std::complex<double>*, long);
