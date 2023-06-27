@@ -23,7 +23,6 @@
 
 // Guards added since HBM availability is only for ALCF Aurora
 #ifdef USE_MCDRAM
-// #include <memkind.h>
 #include <hbwmalloc.h>
 #endif
 
@@ -64,7 +63,6 @@ private:
 
 #if defined(USE_MCDRAM)
     if(hbw_check_available() == 0) { // returns zero if hbw_malloc is availiable.
-      std::cout << "1. allocates memory from the HBM area\n";
       return rmm::detail::aligned_allocate(bytes, alignment,
                                            [](std::size_t size) { return hbw_malloc(size); });
     }
@@ -92,7 +90,6 @@ private:
   void do_deallocate(void* ptr, std::size_t bytes,
                      std::size_t alignment = rmm::detail::RMM_DEFAULT_HOST_ALIGNMENT) override {
 #if defined(USE_MCDRAM)
-    std::cout << "1. free memory from the HBM area\n";
     rmm::detail::aligned_deallocate(ptr, bytes, alignment, [](void* ptr) { hbw_free(ptr); });
 #else
     rmm::detail::aligned_deallocate(ptr, bytes, alignment,
