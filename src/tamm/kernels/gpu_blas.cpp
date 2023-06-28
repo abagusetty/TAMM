@@ -52,8 +52,8 @@
 #endif // USE_DPCPP
 
 template<typename T, typename T1, typename T2, typename T3>
-void tamm::kernels::gpu::blas(int m, int n, int k, const T alpha, const T2* A, int lda, const T3* B,
-                              int ldb, const T beta, T1* C, int ldc, gpuStream_t& handle) {
+void tamm::kernels::gpu::blas(int n, int m, int k, const T alpha, const T3* B, int ldb,
+                                const T2* A, int lda, const T beta, T1* C, int ldc, gpuStream_t& handle) {
 #if defined(USE_DPCPP)
 
 #ifdef USE_SYCL_BLAS
@@ -118,19 +118,16 @@ blas::_gemm(blas::SB_Handle& sb_handle, char _TransA, char _TransB, int _M, int 
 // _ldb, std::complex<float> _beta, std::complex<float>* _C, int _ldc, const
 // blas::SB_Handle::event_t& _dependencies = {});
 
-template void tamm::kernels::gpu::blas(int m, int n, int k, const double alpha, const double* A,
-                                       int lda, const double* B, int ldb, const double beta,
+template void tamm::kernels::gpu::blas(int n, int m, int k, const double alpha, const double* B,
+                                       int ldb, const double* A, int lda, const double beta,
                                        double* C, int ldc, gpuStream_t& handle);
-template void tamm::kernels::gpu::blas(int m, int n, int k, const std::complex<double> alpha,
-                                       const std::complex<double>* A, int lda,
-                                       const std::complex<double>* B, int ldb,
-                                       const std::complex<double> beta, std::complex<double>* C,
-                                       int ldc, gpuStream_t& handle);
-template void tamm::kernels::gpu::blas(int m, int n, int k, const float alpha, const float* A,
-                                       int lda, const float* B, int ldb, const float beta, float* C,
-                                       int ldc, gpuStream_t& handle);
-template void tamm::kernels::gpu::blas(int m, int n, int k, const std::complex<float> alpha,
-                                       const std::complex<float>* A, int lda,
-                                       const std::complex<float>* B, int ldb,
-                                       const std::complex<float> beta, std::complex<float>* C,
-                                       int ldc, gpuStream_t& handle);
+template void tamm::kernels::gpu::blas(int n, int m, int k, const float alpha, const float* B,
+                                       int ldb, const float* A, int lda, const float beta,
+                                       float* C, int ldc, gpuStream_t& handle);
+template void tamm::kernels::gpu::blas(int n, int m, int k, const std::complex<double> alpha, const std::complex<double>* B,
+                                       int ldb, const std::complex<double>* A, int lda, const std::complex<double> beta,
+                                       std::complex<double>* C, int ldc, gpuStream_t& handle);
+template void tamm::kernels::gpu::blas(int n, int m, int k, const std::complex<float> alpha, const std::complex<float>* B,
+                                       int ldb, const std::complex<float>* A, int lda, const std::complex<float> beta,
+                                       std::complex<float>* C, int ldc, gpuStream_t& handle);
+
