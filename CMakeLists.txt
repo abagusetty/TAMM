@@ -43,6 +43,11 @@ if(USE_CUDA OR USE_HIP OR USE_DPCPP)
   if(USE_MEMKIND)
     list(APPEND TAMM_DEPENDENCIES memkind)
   endif()
+
+  if(USE_SYCL_BLAS)
+    list(APPEND TAMM_DEPENDENCIES sycl-blas)
+  endif()
+
   list(APPEND TAMM_DEPENDENCIES Librett)
 endif()
 
