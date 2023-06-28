@@ -22,11 +22,21 @@
 #include <utility>
 
 // Guards added since HBM availability is only for ALCF Aurora
-#ifdef USE_MCDRAM
+#ifdef USE_MEMKIND
 #include <hbwmalloc.h>
 #endif
 
 namespace tamm::rmm::mr {
+
+  // TAMM_USE_MEMKIND = 0,1
+static const uint32_t tamm_use_memkind = [] {
+  const char *tammUseMemkind = std::getenv("TAMM_USE_MEMKIND");
+  uint32_t usingMemkind = 0;
+  if (tammUseMemkind) {
+    usingMemkind = std::atoi(tammUseMemkind);
+  }
+  return usingMemkind;
+}();
 
 /**
  * @brief A `host_memory_resource` that uses the global `operator new` and `operator delete` to
@@ -61,15 +71,14 @@ private:
                   ? alignment
                   : rmm::detail::RMM_DEFAULT_HOST_ALIGNMENT;
 
-#if defined(USE_MCDRAM)
-    if(hbw_check_available() == 0) { // returns zero if hbw_malloc is availiable.
+#if defined(USE_MEMKIND)
+    if(tamm_use_memkind && (hbw_check_available() == 0)) { // returns zero if hbw_malloc is availiable.
       return rmm::detail::aligned_allocate(bytes, alignment,
                                            [](std::size_t size) { return hbw_malloc(size); });
     }
-#else
+#endif
     return rmm::detail::aligned_allocate(bytes, alignment,
                                          [](std::size_t size) { return ::operator new(size); });
-#endif
   }
 
   /**
@@ -89,12 +98,14 @@ private:
    */
   void do_deallocate(void* ptr, std::size_t bytes,
                      std::size_t alignment = rmm::detail::RMM_DEFAULT_HOST_ALIGNMENT) override {
-#if defined(USE_MCDRAM)
-    rmm::detail::aligned_deallocate(ptr, bytes, alignment, [](void* ptr) { hbw_free(ptr); });
-#else
+#if defined(USE_MEMKIND)
+    if(tamm_use_memkind && (hbw_check_available() == 0)) { // returns zero if hbw_malloc is availiable.
+      rmm::detail::aligned_deallocate(ptr, bytes, alignment, [](void* ptr) { hbw_free(ptr); });
+      return;
+    }
+#endif
     rmm::detail::aligned_deallocate(ptr, bytes, alignment,
                                     [](void* ptr) { ::operator delete(ptr); });
-#endif
   }
 };
 
