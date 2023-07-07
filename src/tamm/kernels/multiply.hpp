@@ -12,7 +12,7 @@
 #include "tamm_blas.hpp"
 
 #if defined(USE_CUDA) || defined(USE_HIP) || defined(USE_DPCPP)
-#include "librett/librett.h"
+//#include "librett/librett.h"
 #include "tamm/rmm_memory_pool.hpp"
 #else
 namespace tamm {
@@ -120,9 +120,8 @@ void free_device_buffers(ExecutionHW hw, T*& dev_buf, std::size_t buf_size) {
 }
 
 template<typename T>
-void assign_gpu(gpuStream_t& thandle, T*& dst, const SizeVec& ddims, const IntLabelVec& dlabels,
-                T scale, const T* src, const SizeVec& sdims, const IntLabelVec& slabels,
-                bool is_assign) {
+void assign_gpu(gpuStream_t& thandle, T*& dst, const IntLabelVec& dlabels,
+                const T* src, const SizeVec& sdims, const IntLabelVec& slabels) {
 #if defined(USE_CUDA) || defined(USE_HIP) || defined(USE_DPCPP)
 
   const int ndim = sdims.size();
@@ -140,14 +139,12 @@ void assign_gpu(gpuStream_t& thandle, T*& dst, const SizeVec& ddims, const IntLa
   tamm::IntLabelVec r_dlabels = dlabels;
   tamm::IntLabelVec r_slabels = slabels;
 
-  // if(is_assign)
   std::reverse(r_sdims.begin(), r_sdims.end());
   std::reverse(r_slabels.begin(), r_slabels.end());
   std::reverse(r_dlabels.begin(), r_dlabels.end());
 
   int perm[ndim];
   int size[ndim];
-  // T beta         = is_assign ? 0 : 1;
 
   for(size_t i = 0; i < r_sdims.size(); i++) { size[i] = r_sdims[i]; }
   for(size_t i = 0; i < r_dlabels.size(); i++) {
@@ -157,17 +154,22 @@ void assign_gpu(gpuStream_t& thandle, T*& dst, const SizeVec& ddims, const IntLa
   }
 
   // create plan
-  librettHandle plan;
-#if defined(USE_DPCPP)
-  sycl::queue* ptrQueue = &(thandle.first);
-  librettPlan(&plan, ndim, size, perm, sizeof(T), ptrQueue);
-#else
-  librettPlan(&plan, ndim, size, perm, sizeof(T), thandle);
-#endif
+//   librettHandle plan;
+// #if defined(USE_DPCPP)
+//   sycl::queue* ptrQueue = &(thandle.first);
+//   librettPlan(&plan, ndim, size, perm, sizeof(T), ptrQueue);
+// #else
+//   librettPlan(&plan, ndim, size, perm, sizeof(T), thandle);
+// #endif
 
   // ABB: following casts were required since librett API only accepts void* as args
-  librettExecute(plan, reinterpret_cast<void*>(const_cast<T*>(src)), reinterpret_cast<void*>(dst));
-  librettDestroy(plan);
+  // librettExecute(plan, reinterpret_cast<void*>(const_cast<T*>(src)), reinterpret_cast<void*>(dst));
+  // librettDestroy(plan);
+
+  int outSize[ndim];
+  for (int i = 0; i < ndim; i++) { outSize[i] = size[perm[i]]; }
+  gpu::transpose_inplace(dst, src, outSize, size, perm, true, thandle);
+
 #endif
 }
 
@@ -191,10 +193,8 @@ bool transpose_inputs(ExecutionHW hw, gpuStream_t& thandle, T2* ainter_buf,
 
     copy_data_to_gpu(hw, thandle, abuf, asize, ainter_buf_dev_in, bbuf, bsize, binter_buf_dev_in);
 
-    assign_gpu<T2>(thandle, ainter_buf_dev, ainter_dims, ainter_labels, T2{1}, ainter_buf_dev_in,
-                   adims, alabels, true);
-    assign_gpu<T3>(thandle, binter_buf_dev, binter_dims, binter_labels, T3{1}, binter_buf_dev_in,
-                   bdims, blabels, true);
+    assign_gpu<T2>(thandle, ainter_buf_dev, ainter_labels, ainter_buf_dev_in, adims, alabels);
+    assign_gpu<T3>(thandle, binter_buf_dev, binter_labels, binter_buf_dev_in, bdims, blabels);
 
     free_device_buffers(hw, ainter_buf_dev_in, asize);
     free_device_buffers(hw, binter_buf_dev_in, bsize);
@@ -215,8 +215,8 @@ void transpose_output(ExecutionHW hw, gpuStream_t& thandle, bool gpu_trans, T1* 
                       T1*& cinter_tmp_buf_dev, bool is_assign) {
 #if defined(USE_CUDA) || defined(USE_HIP) || defined(USE_DPCPP)
   if(hw == ExecutionHW::GPU) {
-    assign_gpu<T1>(thandle, cinter_buf_dev, cdims, clabels, T1{1}, cinter_tmp_buf_dev, cinter_dims,
-                   cinter_labels, is_assign);
+    assign_gpu<T1>(thandle, cinter_buf_dev, clabels, cinter_tmp_buf_dev, cinter_dims,
+                   cinter_labels);
     return;
   }
 #endif

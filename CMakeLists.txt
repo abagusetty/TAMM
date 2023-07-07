@@ -48,7 +48,7 @@ if(USE_CUDA OR USE_HIP OR USE_DPCPP)
     list(APPEND TAMM_DEPENDENCIES sycl-blas)
   endif()
 
-  list(APPEND TAMM_DEPENDENCIES Librett)
+  # list(APPEND TAMM_DEPENDENCIES Librett)
 endif()
 
 list(APPEND TAMM_DEPENDENCIES GlobalArrays) #BLAS LAPACK
