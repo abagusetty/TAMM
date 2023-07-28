@@ -430,14 +430,14 @@ public:
           if(!b_nbhandle.getCompletionStatus()) b_nbhandle.waitForCompletion();
         }
 #else
-        {
-          TimerGuard tg_get{&oprof.multOpGetTime};
-          atensor.get(translated_ablockid, {abuf, asize});
-        }
-        {
-          TimerGuard tg_get{&oprof.multOpGetTime};
-          btensor.get(translated_bblockid, {bbuf, bsize});
-        }
+        // {
+        //   TimerGuard tg_get{&oprof.multOpGetTime};
+        //   atensor.get(translated_ablockid, {abuf, asize});
+        // }
+        // {
+        //   TimerGuard tg_get{&oprof.multOpGetTime};
+        //   btensor.get(translated_bblockid, {bbuf, bsize});
+        // }
 #endif
         const auto& cdims = ctensor.block_dims(translated_cblockid);
         const auto& adims = atensor.block_dims(translated_ablockid);
@@ -459,6 +459,8 @@ public:
 
         ab = new AddBuf<TensorElType1, TensorElType2, TensorElType3>{th_a, th_b, cbuf,
                                                                      translated_cblockid};
+        atensor.get(translated_ablockid, {th_a, asize});
+        btensor.get(translated_bblockid, {th_b, bsize});
 #else
         ab = new AddBuf<TensorElType1, TensorElType2, TensorElType3>{ctensor, cbuf,
                                                                      translated_cblockid};
@@ -479,6 +481,10 @@ public:
                            thandle);
             gpuMemsetAsync(reinterpret_cast<void*&>(cbuf_tmp_dev_ptr),
                            csize * sizeof(TensorElType1), thandle);
+          }
+          else {
+            atensor.get(translated_ablockid, {abuf, asize});
+            btensor.get(translated_bblockid, {bbuf, bsize});
           }
 #endif
           kernels::block_multiply<T, TensorElType1, TensorElType2, TensorElType3>(
@@ -743,14 +749,14 @@ public:
             if(!b_nbhandle.getCompletionStatus()) b_nbhandle.waitForCompletion();
           }
 #else
-          {
-            TimerGuard tg_get{&oprof.multOpGetTime};
-            atensor.get(translated_ablockid, {abuf, asize});
-          }
-          {
-            TimerGuard tg_get{&oprof.multOpGetTime};
-            btensor.get(translated_bblockid, {bbuf, bsize});
-          }
+          // {
+          //   TimerGuard tg_get{&oprof.multOpGetTime};
+          //   atensor.get(translated_ablockid, {abuf, asize});
+          // }
+          // {
+          //   TimerGuard tg_get{&oprof.multOpGetTime};
+          //   btensor.get(translated_bblockid, {bbuf, bsize});
+          // }
 #endif
           const auto& adims = atensor.block_dims(translated_ablockid);
           const auto& bdims = btensor.block_dims(translated_bblockid);
@@ -772,6 +778,12 @@ public:
                 static_cast<TensorElType2*>(memDevicePool.allocate(asize * sizeof(TensorElType2)));
               bbuf_dev =
                 static_cast<TensorElType3*>(memDevicePool.allocate(bsize * sizeof(TensorElType3)));
+              atensor.get(translated_ablockid, {abuf_dev, asize});
+              btensor.get(translated_bblockid, {bbuf_dev, bsize});
+            }
+            else {
+              atensor.get(translated_ablockid, {abuf, asize});
+              btensor.get(translated_bblockid, {bbuf, bsize});
             }
 #endif
 

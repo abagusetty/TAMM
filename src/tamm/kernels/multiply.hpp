@@ -189,11 +189,16 @@ bool transpose_inputs(ExecutionHW hw, gpuStream_t& thandle, T2* ainter_buf,
     allocate_device_buffers(hw, ainter_buf_dev_in, asize);
     allocate_device_buffers(hw, binter_buf_dev_in, bsize);
 
-    copy_data_to_gpu(hw, thandle, abuf, asize, ainter_buf_dev_in, bbuf, bsize, binter_buf_dev_in);
+    // copy_data_to_gpu(hw, thandle, abuf, asize, ainter_buf_dev_in, bbuf, bsize, binter_buf_dev_in);
 
-    assign_gpu<T2>(thandle, ainter_buf_dev, ainter_dims, ainter_labels, T2{1}, ainter_buf_dev_in,
+    // assign_gpu<T2>(thandle, ainter_buf_dev, ainter_dims, ainter_labels, T2{1}, ainter_buf_dev_in,
+    //                adims, alabels, true);
+    // assign_gpu<T3>(thandle, binter_buf_dev, binter_dims, binter_labels, T3{1}, binter_buf_dev_in,
+    //                bdims, blabels, true);
+
+    assign_gpu<T2>(thandle, ainter_buf_dev_in, ainter_dims, ainter_labels, T2{1}, ainter_buf_dev,
                    adims, alabels, true);
-    assign_gpu<T3>(thandle, binter_buf_dev, binter_dims, binter_labels, T3{1}, binter_buf_dev_in,
+    assign_gpu<T3>(thandle, binter_buf_dev_in, binter_dims, binter_labels, T3{1}, binter_buf_dev,
                    bdims, blabels, true);
 
     free_device_buffers(hw, ainter_buf_dev_in, asize);
