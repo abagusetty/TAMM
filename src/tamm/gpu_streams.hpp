@@ -10,7 +10,7 @@
 #include <cuda_runtime_api.h>
 #elif defined(USE_HIP)
 #include <hip/hip_runtime.h>
-#include <rocblas.h>
+#include <rocblas/rocblas.h>
 #elif defined(USE_DPCPP)
 #include "sycl_device.hpp"
 #endif
@@ -55,24 +55,24 @@ using gpuMemcpyKind   = cudaMemcpyKind;
 #define gpuMemcpyDeviceToHost cudaMemcpyDeviceToHost
 #define gpuMemcpyDeviceToDevice cudaMemcpyDeviceToDevice
 
-#define CUDA_CHECK(err)                                                                       \
-  do {                                                                                        \
-    cudaError_t err_ = (err);                                                                 \
-    if(err_ != cudaSuccess) {                                                                 \
-      std::printf("CUDA Exception code: %s at %s : %d\n", cudaGetErrorString(err_), __FILE__, \
-                  __LINE__);                                                                  \
-      throw std::runtime_error("cuda runtime error");                                         \
-    }                                                                                         \
+#define CUDA_CHECK(err)                                                                            \
+  do {                                                                                             \
+    cudaError_t err_ = (err);                                                                      \
+    if(err_ != cudaSuccess) {                                                                      \
+      std::printf("CUDA Exception code: %s at %s : %d\n", /*cudaGetErrorString*/ (err_), __FILE__, \
+                  __LINE__);                                                                       \
+      throw std::runtime_error("cuda runtime error");                                              \
+    }                                                                                              \
   } while(0)
 
-#define CUBLAS_CHECK(err)                                                                          \
-  do {                                                                                             \
-    cublasStatus_t err_ = (err);                                                                   \
-    if(err_ != CUBLAS_STATUS_SUCCESS) {                                                            \
-      std::printf("cublas Exception code: %s at %s : %d\n", cublasGetStatusString(err_), __FILE__, \
-                  __LINE__);                                                                       \
-      throw std::runtime_error("cublas runtime error");                                            \
-    }                                                                                              \
+#define CUBLAS_CHECK(err)                                                                     \
+  do {                                                                                        \
+    cublasStatus_t err_ = (err);                                                              \
+    if(err_ != CUBLAS_STATUS_SUCCESS) {                                                       \
+      std::printf("cublas Exception code: %s at %s : %d\n", /*cublasGetStatusString*/ (err_), \
+                  __FILE__, __LINE__);                                                        \
+      throw std::runtime_error("cublas runtime error");                                       \
+    }                                                                                         \
   } while(0)
 
 #elif defined(USE_DPCPP)
@@ -135,6 +135,27 @@ static void gpuMemcpyAsync(T* dst, const T* src, size_t count, gpuMemcpyKind kin
   CUDA_CHECK(cudaMemcpyAsync(dst, src, count * sizeof(T), kind, stream));
 #elif defined(USE_HIP)
   HIP_CHECK(hipMemcpyAsync(dst, src, count * sizeof(T), kind, stream));
+#endif
+}
+
+static inline bool gpuEventQuery(gpuEvent_t event) {
+#if defined(USE_DPCPP)
+  return (event.get_info<sycl::info::event::command_execution_status>() ==
+          sycl::info::event_command_status::complete);
+#elif defined(USE_HIP)
+  return (hipEventQuery(event) == hipSuccess);
+#elif defined(USE_CUDA)
+  return (cudaEventQuery(event) == cudaSuccess);
+#endif
+}
+
+static inline void gpuEventSynchronize(gpuEvent_t event) {
+#if defined(USE_DPCPP)
+  event.wait();
+#elif defined(USE_HIP)
+  hipEventSynchronize(event);
+#elif defined(USE_CUDA)
+  cudaEventSynchronize(event);
 #endif
 }
 
@@ -240,5 +261,15 @@ public:
   GPUStreamPool(GPUStreamPool&&)                 = delete;
   GPUStreamPool& operator=(GPUStreamPool&&)      = delete;
 };
+
+static inline void gpuDeviceSynchronize() {
+#if defined(USE_DPCPP)
+  tamm::GPUStreamPool::getInstance().getStream().wait();
+#elif defined(USE_HIP)
+  hipDeviceSynchronize();
+#elif defined(USE_CUDA)
+  cudaDeviceSynchronize();
+#endif
+}
 
 } // namespace tamm

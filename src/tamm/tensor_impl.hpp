@@ -6,6 +6,7 @@
 #include "tamm/execution_context.hpp"
 #include "tamm/index_loop_nest.hpp"
 #include "tamm/index_space.hpp"
+#include "tamm/mem_profiler.hpp"
 #include "tamm/memory_manager_local.hpp"
 #include "tamm/tensor_base.hpp"
 #include <functional>
@@ -41,7 +42,7 @@ public:
     offset = _offset;
   }
 
-  bool contains(int64_t i, int64_t j, int64_t k, int64_t l) {
+  bool contains(int64_t i, int64_t j, int64_t k, int64_t l) const {
     return i >= lo[0] && j >= lo[1] && i < lo[0] + dim[0] && j < lo[1] + dim[1] && k >= lo[2] &&
            l >= lo[3] && k < lo[2] + dim[2] && l < lo[3] + dim[3];
   }
@@ -228,11 +229,17 @@ public:
   virtual void deallocate() {
     EXPECTS(allocation_status_ == AllocationStatus::created);
     EXPECTS(mpb_);
+    // get memory profiler instance
+    auto& memprof = MemProfiler::instance();
+
     ec_->unregister_for_dealloc(mpb_);
     mpb_->dealloc_coll();
     delete mpb_;
     mpb_ = nullptr;
     update_status(AllocationStatus::deallocated);
+    // update memory profiler instance
+    memprof.mem_deallocated += size();
+    memprof.dealloc_counter++;
   }
 
   /**
@@ -243,6 +250,9 @@ public:
   virtual void allocate(ExecutionContext* ec) {
     {
       EXPECTS(allocation_status_ == AllocationStatus::invalid);
+      // get memory profiler instance
+      auto& memprof = MemProfiler::instance();
+
       auto          defd = ec->get_default_distribution();
       Distribution* distribution =
         ec->distribution(defd->get_tensor_base(), defd->get_dist_proc()); // defd->kind());
@@ -280,6 +290,17 @@ public:
       EXPECTS(mpb_ != nullptr);
       ec_->register_for_dealloc(mpb_);
       update_status(AllocationStatus::created);
+
+      // update memory profiler instance
+      memprof.alloc_counter++;
+      const auto tsize = size();
+      memprof.mem_allocated += tsize;
+      memprof.max_in_single_allocate =
+        tsize > memprof.max_in_single_allocate ? tsize : memprof.max_in_single_allocate;
+      memprof.max_total_allocated = (memprof.mem_allocated - memprof.mem_deallocated) >
+                                        memprof.max_total_allocated
+                                      ? (memprof.mem_allocated - memprof.mem_deallocated)
+                                      : memprof.max_total_allocated;
     }
   }
 
@@ -465,11 +486,30 @@ public:
   }
 #endif
 
+  virtual std::vector<int64_t> local_buf_dims() const { abort(); }
+
+  virtual bool is_local_element(int64_t i, int64_t j, int64_t k, int64_t l) const { abort(); }
+
+  virtual std::vector<int64_t> local_tiles_offsets() const { abort(); }
+
+  virtual std::pair<int64_t, int64_t> local_element_offsets(int64_t i, int64_t j, int64_t k,
+                                                            int64_t l) const {
+    abort();
+  }
+
+#ifdef USE_UPCXX
+  virtual std::vector<TensorTile>::const_iterator local_tiles_begin() const { abort(); }
+
+  virtual std::vector<TensorTile>::const_iterator local_tiles_end() const { abort(); }
+#endif
+
+  virtual void put_raw_contig(int64_t* lo, int64_t* hi, void* buf) const { abort(); }
+
   virtual void put_raw(int64_t* lo, int64_t* hi, void* buf) const { abort(); }
 
-  virtual void get_raw(int64_t* lo, int64_t* hi, void* buf) const { abort(); }
+  virtual void get_raw_contig(int64_t* lo, int64_t* hi, void* buf) const { abort(); }
 
-  virtual void get_raw_one(int64_t* lo, int64_t* hi, void* buf) const { abort(); }
+  virtual void get_raw(int64_t* lo, int64_t* hi, void* buf) const { abort(); }
 
   virtual T* access_local_buf() {
     EXPECTS(mpb_);
@@ -722,6 +762,12 @@ public:
   void deallocate() {
     EXPECTS(allocation_status_ == AllocationStatus::created);
 #if defined(USE_UPCXX)
+    local_nelems_ = 0;
+    gptrs_.clear();
+    tensor_dims_.clear();
+    local_buf_dims_.clear();
+    tiles_.clear();
+    local_tiles_.clear();
     ec_->pg().barrier();
     upcxx::delete_array(local_gptr_);
     ec_->pg().barrier();
@@ -730,6 +776,11 @@ public:
     ga_ = -1;
 #endif
     update_status(AllocationStatus::deallocated);
+    // get memory profiler instance
+    auto& memprof = MemProfiler::instance();
+    // update memory profiler instance
+    memprof.mem_deallocated += size();
+    memprof.dealloc_counter++;
   }
 
   void allocate(ExecutionContext* ec) {
@@ -774,7 +825,8 @@ public:
     for(int i = 0; i < ndims; i++)
       new_tiles[i] = is_irreg_tis[i] ? tis_dims[i].input_tile_sizes() : tiles_for_fixed_ts_dim[i];
 
-    int nranks = ec->pg().size().value();
+    int my_rank = ec->pg().rank().value();
+    int nranks  = ec->pg().size().value();
 
 #if defined(USE_UPCXX)
 
@@ -838,15 +890,19 @@ public:
       int64_t  owning_rank  = 0;
       int64_t* tile_offsets = new int64_t[nranks]();
 
-      memset(tile_offsets, 0x00, nranks * sizeof(*tile_offsets));
-
       for(int64_t i = 0; i < tensor_dims_[2]; i += new_tiles[2][0])
         for(int64_t j = 0; j < tensor_dims_[3]; j += new_tiles[3][0]) {
-          tiles_.push_back(TensorTile(0, 0, i, j, new_tiles[0][0], new_tiles[1][0], new_tiles[2][0],
-                                      new_tiles[3][0], owning_rank, tile_offsets[owning_rank]));
+          TensorTile new_tile(0, 0, i, j, new_tiles[0][0], new_tiles[1][0], new_tiles[2][0],
+                              new_tiles[3][0], owning_rank, tile_offsets[owning_rank]);
+          tiles_.push_back(new_tile);
+
+          if(owning_rank == my_rank) local_tiles_.push_back(new_tile);
+
           tile_offsets[owning_rank] += tile_size_in_bytes / element_size;
           owning_rank = (owning_rank + 1) % nranks;
         }
+
+      local_nelems_ = tile_offsets[my_rank];
 
       delete[] tile_offsets;
 #else
@@ -857,6 +913,7 @@ public:
     }
     else {
 #if defined(USE_UPCXX)
+
       int64_t  tile_index     = 0;
       int64_t* tile_offsets   = new int64_t[nranks]();
       int64_t  tiles_per_proc = (total_n_tiles + nranks - 1) / nranks;
@@ -865,16 +922,22 @@ public:
         for(int64_t j = 0, jj = 0; j < tensor_dims_[1]; j += new_tiles[1][jj], ++jj)
           for(int64_t k = 0, kk = 0; k < tensor_dims_[2]; k += new_tiles[2][kk], ++kk)
             for(int64_t l = 0, ll = 0; l < tensor_dims_[3]; l += new_tiles[3][ll], ++ll) {
-              const int owning_rank = tile_index / tiles_per_proc;
-              tiles_.push_back(TensorTile(i, j, k, l, new_tiles[0][ii], new_tiles[1][jj],
-                                          new_tiles[2][kk], new_tiles[3][ll], owning_rank,
-                                          tile_offsets[owning_rank]));
+              const int  owning_rank = tile_index / tiles_per_proc;
+              TensorTile new_tile(i, j, k, l, new_tiles[0][ii], new_tiles[1][jj], new_tiles[2][kk],
+                                  new_tiles[3][ll], owning_rank, tile_offsets[owning_rank]);
+              tiles_.push_back(new_tile);
+
+              if(owning_rank == my_rank) local_tiles_.push_back(new_tile);
+
               tile_offsets[owning_rank] +=
                 new_tiles[0][ii] * new_tiles[1][jj] * new_tiles[2][kk] * new_tiles[3][ll];
               tile_index++;
             }
 
-      local_nelems_ = tile_offsets[upcxx::rank_me()];
+      if(local_nelems_ = tile_offsets[my_rank])
+        for(int i = 4 - ndims; i < 4; ++i)
+          local_buf_dims_.push_back(local_tiles_.back().lo[i] + local_tiles_.back().dim[i] -
+                                    local_tiles_.front().lo[i]);
 
       local_gptr_ = upcxx::new_array<uint8_t>(local_nelems_ * element_size);
       memset(local_gptr_.local(), 0x00, local_nelems_ * element_size);
@@ -985,15 +1048,37 @@ public:
 #endif
 
     update_status(AllocationStatus::created);
+    // get memory profiler instance
+    auto& memprof = MemProfiler::instance();
+    // update memory profiler instance
+    memprof.alloc_counter++;
+    const auto tsize = size();
+    memprof.mem_allocated += tsize;
+    memprof.max_in_single_allocate =
+      tsize > memprof.max_in_single_allocate ? tsize : memprof.max_in_single_allocate;
+    memprof.max_total_allocated = (memprof.mem_allocated - memprof.mem_deallocated) >
+                                      memprof.max_total_allocated
+                                    ? (memprof.mem_allocated - memprof.mem_deallocated)
+                                    : memprof.max_total_allocated;
   }
 
-#if defined(USE_UPCXX)
-  TensorTile find_tile(int64_t i, int64_t j, int64_t k, int64_t l) const {
-    for(auto tile = tiles_.begin(), e = tiles_.end(); tile != e; tile++) {
-      TensorTile t = *tile;
-      if(t.contains(i, j, k, l)) { return t; }
-    }
+#ifdef USE_UPCXX
+  const TensorTile& find_tile(int64_t i, int64_t j, int64_t k, int64_t l) const {
+    auto t = std::find_if(tiles_.cbegin(), tiles_.cend(), [i, j, k, l](const TensorTile& tile) {
+      return tile.contains(i, j, k, l);
+    });
+
+    if(t != tiles_.cend()) return *t;
     abort();
+  }
+
+  std::optional<TensorTile> find_local_tile(int64_t i, int64_t j, int64_t k, int64_t l) const {
+    auto t =
+      std::find_if(local_tiles_.cbegin(), local_tiles_.cend(),
+                   [i, j, k, l](const TensorTile& tile) { return tile.contains(i, j, k, l); });
+
+    if(t != local_tiles_.cend()) return *t;
+    return std::nullopt;
   }
 #endif
 
@@ -1003,7 +1088,6 @@ public:
 
     std::vector<int64_t> lo = compute_lo(blockid);
     std::vector<int64_t> hi = compute_hi(blockid);
-    std::vector<int64_t> ld = compute_ld(blockid);
 
 #if defined(USE_UPCXX)
     // Pad
@@ -1012,9 +1096,10 @@ public:
       hi.insert(hi.begin(), 0);
     }
 
-    get_raw(&lo[0], &hi[0], buff_span.data());
+    get_raw_contig(&lo[0], &hi[0], &buff_span[0]);
 #else
-    NGA_Get64(ga_, &lo[0], &hi[0], buff_span.data(), &ld[0]);
+    std::vector<int64_t> ld = compute_ld(blockid);
+    NGA_Get64(ga_, &lo[0], &hi[0], &buff_span[0], &ld[0]);
 #endif
   }
 
@@ -1024,7 +1109,6 @@ public:
 
     std::vector<int64_t> lo = compute_lo(blockid);
     std::vector<int64_t> hi = compute_hi(blockid);
-    std::vector<int64_t> ld = compute_ld(blockid);
 
 #if defined(USE_UPCXX)
     // Pad
@@ -1033,9 +1117,10 @@ public:
       hi.insert(hi.begin(), 0);
     }
 
-    put_raw(&lo[0], &hi[0], buff_span.data());
+    put_raw_contig(&lo[0], &hi[0], &buff_span[0]);
 #else
-    NGA_Put64(ga_, &lo[0], &hi[0], buff_span.data(), &ld[0]);
+    std::vector<int64_t> ld = compute_ld(blockid);
+    NGA_Put64(ga_, &lo[0], &hi[0], &buff_span[0], &ld[0]);
 #endif
   }
 
@@ -1114,30 +1199,68 @@ public:
     return ptr;
   }
 
-#if defined(USE_UPCXX)
-  void put_raw(int64_t* lo, int64_t* hi, void* buf) const {
-    const auto elem_sz = MemoryManagerGA::get_element_size(eltype_);
-    //~ int next = 0;
-    //~ for(int64_t i = lo[0]; i <= hi[0]; ++i)
-    //~ for(int64_t j = lo[1]; j <= hi[1]; ++j)
-    //~ for(int64_t k = lo[2]; k <= hi[2]; ++k)
-    //~ for(int64_t l = lo[3]; l <= hi[3]; ++l) {
-    //~ TensorTile t = find_tile(i, j, k, l);
+  std::vector<int64_t> local_buf_dims() const {
+#ifdef USE_UPCXX
+    assert(!is_block_cyclic_);
+    return local_buf_dims_.size() > 0 ? local_buf_dims_ : std::vector<int64_t>(num_modes());
+#else
+    throw std::runtime_error("Function local_buf_dims not defined for GA backend.");
+#endif
+  }
 
-    //~ int64_t i_offset = i - t.lo[0];
-    //~ int64_t j_offset = j - t.lo[1];
-    //~ int64_t k_offset = k - t.lo[2];
-    //~ int64_t l_offset = l - t.lo[3];
+  bool is_local_element(int64_t i, int64_t j, int64_t k, int64_t l) const {
+#ifdef USE_UPCXX
+    auto t = find_local_tile(i, j, k, l);
+    if(t.has_value()) return true;
+    return false;
+#else
+    throw std::runtime_error("Function is_local_element not defined for GA backend.");
+#endif
+  }
 
-    //~ int64_t tile_offset = l_offset + t.dim[3]*(k_offset + t.dim[2]*(j_offset +
-    // t.dim[1]*i_offset)); ~ upcxx::global_ptr<uint8_t> target = gptrs_[t.rank]; ~
-    // upcxx::global_ptr<uint8_t> remote_addr = target + (t.offset * elem_sz) + (tile_offset *
-    // elem_sz);
+  std::vector<int64_t> local_tiles_offsets() const {
+#ifdef USE_UPCXX
+    std::vector<int64_t> offsets(local_tiles_.size());
+    std::transform(local_tiles_.cbegin(), local_tiles_.cend(), offsets.begin(),
+                   [](const auto& tile) { return tile.offset; });
+    return offsets;
+#else
+    throw std::runtime_error("Function local_tiles_offsets not defined for GA backend.");
+#endif
+  }
 
-    //~ uint8_t* local_addr  = ((uint8_t*) buf) + (next++ * elem_sz);
+  std::pair<int64_t, int64_t> local_element_offsets(int64_t i, int64_t j, int64_t k,
+                                                    int64_t l) const {
+#ifdef USE_UPCXX
+    auto t = find_local_tile(i, j, k, l);
 
-    //~ upcxx::rput(local_addr, remote_addr, elem_sz).wait();
-    //~ }
+    if(t.has_value()) {
+      int64_t i_offset = i - t->lo[0];
+      int64_t j_offset = j - t->lo[1];
+      int64_t k_offset = k - t->lo[2];
+      int64_t l_offset = l - t->lo[3];
+      int64_t tile_offset =
+        l_offset + t->dim[3] * (k_offset + t->dim[2] * (j_offset + t->dim[1] * i_offset));
+
+      //        outer       inner
+      return {t->offset, tile_offset};
+    }
+
+    return {-1, -1};
+#else
+    throw std::runtime_error("Function local_element_offsets not defined for GA backend.");
+#endif
+  }
+
+#ifdef USE_UPCXX
+  std::vector<TensorTile>::const_iterator local_tiles_begin() const {
+    return local_tiles_.cbegin();
+  }
+
+  std::vector<TensorTile>::const_iterator local_tiles_end() const { return local_tiles_.cend(); }
+
+  void put_raw_contig(int64_t* lo, int64_t* hi, void* buf) const {
+    const auto elem_sz  = MemoryManagerGA::get_element_size(eltype_);
     TensorTile t        = find_tile(lo[0], lo[1], lo[2], lo[3]);
     int64_t    i_offset = lo[0] - t.lo[0];
     int64_t    j_offset = lo[1] - t.lo[1];
@@ -1154,7 +1277,45 @@ public:
     upcxx::rput((uint8_t*) buf, remote_addr, elem_sz * a * b * c * d).wait();
   }
 
-  void get_raw(int64_t* lo, int64_t* hi, void* buf) const {
+  void put_raw(int64_t* lo, int64_t* hi, void* buf) const {
+    const auto       elem_sz = MemoryManagerGA::get_element_size(eltype_);
+    int              next    = 0;
+    upcxx::promise<> p;
+    std::unordered_map<upcxx::intrank_t,
+                       std::pair<std::vector<uint8_t*>, std::vector<upcxx::global_ptr<uint8_t>>>>
+      all_puts;
+
+    for(int64_t i = lo[0]; i <= hi[0]; ++i)
+      for(int64_t j = lo[1]; j <= hi[1]; ++j)
+        for(int64_t k = lo[2]; k <= hi[2]; ++k)
+          for(int64_t l = lo[3]; l <= hi[3]; ++l) {
+            TensorTile t        = find_tile(i, j, k, l);
+            int64_t    i_offset = i - t.lo[0];
+            int64_t    j_offset = j - t.lo[1];
+            int64_t    k_offset = k - t.lo[2];
+            int64_t    l_offset = l - t.lo[3];
+            int64_t    tile_offset =
+              l_offset + t.dim[3] * (k_offset + t.dim[2] * (j_offset + t.dim[1] * i_offset));
+            upcxx::global_ptr<uint8_t> remote_addr =
+              gptrs_[t.rank] + (t.offset * elem_sz) + (tile_offset * elem_sz);
+            uint8_t* local_addr = ((uint8_t*) buf) + (next++ * elem_sz);
+
+            if(remote_addr.is_local()) { *((T*) remote_addr.local()) = *(T*) local_addr; }
+            else {
+              all_puts[t.rank].first.push_back(local_addr);
+              all_puts[t.rank].second.push_back(remote_addr);
+            }
+          }
+
+    for(const auto& x: all_puts)
+      upcxx::rput_regular(x.second.first.begin(), x.second.first.end(), elem_sz,
+                          x.second.second.begin(), x.second.second.end(), elem_sz,
+                          upcxx::operation_cx::as_promise(p));
+
+    p.finalize().wait();
+  }
+
+  void get_raw_contig(int64_t* lo, int64_t* hi, void* buf) const {
     const auto elem_sz  = MemoryManagerGA::get_element_size(eltype_);
     TensorTile t        = find_tile(lo[0], lo[1], lo[2], lo[3]);
     int64_t    i_offset = lo[0] - t.lo[0];
@@ -1172,9 +1333,14 @@ public:
     upcxx::rget(remote_addr, (uint8_t*) buf, elem_sz * a * b * c * d).wait();
   }
 
-  void get_raw_one(int64_t* lo, int64_t* hi, void* buf) const {
-    const auto elem_sz = MemoryManagerGA::get_element_size(eltype_);
-    int        next    = 0;
+  void get_raw(int64_t* lo, int64_t* hi, void* buf) const {
+    const auto       elem_sz = MemoryManagerGA::get_element_size(eltype_);
+    int              next    = 0;
+    upcxx::promise<> p;
+    std::unordered_map<upcxx::intrank_t,
+                       std::pair<std::vector<upcxx::global_ptr<uint8_t>>, std::vector<uint8_t*>>>
+      all_gets;
+
     for(int64_t i = lo[0]; i <= hi[0]; ++i)
       for(int64_t j = lo[1]; j <= hi[1]; ++j)
         for(int64_t k = lo[2]; k <= hi[2]; ++k)
@@ -1189,8 +1355,20 @@ public:
             upcxx::global_ptr<uint8_t> remote_addr =
               gptrs_[t.rank] + (t.offset * elem_sz) + (tile_offset * elem_sz);
             uint8_t* local_addr = ((uint8_t*) buf) + (next++ * elem_sz);
-            upcxx::rget(remote_addr, local_addr, elem_sz).wait();
+
+            if(remote_addr.is_local()) { *(T*) local_addr = *((T*) remote_addr.local()); }
+            else {
+              all_gets[t.rank].first.push_back(remote_addr);
+              all_gets[t.rank].second.push_back(local_addr);
+            }
           }
+
+    for(const auto& x: all_gets)
+      upcxx::rget_regular(x.second.first.begin(), x.second.first.end(), elem_sz,
+                          x.second.second.begin(), x.second.second.end(), elem_sz,
+                          upcxx::operation_cx::as_promise(p));
+
+    p.finalize().wait();
   }
 #endif
 
@@ -1244,13 +1422,15 @@ protected:
   }
 
 #if defined(USE_UPCXX)
+  ElementType                             eltype_;
+  int64_t                                 local_nelems_;
+  ProcGrid                                proc_grid_;
   upcxx::global_ptr<uint8_t>              local_gptr_;
   std::vector<upcxx::global_ptr<uint8_t>> gptrs_;
-  ProcGrid                                proc_grid_;
   std::vector<int64_t>                    tensor_dims_;
-  ElementType                             eltype_;
+  std::vector<int64_t>                    local_buf_dims_;
   std::vector<TensorTile>                 tiles_;
-  int64_t                                 local_nelems_;
+  std::vector<TensorTile>                 local_tiles_;
 #else
   int ga_;
   ProcGrid proc_grid_;
