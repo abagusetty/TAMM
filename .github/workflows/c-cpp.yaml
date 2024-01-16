@@ -1,13 +1,16 @@
 name: TAMM_CI
 
-on: 
+on:
   push:
     paths-ignore:
-      - docs  
+      - docs
   pull_request:
     branches:
       - main
       - develop
+  repository_dispatch:
+    types: [backend_automation]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -73,7 +76,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-python@v4
-      with: 
+      with:
         python-version: '3.x'
     - name: Check SIMD
       id: get-simd
