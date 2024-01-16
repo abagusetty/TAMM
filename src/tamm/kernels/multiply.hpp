@@ -13,7 +13,6 @@
 #include "tamm_blas.hpp"
 
 #if defined(USE_CUDA) || defined(USE_HIP) || defined(USE_DPCPP)
-#include "librett/librett.h"
 #else
 namespace tamm {
 using gpuStream_t = int; // not used
@@ -104,51 +103,20 @@ void free_device_buffers(ExecutionHW hw, T*& dev_buf, std::size_t buf_size) {
 #if defined(USE_CUDA) || defined(USE_HIP) || defined(USE_DPCPP)
 template<typename T>
 void assign_gpu(gpuStream_t& thandle, T*& dst, const SizeVec& ddims, const IntLabelVec& dlabels,
-                T scale, const T* src, const SizeVec& sdims, const IntLabelVec& slabels,
-                bool is_assign) {
+                const T* src, const SizeVec& sdims, const IntLabelVec& slabels) {
   const int ndim = sdims.size();
 
-  const Size ssize = std::accumulate(sdims.begin(), sdims.end(), Size{1}, std::multiplies<Size>());
-  if(ndim <= 1 || ssize.value() == 1) {
-    // device-->device copy
-    gpuMemcpyAsync<T>(dst, src, ssize.value(), gpuMemcpyDeviceToDevice, thandle);
+  int perm[ndim]; // r_dims
+  int size[ndim]; // outDims
+
+  for(size_t i = 0; i < sdims.size(); i++) { size[i] = ddims[i].value(); }
+  for(size_t i = 0; i < dlabels.size(); i++) {
+    auto it = std::find(slabels.begin(), slabels.end(), dlabels[i]);
+    EXPECTS(it != slabels.end());
+    perm[i] = it - slabels.begin();
   }
 
-  std::vector<int> r_sdims;
-  std::transform(std::begin(sdims), std::end(sdims), std::back_inserter(r_sdims),
-                 [](tamm::Size i) -> int { return i.value(); });
-
-  tamm::IntLabelVec r_dlabels = dlabels;
-  tamm::IntLabelVec r_slabels = slabels;
-
-  // if(is_assign)
-  std::reverse(r_sdims.begin(), r_sdims.end());
-  std::reverse(r_slabels.begin(), r_slabels.end());
-  std::reverse(r_dlabels.begin(), r_dlabels.end());
-
-  int perm[ndim];
-  int size[ndim];
-  // T beta         = is_assign ? 0 : 1;
-
-  for(size_t i = 0; i < r_sdims.size(); i++) { size[i] = r_sdims[i]; }
-  for(size_t i = 0; i < r_dlabels.size(); i++) {
-    auto it = std::find(r_slabels.begin(), r_slabels.end(), r_dlabels[i]);
-    EXPECTS(it != r_slabels.end());
-    perm[i] = it - r_slabels.begin();
-  }
-
-  // create plan
-  librettHandle plan;
-#if defined(USE_DPCPP)
-  sycl::queue* ptrQueue = &(thandle.first);
-  librettPlan(&plan, ndim, size, perm, sizeof(T), ptrQueue);
-#else
-  librettPlan(&plan, ndim, size, perm, sizeof(T), thandle.first);
-#endif
-
-  // ABB: following casts were required since librett API only accepts void* as args
-  librettExecute(plan, reinterpret_cast<void*>(const_cast<T*>(src)), reinterpret_cast<void*>(dst));
-  librettDestroy(plan);
+  gpu::transpose_inplace(dst, src, size, perm, thandle);
 }
 #endif
 
@@ -165,20 +133,12 @@ bool transpose_inputs(ExecutionHW hw, gpuStream_t& thandle, T2* ainter_buf,
   if(hw == ExecutionHW::GPU) {
     gpu_trans = true;
 
-    T2* ainter_buf_dev_in{nullptr};
-    T3* binter_buf_dev_in{nullptr};
-    allocate_device_buffers(hw, ainter_buf_dev_in, asize);
-    allocate_device_buffers(hw, binter_buf_dev_in, bsize);
+    copy_data_to_gpu(hw, thandle, abuf, asize, ainter_buf_dev, bbuf, bsize, binter_buf_dev);
 
-    copy_data_to_gpu(hw, thandle, abuf, asize, ainter_buf_dev_in, bbuf, bsize, binter_buf_dev_in);
-
-    assign_gpu<T2>(thandle, ainter_buf_dev, ainter_dims, ainter_labels, T2{1}, ainter_buf_dev_in,
-                   adims, alabels, true);
-    assign_gpu<T3>(thandle, binter_buf_dev, binter_dims, binter_labels, T3{1}, binter_buf_dev_in,
-                   bdims, blabels, true);
-
-    free_device_buffers(hw, ainter_buf_dev_in, asize);
-    free_device_buffers(hw, binter_buf_dev_in, bsize);
+    assign_gpu<T2>(thandle, ainter_buf_dev, ainter_labels, adims, alabels);
+    assign_gpu<T3>(thandle, binter_buf_dev, binter_labels, bdims, blabels);
+    // assign_gpu<T2>(thandle, ainter_buf_dev, ainter_labels, ainter_buf_dev_in, adims, alabels);
+    // assign_gpu<T3>(thandle, binter_buf_dev, binter_labels, binter_buf_dev_in, bdims, blabels);
 
     return gpu_trans;
   }
@@ -196,8 +156,8 @@ void transpose_output(ExecutionHW hw, gpuStream_t& thandle, bool gpu_trans, T1* 
                       T1*& cinter_tmp_buf_dev, bool is_assign) {
 #if defined(USE_CUDA) || defined(USE_HIP) || defined(USE_DPCPP)
   if(hw == ExecutionHW::GPU) {
-    assign_gpu<T1>(thandle, cinter_buf_dev, cdims, clabels, T1{1}, cinter_tmp_buf_dev, cinter_dims,
-                   cinter_labels, is_assign);
+    assign_gpu<T1>(thandle, cinter_buf_dev, clabels, cinter_tmp_buf_dev, cinter_dims,
+                   cinter_labels);
     return;
   }
 #endif
@@ -208,7 +168,7 @@ void transpose_output(ExecutionHW hw, gpuStream_t& thandle, bool gpu_trans, T1* 
 template<typename T, typename T1, typename T2, typename T3>
 void block_multiply(
 #if defined(USE_CUDA) || defined(USE_HIP) || defined(USE_DPCPP)
-  T2*& th_a, T3*& th_b,
+  T2*& ainter_buf_dev, T3*& binter_buf_dev,
 #endif
   gpuStream_t& thandle, T alpha, const T2* abuf, const SizeVec& adims, const IntLabelVec& alabels,
   const T3* bbuf, const SizeVec& bdims, const IntLabelVec& blabels, T beta, T1* cbuf,
@@ -343,13 +303,6 @@ void block_multiply(
     std::memset(static_cast<void*>(cinter_buf), 0, static_cast<size_t>(csize.value() * sizeof(T1)));
   }
 
-  T2* ainter_buf_dev{nullptr};
-  T3* binter_buf_dev{nullptr};
-#if defined(USE_CUDA) || defined(USE_HIP) || defined(USE_DPCPP)
-  ainter_buf_dev = th_a;
-  binter_buf_dev = th_b;
-#endif
-
   // dgemm
   if constexpr(std::is_same_v<T1, T2> && std::is_same_v<T1, T3>) { // R=RxR, C=CxC
     T2* ainter_buf{nullptr};
@@ -357,6 +310,8 @@ void block_multiply(
     allocate_host_buffers(hw, ainter_buf, asize.value());
     allocate_host_buffers(hw, binter_buf, bsize.value());
 
+    // ABB: difference between ainter_dims & adims ?
+    // ABB: Does ainter_buf_dev & binter_buf_dev have anything useful or points to garbage ?
     gpu_trans = transpose_inputs(hw, thandle, ainter_buf, ainter_dims, ainter_labels, abuf,
                                  asize.value(), adims, alabels, binter_buf, binter_dims,
                                  binter_labels, bbuf, bsize.value(), bdims, blabels, ainter_buf_dev,
@@ -567,11 +522,6 @@ void block_multiply(
 
     else NOT_IMPLEMENTED();
   }
-
-#if defined(USE_CUDA) || defined(USE_HIP) || defined(USE_DPCPP)
-  th_a = ainter_buf_dev;
-  th_b = binter_buf_dev;
-#endif
 
   if(is_assign && hw != ExecutionHW::GPU) // not using bufacc code path
     assign<T1>(cbuf, cdims, clabels, T{1}, cinter_buf, cinter_dims, cinter_labels, is_assign);

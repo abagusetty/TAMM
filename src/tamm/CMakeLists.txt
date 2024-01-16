@@ -10,7 +10,7 @@ if(USE_CUDA OR USE_HIP OR USE_DPCPP)
     mr/per_device_resource.hpp
   )
 
-  set(tamm_gpu_SRCS kernels/gpu_blas.cpp)
+  set(tamm_gpu_SRCS kernels/gpu_blas.cpp kernels/transpose_inplace.cpp)
 endif()
 if(USE_DPCPP)
   list(APPEND tamm_gpu_INCS sycl_device.hpp)
