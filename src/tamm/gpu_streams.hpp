@@ -240,6 +240,25 @@ static inline bool gpuEventQuery(gpuEvent_t& event) {
 #endif
 }
 
+static inline int getMaxGridSizeY() {
+#if defined(USE_DPCPP)
+  #ifdef SYCL_EXT_ONEAPI_MAX_WORK_GROUP_QUERY
+  sycl::id<3> max_num_wrk_groups = sycl_get_device(0)->get_info<sycl::ext::oneapi::experimental::info::device::max_work_groups<3>>();
+  return max_num_wrk_groups[1];
+  #else
+  EXPECTS_STR(0, "[TAMM ERROR]: SYCL_EXT_ONEAPI_MAX_WORK_GROUP_QUERY extension is not available!");
+  #endif
+#elif defined(USE_HIP)
+  hipDeviceProp prop;
+  hipGetDeviceProperties(&prop, 0);
+  return prop.maxGridSize[1];
+#elif defined(USE_CUDA)
+  cudaDeviceProp prop;
+  cudaGetDeviceProperties(&prop, 0);
+  return prop.maxGridSize[1];
+#endif
+}
+  
 class GPUStreamPool {
 protected:
   int                      default_deviceID{0};

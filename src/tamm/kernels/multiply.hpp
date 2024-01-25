@@ -105,18 +105,36 @@ template<typename T>
 void assign_gpu(gpuStream_t& thandle, T*& dst, const SizeVec& ddims, const IntLabelVec& dlabels,
                 const T* src, const SizeVec& sdims, const IntLabelVec& slabels) {
   const int ndim = sdims.size();
+  EXPECTS_STR((ndim == 4), "[TAMM ERROR]: Tensor dimensions are not supported for the transpose kernels!");
 
   int perm[ndim]; // r_dims
   int size[ndim]; // outDims
 
-  for(size_t i = 0; i < sdims.size(); i++) { size[i] = ddims[i].value(); }
+  for(size_t i = 0; i < sdims.size(); i++) { size[i] = sdims[i].value(); }
   for(size_t i = 0; i < dlabels.size(); i++) {
     auto it = std::find(slabels.begin(), slabels.end(), dlabels[i]);
     EXPECTS(it != slabels.end());
     perm[i] = it - slabels.begin();
   }
 
-  gpu::transpose_inplace(dst, src, size, perm, thandle);
+  // std::cout << "size of the tensor: " << size << std::endl;
+  // T* src_tmp = new T[ndim];
+  // T* dst_tmp = new T[ndim];
+  // thandle.first.memcpy(src_tmp, src, sizeof(T)*ndim);
+  // thandle.first.memcpy(dst_tmp, dst, sizeof(T)*ndim);
+  // thandle.first.wait();
+  gpu::transpose_reorder(dst, src, size, perm, thandle);
+  // T* src1_tmp = new T[ndim];
+  // T* dst1_tmp = new T[ndim];
+  // thandle.first.memcpy(src1_tmp, src, sizeof(T)*ndim);
+  // thandle.first.memcpy(dst1_tmp, dst, sizeof(T)*ndim);
+  // thandle.first.wait();  
+  // std::cout << "value of print: " << std::endl;
+  // for (int i=0; i<ndim; i++) {
+  //   std::cout << "tensors (src_tmp, dst_tmp, src1_tmp, dst1_tmp) : " << src_tmp[i] << ", " << dst_tmp[i]
+  //             << ", " << src1_tmp[i] << ", " << dst1_tmp[i] << std::endl;
+  // }
+  gpuDeviceSynchronize();
 }
 #endif
 
@@ -133,12 +151,20 @@ bool transpose_inputs(ExecutionHW hw, gpuStream_t& thandle, T2* ainter_buf,
   if(hw == ExecutionHW::GPU) {
     gpu_trans = true;
 
-    copy_data_to_gpu(hw, thandle, abuf, asize, ainter_buf_dev, bbuf, bsize, binter_buf_dev);
+    T2* ainter_buf_dev_in{nullptr};
+    T3* binter_buf_dev_in{nullptr};
+    allocate_device_buffers(hw, ainter_buf_dev_in, asize);
+    allocate_device_buffers(hw, binter_buf_dev_in, bsize);
 
-    assign_gpu<T2>(thandle, ainter_buf_dev, ainter_labels, adims, alabels);
-    assign_gpu<T3>(thandle, binter_buf_dev, binter_labels, bdims, blabels);
-    // assign_gpu<T2>(thandle, ainter_buf_dev, ainter_labels, ainter_buf_dev_in, adims, alabels);
-    // assign_gpu<T3>(thandle, binter_buf_dev, binter_labels, binter_buf_dev_in, bdims, blabels);
+    copy_data_to_gpu(hw, thandle, abuf, asize, ainter_buf_dev_in, bbuf, bsize, binter_buf_dev_in);
+
+    // assign_gpu<T2>(thandle, ainter_buf_dev, ainter_dims, ainter_labels, ainter_buf_dev_in,
+    //                adims, alabels);
+    // assign_gpu<T3>(thandle, binter_buf_dev, binter_dims, binter_labels, binter_buf_dev_in,
+    //                bdims, blabels);
+
+    free_device_buffers(hw, ainter_buf_dev_in, asize);
+    free_device_buffers(hw, binter_buf_dev_in, bsize);
 
     return gpu_trans;
   }
@@ -156,7 +182,7 @@ void transpose_output(ExecutionHW hw, gpuStream_t& thandle, bool gpu_trans, T1* 
                       T1*& cinter_tmp_buf_dev, bool is_assign) {
 #if defined(USE_CUDA) || defined(USE_HIP) || defined(USE_DPCPP)
   if(hw == ExecutionHW::GPU) {
-    assign_gpu<T1>(thandle, cinter_buf_dev, clabels, cinter_tmp_buf_dev, cinter_dims,
+    assign_gpu<T1>(thandle, cinter_buf_dev, cdims, clabels, cinter_tmp_buf_dev, cinter_dims,
                    cinter_labels);
     return;
   }
