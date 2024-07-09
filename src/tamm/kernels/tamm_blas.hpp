@@ -21,6 +21,10 @@ void axpy(const int64_t n, const T* src, const int incx, T*& dst, const int incy
 template<typename T, typename T1, typename T2, typename T3>
 void gemm(int n, int m, int k, const T alpha, const T3* B, int ldb, const T2* A, int lda,
           const T beta, T1* C, int ldc, gpuStream_t& gpuhandle);
+
+template<typename T>
+void transpose_inplace(T* out, const T* in, int* outDims, int* inDims, int* rdims, gpuStream_t& thandle);
+
 } // namespace gpu
 #endif
 

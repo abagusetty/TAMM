@@ -10,7 +10,10 @@ if(${PROJECT_NAME}_HAS_CUDA OR ${PROJECT_NAME}_HAS_HIP OR ${PROJECT_NAME}_HAS_DP
     mr/per_device_resource.hpp
   )
 
-  set(tamm_gpu_SRCS kernels/gpu_blas.cpp)
+  set(tamm_gpu_SRCS
+    kernels/gpu_blas.cpp
+    kernels/transpose_inplace.cpp
+  )
 endif()
 if(${PROJECT_NAME}_HAS_DPCPP)
   list(APPEND tamm_gpu_INCS sycl_device.hpp)
