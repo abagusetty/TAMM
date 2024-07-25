@@ -361,6 +361,28 @@ static inline void gpuDeviceSynchronize() {
 #endif
 }
 
+static inline void* getDeviceMem(size_t bytes) {
+  void* ptr = nullptr;
+#if defined(USE_CUDA)
+  cudaMalloc((void**) &ptr, bytes);
+#elif defined(USE_HIP)
+  hipMalloc((void**) &ptr, bytes);
+#elif defined(USE_DPCPP)
+  ptr = (void*) sycl::malloc_device(bytes, tamm::GPUStreamPool::getInstance().getStream().first);
+#endif
+  return ptr;
+}
+
+static inline void freeDeviceMem(void* ptr) {
+#if defined(USE_CUDA)
+  cudaFree(ptr);
+#elif defined(USE_HIP)
+  hipFree(ptr);
+#elif defined(USE_DPCPP)
+  sycl::free(ptr, tamm::GPUStreamPool::getInstance().getStream().first);
+#endif
+}
+
 static inline void* getPinnedMem(size_t bytes) {
   void* ptr = nullptr;
 #if defined(USE_CUDA)
