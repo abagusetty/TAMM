@@ -417,6 +417,10 @@ public:
         cbuf = static_cast<TensorElType1*>(memHostPool.allocate(csize * sizeof(TensorElType1)));
         abuf = static_cast<TensorElType2*>(memHostPool.allocate(asize * sizeof(TensorElType2)));
         bbuf = static_cast<TensorElType3*>(memHostPool.allocate(bsize * sizeof(TensorElType3)));
+#if defined(SYCL_EXT_ONEAPI_COPY_OPTIMIZE) && defined(USE_DPCPP)
+        oneapi_ext::prepare_for_device_copy(abuf, asize * sizeof(TensorElType2), thandle.first);
+        oneapi_ext::prepare_for_device_copy(bbuf, bsize * sizeof(TensorElType3), thandle.first);
+#endif
         std::memset(static_cast<void*>(cbuf), 0, csize * sizeof(TensorElType1));
 
         // get inputs
@@ -522,6 +526,9 @@ public:
 #if defined(USE_CUDA) || defined(USE_HIP) || defined(USE_DPCPP)
         memDevicePool.deallocate(th_a, asize * sizeof(TensorElType2));
         memDevicePool.deallocate(th_b, bsize * sizeof(TensorElType3));
+#if defined(SYCL_EXT_ONEAPI_COPY_OPTIMIZE) && defined(USE_DPCPP)
+        oneapi_ext::release_from_device_copy(abuf, thandle.first);
+        oneapi_ext::release_from_device_copy(bbuf, thandle.first);
 #endif
         memHostPool.deallocate(cbuf, csize * sizeof(TensorElType1));
         memHostPool.deallocate(abuf, asize * sizeof(TensorElType2));
@@ -745,6 +752,10 @@ public:
           TensorElType3* bbuf{nullptr};
           abuf = static_cast<TensorElType2*>(memHostPool.allocate(asize * sizeof(TensorElType2)));
           bbuf = static_cast<TensorElType3*>(memHostPool.allocate(bsize * sizeof(TensorElType3)));
+#if defined(SYCL_EXT_ONEAPI_COPY_OPTIMIZE) && defined(USE_DPCPP)
+          oneapi_ext::prepare_for_device_copy(abuf, asize * sizeof(TensorElType2), thandle.first);
+          oneapi_ext::prepare_for_device_copy(bbuf, bsize * sizeof(TensorElType3), thandle.first);
+#endif
 
 #ifdef DO_NB_GET
           DataCommunicationHandle a_nbhandle, b_nbhandle;
@@ -804,6 +815,10 @@ public:
 
 #if defined(USE_CUDA) || defined(USE_HIP) || defined(USE_DPCPP)
             if(hw == ExecutionHW::GPU) {
+#if defined(SYCL_EXT_ONEAPI_COPY_OPTIMIZE) && defined(USE_DPCPP)
+              oneapi_ext::release_from_device_copy(abuf, thandle.first);
+              oneapi_ext::release_from_device_copy(bbuf, thandle.first);
+#endif
               memDevicePool.deallocate(abuf_dev, asize * sizeof(TensorElType2));
               memDevicePool.deallocate(bbuf_dev, bsize * sizeof(TensorElType3));
             }
@@ -1036,7 +1051,7 @@ protected:
 public:
   std::string opstr_;
 
-  enum class Plan { invalid, lhs, flat, general_lhs, general_flat };
+  enum class Plan{invalid, lhs, flat, general_lhs, general_flat};
   Plan plan_ = Plan::invalid;
   std::shared_ptr<internal::MultOpPlanBase<T, LabeledTensorT1, LabeledTensorT2, LabeledTensorT3>>
     plan_obj_;

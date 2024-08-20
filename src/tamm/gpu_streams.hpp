@@ -19,6 +19,9 @@
 #elif defined(USE_DPCPP)
 #include "sycl_device.hpp"
 #include <oneapi/mkl/blas.hpp>
+namespace oneapi_ext = sycl::ext::oneapi::experimental;
+#define SYCL_EXT_ONEAPI_ENQUEUE_FUNCTIONS 1
+#define SYCL_EXT_ONEAPI_COPY_OPTIMIZE 1
 #endif
 
 namespace tamm {
@@ -231,8 +234,13 @@ template<typename T>
 static void gpuMemcpyAsync(T* dst, const T* src, size_t count, gpuMemcpyKind kind,
                            gpuStream_t& stream) {
 #if defined(USE_DPCPP)
+#if defined(SYCL_EXT_ONEAPI_ENQUEUE_FUNCTIONS)
+  if(kind == gpuMemcpyDeviceToDevice) { oneapi_ext::copy(stream.first, src, dst, count); }
+  else { oneapi_ext::memcpy(stream.first, dst, src, count * sizeof(T)); }
+#else
   if(kind == gpuMemcpyDeviceToDevice) { stream.first.copy(src, dst, count); }
   else { stream.first.memcpy(dst, src, count * sizeof(T)); }
+#endif
 #elif defined(USE_CUDA)
   CUDA_CHECK(cudaMemcpyAsync(dst, src, count * sizeof(T), kind, stream.first));
 #elif defined(USE_HIP)
@@ -242,7 +250,11 @@ static void gpuMemcpyAsync(T* dst, const T* src, size_t count, gpuMemcpyKind kin
 
 static inline void gpuMemsetAsync(void*& ptr, size_t sizeInBytes, gpuStream_t stream) {
 #if defined(USE_DPCPP)
+#if defined(SYCL_EXT_ONEAPI_ENQUEUE_FUNCTIONS)
+  oneapi_ext::memset(stream.first, ptr, 0, sizeInBytes);
+#else
   stream.first.memset(ptr, 0, sizeInBytes);
+#endif
 #elif defined(USE_HIP)
   hipMemsetAsync(ptr, 0, sizeInBytes, stream.first);
 #elif defined(USE_CUDA)
