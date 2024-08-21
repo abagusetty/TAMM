@@ -530,6 +530,7 @@ public:
         oneapi_ext::release_from_device_copy(abuf, thandle.first);
         oneapi_ext::release_from_device_copy(bbuf, thandle.first);
 #endif
+#endif
         memHostPool.deallocate(cbuf, csize * sizeof(TensorElType1));
         memHostPool.deallocate(abuf, asize * sizeof(TensorElType2));
         memHostPool.deallocate(bbuf, bsize * sizeof(TensorElType3));
@@ -1051,7 +1052,7 @@ protected:
 public:
   std::string opstr_;
 
-  enum class Plan{invalid, lhs, flat, general_lhs, general_flat};
+  enum class Plan { invalid, lhs, flat, general_lhs, general_flat };
   Plan plan_ = Plan::invalid;
   std::shared_ptr<internal::MultOpPlanBase<T, LabeledTensorT1, LabeledTensorT2, LabeledTensorT3>>
     plan_obj_;
