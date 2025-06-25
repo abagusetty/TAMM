@@ -149,6 +149,9 @@ public:
       for(size_t j = i + 1; j < end_id - start_id; j++) {
         if(op_has_dependence(ops[start_id + i].get(), ops[start_id + j].get())) {
           order[j].first = std::max(order[i].first + 1, order[j].first);
+          // if(profile_ && ec_.pg().rank() == 0 && i>0) std::cout << order[i].second - start_id <<
+          // " --> " << order[j].second  - start_id << "\n";
+          //"; " << ops_[order[i].second]->opstr_ << "\n";
         }
       }
     }
@@ -160,6 +163,7 @@ public:
   void execute(ExecutionHW execute_on = ExecutionHW::CPU, bool profile = false) {
     if(start_idx_ == ops_.size()) return;
     auto& oprof = tamm::OpProfiler::instance();
+    profile_    = profile;
 #if 0
         auto order = levelize_and_order(ops_, start_idx_, ops_.size());
         EXPECTS(order.size() == ops_.size() - start_idx_);
@@ -186,11 +190,11 @@ public:
             oprof.taddTime += oprof.multOpAddTime;
             oprof.tgetTime += oprof.multOpGetTime;
             oprof.twaitTime += oprof.multOpWaitTime; 
-            oprof.tgemmTime += oprof.multOpDgemmTime;
+            oprof.tBCTime += oprof.multOpBCTime;
             oprof.tcopyTime += oprof.multOpCopyTime;
             oprof.multOpGetTime = 0;
             oprof.multOpWaitTime = 0;  
-            oprof.multOpDgemmTime = 0;
+            oprof.multOpBCTime = 0;
             oprof.multOpAddTime = 0;
             oprof.multOpCopyTime = 0;
         }
@@ -210,24 +214,25 @@ public:
     auto   misc_end = std::chrono::high_resolution_clock::now();
     double misc_time =
       std::chrono::duration_cast<std::chrono::duration<double>>((misc_end - misc_start)).count();
-    auto t1 = misc_end;
+    // auto t1 = misc_end;
 
     // double nranks = 1.0 * ec_.pg().size().value();
-    oprof.multOpGetTime   = 0;
-    oprof.multOpDgemmTime = 0;
-    oprof.multOpAddTime   = 0;
-    oprof.multOpCopyTime  = 0;
+    oprof.multOpGetTime  = 0;
+    oprof.multOpBCTime   = 0;
+    oprof.multOpAddTime  = 0;
+    oprof.multOpCopyTime = 0;
 
-    std::vector<double> load_imbalance_times;
-    std::vector<double> op_times;
-    std::vector<double> multop_get_times;
-    std::vector<double> multop_dgemm_times;
-    std::vector<double> multop_add_times;
-    std::vector<double> multop_copy_times;
-    int                 nops = order.size();
+    std::vector<double>      load_imbalance_times;
+    std::vector<double>      op_times;
+    std::vector<double>      multop_get_times;
+    std::vector<double>      multop_dgemm_times;
+    std::vector<double>      multop_add_times;
+    std::vector<double>      multop_copy_times;
+    std::vector<std::string> tamm_op_types;
+    const int                nops = order.size();
 
     assert(order.size() == 0 || order[0].first == 0); // level 0 sanity check
-    for(size_t i = 0; i < order.size(); i++) {
+    for(int i = 0; i < nops; i++) {
       if(order[i].first != lvl) {
         assert(order[i].first == lvl + 1);
         // auto t2 = std::chrono::high_resolution_clock::now();
@@ -238,10 +243,10 @@ public:
         // - t2)).count());
         // level_times.push_back(std::chrono::duration_cast<std::chrono::duration<double>>((t3 -
         // t1)).count()); multop_get_times.push_back(oprof.multOpGetTime);
-        // multop_dgemm_times.push_back(oprof.multOpDgemmTime);
+        // multop_dgemm_times.push_back(oprof.multOpBCTime);
         // multop_add_times.push_back(oprof.multOpAddTime);
         // oprof.multOpGetTime = 0;
-        // oprof.multOpDgemmTime = 0;
+        // oprof.multOpBCTime = 0;
         // oprof.multOpAddTime = 0;
         // t1 = t3;
       }
@@ -251,18 +256,31 @@ public:
       auto t2 = std::chrono::high_resolution_clock::now();
       ops_[order[i].second]->execute(ec(), execute_on);
       auto t3 = std::chrono::high_resolution_clock::now();
-      op_times.push_back(
-        std::chrono::duration_cast<std::chrono::duration<double>>((t3 - t2)).count());
-      multop_get_times.push_back(oprof.multOpGetTime);
-      multop_dgemm_times.push_back(oprof.multOpDgemmTime);
-      multop_add_times.push_back(oprof.multOpAddTime);
-      multop_copy_times.push_back(oprof.multOpCopyTime);
-      oprof.multOpGetTime   = 0;
-      oprof.multOpDgemmTime = 0;
-      oprof.multOpAddTime   = 0;
-      oprof.multOpCopyTime  = 0;
+
+      if(profile) {
+        op_times.push_back(
+          std::chrono::duration_cast<std::chrono::duration<double>>((t3 - t2)).count());
+        multop_get_times.push_back(oprof.multOpGetTime);
+        multop_dgemm_times.push_back(oprof.multOpBCTime);
+        multop_add_times.push_back(oprof.multOpAddTime);
+        multop_copy_times.push_back(oprof.multOpCopyTime);
+        oprof.multOpGetTime  = 0;
+        oprof.multOpBCTime   = 0;
+        oprof.multOpAddTime  = 0;
+        oprof.multOpCopyTime = 0;
+
+        if(ops_[order[i].second]->op_type() == OpType::mult) tamm_op_types.push_back("mult");
+        else if(ops_[order[i].second]->op_type() == OpType::add) tamm_op_types.push_back("add");
+        else if(ops_[order[i].second]->op_type() == OpType::set) tamm_op_types.push_back("set");
+        else if(ops_[order[i].second]->op_type() == OpType::map) tamm_op_types.push_back("map");
+        else if(ops_[order[i].second]->op_type() == OpType::scan) tamm_op_types.push_back("scan");
+        else if(ops_[order[i].second]->op_type() == OpType::alloc) tamm_op_types.push_back("alloc");
+        else if(ops_[order[i].second]->op_type() == OpType::dealloc)
+          tamm_op_types.push_back("dealloc");
+        else tamm_op_types.push_back("unknown");
+      }
     }
-    auto t2 = std::chrono::high_resolution_clock::now();
+    // auto t2 = std::chrono::high_resolution_clock::now();
     ec().pg().barrier();
     lvl += 1;
     auto t3 = std::chrono::high_resolution_clock::now();
@@ -270,10 +288,10 @@ public:
     // - t2)).count());
     // level_times.push_back(std::chrono::duration_cast<std::chrono::duration<double>>((t3 -
     // t1)).count()); multop_get_times.push_back(oprof.multOpGetTime);
-    // multop_dgemm_times.push_back(oprof.multOpDgemmTime);
+    // multop_dgemm_times.push_back(oprof.multOpBCTime);
     // multop_add_times.push_back(oprof.multOpAddTime);
     // oprof.multOpGetTime = 0;
-    // oprof.multOpDgemmTime = 0;
+    // oprof.multOpBCTime = 0;
     // oprof.multOpAddTime = 0;
     start_idx_ = ops_.size();
     ec().set_ac(IndexedAC(nullptr, 0));
@@ -347,8 +365,9 @@ public:
       int   np    = ec_.pg().size().value();
       auto& pdata = ec_.get_profile_data();
       if(ec_.pg().rank() == 0) {
-        for(int i = 0; i < order.size(); i++) {
-          pdata << i << ";" << order[i].first << ";"
+        for(int i = 0; i < nops; i++) {
+          // if (order[i].first==0) continue;
+          pdata << i << ";" << order[i].first << ";" << tamm_op_types[i] << ";"
                 << ops_[order[i].second]->opstr_
                 // << "," << global_load_imbalance_times_min[i]
                 // << "," << global_load_imbalance_times_max[i]
@@ -459,7 +478,7 @@ public:
   }
 
   template<typename T>
-  Scheduler& exact_copy(LabeledTensor<T> lhs, LabeledTensor<T> rhs) {
+  Scheduler& exact_copy(LabeledTensor<T> lhs, LabeledTensor<T> rhs, bool do_translate = false) {
     auto copy_buf = [](const Tensor<T>& t, const IndexVector& lhs_iv, std::vector<T>& lhs_buf,
                        const IndexVector rhs_iv[], std::vector<T> rhs_buf[]) {
       std::copy(rhs_buf[0].begin(), rhs_buf[0].end(), lhs_buf.begin());
@@ -468,7 +487,7 @@ public:
     auto rhs_arr = std::array<LabeledTensor<T>, 1>{rhs};
 
     ops_.push_back(std::make_shared<MapOp<LabeledTensor<T>, decltype(copy_buf), 1>>(
-      lhs, copy_buf, rhs_arr, ResultMode::set, false));
+      lhs, copy_buf, rhs_arr, ResultMode::set, do_translate, true));
 
     return *this;
   }
@@ -538,6 +557,7 @@ private:
   // }
   std::vector<std::shared_ptr<Op>> ops_;
   size_t                           start_idx_ = 0;
+  bool                             profile_   = false;
 
 }; // class Scheduler
 

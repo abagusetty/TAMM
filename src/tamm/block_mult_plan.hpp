@@ -155,7 +155,7 @@ private:
       valid_   = true;
       return;
     }
-    else if(lhs_labels_.size() == 1 && rhs1_labels_.size() == 1 || rhs2_labels_.size() == 1) {
+    else if((lhs_labels_.size() == 1 && rhs1_labels_.size() == 1) || rhs2_labels_.size() == 1) {
       op_type_ = FlatOpType::scalar_vector;
       valid_   = true;
     }
@@ -288,6 +288,8 @@ public:
              const BlockSpan<T>& rhs2) {
     NOT_IMPLEMENTED();
   }
+
+  bool is_valid() const { return valid_; }
 
 private:
   void prep(const IndexLabelVec& lhs_labels, const IndexLabelVec& rhs1_labels,
@@ -577,10 +579,7 @@ public:
         general_plan.apply(lscale, lhs, rscale, rhs1, rhs2);
         break;
       }
-        /// @bug: clang doen't like to have defaults when enum type is
-        /// used in switch cases
-        // default:
-        //   UNREACHABLE();
+      default: UNREACHABLE();
     }
   }
 
@@ -670,14 +669,15 @@ private:
   void prep_loop_gemm_plan() {
     if(!has_repeated_index_ && !has_reduction_index_) {
       if(has_hadamard_index_) {
-        auto hadamard_labels = get_hadamard_labels();
+        auto            hadamard_labels = get_hadamard_labels();
+        const ptrdiff_t hlabels         = hadamard_labels.size();
         for(size_t i = 0; i < hadamard_labels.size(); i++) {
           auto lbl = lhs_labels_[i];
           auto rhs1_pos =
             std::find(rhs1_labels_.begin(), rhs2_labels_.end(), lbl) - rhs1_labels_.begin();
           auto rhs2_pos =
             std::find(rhs1_labels_.begin(), rhs2_labels_.end(), lbl) - rhs1_labels_.begin();
-          if(rhs1_pos >= hadamard_labels.size() || rhs2_pos >= hadamard_labels.size()) { return; }
+          if(rhs1_pos >= hlabels || rhs2_pos >= hlabels) { return; }
         }
         plan_ = Plan::loop_gemm;
       }
@@ -711,11 +711,11 @@ private:
     invalid,
   };
 
-  Plan          plan_;
-  OpType        optype_;
   IndexLabelVec lhs_labels_;
   IndexLabelVec rhs1_labels_;
   IndexLabelVec rhs2_labels_;
+  OpType        optype_;
+  Plan          plan_;
 
   bool has_repeated_index_;
   bool has_reduction_index_;

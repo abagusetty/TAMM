@@ -278,7 +278,7 @@ public:
     EXPECTS(!is_assign_);
     auto& oprof = tamm::OpProfiler::instance();
 
-    using TensorElType = typename LabeledTensorT1::element_type;
+    // using TensorElType = typename LabeledTensorT1::element_type;
     // determine set of all labels
     IndexLabelVec all_labels{lhs_.labels()};
     all_labels.insert(all_labels.end(), rhs1_.labels().begin(), rhs1_.labels().end());
@@ -474,6 +474,7 @@ public:
         add_bufs.push_back(ab);
 
         {
+          TimerGuard     tg_bc{&oprof.multOpBCTime};
           TensorElType1* cbuf_dev_ptr{nullptr};
           TensorElType1* cbuf_tmp_dev_ptr{nullptr};
 #if defined(USE_CUDA) || defined(USE_HIP) || defined(USE_DPCPP)
@@ -489,16 +490,12 @@ public:
                            csize * sizeof(TensorElType1), thandle);
           }
 #endif
-          {
-            TimerGuard tg_dgemm{&oprof.multOpDgemmTime};
-            kernels::block_multiply<T, TensorElType1, TensorElType2, TensorElType3>(
+          kernels::block_multiply<T, TensorElType1, TensorElType2, TensorElType3>(
 #if defined(USE_CUDA) || defined(USE_HIP) || defined(USE_DPCPP)
-              th_a, th_b,
+            th_a, th_b,
 #endif
-              thandle, alpha_, abuf, adims_sz, rhs1_int_labels_, bbuf, bdims_sz, rhs2_int_labels_,
-              cscale, ab->cbuf_, cdims_sz, lhs_int_labels_, hw, true, cbuf_dev_ptr,
-              cbuf_tmp_dev_ptr);
-          }
+            thandle, alpha_, abuf, adims_sz, rhs1_int_labels_, bbuf, bdims_sz, rhs2_int_labels_,
+            cscale, ab->cbuf_, cdims_sz, lhs_int_labels_, hw, true, cbuf_dev_ptr, cbuf_tmp_dev_ptr);
 
 #if defined(USE_CUDA) || defined(USE_HIP) || defined(USE_DPCPP)
           if(hw == ExecutionHW::GPU) {
@@ -510,9 +507,9 @@ public:
               TimerGuard tg_copy{&oprof.multOpCopyTime};
               gpuMemcpyAsync<TensorElType1>(cbuf_tmp, cbuf_dev_ptr, csize, gpuMemcpyDeviceToHost,
                                             thandle);
+              gpuStreamSynchronize(thandle);
             }
             // cbuf+=cbuf_tmp
-            gpuStreamSynchronize(thandle);
             blas::axpy(csize, TensorElType1{1}, cbuf_tmp, 1, ab->cbuf_, 1);
 
             memDevicePool.deallocate(cbuf_dev_ptr, csize * sizeof(TensorElType1));
@@ -689,8 +686,8 @@ public:
         // LabelLoopNest inner_loop{reduction_lbls};
         LabelLoopNest inner_loop{reduction_labels};
 
-        int loop_counter = 0;
 #if defined(MULTOP_PARTIAL_PARALLELIZE_RHS)
+        int loop_counter     = 0;
         nranks_per_lhs_block = (ec.pg().size().value() / n_lhs_blocks) + 1 -
                                (lhs_counter >= (ec.pg().size().value() % n_lhs_blocks));
 #endif
@@ -793,6 +790,7 @@ public:
 
           // A*B
           {
+            TimerGuard tg_bc{&oprof.multOpBCTime};
 #if defined(USE_CUDA) || defined(USE_HIP) || defined(USE_DPCPP)
             TensorElType2* abuf_dev{nullptr};
             TensorElType3* bbuf_dev{nullptr};
@@ -804,15 +802,12 @@ public:
             }
 #endif
 
-            {
-              TimerGuard tg_dgemm{&oprof.multOpDgemmTime};
-              kernels::block_multiply<T, TensorElType1, TensorElType2, TensorElType3>(
+            kernels::block_multiply<T, TensorElType1, TensorElType2, TensorElType3>(
 #if defined(USE_CUDA) || defined(USE_HIP) || defined(USE_DPCPP)
-                abuf_dev, bbuf_dev,
+              abuf_dev, bbuf_dev,
 #endif
-                thandle, alpha_, abuf, adims_sz, rhs1_int_labels_, bbuf, bdims_sz, rhs2_int_labels_,
-                cscale, cbuf, cdims_sz, lhs_int_labels_, hw, false, cbuf_dev_ptr, cbuf_tmp_dev_ptr);
-            }
+              thandle, alpha_, abuf, adims_sz, rhs1_int_labels_, bbuf, bdims_sz, rhs2_int_labels_,
+              cscale, cbuf, cdims_sz, lhs_int_labels_, hw, false, cbuf_dev_ptr, cbuf_tmp_dev_ptr);
 
 #if defined(USE_CUDA) || defined(USE_HIP) || defined(USE_DPCPP)
             if(hw == ExecutionHW::GPU) {
@@ -836,6 +831,7 @@ public:
 #if defined(USE_CUDA) || defined(USE_HIP) || defined(USE_DPCPP)
           // copy to host
           if(hw == ExecutionHW::GPU) {
+            TimerGuard     tg_bc{&oprof.multOpBCTime};
             TensorElType1* cbuf_tmp{nullptr};
             cbuf_tmp =
               static_cast<TensorElType1*>(memHostPool.allocate(csize * sizeof(TensorElType1)));
@@ -844,9 +840,9 @@ public:
               TimerGuard tg_copy{&oprof.multOpCopyTime};
               gpuMemcpyAsync<TensorElType1>(cbuf_tmp, cbuf_dev_ptr, csize, gpuMemcpyDeviceToHost,
                                             thandle);
+              gpuStreamSynchronize(thandle);
             }
             // cbuf+=cbuf_tmp
-            gpuStreamSynchronize(thandle);
             blas::axpy(csize, TensorElType1{1}, cbuf_tmp, 1, cbuf, 1);
 
             memHostPool.deallocate(cbuf_tmp, csize * sizeof(TensorElType1));
@@ -962,7 +958,7 @@ protected:
     std::map<std::string, Label> str_to_labels;
     const size_t                 lsize  = lhs_.labels().size();
     const size_t                 r1size = rhs1_.labels().size();
-    const size_t                 r2size = rhs2_.labels().size();
+    // const size_t                 r2size = rhs2_.labels().size();
 
     update_fillin_map(str_to_labels, lhs_.str_map(), lhs_.str_labels(), 0);
     update_fillin_map(str_to_labels, rhs1_.str_map(), rhs1_.str_labels(), lsize);

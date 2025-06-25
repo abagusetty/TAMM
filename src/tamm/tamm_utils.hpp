@@ -43,7 +43,7 @@ void print_tensor(const Tensor<T>& tensor, std::string filename = "") {
     return false;
   };
 
-  int                  ndims = tensor.num_modes();
+  // int                  ndims = tensor.num_modes();
   std::vector<int64_t> dims;
   for(auto tis: tensor.tiled_index_spaces()) dims.push_back(tis.index_space().num_indices());
 
@@ -83,7 +83,7 @@ void print_tensor_all(const Tensor<T>& tensor, std::string filename = "") {
   std::stringstream tstring;
   auto              lt = tensor();
 
-  int                  ndims = tensor.num_modes();
+  // int                  ndims = tensor.num_modes();
   std::vector<int64_t> dims;
   for(auto tis: tensor.tiled_index_spaces()) dims.push_back(tis.index_space().num_indices());
 
@@ -152,7 +152,7 @@ std::string tensor_to_string(const Tensor<T>& tensor) {
   std::stringstream tstring;
   auto              lt = tensor();
 
-  int                  ndims = tensor.num_modes();
+  // int                  ndims = tensor.num_modes();
   std::vector<int64_t> dims;
   for(auto tis: tensor.tiled_index_spaces()) dims.push_back(tis.index_space().num_indices());
 
@@ -183,7 +183,8 @@ std::string tensor_to_string(const Tensor<T>& tensor) {
 template<typename T>
 void print_vector(std::vector<T> vec, std::string filename = "") {
   std::stringstream tstring;
-  for(size_t i = 0; i < vec.size(); i++) tstring << i + 1 << "\t" << vec[i] << std::endl;
+  for(size_t i = 0; i < vec.size(); i++)
+    tstring << i + 1 << "\t" << std::fixed << std::setprecision(12) << vec[i] << std::endl;
 
   if(!filename.empty()) {
     std::ofstream tos(filename, std::ios::out);
@@ -603,6 +604,34 @@ std::vector<TensorType> diagonal(LabeledTensor<TensorType> ltensor) {
   return dvec;
 }
 
+template<typename TensorType>
+Tensor<TensorType> identity_matrix(ExecutionContext& ec, const TiledIndexSpace& tis) {
+  Tensor<TensorType> tensor{tis, tis};
+  Tensor<TensorType>::allocate(&ec, tensor);
+  Scheduler{ec}(tensor() = 0.0).execute();
+
+  if(ec.pg().rank() == 0) {
+    LabelLoopNest loop_nest{tensor().labels()};
+
+    for(const IndexVector& blockid: loop_nest) {
+      if(blockid[0] == blockid[1]) {
+        const TAMM_SIZE         size = tensor.block_size(blockid);
+        std::vector<TensorType> buf(size);
+        tensor.get(blockid, buf);
+        auto   block_dims   = tensor.block_dims(blockid);
+        auto   block_offset = tensor.block_offsets(blockid);
+        auto   dim          = block_dims[0];
+        auto   offset       = block_offset[0];
+        size_t i            = 0;
+        for(auto p = offset; p < offset + dim; p++, i++) { buf[i * dim + i] = 1; }
+        tensor.put(blockid, buf);
+      }
+    }
+  }
+  ec.pg().barrier();
+  return tensor;
+}
+
 /**
  * @brief method for updating the diagonal values in a Tensor
  *
@@ -774,7 +803,7 @@ TensorType linf_norm(LabeledTensor<TensorType> ltensor) {
   auto [nagg, ppn, subranks] = get_subgroup_info(gec, tensor);
 #if defined(USE_UPCXX)
   upcxx::team* sub_comm =
-    new upcxx::team(gec.pg().team()->split(rank < subranks ? 0 : upcxx::team::color_none, 0));
+    new upcxx::team(gec.pg().comm()->split(rank < subranks ? 0 : upcxx::team::color_none, 0));
 #else
   MPI_Comm sub_comm;
   subcomm_from_subranks(gec, subranks, sub_comm);
@@ -842,7 +871,7 @@ void apply_ewise_ip(LabeledTensor<TensorType> ltensor, std::function<TensorType(
   auto [nagg, ppn, subranks] = get_subgroup_info(gec, tensor);
 #if defined(USE_UPCXX)
   upcxx::team* sub_comm = new upcxx::team(
-    gec.pg().team()->split(gec.pg().rank() < subranks ? 0 : upcxx::team::color_none, 0));
+    gec.pg().comm()->split(gec.pg().rank() < subranks ? 0 : upcxx::team::color_none, 0));
 #else
   MPI_Comm sub_comm;
   subcomm_from_subranks(gec, subranks, sub_comm);
@@ -1043,9 +1072,11 @@ void set_val_ip(Tensor<TensorType> tensor, TensorType alpha) {
 }
 
 template<typename TensorType>
-void random_ip(LabeledTensor<TensorType> ltensor) {
+void random_ip(LabeledTensor<TensorType> ltensor, unsigned int seed = 0) {
   std::mt19937                           generator(get_ec(ltensor).pg().rank().value());
   std::uniform_real_distribution<double> tensor_rand_dist(0.0, 1.0);
+
+  if(seed > 0) { generator.seed(seed); }
 
   if constexpr(!tamm::internal::is_complex_v<TensorType>) {
     std::function<TensorType(TensorType)> func = [&](TensorType a) {
@@ -1062,8 +1093,8 @@ void random_ip(LabeledTensor<TensorType> ltensor) {
 }
 
 template<typename TensorType>
-void random_ip(Tensor<TensorType> tensor) {
-  random_ip(tensor());
+void random_ip(Tensor<TensorType> tensor, unsigned int seed = 0) {
+  random_ip(tensor(), seed);
 }
 
 template<typename TensorType>
@@ -1079,7 +1110,7 @@ TensorType sum(LabeledTensor<TensorType> ltensor) {
   auto [nagg, ppn, subranks] = get_subgroup_info(gec, tensor);
 #if defined(USE_UPCXX)
   upcxx::team* sub_comm = new upcxx::team(
-    gec.pg().team()->split(gec.pg().rank() < subranks ? 0 : upcxx::team::color_none, 0));
+    gec.pg().comm()->split(gec.pg().rank() < subranks ? 0 : upcxx::team::color_none, 0));
 #else
   MPI_Comm sub_comm;
   subcomm_from_subranks(gec, subranks, sub_comm);
@@ -1177,7 +1208,7 @@ TensorType norm(ExecutionContext& gec, LabeledTensor<TensorType> ltensor) {
   auto [nagg, ppn, subranks] = get_subgroup_info(gec, tensor);
 #if defined(USE_UPCXX)
   upcxx::team* sub_comm =
-    new upcxx::team(gec.pg().team()->split(rank < subranks ? 0 : upcxx::team::color_none, 0));
+    new upcxx::team(gec.pg().comm()->split(rank < subranks ? 0 : upcxx::team::color_none, 0));
 #else
   MPI_Comm sub_comm;
   subcomm_from_subranks(gec, subranks, sub_comm);

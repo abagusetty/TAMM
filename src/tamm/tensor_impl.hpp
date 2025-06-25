@@ -178,6 +178,17 @@ public:
   }
 
   /**
+   * @brief Construct a new TensorImpl object using the specialized non-zero check function
+   *
+   * @param t_spaces
+   * @param zero_check
+   */
+  TensorImpl(const TiledIndexSpaceVec& t_spaces, const NonZeroCheck& zero_check):
+    TensorBase(t_spaces, zero_check) {
+    kind_ = TensorBase::TensorKind::block_sparse;
+  }
+
+  /**
    * @brief Construct a new SpinTensorImpl object using set of TiledIndexLabel
    * objects and Spin attribute mask
    *
@@ -234,6 +245,8 @@ public:
 
     ec_->unregister_for_dealloc(mpb_);
     mpb_->dealloc_coll();
+    MemoryManager* memory_manager = &(mpb_->mgr());
+    delete memory_manager;
     delete mpb_;
     mpb_ = nullptr;
     update_status(AllocationStatus::deallocated);
@@ -258,11 +271,7 @@ public:
         ec->distribution(defd->get_tensor_base(), defd->get_dist_proc()); // defd->kind());
       // Distribution* distribution    =
       // ec->distribution(defd.tensor_base(), nproc );
-#if defined(USE_UPCXX_DISTARRAY) && defined(USE_UPCXX)
-      MemoryManager* memory_manager = ec->memory_manager(ec->hint());
-#else
       MemoryManager* memory_manager = ec->memory_manager();
-#endif
       EXPECTS(distribution != nullptr);
       EXPECTS(memory_manager != nullptr);
       ec_ = ec;
@@ -273,6 +282,10 @@ public:
         distribution_ =
           std::shared_ptr<Distribution>(distribution->clone(this, memory_manager->pg().size()));
       }
+
+      // Delete unused pointers
+      delete defd;
+      delete distribution;
 #if 0
         auto rank = memory_manager->pg().rank();
         auto buf_size = distribution_->buf_size(rank);
@@ -280,7 +293,7 @@ public:
         EXPECTS(buf_size >= 0);
         mpb_ = memory_manager->alloc_coll(eltype, buf_size);
 #else
-      auto           eltype         = tensor_element_type<T>();
+      auto eltype = tensor_element_type<T>();
       if(proc_list_.size() > 0)
         mpb_ = memory_manager->alloc_coll_balanced(eltype, distribution_->max_proc_buf_size(),
                                                    proc_list_);
@@ -805,6 +818,9 @@ public:
     distribution_ = std::shared_ptr<Distribution>(distribution->clone(this, ec->pg().size()));
     proc_grid_    = distribution_->proc_grid();
 
+    delete defd;
+    delete distribution;
+
     auto tis_dims = tindices();
 
     std::vector<std::vector<Tile>> new_tiles(ndims);
@@ -825,10 +841,9 @@ public:
     for(int i = 0; i < ndims; i++)
       new_tiles[i] = is_irreg_tis[i] ? tis_dims[i].input_tile_sizes() : tiles_for_fixed_ts_dim[i];
 
+#if defined(USE_UPCXX)
     int my_rank = ec->pg().rank().value();
     int nranks  = ec->pg().size().value();
-
-#if defined(USE_UPCXX)
 
     eltype_               = tensor_element_type<T>();
     size_t  element_size  = MemoryManagerGA::get_element_size(eltype_);
@@ -968,6 +983,24 @@ public:
         }
 #else
         for(int i = 0; i < ndims; i++) nblock[i] = pgrid[i];
+
+        // if the number of blocks along dimension i > dims[i],
+        // reset the number of processors along that dimension to dims[i]
+        // and restrict the GA to the new proc grid.
+        bool is_bgd{false};
+        for(int i = 0; i < ndims; i++) {
+          if(nblock[i] > dims[i]) {
+            nblock[i] = dims[i];
+            is_bgd    = true;
+          }
+        }
+
+        if(is_bgd) {
+          nblocks = std::accumulate(nblock, nblock + ndims, (int) 1, std::multiplies<int>());
+          int proclist_c[nblocks];
+          std::iota(proclist_c, proclist_c + nblocks, 0);
+          GA_Set_restricted(ga_, proclist_c, nblocks);
+        }
 #endif
 
         // distribution->set_proc_grid(proc_grid_);
@@ -1017,7 +1050,7 @@ public:
     gptrs_.resize(nranks);
     upcxx::promise<> p(nranks);
     for(int r = 0; r < nranks; r++)
-      upcxx::broadcast(local_gptr_, r, *ec->pg().team())
+      upcxx::broadcast(local_gptr_, r, *ec->pg().comm())
         .then([this, &p, r](upcxx::global_ptr<uint8_t> result) {
           gptrs_[r] = result;
           p.fulfill_anonymous(1);
@@ -1136,7 +1169,7 @@ public:
     TensorTile t = find_tile(lo[0], lo[1], lo[2], lo[3]);
 
     upcxx::rpc(
-      *ec_->pg().team(), t.rank,
+      *ec_->pg().comm(), t.rank,
       [](const upcxx::global_ptr<T>& dst_buf, const upcxx::view<T>& src_buf) {
         T*     dst = dst_buf.local();
         size_t n   = src_buf.size();
@@ -1771,6 +1804,10 @@ public:
         std::shared_ptr<Distribution>(new UnitTileDistribution(this, &tensor_opt_.distribution()));
 
       EXPECTS(distribution_ != nullptr);
+
+      delete defd;
+      delete distribution;
+      delete memory_manager;
 
       auto eltype = tensor_element_type<T>();
       mpb_        = tensor_opt_.memory_region();

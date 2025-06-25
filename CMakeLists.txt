@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.22.0)
+cmake_minimum_required(VERSION 3.26.0)
 
 include(FetchContent)
 
@@ -62,16 +62,17 @@ if(TAMM_ENABLE_ELPA)
   list(APPEND TAMM_DEPENDENCIES ELPA)
 endif()
 
+if(USE_NWQSIM)
+  list(APPEND TAMM_DEPENDENCIES NWQSim)
+endif()
+
 list(APPEND TAMM_DEPENDENCIES GlobalArrays) #BLAS LAPACK
 
 # Libint2, GauXC, FCI
 if(DEFINED MODULES AND (NOT "${MODULES}" STREQUAL ""))
   list(TRANSFORM MODULES TOUPPER)
-  list(APPEND TAMM_DEPENDENCIES EcpInt LibInt2)
+  list(APPEND TAMM_DEPENDENCIES EcpInt LibInt2 GauXC)
   message(STATUS "MODULES specified = ${MODULES}")
-  if ("DFT" IN_LIST MODULES)
-    list(APPEND TAMM_DEPENDENCIES GauXC)
-  endif()
   if ("FCI" IN_LIST MODULES)
     list(APPEND TAMM_DEPENDENCIES MACIS)
   endif()
