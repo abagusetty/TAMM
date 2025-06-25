@@ -67,7 +67,8 @@ public:
     sycl::device* myDev         = get_sycl_device(current_devID);
 
     mtotal = myDev->get_info<sycl::info::device::global_mem_size>();
-    mfree  = myDev->get_info<sycl::ext::intel::info::device::free_memory>();
+    //mfree  = myDev->get_info<sycl::ext::intel::info::device::free_memory>();
+    mfree = 0.90 * mtotal;
 
     *m_free  = mfree;
     *m_total = mtotal;

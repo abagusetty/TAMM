@@ -15,7 +15,7 @@
 #include "tamm_blas.hpp"
 
 #if defined(USE_CUDA) || defined(USE_HIP) || defined(USE_DPCPP)
-#include "librett/librett.h"
+// #include "librett/librett.h"
 #else
 namespace tamm {
 using gpuStream_t = int; // not used
@@ -141,18 +141,18 @@ void assign_gpu(gpuStream_t& thandle, T*& dst, const SizeVec& ddims, const IntLa
     perm[i] = it - r_slabels.begin();
   }
 
-  // create plan
-  librettHandle plan;
-#if defined(USE_DPCPP)
-  sycl::queue* ptrQueue = &(thandle.first);
-  librettPlan(&plan, ndim, size, perm, sizeof(T), ptrQueue);
-#else
-  librettPlan(&plan, ndim, size, perm, sizeof(T), thandle.first);
-#endif
+//   // create plan
+//   librettHandle plan;
+// #if defined(USE_DPCPP)
+//   sycl::queue* ptrQueue = &(thandle.first);
+//   librettPlan(&plan, ndim, size, perm, sizeof(T), ptrQueue);
+// #else
+//   librettPlan(&plan, ndim, size, perm, sizeof(T), thandle.first);
+// #endif
 
-  // ABB: following casts were required since librett API only accepts void* as args
-  librettExecute(plan, reinterpret_cast<void*>(const_cast<T*>(src)), reinterpret_cast<void*>(dst));
-  librettDestroy(plan);
+//   // ABB: following casts were required since librett API only accepts void* as args
+//   librettExecute(plan, reinterpret_cast<void*>(const_cast<T*>(src)), reinterpret_cast<void*>(dst));
+//   librettDestroy(plan);
 }
 #endif
 

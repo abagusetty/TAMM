@@ -170,15 +170,15 @@ static inline void getHardwareGPUCount(int* gpus_per_node) {
   std::string           result, m_call;
 
   sycl::platform pltf = sycl_get_device(0)->get_platform();
-  if(pltf.get_backend() == sycl::backend::ext_oneapi_level_zero ||
-     pltf.get_backend() == sycl::backend::opencl) {
-    m_call = "cat /sys/class/drm/card*/gt/gt*/id | wc -l";
-  }
-  else if(pltf.get_backend() == sycl::backend::ext_oneapi_cuda) {
+  // if(pltf.get_backend() == sycl::backend::ext_oneapi_level_zero ||
+  //    pltf.get_backend() == sycl::backend::opencl) {
+  //   m_call = "cat /sys/class/drm/card*/gt/gt*/id | wc -l";
+  // }
+  if(pltf.get_backend() == sycl::backend::cuda) {
     // TODO: can we use nvml api ?, propably no
     m_call = "nvidia-smi --query-gpu=name --format=csv,noheader | wc -l";
   }
-  else if(pltf.get_backend() == sycl::backend::ext_oneapi_hip) {
+  else if(pltf.get_backend() == sycl::backend::hip) {
     // TODO: can we use ROCm SMI api ?, probably no
     m_call = "rocm-smi -i |grep GPU|wc -l";
   }
@@ -295,7 +295,8 @@ static inline void gpuMemsetAsync(void*& ptr, size_t sizeInBytes, gpuStream_t st
 
 static inline void gpuStreamSynchronize(gpuStream_t stream) {
 #if defined(USE_DPCPP)
-  if(!stream.first.ext_oneapi_empty()) stream.first.wait();
+  //if(!stream.first.ext_oneapi_empty()) stream.first.wait();
+  stream.first.wait();
 #elif defined(USE_HIP)
   hipStreamSynchronize(stream.first);
 #elif defined(USE_CUDA)
@@ -305,7 +306,7 @@ static inline void gpuStreamSynchronize(gpuStream_t stream) {
 
 static inline void gpuEventRecord(gpuEvent_t& event, gpuStream_t stream) {
 #if defined(USE_DPCPP)
-  event = stream.first.ext_oneapi_submit_barrier();
+  //event = stream.first.ext_oneapi_submit_barrier();
 #elif defined(USE_HIP)
   hipEventRecord(event, stream.first);
 #elif defined(USE_CUDA)
