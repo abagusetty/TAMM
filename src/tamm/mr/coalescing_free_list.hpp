@@ -147,19 +147,19 @@ struct coalescing_free_list: free_list<block> {
     if(not block.is_valid() || block.size() == 0) { return; }
 
     if(is_empty()) {
-      free_list::insert(cend(), block);
+      free_list::insert(end(), block);
       return;
     }
 
     // Find the right place (in ascending ptr order) to insert the block
     // Can't use binary_search because it's a linked list and will be quadratic
-    auto const next =
+    auto next =
       std::find_if(begin(), end(), [block](block_type const& blk) { return block < blk; });
-    auto const previous = (next == cbegin()) ? cend() : std::prev(next);
+    auto previous = (next == begin()) ? end() : std::prev(next);
 
     // Coalesce with neighboring blocks or insert the new block if it can't be coalesced
-    bool const merge_prev = (previous != cend()) && previous->is_contiguous_before(block);
-    bool const merge_next = (next != cend()) && block.is_contiguous_before(*next);
+    bool const merge_prev = (previous != end()) && previous->is_contiguous_before(block);
+    bool const merge_next = (next != end()) && block.is_contiguous_before(*next);
 
     if(merge_prev && merge_next) {
       *previous = previous->merge(block).merge(*next);
@@ -171,7 +171,7 @@ struct coalescing_free_list: free_list<block> {
 
       // After extending `next`, check if it now reaches the previous block and merge again to
       // avoid leaving adjacent chunks split across two entries.
-      if((next != cbegin()) && std::prev(next)->is_contiguous_before(*next)) {
+      if((next != begin()) && std::prev(next)->is_contiguous_before(*next)) {
         auto const prev_it = std::prev(next);
         *prev_it           = prev_it->merge(*next);
         erase(next);
