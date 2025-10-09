@@ -5,11 +5,22 @@
 
 #include <cstddef>
 #include <functional>
+#include <iostream>
 #include <limits>
-#include <map>
+#include <mutex>
 #include <set>
-#include <thread>
+#include <sstream>
 #include <unordered_map>
+
+#ifndef TAMM_ENABLE_POOL_SANITY_CHECKS
+// Enable expensive allocation tracking by default in debug builds. Define
+// TAMM_ENABLE_POOL_SANITY_CHECKS to override at compile time.
+#ifdef NDEBUG
+#define TAMM_ENABLE_POOL_SANITY_CHECKS 0
+#else
+#define TAMM_ENABLE_POOL_SANITY_CHECKS 1
+#endif
+#endif
 
 namespace tamm::rmm::mr::detail {
 
@@ -76,7 +87,10 @@ protected:
    *
    * @param block The block to insert into the pool.
    */
-  void insert_block(block_type const& block) { this->free_blocks_.insert(block); }
+  void insert_block(block_type const& block) {
+    std::scoped_lock<std::mutex> lock(mutex_);
+    this->free_blocks_.insert(block);
+  }
 
   /**
    * @brief Allocates memory of size at least `bytes`.
@@ -91,13 +105,34 @@ protected:
   void* do_allocate(std::size_t size) override {
     if(size <= 0) { return nullptr; }
 
+    auto const requested_size = size;
     size = rmm::detail::align_up(size, rmm::detail::RMM_ALLOCATION_ALIGNMENT);
+    if(size < requested_size) {
+      std::ostringstream os;
+      os << "[TAMM ERROR] Allocation size overflowed while aligning request of "
+         << requested_size << " bytes.\n"
+         << __FILE__ << ":L" << __LINE__;
+      tamm_terminate(os.str());
+    }
+
+    std::scoped_lock<std::mutex> lock(mutex_);
+
     if(!(size <= this->underlying().get_maximum_allocation_size())) {
       std::ostringstream os;
       os << "[TAMM ERROR] Maximum pool allocation size exceeded!\n" << __FILE__ << ":L" << __LINE__;
       tamm_terminate(os.str());
     }
     auto const block = this->underlying().get_block(size);
+#if TAMM_ENABLE_POOL_SANITY_CHECKS
+    auto const insertion = live_blocks_.emplace(block.pointer(), block.size());
+    if(!insertion.second) {
+      std::ostringstream os;
+      os << "[TAMM ERROR] Attempted to track duplicate allocation at " << block.pointer()
+         << ".\n"
+         << __FILE__ << ":L" << __LINE__;
+      tamm_terminate(os.str());
+    }
+#endif
     return block.pointer();
   }
 
@@ -112,7 +147,41 @@ protected:
   void do_deallocate(void* ptr, std::size_t size) override {
     if(size <= 0 || ptr == nullptr) { return; }
 
-    size             = rmm::detail::align_up(size, rmm::detail::RMM_ALLOCATION_ALIGNMENT);
+    auto const requested_size = size;
+    size = rmm::detail::align_up(size, rmm::detail::RMM_ALLOCATION_ALIGNMENT);
+    if(size < requested_size) {
+      std::ostringstream os;
+      os << "[TAMM ERROR] Deallocation size overflowed while aligning request of "
+         << requested_size << " bytes.\n"
+         << __FILE__ << ":L" << __LINE__;
+      tamm_terminate(os.str());
+    }
+
+    std::scoped_lock<std::mutex> lock(mutex_);
+
+#if TAMM_ENABLE_POOL_SANITY_CHECKS
+    auto const iter = live_blocks_.find(ptr);
+    if(iter == live_blocks_.end()) {
+      std::ostringstream os;
+      os << "[TAMM ERROR] Attempted to free pointer " << ptr
+         << " that is not tracked by the pool resource.\n"
+         << __FILE__ << ":L" << __LINE__;
+      tamm_terminate(os.str());
+    }
+
+    if(iter->second != size) {
+      std::ostringstream os;
+      os << "[TAMM ERROR] Size mismatch while freeing pointer " << ptr
+         << ": expected " << iter->second << " bytes but received " << size
+         << " after alignment to RMM_ALLOCATION_ALIGNMENT ("
+         << rmm::detail::RMM_ALLOCATION_ALIGNMENT << ").\n"
+         << __FILE__ << ":L" << __LINE__;
+      tamm_terminate(os.str());
+    }
+
+    live_blocks_.erase(iter);
+#endif
+
     auto const block = this->underlying().free_block(ptr, size);
     free_blocks_.insert(block);
   }
@@ -154,9 +223,23 @@ private:
    *
    * Note: only called by destructor.
    */
-  void release() { free_blocks_.clear(); }
+  void release() {
+    std::scoped_lock<std::mutex> lock(mutex_);
+#if TAMM_ENABLE_POOL_SANITY_CHECKS
+    if(!live_blocks_.empty()) {
+      std::cerr << "[TAMM WARNING] Releasing pool memory resource with " << live_blocks_.size()
+                << " outstanding allocations." << std::endl;
+      live_blocks_.clear();
+    }
+#endif
+    free_blocks_.clear();
+  }
 
-  free_list free_blocks_;
+  free_list                              free_blocks_;
+#if TAMM_ENABLE_POOL_SANITY_CHECKS
+  std::unordered_map<void*, std::size_t> live_blocks_{};
+#endif
+  mutable std::mutex                     mutex_{};
 }; // namespace detail
 
 } // namespace tamm::rmm::mr::detail
