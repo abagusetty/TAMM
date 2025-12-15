@@ -119,7 +119,7 @@ Default build on MACOS
 ::
 
    cd $REPO_ROOT_PATH/build 
-   CC=gcc-14 CXX=g++-14 FC=gfortran cmake -DCMAKE_INSTALL_PREFIX=$REPO_INSTALL_PATH ..
+   FC=gfortran cmake -DCMAKE_INSTALL_PREFIX=$REPO_INSTALL_PATH -DLINALG_VENDOR=OpenBLAS ..
 
    make -j3
    make install
