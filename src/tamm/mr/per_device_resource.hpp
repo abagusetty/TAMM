@@ -12,7 +12,6 @@
 #endif
 
 #include <map>
-#include <shared_mutex>
 
 namespace tamm::rmm::mr {
 
@@ -23,49 +22,27 @@ inline device_memory_resource* initial_resource() {
   return &mr;
 }
 
-/**
- * @brief Global device-id → resource map.
- *
- * Bug fixed vs. prior implementation:
- *   The map was read and written from multiple threads (MPI init, GPU pool
- *   init) without any synchronisation, constituting a data race (UB).
- *   A std::shared_mutex now allows concurrent reads while serialising writes.
- */
+// Must have default visibility, see: https://github.com/rapidsai/rmm/issues/826
 RMM_EXPORT inline auto& get_map() {
   static std::map<int, device_memory_resource*> device_id_to_resource;
   return device_id_to_resource;
 }
 
-RMM_EXPORT inline std::shared_mutex& get_map_mutex() {
-  static std::shared_mutex mtx;
-  return mtx;
-}
-
 } // namespace detail
 
 /**
- * @brief Return the device_memory_resource registered for `device_id`.
+ * @brief Get the resource for the specified device.
  *
- * Thread-safe: uses a shared_lock for reads (common case) and upgrades to a
- * unique_lock only when inserting the default entry for an unseen device id.
+ * Returns a pointer to the device_memory_resource for the specified device.
+ * The initial resource is a gpu_memory_resource.
+ *
+ * @param device_id The id of the target device
+ * @return Pointer to the current device_memory_resource for device_id
  */
 inline device_memory_resource* get_per_device_resource(int device_id) {
-  auto& map = detail::get_map();
-  auto& mtx = detail::get_map_mutex();
-
-  // Fast path: shared (read) lock
-  {
-    std::shared_lock read_lock{mtx};
-    auto it = map.find(device_id);
-    if(it != map.end()) return it->second;
-  }
-
-  // Slow path: exclusive (write) lock for first-time insertion
-  std::unique_lock write_lock{mtx};
-  // Re-check after acquiring write lock (another thread may have inserted)
-  auto it = map.find(device_id);
-  if(it != map.end()) return it->second;
-  return map.emplace(device_id, detail::initial_resource()).first->second;
+  auto& map   = detail::get_map();
+  auto  found = map.find(device_id);
+  return (found == map.end()) ? (map[device_id] = detail::initial_resource()) : found->second;
 }
 
 } // namespace tamm::rmm::mr

@@ -3,13 +3,13 @@
 #include "aligned.hpp"
 #include "device_memory_resource.hpp"
 
+#include <cassert>
 #include <cstddef>
 #include <functional>
 #include <limits>
 #include <map>
-#include <mutex>
 #include <set>
-#include <thread>
+#include <sstream>
 #include <unordered_map>
 
 namespace tamm::rmm::mr::detail {
@@ -31,12 +31,6 @@ struct crtp {
  *   do_allocate / do_deallocate, so aligning again here was harmless but
  *   confusing and inconsistent with the CPU (host_memory_resource) path which
  *   does NOT pre-align in its public entry points.
- *
- * - A std::mutex member (mutex_) is added and exposed via get_mutex() so
- *   that pool_memory_resource::release() can lock it before iterating
- *   upstream_blocks_.  Without this lock, concurrent do_deallocate() calls
- *   during reset_rmm_pool() could insert into free_blocks_ after it has been
- *   cleared, leaking those blocks permanently.
  */
 template<typename PoolResource, typename FreeListType>
 class stream_ordered_memory_resource : public crtp<PoolResource>,
@@ -50,13 +44,9 @@ public:
   stream_ordered_memory_resource& operator=(stream_ordered_memory_resource const&) = delete;
   stream_ordered_memory_resource& operator=(stream_ordered_memory_resource&&)      = delete;
 
-  /// Exposed for derived pool_memory_resource::release() to lock before
-  /// touching upstream_blocks_ / free_blocks_ concurrently.
-  [[nodiscard]] std::mutex& get_mutex() noexcept { return mutex_; }
-
 protected:
-  using free_list  = FreeListType;
-  using block_type = typename free_list::block_type;
+  using free_list   = FreeListType;
+  using block_type  = typename free_list::block_type;
   using split_block = std::pair<block_type, block_type>;
 
   void insert_block(block_type const& block) { free_blocks_.insert(block); }
@@ -65,16 +55,15 @@ protected:
    * @brief Allocate size bytes from the pool.
    *
    * NOTE: size arrives here already aligned by device_memory_resource::allocate().
-   * We do NOT align again to avoid confusion; the assert documents the contract.
+   * We do NOT align again; the assert documents the contract.
    */
   void* do_allocate(std::size_t size) override {
-    if(size <= 0) return nullptr;
+    if(size == 0) return nullptr;
 
-    // size must already be aligned by the public allocate() entry point
     assert(rmm::detail::is_aligned(size, rmm::detail::RMM_ALLOCATION_ALIGNMENT)
-           && "do_allocate received unaligned size — public allocate() must align first");
+           && "do_allocate received unaligned size - public allocate() must align first");
 
-    if(!(size <= this->underlying().get_maximum_allocation_size())) {
+    if(size > this->underlying().get_maximum_allocation_size()) {
       std::ostringstream os;
       os << "[TAMM ERROR] Maximum pool allocation size exceeded!\n"
          << __FILE__ << ":L" << __LINE__;
@@ -90,13 +79,12 @@ protected:
    * NOTE: size arrives here already aligned by device_memory_resource::deallocate().
    */
   void do_deallocate(void* ptr, std::size_t size) override {
-    if(size <= 0 || ptr == nullptr) return;
+    if(size == 0 || ptr == nullptr) return;
 
     assert(rmm::detail::is_aligned(size, rmm::detail::RMM_ALLOCATION_ALIGNMENT)
-           && "do_deallocate received unaligned size — public deallocate() must align first");
+           && "do_deallocate received unaligned size - public deallocate() must align first");
 
     auto const block = this->underlying().free_block(ptr, size);
-    std::lock_guard<std::mutex> lock(mutex_);
     free_blocks_.insert(block);
   }
 
@@ -118,13 +106,9 @@ private:
     __builtin_unreachable();
   }
 
-  void release() {
-    std::lock_guard<std::mutex> lock(mutex_);
-    free_blocks_.clear();
-  }
+  void release() { free_blocks_.clear(); }
 
-  free_list  free_blocks_;
-  std::mutex mutex_;
+  free_list free_blocks_;
 };
 
 } // namespace tamm::rmm::mr::detail

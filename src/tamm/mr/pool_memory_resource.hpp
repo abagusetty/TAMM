@@ -9,12 +9,11 @@
 #include <cstddef>
 #include <iostream>
 #include <map>
-#include <mutex>
 #include <numeric>
 #include <optional>
 #include <set>
+#include <sstream>
 #include <stdexcept>
-#include <thread>
 #include <unordered_map>
 #include <vector>
 
@@ -34,15 +33,12 @@ namespace tamm::rmm::mr {
  *    incorrectly marked is_head=true, permanently blocking coalescing of their
  *    right neighbour. is_head_map_ records the is_head flag at allocation time.
  *
- * 2. release() is mutex-guarded to prevent races with concurrent do_deallocate
- *    during reset_rmm_pool() / reinitialize_rmm_pool().
- *
- * 3. std::logic_error is now actually thrown (not just constructed) for null
+ * 2. std::logic_error is now actually thrown (not just constructed) for null
  *    upstream pointer and misaligned pool size.
  *
- * 4. maximum_pool_size_ is properly stored and respected.
+ * 3. maximum_pool_size_ is properly stored and respected.
  *
- * 5. Upstream pointer ownership: upstream_mr_ is still owned (deleted in dtor)
+ * 4. Upstream pointer ownership: upstream_mr_ is still owned (deleted in dtor)
  *    but release() is called before delete so all upstream deallocate() calls
  *    complete before the upstream resource is destroyed.
  */
@@ -72,14 +68,11 @@ public:
 
   /**
    * @brief Destroy the pool: release all upstream slabs first, then delete
-   *        the upstream resource.  Order matters — upstream_mr_ must still be
+   *        the upstream resource. Order matters - upstream_mr_ must still be
    *        alive when its deallocate() is called inside release().
    */
   ~pool_memory_resource() override {
     release();
-    // Base ~stream_ordered_memory_resource() will call its own release() which
-    // just clears the free_blocks_ metadata — safe after we have already
-    // returned all slabs to upstream above.
     delete upstream_mr_;
     upstream_mr_ = nullptr;
   }
@@ -90,8 +83,8 @@ public:
   pool_memory_resource& operator=(pool_memory_resource const&) = delete;
   pool_memory_resource& operator=(pool_memory_resource&&)      = delete;
 
-  [[nodiscard]] Upstream*   get_upstream()        const noexcept { return upstream_mr_; }
-  [[nodiscard]] std::size_t get_maximum_pool_size()const noexcept { return maximum_pool_size_; }
+  [[nodiscard]] Upstream*   get_upstream()         const noexcept { return upstream_mr_; }
+  [[nodiscard]] std::size_t get_maximum_pool_size() const noexcept { return maximum_pool_size_; }
 
 protected:
   using free_list  = detail::coalescing_free_list;
@@ -99,7 +92,7 @@ protected:
   using typename detail::stream_ordered_memory_resource<pool_memory_resource<Upstream>,
                                                         detail::coalescing_free_list>::split_block;
 
-  [[nodiscard]] std::size_t get_maximum_allocation_size() const {
+  [[nodiscard]] std::size_t get_maximum_allocation_size() const noexcept {
     return std::numeric_limits<std::size_t>::max();
   }
 
@@ -125,10 +118,8 @@ protected:
     try {
       void* ptr  = get_upstream()->allocate(size);
       char* cptr = static_cast<char*>(ptr);
-      // Register in address-ordered slab set
       auto [it, inserted] = upstream_blocks_.emplace(cptr, size, true);
       (void)inserted;
-      // Register is_head flag keyed by the slab's base pointer
       is_head_map_.emplace(cptr, true);
       return std::optional<block_type>{*it};
     }
@@ -147,7 +138,7 @@ protected:
    * @brief Reconstruct the block descriptor for a pointer being freed.
    *
    * is_head is looked up from is_head_map_ (populated at slab-allocation
-   * time) rather than inferred from upstream_blocks_.find(ptr).  The old
+   * time) rather than inferred from upstream_blocks_.find(ptr). The old
    * approach gave false positives for the first sub-allocation of each slab
    * (same address as the slab head), permanently blocking coalescing.
    */
@@ -159,12 +150,8 @@ protected:
 
   /**
    * @brief Return all upstream slabs to the upstream resource.
-   *
-   * Guarded by the pool mutex so that concurrent do_deallocate() calls
-   * during reset_rmm_pool() cannot corrupt free_blocks_.
    */
   void release() {
-    std::lock_guard<std::mutex> lock(this->get_mutex());
     for(auto const& blk : upstream_blocks_) {
       get_upstream()->deallocate(blk.pointer(), blk.size());
     }
@@ -179,7 +166,7 @@ private:
   // Slab-level tracking: one entry per upstream allocate() call
   std::set<block_type, rmm::mr::detail::compare_blocks<block_type>> upstream_blocks_;
 
-  // is_head flag keyed by slab base pointer — avoids false positives in free_block()
+  // is_head flag keyed by slab base pointer - avoids false positives in free_block()
   std::unordered_map<char*, bool> is_head_map_;
 };
 
