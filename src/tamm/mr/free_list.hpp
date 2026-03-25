@@ -1,37 +1,61 @@
 #pragma once
 
 #include <algorithm>
+#include <concepts>
 #include <iostream>
-#include <list>
+#include <set>
 
 namespace tamm::rmm::mr::detail {
 
 struct block_base {
-  void* ptr{}; ///< Raw memory pointer
+  void* ptr{};
 
   block_base() = default;
-  block_base(void* ptr): ptr{ptr} {};
+  explicit block_base(void* p) noexcept : ptr{p} {}
 
-  /// Returns the raw pointer for this block
-  [[nodiscard]] inline void* pointer() const { return ptr; }
-  /// Returns true if this block is valid (non-null), false otherwise
-  [[nodiscard]] inline bool is_valid() const { return pointer() != nullptr; }
+  [[nodiscard]] void* pointer() const noexcept { return ptr; }
+  [[nodiscard]] bool  is_valid() const noexcept { return ptr != nullptr; }
+};
+
+// C++20 concept constraining block types used with free_list
+template<typename T>
+concept BlockConcept = requires(T b, std::size_t n, T other) {
+  { b.pointer()              } -> std::convertible_to<char*>;
+  { b.size()                 } -> std::convertible_to<std::size_t>;
+  { b.is_head()              } -> std::convertible_to<bool>;
+  { b.is_valid()             } -> std::convertible_to<bool>;
+  { b.fits(n)                } -> std::convertible_to<bool>;
+  { b.is_contiguous_before(other) } -> std::convertible_to<bool>;
 };
 
 /**
- * @brief Base class defining an interface for a list of free memory blocks.
+ * @brief Comparator for block types ordered by pointer address.
  *
- * Derived classes typically provide additional methods such as the following (see
- * fixed_size_free_list.hpp and coalescing_free_list.hpp). However this is not a required interface.
- *
- *  - `void insert(block_type const& b)  // insert a block into the free list`
- *  - `void insert(free_list&& other)    // insert / merge another free list`
- *  - `block_type get_block(std::size_t size) // get a block of at least size bytes
- *  - `void print()                      // print the block`
- *
- * @tparam list_type the type of the internal list data structure.
+ * is_transparent enables heterogeneous lookup (find by raw char* without
+ * constructing a temporary block).
  */
-template<typename BlockType, typename ListType = std::list<BlockType>>
+template<typename BlockType>
+struct compare_blocks {
+  using is_transparent = void;
+  bool operator()(BlockType const& a, BlockType const& b) const noexcept {
+    return a.pointer() < b.pointer();
+  }
+  bool operator()(char const* p, BlockType const& b) const noexcept {
+    return p < b.pointer();
+  }
+  bool operator()(BlockType const& a, char const* p) const noexcept {
+    return a.pointer() < p;
+  }
+};
+
+/**
+ * @brief Base class for a list of free memory blocks backed by std::set.
+ *
+ * Using std::set (ordered by address via compare_blocks) instead of std::list
+ * enables O(log n) insert, erase, and lower_bound lookups used by
+ * coalescing_free_list, replacing the previous O(n) std::find_if scans.
+ */
+template<BlockConcept BlockType>
 class free_list {
 public:
   free_list()          = default;
@@ -43,96 +67,37 @@ public:
   free_list& operator=(free_list&&)      = delete;
 
   using block_type     = BlockType;
-  using list_type      = ListType;
-  using size_type      = typename list_type::size_type;
-  using iterator       = typename list_type::iterator;
-  using const_iterator = typename list_type::const_iterator;
+  using set_type       = std::set<BlockType, compare_blocks<BlockType>>;
+  using size_type      = typename set_type::size_type;
+  using iterator       = typename set_type::iterator;
+  using const_iterator = typename set_type::const_iterator;
 
-  /// beginning of the free list
-  [[nodiscard]] iterator begin() noexcept { return blocks.begin(); }
-  /// beginning of the free list
-  [[nodiscard]] const_iterator begin() const noexcept { return blocks.begin(); }
-  /// beginning of the free list
-  [[nodiscard]] const_iterator cbegin() const noexcept { return blocks.cbegin(); }
+  [[nodiscard]] iterator       begin()   noexcept       { return blocks_.begin(); }
+  [[nodiscard]] const_iterator begin()   const noexcept { return blocks_.begin(); }
+  [[nodiscard]] const_iterator cbegin()  const noexcept { return blocks_.cbegin(); }
+  [[nodiscard]] iterator       end()     noexcept       { return blocks_.end(); }
+  [[nodiscard]] const_iterator end()     const noexcept { return blocks_.end(); }
+  [[nodiscard]] const_iterator cend()    const noexcept { return blocks_.cend(); }
+  [[nodiscard]] size_type      size()    const noexcept { return blocks_.size(); }
+  [[nodiscard]] bool           is_empty()const noexcept { return blocks_.empty(); }
 
-  /// end of the free list
-  [[nodiscard]] iterator end() noexcept { return blocks.end(); }
-  /// beginning of the free list
-  [[nodiscard]] const_iterator end() const noexcept { return blocks.end(); }
-  /// beginning of the free list
-  [[nodiscard]] const_iterator cend() const noexcept { return blocks.cend(); }
+  void erase(const_iterator it) { blocks_.erase(it); }
+  void clear() noexcept { blocks_.clear(); }
 
   /**
-   * @brief The size of the free list in blocks.
+   * @brief Merge all blocks from another free_list into this one.
    *
-   * @return size_type The number of blocks in the free list.
+   * Uses std::set::merge (C++17) which moves nodes without reallocation.
+   * Replaces the former splice() which was std::list-specific.
    */
-  [[nodiscard]] size_type size() const noexcept { return blocks.size(); }
-
-  /**
-   * @brief checks whether the free_list is empty.
-   *
-   * @return true If there are blocks in the free_list.
-   * @return false If there are no blocks in the free_list.
-   */
-  [[nodiscard]] bool is_empty() const noexcept { return blocks.empty(); }
-
-  /**
-   * @brief Removes the block indicated by `iter` from the free list.
-   *
-   * @param iter An iterator referring to the block to erase.
-   */
-  void erase(const_iterator iter) { blocks.erase(iter); }
-
-  /**
-   * @brief Erase all blocks from the free_list.
-   *
-   */
-  void clear() noexcept { blocks.clear(); }
+  void merge_from(free_list&& other) { blocks_.merge(other.blocks_); }
 
 protected:
-  /**
-   * @brief Insert a block in the free list before the specified position
-   *
-   * @param pos iterator before which the block will be inserted. pos may be the end() iterator.
-   * @param block The block to insert.
-   */
-  void insert(const_iterator pos, block_type const& block) { blocks.insert(pos, block); }
+  void insert(const_iterator /*hint*/, block_type const& block) { blocks_.insert(block); }
+  void push_back(block_type const& block)  { blocks_.insert(block); }
+  void push_back(block_type&& block)       { blocks_.insert(std::move(block)); }
 
-  /**
-   * @brief Inserts a list of blocks in the free list before the specified position
-   *
-   * @param pos iterator before which the block will be inserted. pos may be the end() iterator.
-   * @param other The free list to insert.
-   */
-  void splice(const_iterator pos, free_list&& other) {
-    return blocks.splice(pos, std::move(other.blocks));
-  }
-
-  /**
-   * @brief Appends the given block to the end of the free list.
-   *
-   * @param block The block to append.
-   */
-  void push_back(const block_type& block) { blocks.push_back(block); }
-
-  /**
-   * @brief Appends the given block to the end of the free list. `b` is moved to the new element.
-   *
-   * @param block The block to append.
-   */
-  void push_back(block_type&& block) { blocks.push_back(std::move(block)); }
-
-  /**
-   * @brief Removes the first element of the free list. If there are no elements in the free list,
-   * the behavior is undefined.
-   *
-   * References and iterators to the erased element are invalidated.
-   */
-  void pop_front() { blocks.pop_front(); }
-
-private:
-  list_type blocks; // The internal container of blocks
+  set_type blocks_;
 };
 
 } // namespace tamm::rmm::mr::detail

@@ -2,14 +2,21 @@
 
 #include "device_memory_resource.hpp"
 
+#include <cassert>
 #include <cstddef>
 
 namespace tamm::rmm::mr {
+
 /**
- * @brief `device_memory_resource` derived class that uses gpuMalloc/Free for
- * allocation/deallocation.
+ * @brief device_memory_resource that uses gpuMalloc/gpuFree.
+ *
+ * Changes vs. prior implementation:
+ * - cudaFree / hipFree return codes are now asserted in debug builds.
+ *   Silent failures masked double-frees and wrong-device errors that occur
+ *   during reset_rmm_pool().
+ * - do_deallocate is marked noexcept; GPU free functions must not throw.
  */
-class gpu_memory_resource final: public device_memory_resource {
+class gpu_memory_resource final : public device_memory_resource {
 public:
   gpu_memory_resource()                                      = default;
   ~gpu_memory_resource() override                            = default;
@@ -19,62 +26,41 @@ public:
   gpu_memory_resource& operator=(gpu_memory_resource&&)      = default;
 
 private:
-  /**
-   * @brief Allocates memory of size at least `bytes` using gpuMalloc.
-   *
-   * The returned pointer has at least 256B alignment.
-   *
-   * @throws `rmm::bad_alloc` if the requested allocation could not be fulfilled
-   *
-   * @param bytes The size, in bytes, of the allocation
-   * @return void* Pointer to the newly allocated memory
-   */
   void* do_allocate(std::size_t bytes) override {
     void* ptr{nullptr};
 #if defined(USE_CUDA)
     auto status = cudaMalloc(&ptr, bytes);
-    if(cudaSuccess != status) { throw std::bad_alloc{}; }
+    if(cudaSuccess != status) throw std::bad_alloc{};
 #elif defined(USE_HIP)
     auto status = hipMalloc(&ptr, bytes);
-    if(hipSuccess != status) { throw std::bad_alloc{}; }
+    if(hipSuccess != status) throw std::bad_alloc{};
 #elif defined(USE_DPCPP)
     ptr = sycl::malloc_device(bytes, GPUStreamPool::getInstance().getStream().first);
-    if(ptr == nullptr) { throw std::bad_alloc{}; }
+    if(ptr == nullptr) throw std::bad_alloc{};
 #endif
-
     return ptr;
   }
 
   /**
-   * @brief Deallocate memory pointed to by \p p.
-   *
-   * @throws Nothing.
-   *
-   * @param p Pointer to be deallocated
+   * @note bytes is unused by the GPU free functions but kept for interface
+   *       consistency. [[maybe_unused]] suppresses the compiler warning.
    */
-  void do_deallocate(void* ptr, std::size_t bytes) override {
+  void do_deallocate(void* ptr, [[maybe_unused]] std::size_t bytes) noexcept override {
 #if defined(USE_CUDA)
-    cudaFree(ptr);
+    [[maybe_unused]] auto status = cudaFree(ptr);
+    assert(cudaSuccess == status &&
+           "cudaFree failed — possible double-free or wrong CUDA device context");
 #elif defined(USE_HIP)
-    hipFree(ptr);
+    [[maybe_unused]] auto status = hipFree(ptr);
+    assert(hipSuccess == status &&
+           "hipFree failed — possible double-free or wrong HIP device context");
 #elif defined(USE_DPCPP)
     sycl::free(ptr, GPUStreamPool::getInstance().getStream().first);
 #endif
   }
 
-  /**
-   * @brief Compare this resource to another.
-   *
-   * Two gpu_memory_resources always compare equal, because they can each
-   * deallocate memory allocated by the other.
-   *
-   * @throws Nothing.
-   *
-   * @param other The other resource to compare to
-   * @return true If the two resources are equivalent
-   * @return false If the two resources are not equal
-   */
-  [[nodiscard]] bool do_is_equal(device_memory_resource const& other) const noexcept override {
+  [[nodiscard]] bool do_is_equal(
+      device_memory_resource const& other) const noexcept override {
     return dynamic_cast<gpu_memory_resource const*>(&other) != nullptr;
   }
 };

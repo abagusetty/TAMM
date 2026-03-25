@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
+#include <limits>
 #include <memory>
 #include <new>
 
@@ -11,125 +12,79 @@ namespace tamm::rmm::detail {
 
 /**
  * @brief Default alignment used for CPU/GPU memory allocation.
- *
  */
 #if defined(USE_DPCPP)
-// currently L0 uses 4 bytes alignment (default)
 static constexpr std::size_t RMM_ALLOCATION_ALIGNMENT{4};
 #elif defined(USE_HIP)
 static constexpr std::size_t RMM_ALLOCATION_ALIGNMENT{128};
 #elif defined(USE_CUDA)
 static constexpr std::size_t RMM_ALLOCATION_ALIGNMENT{256};
 #else
-// Default alignment used for host memory allocated by RMM.
 static constexpr std::size_t RMM_ALLOCATION_ALIGNMENT{alignof(std::max_align_t)};
 #endif
 
-/**
- * @brief Returns whether or not `n` is a power of 2.
- *
- */
-constexpr bool is_pow2(std::size_t value) { return (0 == (value & (value - 1))); }
+[[nodiscard]] constexpr bool is_pow2(std::size_t value) noexcept {
+  return value != 0 && (0 == (value & (value - 1)));
+}
 
-/**
- * @brief Returns whether or not `alignment` is a valid memory alignment.
- *
- */
-constexpr bool is_supported_alignment(std::size_t alignment) { return is_pow2(alignment); }
-
-/**
- * @brief Align up to nearest multiple of specified power of 2
- *
- * @param[in] v value to align
- * @param[in] alignment amount, in bytes, must be a power of 2
- *
- * @return Return the aligned value, as one would expect
- */
-constexpr std::size_t align_up(std::size_t value, std::size_t alignment) noexcept {
-  assert(is_supported_alignment(alignment));
-  return (value + (alignment - 1)) & ~(alignment - 1);
+[[nodiscard]] constexpr bool is_supported_alignment(std::size_t alignment) noexcept {
+  return is_pow2(alignment);
 }
 
 /**
- * @brief Align down to the nearest multiple of specified power of 2
+ * @brief Align up to nearest multiple of specified power of 2.
  *
- * @param[in] v value to align
- * @param[in] alignment amount, in bytes, must be a power of 2
- *
- * @return Return the aligned value, as one would expect
+ * Guards against std::size_t wraparound when value is near SIZE_MAX.
  */
-constexpr std::size_t align_down(std::size_t value, std::size_t alignment) noexcept {
+[[nodiscard]] constexpr std::size_t align_up(std::size_t value,
+                                              std::size_t alignment) noexcept {
+  assert(is_supported_alignment(alignment));
+  // Guard: if adding (alignment-1) would overflow size_t, saturate to max
+  constexpr std::size_t max_v = std::numeric_limits<std::size_t>::max();
+  if(value > max_v - (alignment - 1)) return max_v;
+  return (value + (alignment - 1)) & ~(alignment - 1);
+}
+
+[[nodiscard]] constexpr std::size_t align_down(std::size_t value,
+                                                std::size_t alignment) noexcept {
   assert(is_supported_alignment(alignment));
   return value & ~(alignment - 1);
 }
 
-/**
- * @brief Checks whether a value is aligned to a multiple of a specified power of 2
- *
- * @param[in] v value to check for alignment
- * @param[in] alignment amount, in bytes, must be a power of 2
- *
- * @return true if aligned
- */
-constexpr bool is_aligned(std::size_t value, std::size_t alignment) noexcept {
+[[nodiscard]] constexpr bool is_aligned(std::size_t value, std::size_t alignment) noexcept {
   assert(is_supported_alignment(alignment));
   return value == align_down(value, alignment);
 }
 
-inline bool is_pointer_aligned(void* ptr, std::size_t alignment = RMM_ALLOCATION_ALIGNMENT) {
-  // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-  return rmm::detail::is_aligned(reinterpret_cast<ptrdiff_t>(ptr), alignment);
+[[nodiscard]] inline bool is_pointer_aligned(
+    void* ptr, std::size_t alignment = RMM_ALLOCATION_ALIGNMENT) noexcept {
+  return rmm::detail::is_aligned(
+      reinterpret_cast<std::uintptr_t>(ptr), alignment); // use uintptr_t, not ptrdiff_t
 }
 
 /**
  * @brief Allocates sufficient memory to satisfy the requested size `bytes` with
  * alignment `alignment` using the unary callable `alloc` to allocate memory.
  *
- * Given a pointer `p` to an allocation of size `n` returned from the unary
- * callable `alloc`, the pointer `q` returned from `aligned_alloc` points to a
- * location within the `n` bytes with sufficient space for `bytes` that
- * satisfies `alignment`.
+ * The padded allocation size is: bytes + alignment + sizeof(std::ptrdiff_t).
+ * The offset between the original and aligned pointer is stored at aligned-1.
  *
- * In order to retrieve the original allocation pointer `p`, the offset
- * between `p` and `q` is stored at `q - sizeof(std::ptrdiff_t)`.
- *
- * Allocations returned from `aligned_allocate` *MUST* be freed by calling
- * `aligned_deallocate` with the same arguments for `bytes` and `alignment` with
- * a compatible unary `dealloc` callable capable of freeing the memory returned
- * from `alloc`.
- *
- * If `alignment` is not a power of 2, behavior is undefined.
- *
- * @param bytes The desired size of the allocation
- * @param alignment Desired alignment of allocation
- * @param alloc Unary callable given a size `n` will allocate at least `n` bytes
- * of host memory.
- * @tparam Alloc a unary callable type that allocates memory.
- * @return void* Pointer into allocation of at least `bytes` with desired
- * `alignment`.
+ * Allocations returned from `aligned_allocate` MUST be freed by calling
+ * `aligned_deallocate` with the same `bytes` and `alignment` arguments.
  */
 template<typename Alloc>
 void* aligned_allocate(std::size_t bytes, std::size_t alignment, Alloc alloc) {
   assert(is_pow2(alignment));
 
-  // allocate memory for bytes, plus potential alignment correction,
-  // plus store of the correction offset
-  std::size_t padded_allocation_size{bytes + alignment + sizeof(std::ptrdiff_t)};
-
+  std::size_t const padded_allocation_size{bytes + alignment + sizeof(std::ptrdiff_t)};
   char* const original = static_cast<char*>(alloc(padded_allocation_size));
 
-  // account for storage of offset immediately prior to the aligned pointer
-  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
   void* aligned{original + sizeof(std::ptrdiff_t)};
+  std::size_t space{padded_allocation_size - sizeof(std::ptrdiff_t)};
+  std::align(alignment, bytes, aligned, space);
 
-  // std::align modifies `aligned` to point to the first aligned location
-  std::align(alignment, bytes, aligned, padded_allocation_size);
-
-  // Compute the offset between the original and aligned pointers
-  std::ptrdiff_t offset = static_cast<char*>(aligned) - original;
-
-  // Store the offset immediately before the aligned pointer
-  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+  // Store the offset between original and aligned pointer just before aligned
+  std::ptrdiff_t const offset = static_cast<char*>(aligned) - original;
   *(static_cast<std::ptrdiff_t*>(aligned) - 1) = offset;
 
   return aligned;
@@ -138,30 +93,26 @@ void* aligned_allocate(std::size_t bytes, std::size_t alignment, Alloc alloc) {
 /**
  * @brief Frees an allocation returned from `aligned_allocate`.
  *
- * Allocations returned from `aligned_allocate` *MUST* be freed by calling
- * `aligned_deallocate` with the same arguments for `bytes` and `alignment`
- * with a compatible unary `dealloc` callable capable of freeing the memory
- * returned from `alloc`.
+ * The dealloc callable now receives BOTH the original pointer AND the
+ * padded allocation size (bytes + alignment + sizeof(ptrdiff_t)), so that
+ * size-aware allocators such as numa_free receive the correct byte count.
  *
- * @param p The aligned pointer to deallocate
- * @param bytes The number of bytes requested from `aligned_allocate`
- * @param alignment The alignment required from `aligned_allocate`
- * @param dealloc A unary callable capable of freeing memory returned from
- * `alloc` in `aligned_allocate`.
- * @tparam Dealloc A unary callable type that deallocates memory.
+ * @param ptr    The aligned pointer to deallocate.
+ * @param bytes  The original (unpadded) size passed to aligned_allocate.
+ * @param alignment  The alignment passed to aligned_allocate.
+ * @param dealloc  Binary callable: dealloc(void* original, std::size_t padded).
  */
 template<typename Dealloc>
-// NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
-void aligned_deallocate(void* ptr, std::size_t bytes, std::size_t alignment, Dealloc dealloc) {
-  (void) alignment;
-
-  // Get offset from the location immediately prior to the aligned pointer
-  // NOLINTNEXTLINE
+void aligned_deallocate(void* ptr, std::size_t bytes, std::size_t alignment,
+                        Dealloc dealloc) noexcept {
+  // Recover the original pointer via stored offset
   std::ptrdiff_t const offset = *(reinterpret_cast<std::ptrdiff_t*>(ptr) - 1);
+  void* const original        = static_cast<char*>(ptr) - offset;
 
-  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-  void* const original = static_cast<char*>(ptr) - offset;
+  // Reconstruct the exact padded size used in aligned_allocate
+  std::size_t const padded = bytes + alignment + sizeof(std::ptrdiff_t);
 
-  dealloc(original);
+  dealloc(original, padded);
 }
+
 } // namespace tamm::rmm::detail

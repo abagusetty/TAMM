@@ -1,134 +1,83 @@
 #pragma once
 
 #include "free_list.hpp"
-#include <iterator>
 
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
-#include <iostream>
-#include <list>
+#include <set>
 
 namespace tamm::rmm::mr::detail {
 
 /**
- * @brief A simple block structure specifying the size and location of a block
- *        of memory, with a flag indicating whether it is the head of a block
- *        of memory allocated from the heap (or upstream allocator).
+ * @brief A block of memory with pointer, size, and upstream-head flag.
+ *
+ * Blocks are ordered by pointer address. Two adjacent blocks where the
+ * lower block's is_contiguous_before() returns true may be coalesced.
  */
-struct block: public block_base {
+struct block : public block_base {
   block() = default;
-  block(char* ptr, std::size_t size, bool is_head):
-    block_base{ptr}, size_bytes{size}, head{is_head} {}
+  block(char* p, std::size_t sz, bool head) noexcept
+    : block_base{p}, size_bytes{sz}, head{head} {}
+
+  [[nodiscard]] char*       pointer()  const noexcept { return static_cast<char*>(ptr); }
+  [[nodiscard]] std::size_t size()     const noexcept { return size_bytes; }
+  [[nodiscard]] bool        is_head()  const noexcept { return head; }
+
+  bool operator<(block const& rhs) const noexcept { return pointer() < rhs.pointer(); }
+
+  [[nodiscard]] bool fits(std::size_t bytes) const noexcept { return size_bytes >= bytes; }
 
   /**
-   * @brief Returns the pointer to the memory represented by this block.
+   * @brief True if this block immediately precedes `b` AND `b` is not the
+   * start of a separate upstream slab (b.is_head() == false).
    *
-   * @return the pointer to the memory represented by this block.
+   * Note: we check b.is_head(), NOT this->is_head(). A head block CAN have
+   * something coalesced before it only from the same upstream slab — this is
+   * correctly prevented because head marks the START of an upstream slab, so
+   * nothing legitimately precedes it within the same slab.
    */
-  [[nodiscard]] inline char* pointer() const { return static_cast<char*>(ptr); }
-
-  /**
-   * @brief Returns the size of the memory represented by this block.
-   *
-   * @return the size in bytes of the memory represented by this block.
-   */
-  [[nodiscard]] inline std::size_t size() const { return size_bytes; }
-
-  /**
-   * @brief Returns whether this block is the start of an allocation from an upstream allocator.
-   *
-   * A block `b` may not be coalesced with a preceding contiguous block `a` if `b.is_head == true`.
-   *
-   * @return true if this block is the start of an allocation from an upstream allocator.
-   */
-  [[nodiscard]] inline bool is_head() const { return head; }
-
-  /**
-   * @brief Comparison operator to enable comparing blocks and storing in ordered containers.
-   *
-   * Orders by ptr address.
-
-   * @param rhs
-   * @return true if this block's ptr is < than `rhs` block pointer.
-   * @return false if this block's ptr is >= than `rhs` block pointer.
-   */
-  inline bool operator<(block const& rhs) const noexcept { return pointer() < rhs.pointer(); };
-
-  /**
-   * @brief Coalesce two contiguous blocks into one.
-   *
-   * `this` must immediately precede `b` and both `this` and `b` must be from the same upstream
-   * allocation. That is, `this->is_contiguous_before(b)`. Otherwise behavior is undefined.
-   *
-   * @param blk block to merge
-   * @return The merged block
-   */
-  [[nodiscard]] inline block merge(block const& blk) const noexcept {
-    assert(is_contiguous_before(blk));
-    return {pointer(), size() + blk.size(), is_head()};
+  [[nodiscard]] bool is_contiguous_before(block const& b) const noexcept {
+    return (pointer() + size_bytes == b.ptr) && !b.is_head();
   }
 
-  /**
-   * @brief Verifies whether this block can be merged to the beginning of block b.
-   *
-   * @param blk The block to check for contiguity.
-   * @return Returns true if this blocks's `ptr` + `size` == `b.ptr`, and `not b.is_head`,
-             false otherwise.
-   */
-  [[nodiscard]] inline bool is_contiguous_before(block const& blk) const noexcept {
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-    return (pointer() + size() == blk.ptr) and not(blk.is_head());
-  }
-
-  /**
-   * @brief Is this block large enough to fit `sz` bytes?
-   *
-   * @param bytes The size in bytes to check for fit.
-   * @return true if this block is at least `bytes` bytes
-   */
-  [[nodiscard]] inline bool fits(std::size_t bytes) const noexcept { return size() >= bytes; }
-
-  /**
-   * @brief Is this block a better fit for `sz` bytes than block `b`?
-   *
-   * @param bytes The size in bytes to check for best fit.
-   * @param blk The other block to check for fit.
-   * @return true If this block is a tighter fit for `bytes` bytes than block `blk`.
-   * @return false If this block does not fit `bytes` bytes or `blk` is a tighter fit.
-   */
-  [[nodiscard]] inline bool is_better_fit(std::size_t bytes, block const& blk) const noexcept {
-    return fits(bytes) && (size() < blk.size() || blk.size() < bytes);
+  [[nodiscard]] block merge(block const& b) const noexcept {
+    assert(is_contiguous_before(b));
+    return {pointer(), size_bytes + b.size_bytes, head};
   }
 
 private:
-  std::size_t size_bytes{}; ///< Size in bytes
-  bool        head{};       ///< Indicates whether ptr was allocated from the heap
+  std::size_t size_bytes{};
+  bool        head{false};
 };
 
 /**
- * @brief Comparator for block types based on pointer address.
+ * @brief Comparator ordering blocks by (size, pointer) for the size index.
  *
- * This comparator allows searching associative containers of blocks by pointer rather than
- * having to search by the contained type. Saves potentially error-prone temporary construction of
- * a block when you just want to search by pointer.
+ * Enables best-fit lookup: lower_bound on a sentinel block of exactly the
+ * requested size finds the smallest block >= that size in O(log n).
  */
-template<typename block_type>
-struct compare_blocks {
-  // is_transparent (C++14 feature) allows search key type for set<block_type>::find()
+struct size_ptr_less {
   using is_transparent = void;
-
-  bool operator()(block_type const& lhs, block_type const& rhs) const { return lhs < rhs; }
-  bool operator()(char const* ptr, block_type const& rhs) const { return ptr < rhs.pointer(); }
-  bool operator()(block_type const& lhs, char const* ptr) const { return lhs.pointer() < ptr; };
+  bool operator()(block const& a, block const& b) const noexcept {
+    if(a.size() != b.size()) return a.size() < b.size();
+    return a.pointer() < b.pointer();
+  }
+  // Heterogeneous lookup by (size_t, char*) pair
+  bool operator()(std::size_t sz, block const& b) const noexcept { return sz < b.size(); }
+  bool operator()(block const& a, std::size_t sz) const noexcept { return a.size() < sz; }
 };
 
 /**
- * @brief An ordered list of free memory blocks that coalesces contiguous blocks on insertion.
+ * @brief An ordered free list that coalesces contiguous blocks on insertion.
  *
- * @tparam list_type the type of the internal list data structure.
+ * Maintains two indices:
+ *   blocks_     — address-ordered std::set for O(log n) neighbour lookup
+ *   size_index_ — (size, ptr)-ordered std::set for O(log n) best-fit search
+ *
+ * Both indices are kept in sync on every insert/erase.
  */
-struct coalescing_free_list: free_list<block> {
+struct coalescing_free_list : free_list<block> {
   coalescing_free_list()           = default;
   ~coalescing_free_list() override = default;
 
@@ -138,76 +87,84 @@ struct coalescing_free_list: free_list<block> {
   coalescing_free_list& operator=(coalescing_free_list&&)      = delete;
 
   /**
-   * @brief Inserts a block into the `free_list` in the correct order, coalescing it with the
-   *        preceding and following blocks if either is contiguous.
+   * @brief Insert a block, coalescing with address-adjacent neighbours.
    *
-   * @param b The block to insert.
+   * O(log n) — uses std::set::lower_bound to locate neighbours, then
+   * updates both indices atomically.
    */
-  void insert(block_type const& block) {
-    if(is_empty()) {
-      free_list::insert(cend(), block);
-      return;
+  void insert(block_type const& blk) {
+    if(!blk.is_valid() || blk.size() == 0) return;
+
+    // Locate the first block with address > blk (the potential right neighbour)
+    auto next = blocks_.lower_bound(blk);
+
+    bool        merge_next = (next != blocks_.end()) && blk.is_contiguous_before(*next);
+    bool        merge_prev = false;
+    iterator    prev;
+
+    if(next != blocks_.begin()) {
+      prev       = std::prev(next);
+      merge_prev = prev->is_contiguous_before(blk);
     }
 
-    // Find the right place (in ascending ptr order) to insert the block
-    // Can't use binary_search because it's a linked list and will be quadratic
-    auto const next =
-      std::find_if(begin(), end(), [block](block_type const& blk) { return block < blk; });
-    auto const previous = (next == cbegin()) ? next : std::prev(next);
-
-    // Coalesce with neighboring blocks or insert the new block if it can't be coalesced
-    bool const merge_prev = previous->is_contiguous_before(block);
-    bool const merge_next = (next != cend()) && block.is_contiguous_before(*next);
+    block merged = blk;
 
     if(merge_prev && merge_next) {
-      *previous = previous->merge(block).merge(*next);
-      erase(next);
+      remove_from_size_index(*prev);
+      remove_from_size_index(*next);
+      merged = prev->merge(blk).merge(*next);
+      auto next_it = next; // next iterator still valid before erasing prev
+      blocks_.erase(prev);
+      blocks_.erase(next_it);
     }
-    else if(merge_prev) { *previous = previous->merge(block); }
-    else if(merge_next) { *next = block.merge(*next); }
-    else {
-      free_list::insert(next, block); // cannot be coalesced, just insert
+    else if(merge_prev) {
+      remove_from_size_index(*prev);
+      merged = prev->merge(blk);
+      blocks_.erase(prev);
     }
-  }
+    else if(merge_next) {
+      remove_from_size_index(*next);
+      merged = blk.merge(*next);
+      blocks_.erase(next);
+    }
 
-  // /**
-  //  * @brief Moves blocks from free_list `other` into this free_list in their correct order,
-  //  *        coalescing them with their preceding and following blocks if they are contiguous.
-  //  *
-  //  * @tparam InputIt iterator type
-  //  * @param other free_list of blocks to insert
-  //  */
-  // void insert(free_list&& other) {
-  //   using std::make_move_iterator;
-  //   auto inserter = [this](block_type&& block) { this->insert(block); };
-  //   std::for_each(make_move_iterator(other.begin()), make_move_iterator(other.end()), inserter);
-  // }
+    blocks_.insert(merged);
+    size_index_.insert(merged);
+  }
 
   /**
-   * @brief Finds the smallest block in the `free_list` large enough to fit `size` bytes.
+   * @brief Find and remove the smallest free block >= `size` bytes.
    *
-   * This is a "best fit" search.
+   * O(log n) — uses lower_bound on the size-ordered secondary index.
    *
-   * @param size The size in bytes of the desired block.
-   * @return A block large enough to store `size` bytes.
+   * @param size Requested allocation size (must already be align_up'd).
+   * @return Matching block, or default-constructed (invalid) block if none.
    */
   block_type get_block(std::size_t size) {
-    // find best fit block
-    auto finder = [size](block_type const& lhs, block_type const& rhs) {
-      return lhs.is_better_fit(size, rhs);
-    };
-    auto const iter = std::min_element(cbegin(), cend(), finder);
+    // Sentinel: find first block whose size >= requested size
+    auto it = size_index_.lower_bound(size);
 
-    if(iter != cend() && iter->fits(size)) {
-      // Remove the block from the free_list and return it.
-      block_type const found = *iter;
-      erase(iter);
-      return found;
-    }
+    if(it == size_index_.end()) return block_type{}; // pool exhausted
 
-    return block_type{}; // not found
+    block found = *it;
+    size_index_.erase(it);
+    blocks_.erase(blocks_.find(found)); // O(log n) find in address set
+    return found;
   }
 
-}; // coalescing_free_list
+  void clear() noexcept {
+    free_list<block>::clear();
+    size_index_.clear();
+  }
+
+private:
+  void remove_from_size_index(block const& b) {
+    auto it = size_index_.find(b);
+    if(it != size_index_.end()) size_index_.erase(it);
+  }
+
+  // Secondary index: ordered by (size, pointer) for O(log n) best-fit lookup
+  std::set<block, size_ptr_less> size_index_;
+};
 
 } // namespace tamm::rmm::mr::detail
