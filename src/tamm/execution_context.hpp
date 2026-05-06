@@ -5,6 +5,7 @@
 #include "tamm/atomic_counter.hpp"
 #include "tamm/memory_manager_ga.hpp"
 #include "tamm/memory_manager_local.hpp"
+//#include "tamm/distribution.hpp"
 #ifdef USE_NVSHMEM
 #include "tamm/memory_manager_nvshmem.hpp"
 #endif
@@ -139,6 +140,19 @@ public:
     // no-op
   }
 
+  /**
+   * Allocate a list of tensor with default parameters (irrep, etc.)
+   * @tparam T Type of element in tensor
+   * @tparam Args Type of list of tensors to be allocated
+   * @param tensor First tensor in the list
+   * @param tensor_list Remaining tensors in the list
+   */
+  // template<typename T, typename... Args>
+  // void allocate(const Distribution& distribution, Tensor<T>& tensor, Args&... tensor_list) {
+  //     tensor.alloc(&distribution, default_memory_manager_);
+  //     allocate(distribution, tensor_list...);
+  // }
+
   template<typename T, typename... Args>
   void allocate(const Distribution& distribution, Tensor<T>& tensor, Args&... tensor_list) {
     tensor.alloc(&distribution, memory_manager_factory(memory_manager_kind_));
@@ -156,6 +170,14 @@ public:
     // no-op
   }
 
+  /**
+   * Allocate a list of tensor with default parameters (irrep, etc.) using
+   * local memory manager
+   * @tparam T Type of element in tensor
+   * @tparam Args Type of list of tensors to be allocated
+   * @param tensor First tensor in the list
+   * @param tensor_list Remaining tensors in the list
+   */
   template<typename T, typename... Args>
   void allocate_local(const Distribution&       distribution,
                       const MemoryManagerLocal& memory_manager_local, Tensor<T>& tensor,
@@ -175,36 +197,91 @@ public:
     // no-op
   }
 
+  /**
+   * Deallocate a list of tensors
+   * @tparam T Type of element in tensor
+   * @tparam Args Type of list of tensors to be allocated
+   * @param tensor First tensor in the list
+   * @param tensor_list Remaining tensors in the list
+   */
   template<typename T, typename... Args>
   static void deallocate(Tensor<T>& tensor, Args&... tensor_list) {
     tensor.deallocate();
     deallocate(tensor_list...);
   }
 
+  /**
+   * Process group for this execution context
+   * @return Underlying process group
+   */
   ProcGroup pg() const { return pg_; }
 
+  /**
+   * @brief Set ProcGroup object for ExecutionContext
+   *
+   * @param [in] pg input ProcGroup object
+   */
   void set_pg(const ProcGroup& pg) { pg_ = pg; }
 
+  /**
+   * Get the default distribution
+   * @return Default distribution
+   */
   template<typename... Args>
   Distribution* distribution(Args&&... args) const {
+    // return default_distribution_.get();
     return distribution_factory(distribution_kind_, std::forward<Args>(args)...)
       .release(); //@bug leak
   }
 
   Distribution* get_default_distribution() {
+    // return default_distribution_.get();
     return distribution_factory(distribution_kind_).release(); //@bug leak
   }
 
+  // DistributionKind::Kind distribution_kind() const { return distribution_kind_; }
+
+  /**
+   * @brief Set the default Distribution for ExecutionContext
+   *
+   * @todo: change raw pointer to smart pointers?
+   *
+   * @param [in] distribution pointer to Distribution object
+   */
   void set_distribution(Distribution* distribution);
+  // void set_distribution(Distribution* distribution) {
+  //     //default_distribution_.reset(distribution->clone(nullptr, Proc{1}));
+  //     if(distribution) {
+  //         distribution_kind_ = distribution->kind();
+  //     } else {
+  //         distribution_kind_ = DistributionKind::invalid;
+  //     }
+  // }
 
   void set_distribution_kind(DistributionKind distribution_kind) {
     distribution_kind_ = distribution_kind;
   }
 
+  /**
+   * Get the default memory manager
+   * @return Default memory manager
+   */
+  // MemoryManager* memory_manager() const { return default_memory_manager_; }
   template<typename... Args>
   MemoryManager* memory_manager(Args&&... args) const {
     return memory_manager_factory(memory_manager_kind_, std::forward<Args>(args)...).release();
   }
+
+  /**
+   * @brief Set the default memory manager for ExecutionContext
+   *
+   * @todo: change raw pointer to smart pointers?
+   *
+   * @param [in] memory_manager pointer to MemoryManager object
+   */
+  // void set_memory_manager(MemoryManager* memory_manager) {
+  //     default_memory_manager_ = memory_manager;
+  // }
 
   void set_memory_manager_kind(MemoryManagerKind memory_manager_kind) {
     memory_manager_kind_ = memory_manager_kind;
@@ -213,7 +290,18 @@ public:
   RuntimeEngine* re() const { return re_.get(); }
 
   void set_re(RuntimeEngine* re);
+  // {
+  //     re_.reset(re);
+  // }
 
+  /**
+   * @brief Flush communication in this execution context, synchronize, and
+   * delete any tensors allocated in this execution context that have gone
+   * out of scope.
+   *
+   * @bug @fixme @todo Actually perform a communication/RMA fence
+   *
+   */
   void flush_and_sync() {
     pg_.barrier();
     std::sort(mem_regs_to_dealloc_.begin(), mem_regs_to_dealloc_.end());
@@ -319,7 +407,7 @@ public:
         break;
 #ifdef USE_NVSHMEM
       case MemoryManagerKind::nvshmem:
-        // GPU-resident symmetric heap + GPU-aware MPI for all remote comms
+        // GPU-resident symmetric heap (NVSHMEM) + GPU-aware MPI for all remote comms
         return std::unique_ptr<MemoryManager>(
           MemoryManagerNVSHMEM::create_coll(pg_));
         break;
@@ -328,7 +416,7 @@ public:
       case MemoryManagerKind::openshmem:
         // CPU symmetric heap (shmem_malloc) + OpenSHMEM for node-local comms
         // + GPU-aware MPI one-sided RMA for cross-node comms.
-        // Designed for TB-scale tensors where GPU HBM is insufficient.
+        // Preferred for TB-scale tensors where GPU HBM capacity is insufficient.
         return std::unique_ptr<MemoryManager>(
           MemoryManagerOpenSHMEM::create_coll(pg_));
         break;
