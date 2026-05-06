@@ -2,25 +2,32 @@
 
 /**
  * @file memory_manager_nvshmem.hpp
- * @brief NVSHMEM + CUDA-aware MPI memory manager for TAMM.
+ * @brief GPU-resident distributed memory manager for TAMM.
  *
- * Replaces MemoryManagerGA for GPU-resident distributed tensors.
+ * Uses the NVSHMEM symmetric heap for collective GPU allocation and
+ * GPU-aware MPI one-sided RMA (MPI_Win over CUDA device buffers) for ALL
+ * inter-rank data movement — get, put, and accumulate.
  *
- * Communication strategy:
- *   - On-node  (same physical node): nvshmem get/put/atomic over NVLink
- *   - Off-node (remote node):        CUDA-aware MPI one-sided RMA over IB/UCX
+ * Design principles:
+ *   - NVSHMEM is used ONLY for:
+ *       * nvshmem_malloc / nvshmem_free  (symmetric GPU heap)
+ *       * nvshmem_size_g gather          (exchange per-PE sizes at alloc)
+ *       * nvshmem_barrier_all            (collective sync)
+ *   - ALL remote communication (local or remote node) uses:
+ *       MPI_Get / MPI_Put / MPI_Accumulate(MPI_SUM)
+ *       over a CUDA-aware MPI_Win created on the GPU buffer.
+ *   - There is NO UPC++ dependency anywhere in this file.
+ *   - A CUDA kernel is used only for same-rank self-add (no MPI round-trip).
  *
- * All pointers are GPU device pointers. No host staging is performed.
+ * Prerequisites:
+ *   - nvshmemx_init_attr() called before TAMM init (e.g. in tamm.cpp)
+ *   - CUDA-aware MPI (OpenMPI --with-cuda, Cray MPICH, or MVAPICH2-GDR)
+ *   - Compile with -DUSE_NVSHMEM
  *
  * Usage:
  *   auto* mm = MemoryManagerNVSHMEM::create_coll(pg);
- *   ...
+ *   // ... tensor operations ...
  *   MemoryManagerNVSHMEM::destroy_coll(mm);
- *
- * Prerequisites:
- *   - nvshmemx_init_attr() called before any TAMM init (in tamm.cpp)
- *   - CUDA-aware MPI (OpenMPI built with --with-cuda or equivalent)
- *   - Compile with -DUSE_NVSHMEM
  */
 
 #ifdef USE_NVSHMEM
@@ -42,69 +49,49 @@
 #include "tamm/types.hpp"
 
 // ---------------------------------------------------------------------------
-// Internal CUDA kernels (file-scope, not exposed in header API)
+// CUDA kernel: self-add only (same rank, no MPI needed)
 // ---------------------------------------------------------------------------
 namespace tamm_nvshmem_kernels {
 
-/// Element-wise accumulate:  dst[i] += src[i]  for all element types.
 template<typename T>
 __global__ void accumulate_kernel(T* __restrict__ dst, const T* __restrict__ src, size_t n) {
   size_t i = blockIdx.x * blockDim.x + threadIdx.x;
   if(i < n) dst[i] += src[i];
 }
 
-/// Specialisations for std::complex are not directly CUDA-natively supported,
-/// so we alias them through float2 / double2.
-__global__ void accumulate_kernel_cf(float2* __restrict__ dst,
+__global__ void accumulate_kernel_cf(float2* __restrict__  dst,
                                       const float2* __restrict__ src, size_t n) {
   size_t i = blockIdx.x * blockDim.x + threadIdx.x;
-  if(i < n) {
-    dst[i].x += src[i].x;
-    dst[i].y += src[i].y;
-  }
+  if(i < n) { dst[i].x += src[i].x; dst[i].y += src[i].y; }
 }
 
 __global__ void accumulate_kernel_cd(double2* __restrict__ dst,
                                       const double2* __restrict__ src, size_t n) {
   size_t i = blockIdx.x * blockDim.x + threadIdx.x;
-  if(i < n) {
-    dst[i].x += src[i].x;
-    dst[i].y += src[i].y;
-  }
+  if(i < n) { dst[i].x += src[i].x; dst[i].y += src[i].y; }
 }
 
-inline void launch_accumulate(void* dst, const void* src, ElementType eltype,
-                               size_t nelements, cudaStream_t stream) {
+inline void launch_self_accumulate(void* dst, const void* src,
+                                   ElementType eltype, size_t n, cudaStream_t stream) {
   const int threads = 256;
+  const size_t blocks = (n + threads - 1) / threads;
   switch(eltype) {
-    case ElementType::single_precision: {
-      size_t blocks = (nelements + threads - 1) / threads;
-      accumulate_kernel<float><<<blocks, threads, 0, stream>>>(
-        reinterpret_cast<float*>(dst),
-        reinterpret_cast<const float*>(src), nelements);
+    case ElementType::single_precision:
+      accumulate_kernel<float><<<blocks,threads,0,stream>>>(
+        reinterpret_cast<float*>(dst), reinterpret_cast<const float*>(src), n);
       break;
-    }
-    case ElementType::double_precision: {
-      size_t blocks = (nelements + threads - 1) / threads;
-      accumulate_kernel<double><<<blocks, threads, 0, stream>>>(
-        reinterpret_cast<double*>(dst),
-        reinterpret_cast<const double*>(src), nelements);
+    case ElementType::double_precision:
+      accumulate_kernel<double><<<blocks,threads,0,stream>>>(
+        reinterpret_cast<double*>(dst), reinterpret_cast<const double*>(src), n);
       break;
-    }
-    case ElementType::single_complex: {
-      size_t blocks = (nelements + threads - 1) / threads;
-      accumulate_kernel_cf<<<blocks, threads, 0, stream>>>(
-        reinterpret_cast<float2*>(dst),
-        reinterpret_cast<const float2*>(src), nelements);
+    case ElementType::single_complex:
+      accumulate_kernel_cf<<<blocks,threads,0,stream>>>(
+        reinterpret_cast<float2*>(dst), reinterpret_cast<const float2*>(src), n);
       break;
-    }
-    case ElementType::double_complex: {
-      size_t blocks = (nelements + threads - 1) / threads;
-      accumulate_kernel_cd<<<blocks, threads, 0, stream>>>(
-        reinterpret_cast<double2*>(dst),
-        reinterpret_cast<const double2*>(src), nelements);
+    case ElementType::double_complex:
+      accumulate_kernel_cd<<<blocks,threads,0,stream>>>(
+        reinterpret_cast<double2*>(dst), reinterpret_cast<const double2*>(src), n);
       break;
-    }
     default: UNREACHABLE();
   }
 }
@@ -125,13 +112,12 @@ class MemoryManagerNVSHMEM;
  * @ingroup memory_management
  * @brief Memory region backed by the NVSHMEM symmetric GPU heap.
  *
- * Each rank allocates its local slice from nvshmem_malloc(). A per-rank
- * offset table is exchanged collectively at alloc time so that every rank
- * can compute the symmetric address of any remote element without extra
- * communication.
+ * Collective allocation distributes tensor blocks across all PEs. A per-PE
+ * byte-offset table allows any rank to compute the MPI displacement for any
+ * remote element without extra communication.
  *
- * The same GPU buffer is also registered as an MPI_Win (over CUDA-aware MPI)
- * for off-node one-sided RMA.
+ * An MPI_Win is created over each rank's local GPU slice. CUDA-aware MPI
+ * handles all data movement — the NIC reads/writes GPU memory directly.
  */
 class MemoryRegionNVSHMEM: public MemoryRegionImpl<MemoryManagerNVSHMEM> {
 public:
@@ -139,20 +125,23 @@ public:
       : MemoryRegionImpl<MemoryManagerNVSHMEM>(mgr) {}
 
 private:
-  // -- symmetric GPU heap ---------------------------------------------------
-  void*       symm_base_{nullptr};  ///< nvshmem_malloc'd base (same logical addr on all PEs)
-  size_t      symm_total_bytes_{0}; ///< total bytes in symmetric allocation (== npes * local)
+  // Symmetric GPU heap pointer (nvshmem_malloc'd, same logical address on all PEs)
+  void*  symm_base_{nullptr};
+  size_t symm_total_bytes_{0};
 
-  // -- per-rank metadata (host-side) ----------------------------------------
-  ElementType         eltype_{ElementType::invalid};
-  size_t              elsize_{0};
-  std::vector<size_t> pe_byte_offsets_; ///< pe_byte_offsets_[i] = byte offset of PE i's slice
+  // Per-PE byte offsets into symm_base_ (exclusive prefix sum of per-PE sizes)
+  // pe_byte_offsets_[i] = byte start of PE i's local slice
+  std::vector<size_t> pe_byte_offsets_;
 
-  // -- off-node MPI window (created over GPU memory) ------------------------
+  ElementType eltype_{ElementType::invalid};
+  size_t      elsize_{0};
+
+  // GPU-aware MPI window created over this rank's local GPU slice.
+  // All inter-rank get/put/accumulate operations go through this window.
   MPI_Win mpi_win_{MPI_WIN_NULL};
 
   friend class MemoryManagerNVSHMEM;
-}; // class MemoryRegionNVSHMEM
+};
 
 // ---------------------------------------------------------------------------
 // MemoryManagerNVSHMEM
@@ -160,14 +149,18 @@ private:
 
 /**
  * @ingroup memory_management
- * @brief Distributed memory manager using NVSHMEM (on-node) + CUDA-aware MPI (off-node).
+ * @brief Distributed memory manager: NVSHMEM heap + GPU-aware MPI one-sided RMA.
  *
- * Drop-in replacement for MemoryManagerGA that keeps tensor blocks resident
- * in GPU memory end-to-end. Select at compile time with -DUSE_NVSHMEM and
- * at runtime via ExecutionContext::create_coll(pg, MemoryManagerKind::nvshmem).
+ * Drop-in replacement for MemoryManagerGA for GPU-resident tensor storage.
+ * All inter-rank communication uses MPI_Get / MPI_Put / MPI_Accumulate over
+ * a CUDA-aware MPI_Win — no UPC++, no ARMCI, no GA remote ops.
+ *
+ * Enable at compile time:  -DUSE_NVSHMEM
+ * Select at runtime via ExecutionContext with MemoryManagerKind::nvshmem.
  */
 class MemoryManagerNVSHMEM: public MemoryManager {
 public:
+
   // -- Factory --------------------------------------------------------------
 
   static MemoryManagerNVSHMEM* create_coll(ProcGroup pg) {
@@ -176,76 +169,70 @@ public:
 
   static void destroy_coll(MemoryManagerNVSHMEM* mm) { delete mm; }
 
-  // -- Helpers --------------------------------------------------------------
-
-  static size_t get_element_size(ElementType t) {
-    switch(t) {
-      case ElementType::single_precision: return sizeof(float);
-      case ElementType::double_precision: return sizeof(double);
-      case ElementType::single_complex:   return sizeof(std::complex<float>);
-      case ElementType::double_complex:   return sizeof(std::complex<double>);
-      default: UNREACHABLE(); return 0;
-    }
-  }
-
   // -- alloc_coll -----------------------------------------------------------
 
   /**
-   * @copydoc MemoryManager::alloc_coll
+   * Collective allocation supporting irregular layouts (different nelements per PE).
    *
-   * Each rank may contribute a different number of elements (irregular layout).
-   * A collective exchange via nvshmem symmetric buffer fills pe_byte_offsets_.
+   * Steps:
+   *  1. Exchange per-PE byte sizes via NVSHMEM symmetric scratch + nvshmem_size_g.
+   *  2. Build exclusive prefix-sum offset table (pe_byte_offsets_).
+   *  3. Allocate a single contiguous symmetric GPU buffer (nvshmem_malloc).
+   *  4. Create a CUDA-aware MPI_Win over this rank's local slice.
+   *  5. Open a persistent MPI_Win epoch (MPI_Win_lock_all).
    */
   MemoryRegion* alloc_coll(ElementType eltype, Size local_nelements) override {
     auto* pmr          = new MemoryRegionNVSHMEM(*this);
     pmr->eltype_       = eltype;
-    pmr->elsize_       = get_element_size(eltype);
+    pmr->elsize_       = element_size(eltype);
     pmr->local_nelements_ = local_nelements;
 
-    const int    npes          = pg_.size().value();
-    const int    my_pe         = pg_.rank().value();
-    const size_t local_bytes   = local_nelements.value() * pmr->elsize_;
+    const int    npes        = pg_.size().value();
+    const int    my_pe       = pg_.rank().value();
+    const size_t local_bytes = local_nelements.value() * pmr->elsize_;
 
-    // -- 1. Exchange per-PE sizes using a symmetric scratch buffer ----------
-    // Each PE writes its own size into a shared symmetric array at index my_pe.
-    size_t* symm_sizes = static_cast<size_t*>(nvshmem_malloc(sizeof(size_t) * npes));
-    EXPECTS(symm_sizes != nullptr);
-    symm_sizes[my_pe] = local_bytes;
+    // 1. Exchange sizes: each PE writes its own local_bytes into a symmetric
+    //    scratch array, then gathers all entries via nvshmem_size_g.
+    size_t* symm_scratch = static_cast<size_t*>(nvshmem_malloc(sizeof(size_t) * npes));
+    EXPECTS(symm_scratch != nullptr);
+    symm_scratch[my_pe] = local_bytes;
     nvshmem_barrier_all();
 
-    // Gather all sizes via nvshmem_size_g (point-to-point, no MPI needed)
-    pmr->pe_byte_offsets_.resize(npes + 1);
     std::vector<size_t> pe_sizes(npes);
     for(int pe = 0; pe < npes; ++pe) {
-      pe_sizes[pe] = nvshmem_size_g(&symm_sizes[pe], pe);
+      pe_sizes[pe] = nvshmem_size_g(&symm_scratch[pe], pe);
     }
-    nvshmem_free(symm_sizes);
+    nvshmem_free(symm_scratch);
 
-    // Build exclusive prefix-sum -> byte offsets per PE
+    // 2. Exclusive prefix sum -> byte offsets
+    pmr->pe_byte_offsets_.resize(npes + 1);
     pmr->pe_byte_offsets_[0] = 0;
     for(int pe = 0; pe < npes; ++pe) {
       pmr->pe_byte_offsets_[pe + 1] = pmr->pe_byte_offsets_[pe] + pe_sizes[pe];
     }
     pmr->symm_total_bytes_ = pmr->pe_byte_offsets_[npes];
 
-    // -- 2. Allocate the actual symmetric GPU buffer (collective) -----------
+    // 3. Allocate contiguous symmetric GPU buffer
     pmr->symm_base_ = nvshmem_malloc(pmr->symm_total_bytes_);
     EXPECTS(pmr->symm_base_ != nullptr);
-
     if(local_bytes > 0) {
-      cudaMemset(static_cast<uint8_t*>(pmr->symm_base_) +
-                   pmr->pe_byte_offsets_[my_pe],
-                 0, local_bytes);
+      cudaMemset(
+        static_cast<uint8_t*>(pmr->symm_base_) + pmr->pe_byte_offsets_[my_pe],
+        0, local_bytes);
     }
 
-    // -- 3. Create MPI_Win over the GPU buffer for off-node RMA -------------
+    // 4. Create GPU-aware MPI_Win over local slice
+    //    The window base is a GPU device pointer; CUDA-aware MPI passes it
+    //    directly to the NIC without host staging.
     MPI_Win_create(
       static_cast<uint8_t*>(pmr->symm_base_) + pmr->pe_byte_offsets_[my_pe],
-      local_bytes,
-      1,               // displacement unit = 1 byte
+      static_cast<MPI_Aint>(local_bytes),
+      /*disp_unit=*/1,
       MPI_INFO_NULL,
       pg_.comm(),
       &pmr->mpi_win_);
+
+    // 5. Open a persistent passive-target epoch (matches GA's always-open semantics)
     MPI_Win_lock_all(MPI_MODE_NOCHECK, pmr->mpi_win_);
 
     nvshmem_barrier_all();
@@ -254,9 +241,8 @@ public:
   }
 
   /**
-   * @copydoc MemoryManager::alloc_coll_balanced
-   *
-   * Balanced: all ranks allocate max_nelements. Delegates to alloc_coll.
+   * Balanced allocation: all ranks contribute max_nelements.
+   * Delegates to alloc_coll.
    */
   MemoryRegion* alloc_coll_balanced(ElementType eltype, Size max_nelements,
                                     ProcList proc_list = {}) override {
@@ -267,22 +253,20 @@ public:
   // -- attach_coll ----------------------------------------------------------
 
   /**
-   * @copydoc MemoryManager::attach_coll
-   *
-   * Attach creates a second handle to an existing region (shared ownership).
-   * The underlying GPU allocation and MPI_Win are *not* duplicated.
+   * Attach creates a second handle sharing the existing GPU allocation.
+   * The underlying nvshmem buffer and MPI_Win are NOT duplicated.
    */
   MemoryRegion* attach_coll(MemoryRegion& mrb) override {
     auto& src = static_cast<MemoryRegionNVSHMEM&>(mrb);
     auto* pmr = new MemoryRegionNVSHMEM(*this);
 
-    pmr->symm_base_          = src.symm_base_;
-    pmr->symm_total_bytes_   = src.symm_total_bytes_;
-    pmr->eltype_             = src.eltype_;
-    pmr->elsize_             = src.elsize_;
-    pmr->pe_byte_offsets_    = src.pe_byte_offsets_;
-    pmr->local_nelements_    = src.local_nelements_;
-    pmr->mpi_win_            = src.mpi_win_; // shared handle -- not owned
+    pmr->symm_base_        = src.symm_base_;
+    pmr->symm_total_bytes_ = src.symm_total_bytes_;
+    pmr->eltype_           = src.eltype_;
+    pmr->elsize_           = src.elsize_;
+    pmr->pe_byte_offsets_  = src.pe_byte_offsets_;
+    pmr->local_nelements_  = src.local_nelements_;
+    pmr->mpi_win_          = src.mpi_win_; // shared, not owned
 
     pmr->set_status(AllocationStatus::attached);
     pg_.barrier();
@@ -306,8 +290,8 @@ public:
   }
 
   void detach_coll(MemoryRegion& mrb) override {
-    auto& mr = static_cast<MemoryRegionNVSHMEM&>(mrb);
-    mr.symm_base_ = nullptr; // clear reference, do not free
+    auto& mr      = static_cast<MemoryRegionNVSHMEM&>(mrb);
+    mr.symm_base_ = nullptr;
     mr.mpi_win_   = MPI_WIN_NULL;
     pg_.barrier();
   }
@@ -315,14 +299,11 @@ public:
   // -- fence ----------------------------------------------------------------
 
   /**
-   * @copydoc MemoryManager::fence
-   *
-   * Issues nvshmem_quiet (drains all pending NVSHMEM ops) and
-   * MPI_Win_flush_all (drains pending MPI RMA ops).
+   * Drains all pending GPU-aware MPI RMA operations on this window.
+   * Must be called before reading data written by a remote put/accumulate.
    */
   void fence(MemoryRegion& mrb) override {
     auto& mr = static_cast<MemoryRegionNVSHMEM&>(mrb);
-    nvshmem_quiet();
     if(mr.mpi_win_ != MPI_WIN_NULL) {
       MPI_Win_flush_all(mr.mpi_win_);
     }
@@ -331,14 +312,12 @@ public:
   // -- access (local pointer) -----------------------------------------------
 
   /**
-   * @copydoc MemoryManager::access
-   *
-   * Returns a raw GPU pointer into this PE's local slice. Caller must not
-   * dereference on the host without explicit cudaMemcpy.
+   * Returns a raw GPU pointer into this PE's local slice.
+   * @warning Do NOT dereference on the host without cudaMemcpy.
    */
   const void* access(const MemoryRegion& mrb, Offset off) const override {
-    const auto& mr       = static_cast<const MemoryRegionNVSHMEM&>(mrb);
-    const int   my_pe    = pg_.rank().value();
+    const auto& mr    = static_cast<const MemoryRegionNVSHMEM&>(mrb);
+    const int   my_pe = pg_.rank().value();
     return static_cast<const uint8_t*>(mr.symm_base_)
            + mr.pe_byte_offsets_[my_pe]
            + off.value() * mr.elsize_;
@@ -347,172 +326,152 @@ public:
   // -- get ------------------------------------------------------------------
 
   /**
-   * @copydoc MemoryManager::get
+   * Blocking get via GPU-aware MPI_Get.
    *
-   * Blocking get. Uses nvshmem on-node (NVLink) or CUDA-aware MPI_Get off-node.
-   * @pre to_buf is a valid GPU device pointer.
+   * The MPI library reads directly from the remote GPU buffer into @p to_buf
+   * (also expected to be a GPU pointer) using RDMA — no host staging.
+   *
+   * @pre to_buf must be a valid GPU device pointer.
    */
   void get(MemoryRegion& mrb, Proc proc, Offset off, Size nelements, void* to_buf) override {
-    auto&        mr         = static_cast<MemoryRegionNVSHMEM&>(mrb);
-    const int    target_pe  = proc.value();
-    const size_t byte_off   = off.value() * mr.elsize_;
-    const size_t nbytes     = nelements.value() * mr.elsize_;
-    uint8_t*     remote_ptr = static_cast<uint8_t*>(mr.symm_base_)
-                              + mr.pe_byte_offsets_[target_pe] + byte_off;
+    auto&        mr        = static_cast<MemoryRegionNVSHMEM&>(mrb);
+    const int    target    = proc.value();
+    const size_t byte_off  = off.value() * mr.elsize_;
+    const size_t nbytes    = nelements.value() * mr.elsize_;
+    const MPI_Aint disp    = static_cast<MPI_Aint>(mr.pe_byte_offsets_[target] + byte_off);
 
-    if(is_on_node(target_pe)) {
-      nvshmem_getmem(to_buf, remote_ptr, nbytes, target_pe);
-    } else {
-      MPI_Get(to_buf, nbytes, MPI_BYTE,
-              target_pe,
-              static_cast<MPI_Aint>(mr.pe_byte_offsets_[target_pe] + byte_off),
-              nbytes, MPI_BYTE, mr.mpi_win_);
-      MPI_Win_flush(target_pe, mr.mpi_win_);
-    }
+    MPI_Get(to_buf, static_cast<int>(nbytes), MPI_BYTE,
+            target, disp,
+            static_cast<int>(nbytes), MPI_BYTE,
+            mr.mpi_win_);
+    MPI_Win_flush(target, mr.mpi_win_);
   }
 
   /**
-   * @copydoc MemoryManager::nb_get
-   *
-   * Non-blocking get. NVSHMEM path issues a nbi get; MPI path posts MPI_Get
-   * (flush deferred to fence()). Callers must call fence() to ensure completion.
+   * Non-blocking get via GPU-aware MPI_Get.
+   * Caller must call fence() to ensure completion.
    */
   void nb_get(MemoryRegion& mrb, Proc proc, Offset off, Size nelements, void* to_buf,
               DataCommunicationHandlePtr data_comm_handle) override {
-    auto&        mr         = static_cast<MemoryRegionNVSHMEM&>(mrb);
-    const int    target_pe  = proc.value();
-    const size_t byte_off   = off.value() * mr.elsize_;
-    const size_t nbytes     = nelements.value() * mr.elsize_;
-    uint8_t*     remote_ptr = static_cast<uint8_t*>(mr.symm_base_)
-                              + mr.pe_byte_offsets_[target_pe] + byte_off;
+    auto&        mr       = static_cast<MemoryRegionNVSHMEM&>(mrb);
+    const int    target   = proc.value();
+    const size_t byte_off = off.value() * mr.elsize_;
+    const size_t nbytes   = nelements.value() * mr.elsize_;
+    const MPI_Aint disp   = static_cast<MPI_Aint>(mr.pe_byte_offsets_[target] + byte_off);
 
     data_comm_handle->resetCompletionStatus();
-    if(is_on_node(target_pe)) {
-      nvshmem_getmem_nbi(to_buf, remote_ptr, nbytes, target_pe);
-    } else {
-      MPI_Get(to_buf, nbytes, MPI_BYTE,
-              target_pe,
-              static_cast<MPI_Aint>(mr.pe_byte_offsets_[target_pe] + byte_off),
-              nbytes, MPI_BYTE, mr.mpi_win_);
-    }
+    MPI_Get(to_buf, static_cast<int>(nbytes), MPI_BYTE,
+            target, disp,
+            static_cast<int>(nbytes), MPI_BYTE,
+            mr.mpi_win_);
+    // Completion deferred: caller calls fence() -> MPI_Win_flush_all()
   }
 
   // -- put ------------------------------------------------------------------
 
   /**
-   * @copydoc MemoryManager::put
-   *
-   * Blocking put.
-   * @pre from_buf is a valid GPU device pointer.
+   * Blocking put via GPU-aware MPI_Put.
+   * @pre from_buf must be a valid GPU device pointer.
    */
   void put(MemoryRegion& mrb, Proc proc, Offset off, Size nelements,
            const void* from_buf) override {
-    auto&        mr         = static_cast<MemoryRegionNVSHMEM&>(mrb);
-    const int    target_pe  = proc.value();
-    const size_t byte_off   = off.value() * mr.elsize_;
-    const size_t nbytes     = nelements.value() * mr.elsize_;
-    uint8_t*     remote_ptr = static_cast<uint8_t*>(mr.symm_base_)
-                              + mr.pe_byte_offsets_[target_pe] + byte_off;
+    auto&        mr       = static_cast<MemoryRegionNVSHMEM&>(mrb);
+    const int    target   = proc.value();
+    const size_t byte_off = off.value() * mr.elsize_;
+    const size_t nbytes   = nelements.value() * mr.elsize_;
+    const MPI_Aint disp   = static_cast<MPI_Aint>(mr.pe_byte_offsets_[target] + byte_off);
 
-    if(is_on_node(target_pe)) {
-      nvshmem_putmem(remote_ptr, from_buf, nbytes, target_pe);
-      nvshmem_quiet();
-    } else {
-      MPI_Put(from_buf, nbytes, MPI_BYTE,
-              target_pe,
-              static_cast<MPI_Aint>(mr.pe_byte_offsets_[target_pe] + byte_off),
-              nbytes, MPI_BYTE, mr.mpi_win_);
-      MPI_Win_flush(target_pe, mr.mpi_win_);
-    }
+    MPI_Put(from_buf, static_cast<int>(nbytes), MPI_BYTE,
+            target, disp,
+            static_cast<int>(nbytes), MPI_BYTE,
+            mr.mpi_win_);
+    MPI_Win_flush(target, mr.mpi_win_);
   }
 
   /**
-   * @copydoc MemoryManager::nb_put
-   *
-   * Non-blocking put. Completion deferred to fence().
+   * Non-blocking put via GPU-aware MPI_Put.
+   * Completion deferred to fence().
    */
   void nb_put(MemoryRegion& mrb, Proc proc, Offset off, Size nelements,
               const void* from_buf, DataCommunicationHandlePtr data_comm_handle) override {
-    auto&        mr         = static_cast<MemoryRegionNVSHMEM&>(mrb);
-    const int    target_pe  = proc.value();
-    const size_t byte_off   = off.value() * mr.elsize_;
-    const size_t nbytes     = nelements.value() * mr.elsize_;
-    uint8_t*     remote_ptr = static_cast<uint8_t*>(mr.symm_base_)
-                              + mr.pe_byte_offsets_[target_pe] + byte_off;
+    auto&        mr       = static_cast<MemoryRegionNVSHMEM&>(mrb);
+    const int    target   = proc.value();
+    const size_t byte_off = off.value() * mr.elsize_;
+    const size_t nbytes   = nelements.value() * mr.elsize_;
+    const MPI_Aint disp   = static_cast<MPI_Aint>(mr.pe_byte_offsets_[target] + byte_off);
 
     data_comm_handle->resetCompletionStatus();
-    if(is_on_node(target_pe)) {
-      nvshmem_putmem_nbi(remote_ptr, from_buf, nbytes, target_pe);
-    } else {
-      MPI_Put(from_buf, nbytes, MPI_BYTE,
-              target_pe,
-              static_cast<MPI_Aint>(mr.pe_byte_offsets_[target_pe] + byte_off),
-              nbytes, MPI_BYTE, mr.mpi_win_);
-    }
+    MPI_Put(from_buf, static_cast<int>(nbytes), MPI_BYTE,
+            target, disp,
+            static_cast<int>(nbytes), MPI_BYTE,
+            mr.mpi_win_);
   }
 
   // -- add (accumulate) -----------------------------------------------------
 
   /**
-   * @copydoc MemoryManager::add
+   * Blocking accumulate:  remote[off .. off+n] += from_buf[0 .. n]
    *
-   * Blocking accumulate:  remote[off..off+n] += from_buf[0..n]
+   * For same-rank self-accumulate: uses a CUDA kernel (no MPI round-trip).
+   * For all cross-rank targets:    uses MPI_Accumulate(MPI_SUM) over the
+   *   CUDA-aware MPI_Win — the NIC reads from_buf directly from GPU memory.
    *
-   * On-node:   CUDA kernel adds src into remote GPU buffer directly,
-   *            exploiting NVLink peer access (nvshmem symmetric memory is
-   *            peer-registered at init, no cudaMemcpyPeer staging needed).
-   * Off-node:  MPI_Accumulate(MPI_SUM) over CUDA-aware MPI.
-   *
-   * @pre from_buf is a valid GPU device pointer.
+   * @pre from_buf must be a valid GPU device pointer.
    */
   void add(MemoryRegion& mrb, Proc proc, Offset off, Size nelements,
            const void* from_buf) override {
-    auto&        mr        = static_cast<MemoryRegionNVSHMEM&>(mrb);
-    const int    target_pe = proc.value();
-    const size_t byte_off  = off.value() * mr.elsize_;
-    const size_t n         = nelements.value();
-    uint8_t*     dst_ptr   = static_cast<uint8_t*>(mr.symm_base_)
-                             + mr.pe_byte_offsets_[target_pe] + byte_off;
+    auto&        mr       = static_cast<MemoryRegionNVSHMEM&>(mrb);
+    const int    target   = proc.value();
+    const int    my_pe    = pg_.rank().value();
+    const size_t byte_off = off.value() * mr.elsize_;
+    const size_t n        = nelements.value();
 
-    if(is_on_node(target_pe)) {
-      tamm_nvshmem_kernels::launch_accumulate(
+    if(target == my_pe) {
+      // Self-accumulate: CUDA kernel, avoids MPI self-messaging overhead
+      uint8_t* dst_ptr = static_cast<uint8_t*>(mr.symm_base_)
+                         + mr.pe_byte_offsets_[my_pe] + byte_off;
+      tamm_nvshmem_kernels::launch_self_accumulate(
         dst_ptr, from_buf, mr.eltype_, n, /*stream=*/0);
       cudaStreamSynchronize(0);
     } else {
-      MPI_Datatype mpi_type = to_mpi_type(mr.eltype_);
-      MPI_Accumulate(from_buf, static_cast<int>(n), mpi_type,
-                     target_pe,
-                     static_cast<MPI_Aint>(mr.pe_byte_offsets_[target_pe] + byte_off),
-                     static_cast<int>(n), mpi_type,
+      // Cross-rank: GPU-aware MPI_Accumulate; NIC reads from_buf from GPU
+      MPI_Datatype mpi_t = to_mpi_type(mr.eltype_);
+      const MPI_Aint disp = static_cast<MPI_Aint>(mr.pe_byte_offsets_[target] + byte_off);
+      MPI_Accumulate(from_buf, static_cast<int>(n), mpi_t,
+                     target, disp,
+                     static_cast<int>(n), mpi_t,
                      MPI_SUM, mr.mpi_win_);
-      MPI_Win_flush(target_pe, mr.mpi_win_);
+      MPI_Win_flush(target, mr.mpi_win_);
     }
   }
 
   /**
-   * @copydoc MemoryManager::nb_add
-   *
-   * Non-blocking accumulate. Completion deferred to fence().
+   * Non-blocking accumulate.
+   * Self-add is completed immediately (CUDA kernel + stream sync);
+   * cross-rank MPI_Accumulate completion is deferred to fence().
    */
   void nb_add(MemoryRegion& mrb, Proc proc, Offset off, Size nelements,
               const void* from_buf, DataCommunicationHandlePtr data_comm_handle) override {
-    auto&        mr        = static_cast<MemoryRegionNVSHMEM&>(mrb);
-    const int    target_pe = proc.value();
-    const size_t byte_off  = off.value() * mr.elsize_;
-    const size_t n         = nelements.value();
-    uint8_t*     dst_ptr   = static_cast<uint8_t*>(mr.symm_base_)
-                             + mr.pe_byte_offsets_[target_pe] + byte_off;
+    auto&        mr       = static_cast<MemoryRegionNVSHMEM&>(mrb);
+    const int    target   = proc.value();
+    const int    my_pe    = pg_.rank().value();
+    const size_t byte_off = off.value() * mr.elsize_;
+    const size_t n        = nelements.value();
 
     data_comm_handle->resetCompletionStatus();
-    if(is_on_node(target_pe)) {
-      tamm_nvshmem_kernels::launch_accumulate(
+
+    if(target == my_pe) {
+      uint8_t* dst_ptr = static_cast<uint8_t*>(mr.symm_base_)
+                         + mr.pe_byte_offsets_[my_pe] + byte_off;
+      tamm_nvshmem_kernels::launch_self_accumulate(
         dst_ptr, from_buf, mr.eltype_, n, /*stream=*/0);
+      // stream sync deferred — caller must sync before reading
     } else {
-      MPI_Datatype mpi_type = to_mpi_type(mr.eltype_);
-      MPI_Accumulate(from_buf, static_cast<int>(n), mpi_type,
-                     target_pe,
-                     static_cast<MPI_Aint>(mr.pe_byte_offsets_[target_pe] + byte_off),
-                     static_cast<int>(n), mpi_type,
+      MPI_Datatype mpi_t = to_mpi_type(mr.eltype_);
+      const MPI_Aint disp = static_cast<MPI_Aint>(mr.pe_byte_offsets_[target] + byte_off);
+      MPI_Accumulate(from_buf, static_cast<int>(n), mpi_t,
+                     target, disp,
+                     static_cast<int>(n), mpi_t,
                      MPI_SUM, mr.mpi_win_);
     }
   }
@@ -520,9 +479,9 @@ public:
   // -- print_coll -----------------------------------------------------------
 
   void print_coll(const MemoryRegion& mrb, std::ostream& os) override {
-    const auto& mr       = static_cast<const MemoryRegionNVSHMEM&>(mrb);
-    const int   my_pe    = pg_.rank().value();
-    const size_t n       = mr.local_nelements().value();
+    const auto&  mr    = static_cast<const MemoryRegionNVSHMEM&>(mrb);
+    const int    my_pe = pg_.rank().value();
+    const size_t n     = mr.local_nelements().value();
 
     if(mr.eltype_ != ElementType::double_precision) {
       os << "print_coll: only double_precision supported for debug print\n";
@@ -550,18 +509,7 @@ protected:
   ~MemoryManagerNVSHMEM() = default;
 
 private:
-  // -- Locality helper ------------------------------------------------------
-
-  /**
-   * Returns true if @p pe is on the same physical node as this rank.
-   * Uses nvshmem's built-in node team query -- O(1), no MPI call.
-   */
-  bool is_on_node(int pe) const {
-    return nvshmem_team_pe(NVSHMEMX_TEAM_NODE, pe) >= 0;
-  }
-
-  // -- MPI type helper ------------------------------------------------------
-
+  /// Map TAMM ElementType to the matching MPI_Datatype for MPI_Accumulate.
   static MPI_Datatype to_mpi_type(ElementType t) {
     switch(t) {
       case ElementType::single_precision: return MPI_FLOAT;
