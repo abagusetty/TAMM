@@ -8,6 +8,9 @@
 #ifdef USE_NVSHMEM
 #include "tamm/memory_manager_nvshmem.hpp"
 #endif
+#ifdef USE_OPENSHMEM
+#include "tamm/memory_manager_openshmem.hpp"
+#endif
 
 #if defined(__APPLE__)
 #include <sys/sysctl.h>
@@ -304,15 +307,30 @@ public:
     switch(memkind) {
       case MemoryManagerKind::invalid: NOT_ALLOWED(); return nullptr;
       case MemoryManagerKind::ga:
+        // auto defd = get_memory_manager(memkind);
         return std::unique_ptr<MemoryManager>(new MemoryManagerGA{pg_});
+        // return std::unique_ptr<MemoryManager>(new
+        // MemoryManagerGA{std::forward<Args>(args)...});
         break;
       case MemoryManagerKind::local:
         return std::unique_ptr<MemoryManager>(new MemoryManagerLocal{pg_self_});
+        //   return std::unique_ptr<MemoryManager>(new
+        //   MemoryManagerLocal{std::forward<Args>(args)...});
         break;
 #ifdef USE_NVSHMEM
       case MemoryManagerKind::nvshmem:
+        // GPU-resident symmetric heap + GPU-aware MPI for all remote comms
         return std::unique_ptr<MemoryManager>(
           MemoryManagerNVSHMEM::create_coll(pg_));
+        break;
+#endif
+#ifdef USE_OPENSHMEM
+      case MemoryManagerKind::openshmem:
+        // CPU symmetric heap (shmem_malloc) + OpenSHMEM for node-local comms
+        // + GPU-aware MPI one-sided RMA for cross-node comms.
+        // Designed for TB-scale tensors where GPU HBM is insufficient.
+        return std::unique_ptr<MemoryManager>(
+          MemoryManagerOpenSHMEM::create_coll(pg_));
         break;
 #endif
     }
@@ -324,7 +342,11 @@ private:
   ProcGroup        pg_;
   ProcGroup        pg_self_;
   DistributionKind distribution_kind_;
+  // Distribution* default_distribution_;
+  // std::unique_ptr<Distribution> default_distribution_;
   MemoryManagerKind memory_manager_kind_;
+  // MemoryManager* default_memory_manager_;
+  // MemoryManagerLocal* memory_manager_local_;
   IndexedAC                      ac_;
   std::shared_ptr<RuntimeEngine> re_;
   int                            nnodes_;

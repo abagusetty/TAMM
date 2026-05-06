@@ -102,7 +102,14 @@ enum class ElementType {
 
 enum class DistributionKind { invalid, nw, dense, simple_round_robin, view, unit_tile };
 
-enum class MemoryManagerKind { invalid, ga, local, nvshmem };
+/// Memory manager backend selector.
+/// - ga:        Global Arrays (CPU host memory, legacy default)
+/// - local:     Single-process local memory
+/// - nvshmem:   GPU-resident symmetric heap (NVSHMEM) + GPU-aware MPI for remote
+/// - openshmem: CPU symmetric heap (OpenSHMEM) + GPU-aware MPI for remote;
+///              designed for TB-scale tensors on large node counts where GPU
+///              HBM capacity is insufficient to hold all distributed data.
+enum class MemoryManagerKind { invalid, ga, local, nvshmem, openshmem };
 
 template<typename T>
 constexpr ElementType tensor_element_type() {
