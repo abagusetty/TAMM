@@ -10,7 +10,11 @@
 #include <complex>
 #include <iosfwd>
 #include <map>
-#include <mpi.h>
+#if defined(USE_UPCXX)
+#include <upcxx/upcxx.hpp>
+#endif
+
+//#include <mpi.h>
 
 namespace tamm {
 
@@ -98,10 +102,6 @@ enum class ElementType {
 
 enum class DistributionKind { invalid, nw, dense, simple_round_robin, view, unit_tile };
 
-/// Memory manager backend selector.
-/// - ga:      Global Arrays (CPU host memory, default legacy path)
-/// - local:   Single-process local memory
-/// - nvshmem: GPU-resident symmetric heap + GPU-aware MPI one-sided RMA
 enum class MemoryManagerKind { invalid, ga, local, nvshmem };
 
 template<typename T>
@@ -147,6 +147,7 @@ template<typename T>
 using TensorVec = BoundVec<T, maxrank>;
 
 using BlockDimVec = TensorVec<BlockIndex>;
+// using DimTypeVec = TensorVec<DimType>;
 using PermVec = TensorVec<uint32_t>;
 
 ///////////
@@ -155,6 +156,7 @@ using PermVec = TensorVec<uint32_t>;
 
 using RangeValue = int64_t;
 
+// enum class IndexSpaceType { mo, mso, ao, aso, aux };
 enum class SpinPosition { ignore, upper, lower };
 enum class IndexPosition { upper, lower, neither };
 
@@ -166,38 +168,43 @@ enum class ReduceOp { min, max, sum, maxloc, minloc };
 
 using SpinMask = std::vector<SpinPosition>;
 
-/// Non-blocking communication handle.
-/// Uses MPI_Request so it works with both the GA and NVSHMEM+GPU-aware MPI
-/// backends without pulling in any UPC++ or GA nb-handle dependencies.
-using rtDataHandlePtr = MPI_Request*;
-using rtDataHandle    = MPI_Request;
+#if defined(USE_UPCXX)
+using rtDataHandlePtr = upcxx::future<>*;
+using rtDataHandle    = upcxx::future<>;
+#else
+using rtDataHandlePtr = ga_nbhdl_t*;
+using rtDataHandle    = ga_nbhdl_t;
+#endif
 
 class DataCommunicationHandle {
 public:
   DataCommunicationHandle()  = default;
   ~DataCommunicationHandle() = default;
 
-  /// Block until the associated non-blocking MPI operation completes.
   void waitForCompletion() {
     if(!getCompletionStatus()) {
-      if(data_handle_ != MPI_REQUEST_NULL) {
-        MPI_Wait(&data_handle_, MPI_STATUS_IGNORE);
-      }
+#if defined(USE_UPCXX)
+      data_handle_.wait();
+#else
+      NGA_NbWait(&data_handle_);
+#endif
       setCompletionStatus();
     }
   }
+  void setCompletionStatus() { status_ = true; }
+  void resetCompletionStatus() { status_ = false; }
 
-  void setCompletionStatus()   { status_ = true;  }
-  void resetCompletionStatus() {
-    status_      = false;
-    data_handle_ = MPI_REQUEST_NULL;
+  bool getCompletionStatus() {
+    /*
+    if(status_ == false)
+        status_ = NGA_NbTest(&data_handle_);
+    */
+
+    return status_;
   }
-
-  bool getCompletionStatus() { return status_; }
-
   rtDataHandlePtr getDataHandlePtr() { return &data_handle_; }
 
-  rtDataHandle data_handle_{MPI_REQUEST_NULL};
+  rtDataHandle data_handle_;
 
 private:
   bool status_{true};
@@ -207,6 +214,12 @@ using DataCommunicationHandlePtr = DataCommunicationHandle*;
 
 //////////////////
 
+// namespace SpinType {
+// const Spin alpha{1};
+// const Spin beta{2};
+// }; // namespace SpinType
+
+#if !defined(USE_UPCXX)
 template<typename T>
 static inline MPI_Datatype mpi_type() {
   using std::is_same_v;
@@ -242,6 +255,7 @@ static inline MPI_Op mpi_op(ReduceOp rop) {
   else if(rop == ReduceOp::maxloc) return MPI_MAXLOC;
   else NOT_IMPLEMENTED(); // unhandled op
 }
+#endif
 
 namespace internal {
 template<typename T, typename... Args>
@@ -268,6 +282,7 @@ static int to_ga_eltype(ElementType eltype) {
     case ElementType::double_precision: ret = C_DBL; break;
     case ElementType::single_complex: ret = C_SCPL; break;
     case ElementType::double_complex: ret = C_DCPL; break;
+    // case ElementType::invalid: ret = 0; break;
     default: ret = 0; UNREACHABLE();
   }
   return ret;
@@ -293,6 +308,8 @@ static ElementType from_ga_eltype(int eltype) {
 inline constexpr const char* element_type_to_string(ElementType eltype) {
   switch(eltype) {
     case ElementType::invalid: return "inv"; break;
+    // case ElType::i32: return "i32"; break;
+    // case ElType::i64: return "i64"; break;
     case ElementType::single_precision: return "f32"; break;
     case ElementType::double_precision: return "f64"; break;
     case ElementType::single_complex: return "cf32"; break;

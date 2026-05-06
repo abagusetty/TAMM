@@ -1,6 +1,7 @@
 #pragma once
 
 #include "tamm/proc_group.hpp"
+//#include "tamm/tensor_impl.hpp"
 #include "tamm/atomic_counter.hpp"
 #include "tamm/memory_manager_ga.hpp"
 #include "tamm/memory_manager_local.hpp"
@@ -28,11 +29,15 @@
 #include <memory>
 #include <vector>
 
+#if defined(USE_UPCXX)
+extern upcxx::team* team_self;
+#endif
+
 namespace tamm {
 
 inline std::string getHostName() {
 #if defined(__APPLE__)
-  char   buffer[64];
+  char   buffer[64]; /* Should be long enough! */
   size_t len = sizeof(buffer);
   if(sysctlbyname("machdep.cpu.brand_string", &buffer[0], &len, 0, 0) == 0) { return &buffer[0]; }
 #elif !defined(__arm__) && !defined(__aarch64__)
@@ -46,6 +51,7 @@ inline std::string getHostName() {
 
   for(unsigned int i = 0x80000000; i <= nExIds; ++i) {
     __cpuid(i, CPUInfo[0], CPUInfo[1], CPUInfo[2], CPUInfo[3]);
+
     if(i == 0x80000002) memcpy(CPUBrandString, CPUInfo, sizeof(CPUInfo));
     else if(i == 0x80000003) memcpy(CPUBrandString + 16, CPUInfo, sizeof(CPUInfo));
     else if(i == 0x80000004) memcpy(CPUBrandString + 32, CPUInfo, sizeof(CPUInfo));
@@ -61,6 +67,10 @@ struct IndexedAC {
 
   IndexedAC(AtomicCounter* ac, size_t idx): ac_{ac}, idx_{idx} {}
 };
+/**
+ * @todo Create a proper forward declarations file.
+ *
+ */
 
 class Distribution;
 class Scheduler;
@@ -72,22 +82,35 @@ class Distribution_NW;
 class Distribution_Dense;
 class Distribution_SimpleRoundRobin;
 
+/**
+ * @brief Wrapper class to hold information during execution.
+ *
+ * This class holds the choice of default memory manager, distribution, irrep,
+ * etc.
+ *
+ * @todo Should spin_restricted be wrapper by this class? Or should it always
+ * default to false?
+ */
 class RuntimeEngine;
 
 struct meminfo {
-  size_t      gpu_mem_per_device;
-  size_t      gpu_mem_per_node;
-  size_t      total_gpu_mem;
-  size_t      cpu_mem_per_node;
-  size_t      total_cpu_mem;
-  std::string cpu_name;
-  std::string gpu_name;
+  size_t      gpu_mem_per_device; // single gpu mem per rank (GiB)
+  size_t      gpu_mem_per_node;   // total gpu mem per node (GiB)
+  size_t      total_gpu_mem;      // total gpu mem across all nodes (GiB)
+  size_t      cpu_mem_per_node;   // cpu mem on single node (GiB)
+  size_t      total_cpu_mem;      // total cpu mem across all nodes (GiB)
+  std::string cpu_name;           // cpu name
+  std::string gpu_name;           // gpu name
 };
 
 class ExecutionContext {
 public:
   ExecutionContext(): ac_{IndexedAC{nullptr, 0}} {
+#if defined(USE_UPCXX)
+    pg_self_ = ProcGroup{team_self};
+#else
     pg_self_ = ProcGroup{MPI_COMM_SELF, ProcGroup::self_ga_pgroup()};
+#endif
   };
 
   ExecutionContext(const ExecutionContext&)            = default;
@@ -99,12 +122,15 @@ public:
   ExecutionContext(ProcGroup pg, DistributionKind default_distribution_kind,
                    MemoryManagerKind default_memory_manager_kind, RuntimeEngine* re = nullptr);
 
+  /** @todo use shared pointers for solving GitHub issue #43*/
   ExecutionContext(ProcGroup pg, Distribution* default_distribution,
                    MemoryManager* default_memory_manager, RuntimeEngine* re = nullptr);
-
+  // memory_manager_local_ = MemoryManagerLocal::create_coll(pg_self_);
   RuntimeEngine* runtime_ptr();
 
-  ~ExecutionContext() {}
+  ~ExecutionContext() {
+    // MemoryManagerLocal::destroy_coll(memory_manager_local_);
+  }
 
   void allocate(const Distribution& distribution) {
     // no-op
@@ -159,11 +185,11 @@ public:
   template<typename... Args>
   Distribution* distribution(Args&&... args) const {
     return distribution_factory(distribution_kind_, std::forward<Args>(args)...)
-      .release();
+      .release(); //@bug leak
   }
 
   Distribution* get_default_distribution() {
-    return distribution_factory(distribution_kind_).release();
+    return distribution_factory(distribution_kind_).release(); //@bug leak
   }
 
   void set_distribution(Distribution* distribution);
@@ -218,9 +244,9 @@ public:
 
   ExecutionHW exhw() const { return exhw_; }
 
-  int nnodes()  const { return nnodes_;   }
-  int ppn()     const { return ranks_pn_; }
-  int gpn()     const { return gpus_pn_;  }
+  int nnodes() const { return nnodes_; }
+  int ppn() const { return ranks_pn_; }
+  int gpn() const { return gpus_pn_; }
 
   meminfo mem_info() const { return minfo_; }
 
@@ -230,12 +256,12 @@ public:
     std::cout << "{" << std::endl;
     std::cout << "[" << minfo_.cpu_name << "] : " << std::endl;
     std::cout << "  CPU memory per node (GiB): " << minfo_.cpu_mem_per_node << std::endl;
-    std::cout << "  Total CPU memory (GiB): "    << minfo_.total_cpu_mem    << std::endl;
+    std::cout << "  Total CPU memory (GiB): " << minfo_.total_cpu_mem << std::endl;
     if(has_gpu_) {
       std::cout << "[" << minfo_.gpu_name << "] : " << std::endl;
       std::cout << "  GPU memory per device (GiB): " << minfo_.gpu_mem_per_device << std::endl;
-      std::cout << "  GPU memory per node (GiB): "   << minfo_.gpu_mem_per_node   << std::endl;
-      std::cout << "  Total GPU memory (GiB): "      << minfo_.total_gpu_mem      << std::endl;
+      std::cout << "  GPU memory per node (GiB): " << minfo_.gpu_mem_per_node << std::endl;
+      std::cout << "  Total GPU memory (GiB): " << minfo_.total_gpu_mem << std::endl;
     }
     std::cout << "}" << std::endl;
   }
@@ -260,10 +286,13 @@ public:
       case DistributionKind::invalid: NOT_ALLOWED(); return nullptr;
       case DistributionKind::dense:
         return std::make_unique<Distribution_Dense>(std::forward<Args>(args)...);
+        break;
       case DistributionKind::nw:
         return std::make_unique<Distribution_NW>(std::forward<Args>(args)...);
+        break;
       case DistributionKind::simple_round_robin:
         return std::make_unique<Distribution_SimpleRoundRobin>(std::forward<Args>(args)...);
+        break;
       default: UNREACHABLE();
     }
     return nullptr;
@@ -274,29 +303,27 @@ public:
                                                         Args&&... args) const {
     switch(memkind) {
       case MemoryManagerKind::invalid: NOT_ALLOWED(); return nullptr;
-
       case MemoryManagerKind::ga:
         return std::unique_ptr<MemoryManager>(new MemoryManagerGA{pg_});
-
+        break;
       case MemoryManagerKind::local:
         return std::unique_ptr<MemoryManager>(new MemoryManagerLocal{pg_self_});
-
+        break;
 #ifdef USE_NVSHMEM
       case MemoryManagerKind::nvshmem:
-        // MemoryManagerNVSHMEM keeps all tensor data GPU-resident and uses
-        // GPU-aware MPI one-sided RMA for all inter-rank communication.
         return std::unique_ptr<MemoryManager>(
           MemoryManagerNVSHMEM::create_coll(pg_));
+        break;
 #endif
-
-      default: UNREACHABLE(); return nullptr;
     }
+    UNREACHABLE();
+    return nullptr;
   }
 
 private:
   ProcGroup        pg_;
   ProcGroup        pg_self_;
-  DistributionKind  distribution_kind_;
+  DistributionKind distribution_kind_;
   MemoryManagerKind memory_manager_kind_;
   IndexedAC                      ac_;
   std::shared_ptr<RuntimeEngine> re_;
