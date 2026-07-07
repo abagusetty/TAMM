@@ -7,15 +7,13 @@
 
 #include <optional>
 
-#include <algorithm>
+#include <cassert>
 #include <cstddef>
-#include <iostream>
-#include <map>
-#include <numeric>
+#include <exception>
+#include <iterator>
 #include <set>
-#include <thread>
-#include <unordered_map>
-#include <vector>
+#include <stdexcept>
+#include <sstream>
 
 namespace tamm::rmm::mr {
 
@@ -42,28 +40,30 @@ public:
    * `upstream_mr`.
    *
    * @throws rmm::logic_error if `upstream_mr == nullptr`
-   * @throws rmm::logic_error if `initial_pool_size` is neither the default nor aligned to a
-   * multiple of pool_memory_resource::allocation_alignment bytes.
    * @throws rmm::logic_error if `maximum_pool_size` is neither the default nor aligned to a
    * multiple of pool_memory_resource::allocation_alignment bytes.
    *
    * @param upstream_mr The memory_resource from which to allocate blocks for the pool.
-   * @param initial_pool_size Minimum size, in bytes, of the initial pool. Defaults to half of the
-   * available memory on the current device.
-   * @param maximum_pool_size Maximum size, in bytes, that the pool can grow to. Defaults to all
-   * of the available memory on the current device.
+   * @param maximum_pool_size Maximum size, in bytes, that the pool can grow to.
    */
   explicit pool_memory_resource(Upstream* upstream_mr, std::size_t maximum_pool_size):
     upstream_mr_{[upstream_mr]() {
-      if(upstream_mr == nullptr) { std::logic_error("Unexpected null upstream pointer."); }
+      if(upstream_mr == nullptr) {
+        throw std::logic_error("Unexpected null upstream pointer.");
+      }
       return upstream_mr;
-    }()} {
-    if(!rmm::detail::is_aligned(maximum_pool_size, rmm::detail::RMM_ALLOCATION_ALIGNMENT)) {
-      std::logic_error(
-        "Error, Maximum pool size required to be a multiple of 256/std::max_align_t bytes");
+    }()},
+    maximum_pool_size_{maximum_pool_size} {
+    if(maximum_pool_size_ == 0) {
+      throw std::logic_error("Pool size must be greater than zero.");
     }
 
-    initialize_pool(maximum_pool_size);
+    if(!rmm::detail::is_aligned(maximum_pool_size_, rmm::detail::RMM_ALLOCATION_ALIGNMENT)) {
+      throw std::logic_error(
+        "Maximum pool size must be a multiple of the allocator alignment.");
+    }
+
+    initialize_pool(maximum_pool_size_);
   }
 
   /**
@@ -97,14 +97,11 @@ protected:
   /**
    * @brief Get the maximum size of allocations supported by this memory resource
    *
-   * Note this does not depend on the memory size of the device. It simply returns the maximum
-   * value of `std::size_t`
+   * The limit is governed by the total capacity configured for the pool.
    *
    * @return std::size_t The maximum size of a single allocation supported by this memory resource
    */
-  [[nodiscard]] std::size_t get_maximum_allocation_size() const {
-    return std::numeric_limits<std::size_t>::max();
-  }
+  [[nodiscard]] std::size_t get_maximum_allocation_size() const { return maximum_pool_size_; }
 
   /**
    * @brief Allocate initial memory for the pool
@@ -135,11 +132,35 @@ protected:
   std::optional<block_type> block_from_upstream(std::size_t size) {
     if(size == 0) { return {}; }
 
+    auto const alignment = rmm::detail::RMM_ALLOCATION_ALIGNMENT;
+    auto const aligned_size = rmm::detail::align_up(size, alignment);
+    if(aligned_size < size || aligned_size == 0) { return std::nullopt; }
+
+    if(aligned_size > maximum_pool_size_) { return std::nullopt; }
+    if(total_bytes_allocated_ > (maximum_pool_size_ - aligned_size)) { return std::nullopt; }
+
     try {
-      void* ptr = get_upstream()->allocate(size);
-      return std::optional<block_type>{
-        *upstream_blocks_.emplace(static_cast<char*>(ptr), size, true).first};
-    } catch(std::exception const& e) { return std::nullopt; }
+      void* ptr = get_upstream()->allocate(aligned_size);
+
+      if(!rmm::detail::is_pointer_aligned(ptr, alignment)) {
+        get_upstream()->deallocate(ptr, aligned_size);
+        throw std::runtime_error("Upstream resource returned misaligned memory block.");
+      }
+
+      auto const [it, inserted] =
+        upstream_blocks_.emplace(static_cast<char*>(ptr), aligned_size, true);
+      if(!inserted) {
+        get_upstream()->deallocate(ptr, aligned_size);
+        std::ostringstream os;
+        os << "[TAMM ERROR] Duplicate upstream block insertion detected at " << ptr << '.';
+        tamm_terminate(os.str());
+      }
+
+      total_bytes_allocated_ += aligned_size;
+      return std::optional<block_type>{*it};
+    } catch(std::exception const&) {
+      return std::nullopt;
+    }
   }
 
   /**
@@ -170,8 +191,45 @@ protected:
    * to the pool.
    */
   block_type free_block(void* ptr, std::size_t size) noexcept {
-    auto const iter = upstream_blocks_.find(static_cast<char*>(ptr));
-    return block_type{static_cast<char*>(ptr), size, (iter != upstream_blocks_.end())};
+    assert(rmm::detail::is_pointer_aligned(ptr, rmm::detail::RMM_ALLOCATION_ALIGNMENT));
+    assert(rmm::detail::is_aligned(size, rmm::detail::RMM_ALLOCATION_ALIGNMENT));
+    auto* const char_ptr = static_cast<char*>(ptr);
+
+    auto terminate_with = [ptr, size](char const* reason) {
+      std::ostringstream os;
+      os << "[TAMM ERROR] " << reason << " (ptr=" << ptr << ", size=" << size << ").\n"
+         << __FILE__ << ":L" << __LINE__;
+      tamm_terminate(os.str());
+    };
+
+    if(upstream_blocks_.empty()) { terminate_with("Attempted to free from an empty pool"); }
+
+    auto iter = upstream_blocks_.lower_bound(char_ptr);
+    if(iter != upstream_blocks_.end() && iter->pointer() == char_ptr) {
+      if(size > iter->size()) {
+        terminate_with("Deallocation size exceeds upstream block capacity");
+      }
+      return block_type{char_ptr, size, true};
+    }
+
+    if(iter == upstream_blocks_.begin()) {
+      terminate_with("Pointer does not belong to an upstream allocation");
+    }
+
+    auto const containing = std::prev(iter);
+    auto* const block_begin = containing->pointer();
+    auto* const block_end   = block_begin + containing->size();
+
+    if(char_ptr < block_begin || char_ptr >= block_end) {
+      terminate_with("Pointer does not belong to an upstream allocation");
+    }
+
+    auto const remaining = static_cast<std::size_t>(block_end - char_ptr);
+    if(size > remaining) {
+      terminate_with("Deallocation range extends past the upstream allocation boundary");
+    }
+
+    return block_type{char_ptr, size, char_ptr == block_begin};
   }
 
   /**
@@ -181,11 +239,13 @@ protected:
   void release() {
     for(auto block: upstream_blocks_) { get_upstream()->deallocate(block.pointer(), block.size()); }
     upstream_blocks_.clear();
+    total_bytes_allocated_ = 0;
   }
 
 private:
   Upstream*   upstream_mr_; // The "heap" to allocate the pool from
   std::size_t maximum_pool_size_{};
+  std::size_t total_bytes_allocated_{};
 
   // blocks allocated from upstream
   std::set<block_type, rmm::mr::detail::compare_blocks<block_type>> upstream_blocks_;
