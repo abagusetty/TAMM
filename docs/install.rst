@@ -239,8 +239,8 @@ Build instructions for Aurora
    CC=icx CXX=icpx FC=ifx cmake \
    -DCMAKE_INSTALL_PREFIX=$REPO_INSTALL_PATH \
    -DLINALG_VENDOR=IntelMKL -DLINALG_PREFIX=$MKLROOT \
-   -DTAMM_ENABLE_DPCPP=ON \
-   -DTAMM_CXX_FLAGS="-march=sapphirerapids -mtune=sapphirerapids -ffast-math -fsycl -fsycl-device-code-split=per_kernel -fsycl-targets=intel_gpu_pvc -sycl-std=2020"
+   -DTAMM_ENABLE_DPCPP=ON -DGPU_ARCH=intel_gpu_pvc \
+   -DTAMM_CXX_FLAGS="-march=sapphirerapids -mtune=sapphirerapids -ffast-math -fsycl-device-code-split=per_kernel -sycl-std=2020"
 
    make -j12
    make install
