@@ -25,7 +25,26 @@
 #include "sycl_device.hpp"
 #include <oneapi/mkl/blas.hpp>
 #include <oneapi/mkl/lapack.hpp>
+// sycl_ext_oneapi_enqueue_functions: queue-scoped free-function submissions.
+// The queue overloads of submit/parallel_for/nd_launch return void (no event is
+// created), and the memcpy/memset/copy overloads likewise avoid materializing
+// an event for the caller. Supported by oneAPI 2026.1; guarded on both the
+// header and the extension feature-test macro so older DPC++ toolchains fall
+// back to the queue member APIs.
+#if __has_include(<sycl/ext/oneapi/experimental/enqueue_functions.hpp>)
+#include <sycl/ext/oneapi/experimental/enqueue_functions.hpp>
+#if defined(SYCL_EXT_ONEAPI_ENQUEUE_FUNCTIONS)
+#define TAMM_SYCL_HAVE_ENQUEUE_FUNCTIONS 1
 #endif
+#endif
+// sycl_ext_oneapi_copy_optimize (prepare_for_device_copy /
+// release_from_device_copy) is intentionally NOT used: it targets page-locked
+// host memory, while TAMM's host pool wraps rmm::mr::new_delete_resource
+// (plain new/delete), so the hint would be meaningless and potentially unsafe.
+#if defined(TAMM_SYCL_HAVE_ENQUEUE_FUNCTIONS)
+namespace oneapi_ext = sycl::ext::oneapi::experimental;
+#endif
+#endif // USE_DPCPP
 
 namespace tamm {
 
@@ -290,8 +309,15 @@ template<typename T>
 static void gpuMemcpyAsync(T* dst, const T* src, size_t count, gpuMemcpyKind kind,
                            gpuStream_t& stream) {
 #if defined(USE_DPCPP)
+#if defined(TAMM_SYCL_HAVE_ENQUEUE_FUNCTIONS)
+  // Event-less queue overloads: no sycl::event is created for the caller.
+  // Ordering is still preserved by TAMM's in-order queue.
+  if(kind == gpuMemcpyDeviceToDevice) { oneapi_ext::copy(stream.first, src, dst, count); }
+  else { oneapi_ext::memcpy(stream.first, dst, src, count * sizeof(T)); }
+#else
   if(kind == gpuMemcpyDeviceToDevice) { stream.first.copy(src, dst, count); }
   else { stream.first.memcpy(dst, src, count * sizeof(T)); }
+#endif
 #elif defined(USE_CUDA)
   CUDA_CHECK(cudaMemcpyAsync(dst, src, count * sizeof(T), kind, stream.first));
 #elif defined(USE_HIP)
@@ -305,13 +331,43 @@ static void gpuMemcpyAsync(T* dst, const T* src, size_t count, gpuMemcpyKind kin
 // wrote through the reference, so the parameter was gratuitously mutable.
 static inline void gpuMemsetAsync(void* ptr, size_t sizeInBytes, gpuStream_t stream) {
 #if defined(USE_DPCPP)
+#if defined(TAMM_SYCL_HAVE_ENQUEUE_FUNCTIONS)
+  oneapi_ext::memset(stream.first, ptr, 0, sizeInBytes);
+#else
   stream.first.memset(ptr, 0, sizeInBytes);
+#endif
 #elif defined(USE_HIP)
   hipMemsetAsync(ptr, 0, sizeInBytes, stream.first);
 #elif defined(USE_CUDA)
   cudaMemsetAsync(ptr, 0, sizeInBytes, stream.first);
 #endif
 }
+
+#if defined(USE_DPCPP)
+// Event-less kernel submission (sycl_ext_oneapi_enqueue_functions). The queue
+// overloads return void, so no sycl::event is materialized per launch. TAMM
+// queues are created in-order, so dropping the event does not change ordering;
+// callers that need completion use gpuStreamSynchronize()/gpuEventRecord().
+template<int Dim, typename KernelType>
+static inline void gpuKernelLaunch(gpuStream_t& stream, sycl::range<Dim> range,
+                                   KernelType kernel) {
+#if defined(TAMM_SYCL_HAVE_ENQUEUE_FUNCTIONS)
+  oneapi_ext::parallel_for(stream.first, range, kernel);
+#else
+  stream.first.parallel_for(range, kernel);
+#endif
+}
+
+template<int Dim, typename KernelType>
+static inline void gpuKernelLaunch(gpuStream_t& stream, sycl::nd_range<Dim> range,
+                                   KernelType kernel) {
+#if defined(TAMM_SYCL_HAVE_ENQUEUE_FUNCTIONS)
+  oneapi_ext::nd_launch(stream.first, range, kernel);
+#else
+  stream.first.parallel_for(range, kernel);
+#endif
+}
+#endif // USE_DPCPP
 
 static inline void gpuStreamSynchronize(gpuStream_t stream) {
 #if defined(USE_DPCPP)

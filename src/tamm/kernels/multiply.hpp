@@ -18,6 +18,8 @@
 #include "tamm/utils.hpp"
 #include "tamm_blas.hpp"
 
+#include <blas.hh> // blas::scal / blas::axpy for the degenerate-GEMM fast path
+
 #if !defined(USE_CUDA) && !defined(USE_HIP) && !defined(USE_DPCPP)
 namespace tamm {
 using gpuStream_t = int; // not used
@@ -80,6 +82,34 @@ void gemm_wrapper(ExecutionHW hw, gpuStream_t& thandle, int AR, int BR, int B, i
   std::int64_t const bbatch_ld  = static_cast<std::int64_t>(K) * N;
   std::int64_t const areduce_ld = static_cast<std::int64_t>(B) * abatch_ld;
   std::int64_t const breduce_ld = static_cast<std::int64_t>(B) * bbatch_ld;
+
+  // C(M,1) = alpha * A(M,1) * B(1,1) + beta * C(M,1) is a length-M axpy/scal,
+  // not a GEMM (N == K == 1 => all leading dims collapse to 1). GEMM here is
+  // pure dispatch overhead; the level-1 kernels compute identical results.
+  // Host-only: the GPU path keeps gpu::gemm so device staging is unchanged.
+  if constexpr(std::is_same_v<T1, T2> && std::is_same_v<T1, T3>) {
+    if(hw == ExecutionHW::CPU && N == 1 && K == 1) {
+      for(std::int64_t ari = 0; ari < AR; ari++) {
+        for(std::int64_t bri = 0; bri < BR; bri++) {
+          for(std::int64_t i = 0; i < B; i++) {
+            const T1* A = ainter_buf + ari * areduce_ld + i * abatch_ld;
+            const T1  b0 = binter_buf[bri * breduce_ld + i * bbatch_ld];
+            T1*       C  = cinter_buf + i * cbatch_ld;
+            const T1  t  = alpha * b0;
+            if(beta == T1{0}) {
+              std::copy(A, A + M, C);
+              blas::scal(static_cast<int64_t>(M), t, C, 1);
+            }
+            else {
+              if(beta != T1{1}) { blas::scal(static_cast<int64_t>(M), static_cast<T1>(beta), C, 1); }
+              blas::axpy(static_cast<int64_t>(M), t, A, 1, C, 1);
+            }
+          }
+        }
+      }
+      return;
+    }
+  }
 
   for(std::int64_t ari = 0; ari < AR; ari++) {
     for(std::int64_t bri = 0; bri < BR; bri++) {

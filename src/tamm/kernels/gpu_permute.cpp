@@ -69,7 +69,7 @@ void permute(T* out, const T* in, int ndim, const size_t* outDims, const int* pe
     permute_kernel<T, uint32_t>
       <<<1, 1, 0, handle.first>>>(out, in, meta, 1, scale_re, scale_im, accumulate);
 #elif defined(USE_DPCPP)
-    handle.first.parallel_for(sycl::range<1>(1), [=](sycl::id<1>) {
+    gpuKernelLaunch(handle, sycl::range<1>(1), [=](sycl::id<1>) {
       const T y = permute_scaled<T>(in[0], scale_re, scale_im);
       out[0]    = accumulate ? permute_add<T>(out[0], y) : y;
     });
@@ -110,7 +110,7 @@ void permute(T* out, const T* in, int ndim, const size_t* outDims, const int* pe
   }
 #elif defined(USE_DPCPP)
   if(permute_meta_fits32(meta, total)) {
-    handle.first.parallel_for(sycl::range<1>(total), [=](sycl::id<1> idx) {
+    gpuKernelLaunch(handle, sycl::range<1>(total), [=](sycl::id<1> idx) {
       const uint32_t tid = static_cast<uint32_t>(idx[0]);
       const size_t   src = permute_src_index<uint32_t>(tid, meta);
       const T        y   = permute_scaled<T>(in[src], scale_re, scale_im);
@@ -118,7 +118,7 @@ void permute(T* out, const T* in, int ndim, const size_t* outDims, const int* pe
     });
   }
   else {
-    handle.first.parallel_for(sycl::range<1>(total), [=](sycl::id<1> idx) {
+    gpuKernelLaunch(handle, sycl::range<1>(total), [=](sycl::id<1> idx) {
       const size_t t   = idx[0];
       const size_t src = permute_src_index<uint64_t>(t, meta);
       const T      y   = permute_scaled<T>(in[src], scale_re, scale_im);

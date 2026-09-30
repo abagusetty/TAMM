@@ -322,6 +322,43 @@ public:
       auto* bufa = static_cast<T2*>(bufa_);
       auto* bufb = static_cast<T3*>(bufb_);
       auto* bufc = static_cast<T1*>(bufc_);
+
+      // Degenerate contractions are dot / rank-1 updates, not real GEMMs. When
+      // a free index count collapses (M_ or N_ or K_ is 1) a GEMM is pure
+      // overhead, so route to the matching BLAS level-1/2 kernel with identical
+      // math. Only taken when all three element types agree, so the mixed-type
+      // path below is unchanged. dotu/geru are the UNCONJUGATED variants, to
+      // match GEMM (blas::dot/ger would conjugate complex operands).
+      constexpr bool uniform_types = std::is_same_v<T1, T2> && std::is_same_v<T1, T3>;
+      if constexpr(uniform_types) {
+        if(M_ == 1 && N_ == 1) {
+          // C(1,1) = alpha * (A . B) + beta * C(1,1). For M=N=1 both operands
+          // are contiguous along k regardless of the transpose flags.
+          const T1 ab = alpha * blas::dotu(K_, bufa + r1off, 1, bufb + r2off, 1);
+          bufc[loff]   = (beta == T1{0}) ? ab : (beta * bufc[loff] + ab);
+          loff += M_ * N_;
+          r1off += M_ * K_;
+          r2off += K_ * N_;
+          continue;
+        }
+        if(K_ == 1) {
+          // C(M,N) += alpha * outer(A, B). For K=1 both operands are contiguous
+          // in m/n regardless of the transpose flags.
+          if(beta == T1{0}) {
+            std::fill(bufc + loff, bufc + loff + static_cast<size_t>(M_) * N_, T1{0});
+          }
+          else if(beta != T1{1}) {
+            blas::scal(static_cast<int64_t>(M_) * N_, static_cast<T1>(beta), bufc + loff, 1);
+          }
+          blas::geru(blas::Layout::RowMajor, M_, N_, alpha, bufa + r1off, 1, bufb + r2off, 1,
+                     bufc + loff, ldc);
+          loff += M_ * N_;
+          r1off += M_ * K_;
+          r2off += K_ * N_;
+          continue;
+        }
+      }
+
       blas::gemm(blas::Layout::RowMajor, TransA, TransB, M_, N_, K_, alpha, bufa + r1off, lda,
                  bufb + r2off, ldb, beta, bufc + loff, ldc);
       loff += M_ * N_;
