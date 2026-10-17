@@ -206,6 +206,7 @@ jobs:
           # image. TAMM_CXX_FLAGS override drops Aurora SPR tuning.
           cmake -B build -GNinja \
             -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install \
+            -DALLOW_CONDA=ON \
             -DTAMM_ENABLE_DPCPP=ON \
             -DGPU_ARCH=spir64 \
             -DTAMM_CXX_FLAGS="" \
