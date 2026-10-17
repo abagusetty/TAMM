@@ -198,9 +198,14 @@ jobs:
         run: |
           set -o pipefail; mkdir -p /tmp/logs
           source /opt/intel/oneapi/setvars.sh
+          # Ensure conda MPI takes precedence over Intel MPI (avoid libfabric clash)
+          export PATH="$CONDA_PREFIX/bin:$PATH"
+          export LD_LIBRARY_PATH="$CONDA_PREFIX/lib:$LD_LIBRARY_PATH"
           echo "MKLROOT=$MKLROOT"
           echo "CONDA_PREFIX=$CONDA_PREFIX"
           echo "CMPLR_ROOT=$CMPLR_ROOT"
+          echo "PATH=$PATH"
+          echo "MPIEXEC=$(which mpiexec) ($(mpiexec --version 2>&1 | head -n1))"
           cmake --version
           # TAMM uses CMakeBuild superbuild; GPU_ARCH=spir64 requests generic JIT
           # image. TAMM_CXX_FLAGS override drops Aurora SPR tuning.
@@ -211,6 +216,7 @@ jobs:
             -DALLOW_CONDA=ON \
             -DLINALG_VENDOR=IntelMKL \
             -DLINALG_PREFIX=$MKLROOT \
+            -DMPIEXEC_EXECUTABLE=$CONDA_PREFIX/bin/mpiexec \
             -DTAMM_ENABLE_DPCPP=ON \
             -DGPU_ARCH=spir64 \
             -DTAMM_CXX_FLAGS="" \
@@ -246,15 +252,19 @@ jobs:
         run: |
           set -o pipefail; mkdir -p /tmp/logs
           source /opt/intel/oneapi/setvars.sh
+          export PATH="$CONDA_PREFIX/bin:$PATH"
+          export LD_LIBRARY_PATH="$CONDA_PREFIX/lib:$LD_LIBRARY_PATH"
           {
             echo "=== ctest env ==="
             echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
             echo "MKLROOT=$MKLROOT"
+            echo "MPIEXEC=$(which mpiexec) ($(mpiexec --version 2>&1 | head -n1))"
             ldconfig -p | grep -E 'mkl|ifport|ifcore' | head -n 20 || true
             ls /opt/intel/oneapi/compiler/latest/lib/libifport* 2>&1 | head -n 5 || true
+            ldd $GITHUB_WORKSPACE/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Tensors 2>&1 | grep -E 'mpi|fabric|ifport' | head -n 10 || true
             echo "=== ctest ==="
-            # Ensure Intel runtime libs visible (libifport.so.5 etc.)
-            ctest --test-dir build -V --output-on-failure 2>&1 | head -n 500
+            # Ensure Intel runtime libs visible (libifport.so.5 etc.) but conda MPI first
+            ctest --test-dir build -V --output-on-failure 2>&1 | head -n 800
             echo "=== sycl cache ==="
             ls -lh /tmp/sycl_cache 2>&1 | head -n 20 || true
           } 2>&1 | tee /tmp/logs/50_ctest.log
