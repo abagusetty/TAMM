@@ -1,0 +1,1200 @@
+[9128/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctgevc_64.f.o
+[9129/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctgsyl_64.f.o
+[9130/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctptri_64.f.o
+[9131/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctbrfs_64.f.o
+[9132/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctptrs_64.f.o
+[9133/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctrcon_64.f.o
+[9134/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctrexc_64.f.o
+[9135/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctrsna_64.f.o
+[9136/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctrsen_64.f.o
+[9137/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctprfs_64.f.o
+[9138/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctrsyl_64.f.o
+[9139/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctrevc_64.f.o
+[9140/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctrevc3_64.f.o
+[9141/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctrti2_64.f.o
+[9142/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctrrfs_64.f.o
+[9143/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctrtri_64.f.o
+[9144/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctrtrs_64.f.o
+[9145/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cung2l_64.f.o
+[9146/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctzrzf_64.f.o
+[9147/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cung2r_64.f.o
+[9148/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cungbr_64.f.o
+[9149/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cungl2_64.f.o
+[9150/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cunghr_64.f.o
+[9151/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cungql_64.f.o
+[9152/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctrsyl3_64.f.o
+[9153/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cungqr_64.f.o
+[9154/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cunglq_64.f.o
+[9155/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cungrq_64.f.o
+[9156/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cungr2_64.f.o
+[9157/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cunm2l_64.f.o
+[9158/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cungtsqr_64.f.o
+[9159/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cungtr_64.f.o
+[9160/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cunm2r_64.f.o
+[9161/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cunmbr_64.f.o
+[9162/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cunml2_64.f.o
+[9163/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cungtsqr_row_64.f.o
+[9164/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cunmhr_64.f.o
+[9165/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cunmlq_64.f.o
+[9166/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cunm22_64.f.o
+[9167/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cunmql_64.f.o
+[9168/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cunmqr_64.f.o
+[9169/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cunmr2_64.f.o
+[9170/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cunmr3_64.f.o
+[9171/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cunmtr_64.f.o
+[9172/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cunmrq_64.f.o
+[9173/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cupmtr_64.f.o
+[9174/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cunmrz_64.f.o
+[9175/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/icmax1_64.f.o
+[9176/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cupgtr_64.f.o
+[9177/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/scsum1_64.f.o
+[9178/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cpftrf_64.f.o
+[9179/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cpftri_64.f.o
+[9180/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/chfrk_64.f.o
+[9181/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cpftrs_64.f.o
+[9182/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cstemr_64.f.o
+[9183/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctftri_64.f.o
+[9184/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctpttr_64.f.o
+[9185/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctfttp_64.f.o
+[9186/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctfsm_64.f.o
+[9187/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctrttp_64.f.o
+[9188/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cgeequb_64.f.o
+[9189/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctfttr_64.f.o
+[9190/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctpttf_64.f.o
+[9191/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cgbequb_64.f.o
+[9192/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctrttf_64.f.o
+[9193/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cpoequb_64.f.o
+[9194/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cheequb_64.f.o
+[9195/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/clapmr_64.f.o
+[9196/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/csyequb_64.f.o
+[9197/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cunbdb1_64.f.o
+[9198/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cunbdb2_64.f.o
+[9199/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cunbdb3_64.f.o
+[9200/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cunbdb_64.f.o
+[9201/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cunbdb5_64.f.o
+[9202/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cunbdb4_64.f.o
+[9203/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cunbdb6_64.f.o
+[9204/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cuncsd_64.f.o
+[9205/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/clanhf_64.f.o
+[9206/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cgeqrt_64.f.o
+[9207/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cgeqrt2_64.f.o
+[9208/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cbbcsd_64.f.o
+[9209/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctpqrt_64.f.o
+[9210/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cgemqrt_64.f.o
+[9211/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cgeqrt3_64.f.o
+[9212/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctpmqrt_64.f.o
+[9213/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cgelqt_64.f.o
+[9214/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctpqrt2_64.f.o
+[9215/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cuncsd2by1_64.f.o
+[9216/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cgelqt3_64.f.o
+[9217/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cgemlqt_64.f.o
+[9218/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cgetsqrhrt_64.f.o
+[9219/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cgeqr_64.f.o
+[9220/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cgetsls_64.f.o
+[9221/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/clatsqr_64.f.o
+[9222/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cgemqr_64.f.o
+[9223/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cgelq_64.f.o
+[9224/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/clamswlq_64.f.o
+[9225/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/claswlq_64.f.o
+[9226/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/clamtsqr_64.f.o
+[9227/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cgemlq_64.f.o
+[9228/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctplqt_64.f.o
+[9229/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/claunhr_col_getrfnp_64.f.o
+[9230/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/claunhr_col_getrfnp2_64.f.o
+[9231/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctpmlqt_64.f.o
+[9232/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cunhr_col_64.f.o
+[9233/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/chetrd_2stage_64.f.o
+[9234/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctplqt2_64.f.o
+[9235/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cheevd_2stage_64.f.o
+[9236/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/chetrd_he2hb_64.f.o
+[9237/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cheev_2stage_64.f.o
+[9238/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/chb2st_kernels_64.f.o
+[9239/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/chetrd_hb2st_64.F.o
+[9240/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ctprfb_64.f.o
+[9241/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cheevx_2stage_64.f.o
+[9242/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/chegv_2stage_64.f.o
+[9243/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/chbev_2stage_64.f.o
+[9244/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/chbevx_2stage_64.f.o
+[9245/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cheevr_2stage_64.f.o
+[9246/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/chbevd_2stage_64.f.o
+[9247/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cgetrs_64.f.o
+[9248/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cgetrf_64.f.o
+[9249/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cpotrf_64.f.o
+[9250/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cgedmdq_64.f90.o
+[9251/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cpotrs_64.f.o
+[9252/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cgedmd_64.f90.o
+[9253/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgbcon_64.f.o
+[9254/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zbdsqr_64.f.o
+[9255/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgbbrd_64.f.o
+[9256/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgbsv_64.f.o
+[9257/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgbtf2_64.f.o
+[9258/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgbequ_64.f.o
+[9259/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgbrfs_64.f.o
+[9260/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgebak_64.f.o
+[9261/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgbsvx_64.f.o
+[9262/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgbtrs_64.f.o
+[9263/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgecon_64.f.o
+[9264/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgebd2_64.f.o
+[9265/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgebrd_64.f.o
+[9266/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgebal_64.f.o
+[9267/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgbtrf_64.f.o
+[9268/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/cgesvdq_64.f.o
+[9269/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgees_64.f.o
+[9270/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgeesx_64.f.o
+[9271/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgeev_64.f.o
+[9272/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgehd2_64.f.o
+[9273/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgeequ_64.f.o
+[9274/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgeevx_64.f.o
+[9275/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgehrd_64.f.o
+[9276/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgelq2_64.f.o
+[9277/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgelqf_64.f.o
+[9278/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgeql2_64.f.o
+[9279/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgels_64.f.o
+[9280/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgelsd_64.f.o
+[9281/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgelst_64.f.o
+[9282/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgelsy_64.f.o
+[9283/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgelss_64.f.o
+[9284/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgeqlf_64.f.o
+[9285/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgeqr2_64.f.o
+[9286/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgeqp3_64.f.o
+[9287/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgeqp3rk_64.f.o
+[9288/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgeqrf_64.f.o
+[9289/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgeqr2p_64.f.o
+[9290/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgeqrfp_64.f.o
+[9291/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgerq2_64.f.o
+[9292/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgerqf_64.f.o
+[9293/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgesv_64.f.o
+[9294/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgecxx_64.f.o
+[9295/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgesc2_64.f.o
+[9296/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgerfs_64.f.o
+[9297/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgesvx_64.f.o
+[9298/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgesvdx_64.f.o
+[9299/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgesdd_64.f.o
+[9300/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgsvj0_64.f.o
+[9301/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgesvj_64.f.o
+[9302/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgetc2_64.f.o
+[9303/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgsvj1_64.f.o
+[9304/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgetrf_64.f.o
+[9305/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgetrf2_64.f.o
+[9306/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgetf2_64.f.o
+[9307/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgetrs_64.f.o
+[9308/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgetri_64.f.o
+[9309/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zggbak_64.f.o
+[9310/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgesvd_64.f.o
+[9311/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgges_64.f.o
+[9312/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgges3_64.f.o
+[9313/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zggesx_64.f.o
+[9314/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zggbal_64.f.o
+[9315/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zggev_64.f.o
+[9316/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zggglm_64.f.o
+[9317/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zggev3_64.f.o
+[9318/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zggevx_64.f.o
+[9319/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgglse_64.f.o
+[9320/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgghrd_64.f.o
+[9321/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zggqrf_64.f.o
+[9322/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zggrqf_64.f.o
+[9323/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgtcon_64.f.o
+[9324/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zggsvd3_64.f.o
+[9325/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgtsvx_64.f.o
+[9326/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgejsv_64.f.o
+[9327/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgtsv_64.f.o
+[9328/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zggsvp3_64.f.o
+[9329/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgttrf_64.f.o
+[9330/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgtrfs_64.f.o
+[9331/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgttrs_64.f.o
+[9332/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhbev_64.f.o
+[9333/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhbevd_64.f.o
+[9334/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhbgv_64.f.o
+[9335/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhbevx_64.f.o
+[9336/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhbgvd_64.f.o
+[9337/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgghd3_64.f.o
+[9338/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgtts2_64.f.o
+[9339/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhecon_64.f.o
+[9340/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhbgvx_64.f.o
+[9341/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zheev_64.f.o
+[9342/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zheevd_64.f.o
+[9343/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zheevr_64.f.o
+[9344/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhegs2_64.f.o
+[9345/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zheevx_64.f.o
+[9346/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhegst_64.f.o
+[9347/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhegv_64.f.o
+[9348/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhegvd_64.f.o
+[9349/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhesv_64.f.o
+[9350/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhegvx_64.f.o
+[9351/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhbtrd_64.f.o
+[9352/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhesvx_64.f.o
+[9353/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhetd2_64.f.o
+[9354/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zherfs_64.f.o
+[9355/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhetrf_64.f.o
+[9356/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhetrd_64.f.o
+[9357/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhetri2_64.f.o
+[9358/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhetri_64.f.o
+[9359/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhetf2_64.f.o
+[9360/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zheswapr_64.f.o
+[9361/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhetrs_64.f.o
+[9362/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhetrs2_64.f.o
+[9363/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhetrf_rook_64.f.o
+[9364/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhecon_rook_64.f.o
+[9365/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhetrs_rook_64.f.o
+[9366/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhesv_rook_64.f.o
+[9367/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhetf2_rook_64.f.o
+[9368/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhetri_rook_64.f.o
+[9369/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhetrf_rk_64.f.o
+[9370/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhetri_3_64.f.o
+[9371/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhetri2x_64.f.o
+[9372/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhetrs_3_64.f.o
+[9373/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhesv_rk_64.f.o
+[9374/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhecon_3_64.f.o
+[9375/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhesv_aa_64.f.o
+[9376/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhesv_aa_2stage_64.f.o
+[9377/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhetrf_aa_64.f.o
+[9378/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhetrs_aa_64.f.o
+[9379/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhetf2_rk_64.f.o
+[9380/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhetrs_aa_2stage_64.f.o
+[9381/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhpcon_64.f.o
+[9382/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhpev_64.f.o
+[9383/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhetrf_aa_2stage_64.f.o
+[9384/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhpevd_64.f.o
+[9385/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaqz1_64.f.o
+[9386/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaqz0_64.f.o
+[9387/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaqz2_64.f.o
+[9388/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhpgst_64.f.o
+[9389/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaqz3_64.f.o
+[9390/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhpevx_64.f.o
+[9391/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhpgv_64.f.o
+[9392/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhbgst_64.f.o
+[9393/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhetri_3x_64.f.o
+[9394/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhpgvd_64.f.o
+[9395/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhpgvx_64.f.o
+[9396/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhpsv_64.f.o
+[9397/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhpsvx_64.f.o
+[9398/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhgeqz_64.f.o
+[9399/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhptrd_64.f.o
+[9400/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhptri_64.f.o
+[9401/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhprfs_64.f.o
+[9402/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhptrs_64.f.o
+[9403/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhseqr_64.f.o
+[9404/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlacgv_64.f.o
+[9405/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhptrf_64.f.o
+[9406/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhsein_64.f.o
+[9407/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlabrd_64.f.o
+[9408/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlacon_64.f.o
+[9409/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlacn2_64.f.o
+[9410/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlacpy_64.f.o
+[9411/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlacp2_64.f.o
+[9412/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zladiv_64.f.o
+[9413/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlacrm_64.f.o
+[9414/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlacrt_64.f.o
+[9415/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaev2_64.f.o
+[9416/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaed7_64.f.o
+[9417/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaesy_64.f.o
+[9418/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaed0_64.f.o
+[9419/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlags2_64.f.o
+[9420/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaed8_64.f.o
+[9421/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaein_64.f.o
+[9422/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlahef_aa_64.f.o
+[9423/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlahef_64.f.o
+[9424/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlahr2_64.f.o
+[9425/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlagtm_64.f.o
+[9426/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlahef_rk_64.f.o
+[9427/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaic1_64.f.o
+[9428/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlahqr_64.f.o
+[9429/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlahef_rook_64.f.o
+[9430/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlangt_64.f.o
+[9431/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlange_64.f.o
+[9432/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlals0_64.f.o
+[9433/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlangb_64.f.o
+[9434/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlanhp_64.f.o
+[9435/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlanhe_64.f.o
+[9436/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlanhs_64.f.o
+[9437/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlanht_64.f.o
+[9438/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlanhb_64.f.o
+[9439/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlalsa_64.f.o
+[9440/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlansy_64.f.o
+[9441/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlalsd_64.f.o
+[9442/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlansp_64.f.o
+[9443/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlansb_64.f.o
+[9444/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlapll_64.f.o
+[9445/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlapmt_64.f.o
+[9446/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlantp_64.f.o
+[9447/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaqge_64.f.o
+[9448/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlantr_64.f.o
+[9449/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaqp2_64.f.o
+[9450/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaqgb_64.f.o
+[9451/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaqhp_64.f.o
+[9452/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaqhb_64.f.o
+[9453/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaqhe_64.f.o
+[9454/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlantb_64.f.o
+[9455/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaqp2rk_64.f.o
+[9456/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaqps_64.f.o
+[9457/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaqsb_64.f.o
+[9458/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaqp3rk_64.f.o
+[9459/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaqr1_64.f.o
+[9460/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaqr0_64.f.o
+[9461/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaqsp_64.f.o
+[9462/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaqr3_64.f.o
+[9463/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaqr2_64.f.o
+[9464/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaqsy_64.f.o
+[9465/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaqr4_64.f.o
+[9466/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlar2v_64.f.o
+[9467/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ilazlr_64.f.o
+[9468/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ilazlc_64.f.o
+[9469/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlarf_64.f.o
+[9470/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlarcm_64.f.o
+[9471/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlar1v_64.f.o
+[9472/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlarfb_gett_64.f.o
+[9473/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlarf1f_64.f.o
+[9474/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaqr5_64.f.o
+[9475/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlarfg_64.f.o
+[9476/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlarfb_64.f.o
+[9477/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlarf1l_64.f.o
+[9478/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlarfgp_64.f.o
+[9479/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlarfy_64.f.o
+[9480/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlarft_64.f.o
+[9481/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlargv_64.f.o
+[9482/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlarnv_64.f.o
+[9483/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlartv_64.f.o
+[9484/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlartg_64.f90.o
+[9485/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlarft_lvl2_64.f.o
+[9486/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlarz_64.f.o
+[9487/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlarzt_64.f.o
+[9488/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlarzb_64.f.o
+[9489/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaset_64.f.o
+[9490/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlascl_64.f.o
+[9491/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlarrv_64.f.o
+[9492/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlassq_64.f90.o
+[9493/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlarfx_64.f.o
+[9494/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaswp_64.f.o
+[9495/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlasr_64.f.o
+[9496/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlasyf_aa_64.f.o
+[9497/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlasyf_64.f.o
+[9498/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlasyf_rook_64.f.o
+[9499/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlasyf_rk_64.f.o
+[9500/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlatdf_64.f.o
+[9501/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlatrd_64.f.o
+[9502/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlatrz_64.f.o
+[9503/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlauu2_64.f.o
+[9504/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpbcon_64.f.o
+[9505/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlauum_64.f.o
+[9506/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlatrs3_64.f.o
+[9507/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlatbs_64.f.o
+[9508/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpbequ_64.f.o
+[9509/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpbsv_64.f.o
+[9510/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlatps_64.f.o
+[9511/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpbstf_64.f.o
+[9512/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpbtf2_64.f.o
+[9513/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpbtrs_64.f.o
+[9514/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpbrfs_64.f.o
+[9515/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpbsvx_64.f.o
+[9516/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpocon_64.f.o
+[9517/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zposv_64.f.o
+[9518/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpoequ_64.f.o
+[9519/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlatrs_64.f.o
+[9520/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpbtrf_64.f.o
+[9521/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpotri_64.f.o
+[9522/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpotf2_64.f.o
+[9523/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpotrf2_64.f.o
+[9524/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpotrf_64.f.o
+[9525/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpotrs_64.f.o
+[9526/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zposvx_64.f.o
+[9527/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zporfs_64.f.o
+[9528/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zppcon_64.f.o
+[9529/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zppsv_64.f.o
+[9530/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zppequ_64.f.o
+[9531/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpptrf_64.f.o
+[9532/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpptri_64.f.o
+[9533/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpprfs_64.f.o
+[9534/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zppsvx_64.f.o
+[9535/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpstf2_64.f.o
+[9536/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpptrs_64.f.o
+[9537/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpstrf_64.f.o
+[9538/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zptcon_64.f.o
+[9539/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zptsv_64.f.o
+[9540/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zptsvx_64.f.o
+[9541/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpttrs_64.f.o
+[9542/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpteqr_64.f.o
+[9543/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpttrf_64.f.o
+[9544/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zspcon_64.f.o
+[9545/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zptts2_64.f.o
+[9546/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zrot_64.f.o
+[9547/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zspsv_64.f.o
+[9548/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zspsvx_64.f.o
+[9549/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zspr_64.f.o
+[9550/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zptrfs_64.f.o
+[9551/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zspmv_64.f.o
+[9552/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsprfs_64.f.o
+[9553/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsptri_64.f.o
+[9554/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zdrscl_64.f.o
+[9555/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zstegr_64.f.o
+[9556/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zrscl_64.f.o
+[9557/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsptrs_64.f.o
+[9558/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zstedc_64.f.o
+[9559/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsycon_64.f.o
+[9560/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsptrf_64.f.o
+[9561/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zstein_64.f.o
+[9562/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsyr_64.f.o
+[9563/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsysv_64.f.o
+[9564/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsysvx_64.f.o
+[9565/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsteqr_64.f.o
+[9566/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsytrf_64.f.o
+[9567/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsymv_64.f.o
+[9568/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsytri2_64.f.o
+[9569/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsyrfs_64.f.o
+[9570/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsytri_64.f.o
+[9571/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsytf2_64.f.o
+[9572/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsyswapr_64.f.o
+[9573/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsytrs_64.f.o
+[9574/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsytrs2_64.f.o
+[9575/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsyconvf_64.f.o
+[9576/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsyconvf_rook_64.f.o
+[9577/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsytf2_rook_64.f.o
+[9578/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsytrf_rook_64.f.o
+[9579/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsyconv_64.f.o
+[9580/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsytrs_aa_64.f.o
+[9581/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsysv_rook_64.f.o
+[9582/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsytrs_rook_64.f.o
+[9583/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsycon_rook_64.f.o
+[9584/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsytri_rook_64.f.o
+[9585/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsytrf_rk_64.f.o
+[9586/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsysv_aa_2stage_64.f.o
+[9587/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsytri2x_64.f.o
+[9588/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsytrs_3_64.f.o
+[9589/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsytrs_aa_2stage_64.f.o
+[9590/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsytri_3_64.f.o
+[9591/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsytrf_aa_64.f.o
+[9592/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsysv_rk_64.f.o
+[9593/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsycon_3_64.f.o
+[9594/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztbcon_64.f.o
+[9595/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsysv_aa_64.f.o
+[9596/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsytf2_rk_64.f.o
+[9597/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztbtrs_64.f.o
+[9598/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsytrf_aa_2stage_64.f.o
+[9599/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztgexc_64.f.o
+[9600/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztgex2_64.f.o
+[9601/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztgsen_64.f.o
+[9602/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztgsna_64.f.o
+[9603/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztgsy2_64.f.o
+[9604/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztgsja_64.f.o
+[9605/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztbrfs_64.f.o
+[9606/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztpcon_64.f.o
+[9607/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztptri_64.f.o
+[9608/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsytri_3x_64.f.o
+[9609/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztptrs_64.f.o
+[9610/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztrcon_64.f.o
+[9611/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztgsyl_64.f.o
+[9612/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztgevc_64.f.o
+[9613/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztrexc_64.f.o
+[9614/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztprfs_64.f.o
+[9615/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztrevc3_64.f.o
+[9616/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztrsyl_64.f.o
+[9617/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztrsen_64.f.o
+[9618/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztrsna_64.f.o
+[9619/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztrti2_64.f.o
+[9620/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztrevc_64.f.o
+[9621/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztrtrs_64.f.o
+[9622/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztzrzf_64.f.o
+[9623/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztrtri_64.f.o
+[9624/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zung2l_64.f.o
+[9625/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztrrfs_64.f.o
+[9626/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zung2r_64.f.o
+[9627/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zungbr_64.f.o
+[9628/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zunghr_64.f.o
+[9629/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zungl2_64.f.o
+[9630/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zunglq_64.f.o
+[9631/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zungr2_64.f.o
+[9632/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zungql_64.f.o
+[9633/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zungrq_64.f.o
+[9634/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zungqr_64.f.o
+[9635/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zungtsqr_64.f.o
+[9636/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zungtr_64.f.o
+[9637/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zungtsqr_row_64.f.o
+[9638/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zunm2l_64.f.o
+[9639/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zunm2r_64.f.o
+[9640/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zunmhr_64.f.o
+[9641/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zunml2_64.f.o
+[9642/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zunmbr_64.f.o
+[9643/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zunmqr_64.f.o
+[9644/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zunmlq_64.f.o
+[9645/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zunmql_64.f.o
+[9646/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zunm22_64.f.o
+[9647/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zunmr2_64.f.o
+[9648/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zunmr3_64.f.o
+[9649/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zunmrq_64.f.o
+[9650/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztrsyl3_64.f.o
+[9651/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zunmtr_64.f.o
+[9652/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zunmrz_64.f.o
+[9653/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/izmax1_64.f.o
+[9654/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zupgtr_64.f.o
+[9655/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/dzsum1_64.f.o
+[9656/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zupmtr_64.f.o
+[9657/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlag2c_64.f.o
+[9658/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zcposv_64.f.o
+[9659/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zcgesv_64.f.o
+[9660/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/clag2z_64.f.o
+[9661/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zstemr_64.f.o
+[9662/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlat2c_64.f.o
+[9663/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpftrs_64.f.o
+[9664/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpftri_64.f.o
+[9665/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpftrf_64.f.o
+[9666/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhfrk_64.f.o
+[9667/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztftri_64.f.o
+[9668/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztfsm_64.f.o
+[9669/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztpttr_64.f.o
+[9670/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztfttp_64.f.o
+[9671/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztrttp_64.f.o
+[9672/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgeequb_64.f.o
+[9673/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztpttf_64.f.o
+[9674/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztrttf_64.f.o
+[9675/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zpoequb_64.f.o
+[9676/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgbequb_64.f.o
+[9677/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zsyequb_64.f.o
+[9678/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztfttr_64.f.o
+[9679/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlapmr_64.f.o
+[9680/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zunbdb1_64.f.o
+[9681/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zunbdb3_64.f.o
+[9682/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zunbdb2_64.f.o
+[9683/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zunbdb4_64.f.o
+[9684/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zunbdb_64.f.o
+[9685/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zunbdb5_64.f.o
+[9686/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zheequb_64.f.o
+[9687/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zunbdb6_64.f.o
+[9688/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlanhf_64.f.o
+[9689/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zuncsd_64.f.o
+[9690/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgeqrt_64.f.o
+[9691/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgeqrt2_64.f.o
+[9692/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgemqrt_64.f.o
+[9693/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztpqrt_64.f.o
+[9694/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgeqrt3_64.f.o
+[9695/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zbbcsd_64.f.o
+[9696/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztpqrt2_64.f.o
+[9697/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztpmqrt_64.f.o
+[9698/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztplqt_64.f.o
+[9699/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgelqt_64.f.o
+[9700/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zuncsd2by1_64.f.o
+[9701/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztpmlqt_64.f.o
+[9702/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgelqt3_64.f.o
+[9703/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgemlqt_64.f.o
+[9704/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlatsqr_64.f.o
+[9705/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgetsqrhrt_64.f.o
+[9706/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlamtsqr_64.f.o
+[9707/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztplqt2_64.f.o
+[9708/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgetsls_64.f.o
+[9709/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgeqr_64.f.o
+[9710/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgemqr_64.f.o
+[9711/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgemlq_64.f.o
+[9712/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgelq_64.f.o
+[9713/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaswlq_64.f.o
+[9714/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zunhr_col_64.f.o
+[9715/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlamswlq_64.f.o
+[9716/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaunhr_col_getrfnp_64.f.o
+[9717/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhetrd_2stage_64.f.o
+[9718/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zlaunhr_col_getrfnp2_64.f.o
+[9719/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zheevd_2stage_64.f.o
+[9720/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhetrd_he2hb_64.f.o
+[9721/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zheev_2stage_64.f.o
+[9722/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhb2st_kernels_64.f.o
+[9723/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhetrd_hb2st_64.F.o
+[9724/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhbev_2stage_64.f.o
+[9725/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zheevx_2stage_64.f.o
+[9726/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zheevr_2stage_64.f.o
+[9727/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhbevd_2stage_64.f.o
+[9728/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhegv_2stage_64.f.o
+[9729/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zhbevx_2stage_64.f.o
+[9730/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/ztprfb_64.f.o
+[9731/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgedmdq_64.f90.o
+[9732/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgedmd_64.f90.o
+[9733/9734] Building Fortran object SRC/CMakeFiles/lapack64_64_obj.dir/lapack64_64_sources/zgesvdq_64.f.o
+[9734/9734] Linking Fortran static library lib/liblapack64.a
+[49/97] Performing install step for 'LAPACK_External'
+[0/1] Install the project...
+-- Install configuration: "Release"
+-- Installing: /home/runner/work/TAMM/TAMM/install/lib/liblapack64.a
+-- Installing: /home/runner/work/TAMM/TAMM/install/include/lapack.h
+-- Installing: /home/runner/work/TAMM/TAMM/install/include/lapacke_mangling.h
+-- Installing: /home/runner/work/TAMM/TAMM/install/lib/cmake/lapack64-3.12.1/lapack64-targets.cmake
+-- Installing: /home/runner/work/TAMM/TAMM/install/lib/cmake/lapack64-3.12.1/lapack64-targets-release.cmake
+-- Installing: /home/runner/work/TAMM/TAMM/install/lib/pkgconfig/lapack64.pc
+-- Installing: /home/runner/work/TAMM/TAMM/install/lib/cmake/lapack64-3.12.1/lapack64-config.cmake
+-- Installing: /home/runner/work/TAMM/TAMM/install/lib/cmake/lapack64-3.12.1/lapack64-config-version.cmake
+[50/97] Completed 'LAPACK_External'
+[51/97] Creating directories for 'GlobalArrays_External'
+[52/97] Performing download step (git clone) for 'GlobalArrays_External'
+Cloning into 'GlobalArrays_External'...
+HEAD is now at 843923e3 Merge pull request #394 from edoapra/asan
+[53/97] Performing disconnected update step for 'GlobalArrays_External'
+-- Already at requested ref: 843923e3b263fbccf97023da92b93263ee9b670e
+[54/97] No patch_disconnected step for 'GlobalArrays_External'
+[55/97] Performing configure step for 'GlobalArrays_External'
+FAILED: [code=1] GlobalArrays_External-prefix/src/GlobalArrays_External-stamp/GlobalArrays_External-configure /home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External-stamp/GlobalArrays_External-configure 
+cd /home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External-build && /home/runner/micromamba/envs/sycl-ci/bin/cmake -DCMAKE_CXX_COMPILER=/opt/intel/oneapi/compiler/2026.2/bin/icpx -DCMAKE_C_COMPILER=/opt/intel/oneapi/compiler/2026.2/bin/icx -DSUPER_PROJECT_BINARY_DIR=/home/runner/work/TAMM/TAMM/build -DCMAKE_Fortran_COMPILER=/opt/intel/oneapi/compiler/2026.2/bin/ifx -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF "-DCMAKE_C_FLAGS_RELEASE=-O3 -DNDEBUG -march=native" "-DCMAKE_CXX_FLAGS_RELEASE=-O3 -DNDEBUG -march=native" "-DCMAKE_Fortran_FLAGS_RELEASE=-O3 -march=native" -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DCMAKE_INSTALL_RPATH=/home/runner/work/TAMM/TAMM/install/lib /home/runner/work/TAMM/TAMM/install/lib64 -DCMAKE_BUILD_WITH_INSTALL_RPATH=TRUE -DCMAKE_INSTALL_PREFIX=/home/runner/work/TAMM/TAMM/install -DCMAKE_CXX_STANDARD=20 -DCMAKE_VERSION=4.4.4 -DPROJECT_VERSION=0.0.0 -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE -DCMAKE_VERBOSE_MAKEFILE=FALSE -DCMAKE_CXX_EXTENSIONS=OFF -DCMAKE_FIND_PACKAGE_NO_PACKAGE_REGISTRY=TRUE -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DMPIEXEC_EXECUTABLE=/opt/intel/oneapi/mpi/2021.19/bin/mpiexec "-DCMAKE_C_FLAGS_INIT=  " "-DCMAKE_CXX_FLAGS_INIT=  " -DBLAS_INT4=OFF -DLINALG_VENDOR=OpenBLAS -DENABLE_COVERAGE=OFF -DUSE_SCALAPACK=OFF -DUSE_HDF5=ON -DUSE_LIBNUMA=ON -DUSE_NWQSIM=OFF -DENABLE_BLAS=ON -DLINALG_VENDOR=OpenBLAS -DLINALG_PREFIX=/home/runner/work/TAMM/TAMM/install -DLAPACK_PREFIX=/home/runner/work/TAMM/TAMM/install -DENABLE_DPCPP=ON -DGA_RUNTIME=MPI_PROGRESS_RANK -DENABLE_SYSV=OFF -DENABLE_PROFILING=OFF -DLINALG_REQUIRED_COMPONENTS=ilp64 -GNinja -C/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/tmp/GlobalArrays_External-cache-Release.cmake -S /home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External -B /home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External-build && /home/runner/micromamba/envs/sycl-ci/bin/cmake -E touch /home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External-stamp/GlobalArrays_External-configure
+CMake Warning:
+  Ignoring extra path from command line:
+
+   "/home/runner/work/TAMM/TAMM/install/lib64"
+
+
+loading initial cache file /home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/tmp/GlobalArrays_External-cache-Release.cmake
+CMake Warning (author) at /home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/tmp/GlobalArrays_External-cache-Release.cmake:2 (set):
+  implicitly converting 'LIST' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/tmp/GlobalArrays_External-cache-Release.cmake:3 (set):
+  implicitly converting 'LIST' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/tmp/GlobalArrays_External-cache-Release.cmake:4 (set):
+  implicitly converting 'LIST' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/tmp/GlobalArrays_External-cache-Release.cmake:5 (set):
+  implicitly converting 'LIST' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/tmp/GlobalArrays_External-cache-Release.cmake:6 (set):
+  implicitly converting 'LIST' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+-- The C compiler identification is IntelLLVM 2026.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /opt/intel/oneapi/compiler/2026.2/bin/icx - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- CMAKE_MODULE_PATH: /home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/cmake/linalg-modules;/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/cmake;/home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install;/home/runner/work/TAMM/TAMM/build/_deps/cmakebuild-src/cmake/macros;/home/runner/work/TAMM/TAMM/build/_deps/cmakebuild-src/cmake/find_external;/home/runner/work/TAMM/TAMM/build/_deps/cmakebuild-src/cmake/build_external;/home/runner/work/TAMM/TAMM/build/_deps/linalg-cmake-modules-src
+-- Setting value of ENABLE_CXX to default : ON
+-- Setting value of ENABLE_FORTRAN to default : ON
+-- Value of ENABLE_COVERAGE was set by user to : OFF
+-- Value of CMAKE_CXX_EXTENSIONS was set by user to : OFF
+-- The CXX compiler identification is IntelLLVM 2026.2.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /opt/intel/oneapi/compiler/2026.2/bin/icpx - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- The Fortran compiler identification is IntelLLVM 2026.2.0
+-- Detecting Fortran compiler ABI info
+-- Detecting Fortran compiler ABI info - done
+-- Check for working Fortran compiler: /opt/intel/oneapi/compiler/2026.2/bin/ifx - skipped
+-- Value of CMAKE_BUILD_TYPE was set by user to : Release
+-- Value of LINALG_VENDOR was set by user to : OpenBLAS
+-- Setting value of ENABLE_TESTS to default : ON
+-- Value of ENABLE_PROFILING was set by user to : OFF
+-- Value of ENABLE_SYSV was set by user to : OFF
+-- Value of ENABLE_BLAS was set by user to : ON
+-- Setting value of ENABLE_SCALAPACK to default : OFF
+-- Setting value of ENABLE_EISPACK to default : OFF
+-- Value of ENABLE_DPCPP was set by user to : ON
+-- Value of ENABLE_DEV_MODE was set by user to : OFF
+-- Value of GA_RUNTIME was set by user to : MPI_PROGRESS_RANK
+-- Checking MPI ...
+-- Found MPI_C: /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so (found version "3.1")
+-- Found MPI_CXX: /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so (found version "3.1")
+-- Found MPI_Fortran: /home/runner/micromamba/envs/sycl-ci/lib/libmpi_usempif08.so (found version "3.1")
+-- Found MPI: TRUE (found version "3.1")
+-- Performing Test HAVE_RESTRICT
+-- Performing Test HAVE_RESTRICT - Success
+-- Performing Test HAVE_INLINE_NATIVE
+-- Performing Test HAVE_INLINE_NATIVE - Success
+-- Performing Test HAVE_PAUSE
+-- Performing Test HAVE_PAUSE - Failed
+-- Performing Test HAVE_LONG_DOUBLE
+-- Performing Test HAVE_LONG_DOUBLE - Success
+-- Performing Test HAVE_SYS_WEAK_ALIAS_PRAGMA
+-- Performing Test HAVE_SYS_WEAK_ALIAS_PRAGMA - Failed
+-- Looking for sys/types.h
+-- Looking for sys/types.h - found
+-- Looking for stdint.h
+-- Looking for stdint.h - found
+-- Looking for stddef.h
+-- Looking for stddef.h - found
+-- Check size of int
+-- Check size of int - done
+-- Check size of double
+-- Check size of double - done
+-- Check size of float
+-- Check size of float - done
+-- Check size of long
+-- Check size of long - done
+-- Check size of long double
+-- Check size of long double - done
+-- Check size of long long
+-- Check size of long long - done
+-- Check size of short
+-- Check size of short - done
+-- Looking for include file assert.h
+-- Looking for include file assert.h - found
+-- Looking for include file limits.h
+-- Looking for include file limits.h - found
+-- Looking for include file linux/limits.h
+-- Looking for include file linux/limits.h - found
+-- Looking for include file malloc.h
+-- Looking for include file malloc.h - found
+-- Looking for include file math.h
+-- Looking for include file math.h - found
+-- Looking for include file stdio.h
+-- Looking for include file stdio.h - found
+-- Looking for include file stdlib.h
+-- Looking for include file stdlib.h - found
+-- Looking for include file strings.h
+-- Looking for include file strings.h - found
+-- Looking for include file string.h
+-- Looking for include file string.h - found
+-- Looking for include file unistd.h
+-- Looking for include file unistd.h - found
+-- Looking for include file windows.h
+-- Looking for include file windows.h - not found
+-- Looking for bzero
+-- Looking for bzero - found
+-- Detecting Fortran/C Interface
+-- Detecting Fortran/C Interface - Found GLOBAL and MODULE mangling
+-- void size: 8, USE_I8: ON, ENABLE_I8: ON
+-- BLAS_LIBRARIES Not Given: Will Perform Search
+-- Found OpenBLAS: /home/runner/micromamba/envs/sycl-ci/lib/libopenblas.a  found components: ilp64 ilp64
+-- Performing Test BLAS_LOWER_UNDERSCORE
+-- Performing Test BLAS_LOWER_UNDERSCORE -- found
+-- Could NOT find BLAS (missing: ilp64) 
+CMake Error at cmake/ga-linalg.cmake:160 (message):
+  ENABLE_BLAS=ON, but a LAPACK library was not found
+Call Stack (most recent call first):
+  CMakeLists.txt:193 (include)
+
+
+-- Configuring incomplete, errors occurred!
+[56/97] Performing build step for 'HDF5_External'
+[1/424] Building C object src/CMakeFiles/hdf5-static.dir/H5build_settings.c.o
+[2/424] Building C object src/CMakeFiles/hdf5-static.dir/H5checksum.c.o
+[3/424] Building C object src/CMakeFiles/hdf5-static.dir/H5dbg.c.o
+[4/424] Building C object src/CMakeFiles/hdf5-static.dir/H5mpi.c.o
+[5/424] Building C object src/CMakeFiles/hdf5-static.dir/H5.c.o
+[6/424] Building C object src/CMakeFiles/hdf5-static.dir/H5timer.c.o
+[7/424] Building C object src/CMakeFiles/hdf5-static.dir/H5system.c.o
+[8/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Abtree2.c.o
+[9/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Adeprec.c.o
+[10/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Atest.c.o
+[11/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Adense.c.o
+[12/424] Building C object src/CMakeFiles/hdf5-static.dir/H5ACdbg.c.o
+[13/424] Building C object src/CMakeFiles/hdf5-static.dir/H5A.c.o
+[14/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Aint.c.o
+[15/424] Building C object src/CMakeFiles/hdf5-static.dir/H5ACproxy_entry.c.o
+[16/424] Building C object src/CMakeFiles/hdf5-static.dir/H5AC.c.o
+[17/424] Building C object src/CMakeFiles/hdf5-static.dir/H5trace.c.o
+[18/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Bcache.c.o
+[19/424] Building C object src/CMakeFiles/hdf5-static.dir/H5ACmpio.c.o
+[20/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Bdbg.c.o
+[21/424] Building C object src/CMakeFiles/hdf5-static.dir/H5B2dbg.c.o
+[22/424] Building C object src/CMakeFiles/hdf5-static.dir/H5B.c.o
+[23/424] Building C object src/CMakeFiles/hdf5-static.dir/H5B2cache.c.o
+[24/424] Building C object src/CMakeFiles/hdf5-static.dir/H5B2hdr.c.o
+[25/424] Building C object src/CMakeFiles/hdf5-static.dir/H5B2.c.o
+[26/424] Building C object src/CMakeFiles/hdf5-static.dir/H5B2stat.c.o
+[27/424] Building C object src/CMakeFiles/hdf5-static.dir/H5B2leaf.c.o
+[28/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Cdbg.c.o
+[29/424] Building C object src/CMakeFiles/hdf5-static.dir/H5B2test.c.o
+[30/424] Building C object src/CMakeFiles/hdf5-static.dir/H5B2internal.c.o
+[31/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Cepoch.c.o
+[32/424] Building C object src/CMakeFiles/hdf5-static.dir/H5B2int.c.o
+[33/424] Building C object src/CMakeFiles/hdf5-static.dir/H5C.c.o
+[34/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Clog_json.c.o
+[35/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Clog.c.o
+[36/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Cimage.c.o
+[37/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Clog_trace.c.o
+[38/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Cint.c.o
+[39/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Cprefetched.c.o
+[40/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Cmpio.c.o
+[41/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Cquery.c.o
+[42/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Ctest.c.o
+[43/424] Building C object src/CMakeFiles/hdf5-static.dir/H5CS.c.o
+[44/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Ctag.c.o
+[45/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Centry.c.o
+[46/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Dbtree.c.o
+[47/424] Building C object src/CMakeFiles/hdf5-static.dir/H5CX.c.o
+[48/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Dbtree2.c.o
+[49/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Dcompact.c.o
+[50/424] Building C object src/CMakeFiles/hdf5-static.dir/H5D.c.o
+[51/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Ddbg.c.o
+[52/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Dcontig.c.o
+[53/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Ddeprec.c.o
+[54/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Dearray.c.o
+[55/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Dfill.c.o
+[56/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Defl.c.o
+[57/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Dfarray.c.o
+[58/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Dlayout.c.o
+[59/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Dnone.c.o
+[60/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Doh.c.o
+[61/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Dio.c.o
+[62/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Dselect.c.o
+[63/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Dsingle.c.o
+[64/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Dscatgath.c.o
+[65/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Dtest.c.o
+[66/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Dint.c.o
+/home/runner/work/TAMM/TAMM/build/HDF5_External-prefix/src/HDF5_External/src/H5Dint.c:780:72: warning: variable 'mtime' is uninitialized when passed as a const pointer argument here [-Wuninitialized-const-pointer]
+  780 |             get_value = H5O_msg_size_oh(file, ohdr, H5O_MTIME_NEW_ID, &mtime, 0);
+      |                                                                        ^~~~~
+1 warning generated.
+[67/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Edeprec.c.o
+[68/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Dchunk.c.o
+[69/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Eint.c.o
+[70/424] Building C object src/CMakeFiles/hdf5-static.dir/H5EA.c.o
+[71/424] Building C object src/CMakeFiles/hdf5-static.dir/H5EAdblkpage.c.o
+[72/424] Building C object src/CMakeFiles/hdf5-static.dir/H5E.c.o
+[73/424] Building C object src/CMakeFiles/hdf5-static.dir/H5EAdbg.c.o
+[74/424] Building C object src/CMakeFiles/hdf5-static.dir/H5EAdblock.c.o
+[75/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Dvirtual.c.o
+[76/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Dmpio.c.o
+[77/424] Building C object src/CMakeFiles/hdf5-static.dir/H5EAiblock.c.o
+[78/424] Building C object src/CMakeFiles/hdf5-static.dir/H5EAhdr.c.o
+[79/424] Building C object src/CMakeFiles/hdf5-static.dir/H5EAcache.c.o
+[80/424] Building C object src/CMakeFiles/hdf5-static.dir/H5EAint.c.o
+[81/424] Building C object src/CMakeFiles/hdf5-static.dir/H5EAsblock.c.o
+[82/424] Building C object src/CMakeFiles/hdf5-static.dir/H5EAstat.c.o
+[83/424] Building C object src/CMakeFiles/hdf5-static.dir/H5ESevent.c.o
+[84/424] Building C object src/CMakeFiles/hdf5-static.dir/H5EAtest.c.o
+[85/424] Building C object src/CMakeFiles/hdf5-static.dir/H5ESlist.c.o
+[86/424] Building C object src/CMakeFiles/hdf5-static.dir/H5ES.c.o
+[87/424] Building C object src/CMakeFiles/hdf5-static.dir/H5ESint.c.o
+[88/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Fdbg.c.o
+[89/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Faccum.c.o
+[90/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Fdeprec.c.o
+[91/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Fcwfs.c.o
+[92/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Ffake.c.o
+[93/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Fio.c.o
+[94/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Fefc.c.o
+[95/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Fquery.c.o
+[96/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Fmount.c.o
+[97/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Fmpi.c.o
+[98/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Fsfile.c.o
+[99/424] Building C object src/CMakeFiles/hdf5-static.dir/H5F.c.o
+[100/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Fspace.c.o
+[101/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Ftest.c.o
+[102/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Fsuper_cache.c.o
+[103/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FAcache.c.o
+[104/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FA.c.o
+[105/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FAdblock.c.o
+[106/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FAdblkpage.c.o
+[107/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Fsuper.c.o
+[108/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FAdbg.c.o
+[109/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FAhdr.c.o
+[110/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Fint.c.o
+[111/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FAint.c.o
+[112/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FAstat.c.o
+[113/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FAtest.c.o
+[114/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FDhdfs.c.o
+[115/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FDdirect.c.o
+[116/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FDfamily.c.o
+[117/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FDmirror.c.o
+[118/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FDcore.c.o
+[119/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FDmpi.c.o
+[120/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FDlog.c.o
+[121/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FD.c.o
+[122/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FDonion_header.c.o
+[123/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FDonion_history.c.o
+[124/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FDint.c.o
+[125/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FDonion.c.o
+[126/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FDperform.c.o
+[127/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FDmulti.c.o
+[128/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FDonion_index.c.o
+[129/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FDros3.c.o
+[130/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FDs3comms.c.o
+[131/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FDspace.c.o
+[132/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FDmpio.c.o
+[133/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FDtest.c.o
+[134/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FDstdio.c.o
+[135/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FDsec2.c.o
+[136/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FDwindows.c.o
+[137/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FO.c.o
+[138/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FDsplitter.c.o
+[139/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FL.c.o
+[140/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FSint.c.o
+[141/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FSdbg.c.o
+[142/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FS.c.o
+[143/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FSstat.c.o
+[144/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FScache.c.o
+[145/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FStest.c.o
+[146/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Gbtree2.c.o
+[147/424] Building C object src/CMakeFiles/hdf5-static.dir/H5FSsection.c.o
+[148/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Gcache.c.o
+[149/424] Building C object src/CMakeFiles/hdf5-static.dir/H5G.c.o
+[150/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Gcompact.c.o
+[151/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Glink.c.o
+[152/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Gent.c.o
+[153/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Gloc.c.o
+[154/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Gdense.c.o
+[155/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Gdeprec.c.o
+[156/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Gname.c.o
+[157/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Gint.c.o
+[158/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Gobj.c.o
+[159/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Goh.c.o
+[160/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Groot.c.o
+[161/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Gtraverse.c.o
+[162/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Gstab.c.o
+[163/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Gnode.c.o
+[164/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Gtest.c.o
+[165/424] Building C object src/CMakeFiles/hdf5-static.dir/H5HFbtree2.c.o
+[166/424] Building C object src/CMakeFiles/hdf5-static.dir/H5HF.c.o
+[167/424] Building C object src/CMakeFiles/hdf5-static.dir/H5HFdtable.c.o
+[168/424] Building C object src/CMakeFiles/hdf5-static.dir/H5HFhdr.c.o
+[169/424] Building C object src/CMakeFiles/hdf5-static.dir/H5HFdblock.c.o
+[170/424] Building C object src/CMakeFiles/hdf5-static.dir/H5HFdbg.c.o
+[171/424] Building C object src/CMakeFiles/hdf5-static.dir/H5HFiter.c.o
+[172/424] Building C object src/CMakeFiles/hdf5-static.dir/H5HFhuge.c.o
+[173/424] Building C object src/CMakeFiles/hdf5-static.dir/H5HFspace.c.o
+[174/424] Building C object src/CMakeFiles/hdf5-static.dir/H5HFcache.c.o
+[175/424] Building C object src/CMakeFiles/hdf5-static.dir/H5HFstat.c.o
+[176/424] Building C object src/CMakeFiles/hdf5-static.dir/H5HFman.c.o
+[177/424] Building C object src/CMakeFiles/hdf5-static.dir/H5HFtest.c.o
+[178/424] Building C object src/CMakeFiles/hdf5-static.dir/H5HFtiny.c.o
+[179/424] Building C object src/CMakeFiles/hdf5-static.dir/H5HFiblock.c.o
+[180/424] Building C object src/CMakeFiles/hdf5-static.dir/H5HGquery.c.o
+[181/424] Building C object src/CMakeFiles/hdf5-static.dir/H5HGdbg.c.o
+[182/424] Building C object src/CMakeFiles/hdf5-static.dir/H5HGcache.c.o
+[183/424] Building C object src/CMakeFiles/hdf5-static.dir/H5HG.c.o
+[184/424] Building C object src/CMakeFiles/hdf5-static.dir/H5HFsection.c.o
+[185/424] Building C object src/CMakeFiles/hdf5-static.dir/H5HLdbg.c.o
+[186/424] Building C object src/CMakeFiles/hdf5-static.dir/H5HLint.c.o
+[187/424] Building C object src/CMakeFiles/hdf5-static.dir/H5HLdblk.c.o
+[188/424] Building C object src/CMakeFiles/hdf5-static.dir/H5HL.c.o
+[189/424] Building C object src/CMakeFiles/hdf5-static.dir/H5HLcache.c.o
+[190/424] Building C object src/CMakeFiles/hdf5-static.dir/H5HLprfx.c.o
+[191/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Idbg.c.o
+[192/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Itest.c.o
+[193/424] Building C object src/CMakeFiles/hdf5-static.dir/H5I.c.o
+[194/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Lexternal.c.o
+[195/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Ldeprec.c.o
+[196/424] Building C object src/CMakeFiles/hdf5-static.dir/H5M.c.o
+[197/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Lint.c.o
+[198/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Iint.c.o
+[199/424] Building C object src/CMakeFiles/hdf5-static.dir/H5L.c.o
+[200/424] Building C object src/CMakeFiles/hdf5-static.dir/H5MFdbg.c.o
+[201/424] Building C object src/CMakeFiles/hdf5-static.dir/H5MFaggr.c.o
+[202/424] Building C object src/CMakeFiles/hdf5-static.dir/H5MFsection.c.o
+[203/424] Building C object src/CMakeFiles/hdf5-static.dir/H5MM.c.o
+[204/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Oainfo.c.o
+[205/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Obogus.c.o
+[206/424] Building C object src/CMakeFiles/hdf5-static.dir/H5MF.c.o
+[207/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Oattr.c.o
+[208/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Obtreek.c.o
+[209/424] Building C object src/CMakeFiles/hdf5-static.dir/H5O.c.o
+[210/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Oattribute.c.o
+[211/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Ocont.c.o
+[212/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Ocache_image.c.o
+[213/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Ochunk.c.o
+[214/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Oalloc.c.o
+[215/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Ocache.c.o
+[216/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Odbg.c.o
+[217/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Ocopy_ref.c.o
+[218/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Ocopy.c.o
+[219/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Odrvinfo.c.o
+[220/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Odeprec.c.o
+[221/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Ofill.c.o
+[222/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Oflush.c.o
+[223/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Oginfo.c.o
+[224/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Oefl.c.o
+[225/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Ofsinfo.c.o
+[226/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Olinfo.c.o
+[227/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Oint.c.o
+[228/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Olink.c.o
+[229/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Olayout.c.o
+[230/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Omtime.c.o
+[231/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Oname.c.o
+[232/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Onull.c.o
+[233/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Omessage.c.o
+[234/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Odtype.c.o
+[235/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Oshmesg.c.o
+[236/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Oshared.c.o
+[237/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Orefcount.c.o
+[238/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Ostab.c.o
+[239/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Opline.c.o
+[240/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Ounknown.c.o
+[241/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Pacpl.c.o
+[242/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Osdspace.c.o
+[243/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Otest.c.o
+[244/424] Building C object src/CMakeFiles/hdf5-static.dir/H5P.c.o
+[245/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Pencdec.c.o
+[246/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Pdeprec.c.o
+[247/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Pfmpl.c.o
+[248/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Pdapl.c.o
+[249/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Pdxpl.c.o
+[250/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Pfcpl.c.o
+[251/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Pgcpl.c.o
+[252/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Pdcpl.c.o
+[253/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Pmapl.c.o
+[254/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Plcpl.c.o
+[255/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Pmcpl.c.o
+[256/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Plapl.c.o
+[257/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Pstrcpl.c.o
+[258/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Pocpypl.c.o
+[259/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Ptest.c.o
+[260/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Pint.c.o
+[261/424] Building C object src/CMakeFiles/hdf5-static.dir/H5PLint.c.o
+[262/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Pocpl.c.o
+[263/424] Building C object src/CMakeFiles/hdf5-static.dir/H5PL.c.o
+[264/424] Building C object src/CMakeFiles/hdf5-static.dir/H5PLplugin_cache.c.o
+[265/424] Building C object src/CMakeFiles/hdf5-static.dir/H5PLpath.c.o
+[266/424] Building C object src/CMakeFiles/hdf5-static.dir/H5R.c.o
+[267/424] Building C object src/CMakeFiles/hdf5-static.dir/H5PB.c.o
+[268/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Pfapl.c.o
+[269/424] Building C object src/CMakeFiles/hdf5-static.dir/H5UC.c.o
+[270/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Rdeprec.c.o
+[271/424] Building C object src/CMakeFiles/hdf5-static.dir/H5RS.c.o
+[272/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Sall.c.o
+[273/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Rint.c.o
+[274/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Sdbg.c.o
+[275/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Sdeprec.c.o
+[276/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Snone.c.o
+[277/424] Building C object src/CMakeFiles/hdf5-static.dir/H5S.c.o
+[278/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Smpio.c.o
+[279/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Stest.c.o
+[280/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Sselect.c.o
+[281/424] Building C object src/CMakeFiles/hdf5-static.dir/H5SMbtree2.c.o
+[282/424] Building C object src/CMakeFiles/hdf5-static.dir/H5SMcache.c.o
+[283/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Spoint.c.o
+[284/424] Building C object src/CMakeFiles/hdf5-static.dir/H5SMmessage.c.o
+[285/424] Building C object src/CMakeFiles/hdf5-static.dir/H5SM.c.o
+[286/424] Building C object src/CMakeFiles/hdf5-static.dir/H5SMtest.c.o
+[287/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Tarray.c.o
+[288/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Tbit.c.o
+[289/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Tcommit.c.o
+[290/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Tcompound.c.o
+[291/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Tcset.c.o
+[292/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Tdbg.c.o
+[293/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Tdeprec.c.o
+[294/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Tfields.c.o
+[295/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Tenum.c.o
+[296/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Tfloat.c.o
+[297/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Tfixed.c.o
+[298/424] Building C object src/CMakeFiles/hdf5-static.dir/H5SL.c.o
+[299/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Tnative.c.o
+[300/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Tinit_float.c.o
+[301/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Toh.c.o
+[302/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Topaque.c.o
+[303/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Torder.c.o
+[304/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Tpad.c.o
+[305/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Toffset.c.o
+[306/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Tprecis.c.o
+[307/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Tref.c.o
+[308/424] Building C object src/CMakeFiles/hdf5-static.dir/H5T.c.o
+[309/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Tvisit.c.o
+[310/424] Building C object src/CMakeFiles/hdf5-static.dir/H5TS.c.o
+[311/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Tstrpad.c.o
+[312/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Tvlen.c.o
+[313/424] Building C object src/CMakeFiles/hdf5-static.dir/H5VLdyn_ops.c.o
+[314/424] Building C object src/CMakeFiles/hdf5-static.dir/H5VLint.c.o
+[315/424] Building C object src/CMakeFiles/hdf5-static.dir/H5VL.c.o
+[316/424] Building C object src/CMakeFiles/hdf5-static.dir/H5VLnative.c.o
+[317/424] Building C object src/CMakeFiles/hdf5-static.dir/H5VLnative_blob.c.o
+[318/424] Building C object src/CMakeFiles/hdf5-static.dir/H5VLnative_attr.c.o
+[319/424] Building C object src/CMakeFiles/hdf5-static.dir/H5VLnative_datatype.c.o
+[320/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Shyper.c.o
+[321/424] Building C object src/CMakeFiles/hdf5-static.dir/H5VLnative_dataset.c.o
+[322/424] Building C object src/CMakeFiles/hdf5-static.dir/H5VLnative_file.c.o
+[323/424] Building C object src/CMakeFiles/hdf5-static.dir/H5VLnative_group.c.o
+[324/424] Building C object src/CMakeFiles/hdf5-static.dir/H5VLnative_link.c.o
+[325/424] Building C object src/CMakeFiles/hdf5-static.dir/H5VLnative_introspect.c.o
+[326/424] Building C object src/CMakeFiles/hdf5-static.dir/H5VLnative_token.c.o
+[327/424] Building C object src/CMakeFiles/hdf5-static.dir/H5VLtest.c.o
+[328/424] Building C object src/CMakeFiles/hdf5-static.dir/H5VLcallback.c.o
+[329/424] Building C object src/CMakeFiles/hdf5-static.dir/H5VLnative_object.c.o
+[330/424] Building C object src/CMakeFiles/hdf5-static.dir/H5WB.c.o
+[331/424] Building C object src/CMakeFiles/hdf5-static.dir/H5VLpassthru.c.o
+/home/runner/work/TAMM/TAMM/build/HDF5_External-prefix/src/HDF5_External/src/H5VLpassthru.c:2689:35: warning: comparison of different enumeration types ('H5VL_request_status_t' (aka 'enum H5VL_request_status_t') and 'enum H5ES_status_t') [-Wenum-compare]
+ 2689 |     if (ret_value >= 0 && *status != H5ES_STATUS_IN_PROGRESS)
+      |                           ~~~~~~~ ^  ~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+[332/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Zdeflate.c.o
+[333/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Zfletcher32.c.o
+[334/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Zshuffle.c.o
+[335/424] Building C object src/CMakeFiles/hdf5-static.dir/H5VM.c.o
+[336/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Z.c.o
+[337/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Zszip.c.o
+[338/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Znbit.c.o
+[339/424] Building C object tools/lib/CMakeFiles/hdf5_tools-static.dir/h5diff_attr.c.o
+[340/424] Building C object tools/lib/CMakeFiles/hdf5_tools-static.dir/h5diff.c.o
+[341/424] Building C object tools/lib/CMakeFiles/hdf5_tools-static.dir/h5diff_util.c.o
+[342/424] Building C object tools/lib/CMakeFiles/hdf5_tools-static.dir/h5diff_dset.c.o
+[343/424] Building C object tools/lib/CMakeFiles/hdf5_tools-static.dir/h5diff_array.c.o
+[344/424] Building C object tools/lib/CMakeFiles/hdf5_tools-static.dir/h5tools.c.o
+[345/424] Building C object tools/lib/CMakeFiles/hdf5_tools-static.dir/h5tools_filters.c.o
+[346/424] Building C object tools/lib/CMakeFiles/hdf5_tools-static.dir/h5tools_ref.c.o
+[347/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Zscaleoffset.c.o
+[348/424] Building C object tools/lib/CMakeFiles/hdf5_tools-static.dir/h5tools_type.c.o
+[349/424] Building C object tools/lib/CMakeFiles/hdf5_tools-static.dir/h5trav.c.o
+[350/424] Building C object tools/lib/CMakeFiles/hdf5_tools-static.dir/h5tools_utils.c.o
+[351/424] Building C object tools/lib/CMakeFiles/hdf5_tools-static.dir/io_timer.c.o
+/home/runner/work/TAMM/TAMM/build/HDF5_External-prefix/src/HDF5_External/tools/lib/io_timer.c:36:19: warning: variable 'timer_g' set but not used [-Wunused-but-set-global]
+   36 | static io_time_t *timer_g; /* timer: global for stub functions     */
+      |                   ^
+1 warning generated.
+[352/424] Building C object tools/lib/CMakeFiles/hdf5_tools-static.dir/h5tools_str.c.o
+[353/424] Building C object hl/src/CMakeFiles/hdf5_hl-static.dir/H5DO.c.o
+[354/424] Building C object hl/src/CMakeFiles/hdf5_hl-static.dir/H5IM.c.o
+[355/424] Building C object hl/src/CMakeFiles/hdf5_hl-static.dir/H5LT.c.o
+[356/424] Building C object hl/src/CMakeFiles/hdf5_hl-static.dir/H5DS.c.o
+[357/424] Building C object hl/src/CMakeFiles/hdf5_hl-static.dir/H5LTparse.c.o
+[358/424] Building C object hl/src/CMakeFiles/hdf5_hl-static.dir/H5LTanalyze.c.o
+[359/424] Building C object hl/src/CMakeFiles/hdf5_hl-static.dir/H5PT.c.o
+[360/424] Building C object tools/lib/CMakeFiles/hdf5_tools-static.dir/h5tools_dump.c.o
+[361/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Ztrans.c.o
+[362/424] Building C object utils/mirror_vfd/CMakeFiles/mirror_server.dir/mirror_remote.c.o
+[363/424] Building C object utils/mirror_vfd/CMakeFiles/mirror_server.dir/mirror_server.c.o
+[364/424] Building C object utils/mirror_vfd/CMakeFiles/mirror_server_stop.dir/mirror_server_stop.c.o
+[365/424] Building C object hl/src/CMakeFiles/hdf5_hl-static.dir/H5LD.c.o
+[366/424] Building C object tools/src/h5diff/CMakeFiles/h5diff.dir/h5diff_main.c.o
+[367/424] Building C object utils/mirror_vfd/CMakeFiles/mirror_server.dir/mirror_writer.c.o
+[368/424] Building C object tools/src/h5diff/CMakeFiles/h5diff.dir/h5diff_common.c.o
+[369/424] Building C object tools/src/h5diff/CMakeFiles/ph5diff.dir/ph5diff_main.c.o
+[370/424] Building C object tools/src/h5diff/CMakeFiles/ph5diff.dir/h5diff_common.c.o
+[371/424] Building C object hl/src/CMakeFiles/hdf5_hl-static.dir/H5TB.c.o
+[372/424] Building C object tools/src/misc/CMakeFiles/h5clear.dir/h5clear.c.o
+[373/424] Building C object tools/src/misc/CMakeFiles/h5debug.dir/h5debug.c.o
+[374/424] Building C object tools/src/misc/CMakeFiles/h5repart.dir/h5repart.c.o
+[375/424] Building C object tools/src/misc/CMakeFiles/h5delete.dir/h5delete.c.o
+[376/424] Building C object tools/src/misc/CMakeFiles/h5mkgrp.dir/h5mkgrp.c.o
+[377/424] Building C object tools/src/h5ls/CMakeFiles/h5ls.dir/h5ls.c.o
+[378/424] Building C object tools/src/h5repack/CMakeFiles/h5repack.dir/h5repack_filters.c.o
+[379/424] Building C object tools/src/h5repack/CMakeFiles/h5repack.dir/h5repack_parse.c.o
+[380/424] Building C object tools/src/h5repack/CMakeFiles/h5repack.dir/h5repack_refs.c.o
+[381/424] Building C object tools/src/h5repack/CMakeFiles/h5repack.dir/h5repack_verify.c.o
+[382/424] Building C object tools/src/h5import/CMakeFiles/h5import.dir/h5import.c.o
+[383/424] Building C object tools/src/h5repack/CMakeFiles/h5repack.dir/h5repack_opttable.c.o
+[384/424] Building C object tools/src/h5repack/CMakeFiles/h5repack.dir/h5repack_copy.c.o
+[385/424] Building C object tools/src/h5repack/CMakeFiles/h5repack.dir/h5repack.c.o
+[386/424] Building C object tools/src/h5repack/CMakeFiles/h5repack.dir/h5repack_main.c.o
+[387/424] Building C object tools/src/h5copy/CMakeFiles/h5copy.dir/h5copy.c.o
+[388/424] Building C object tools/src/h5jam/CMakeFiles/h5jam.dir/h5jam.c.o
+[389/424] Building C object tools/src/h5jam/CMakeFiles/h5unjam.dir/h5unjam.c.o
+[390/424] Building C object tools/src/h5format_convert/CMakeFiles/h5format_convert.dir/h5format_convert.c.o
+[391/424] Building C object tools/src/h5dump/CMakeFiles/h5dump.dir/h5dump_ddl.c.o
+[392/424] Building C object tools/src/h5dump/CMakeFiles/h5dump.dir/h5dump.c.o
+[393/424] Building C object tools/src/h5stat/CMakeFiles/h5stat.dir/h5stat.c.o
+[394/424] Building C object tools/src/h5perf/CMakeFiles/h5perf_serial.dir/sio_engine.c.o
+[395/424] Building C object tools/src/h5perf/CMakeFiles/h5perf_serial.dir/sio_perf.c.o
+[396/424] Building C object tools/src/h5dump/CMakeFiles/h5dump.dir/h5dump_xml.c.o
+[397/424] Building C object tools/src/h5perf/CMakeFiles/h5perf.dir/pio_perf.c.o
+[398/424] Building C object tools/src/h5perf/CMakeFiles/h5perf.dir/pio_engine.c.o
+[399/424] Building C object hl/tools/h5watch/CMakeFiles/h5watch.dir/h5watch.c.o
+[400/424] Building C object src/CMakeFiles/hdf5-static.dir/H5Tconv.c.o
+[401/424] Linking C static library bin/libhdf5.a
+[402/424] Linking C executable bin/mirror_server_stop
+[403/424] Linking C executable bin/mirror_server
+[404/424] Linking C static library bin/libhdf5_hl.a
+[405/424] Linking C static library bin/libhdf5_tools.a
+[406/424] Linking C executable bin/h5debug
+[407/424] Linking C executable bin/h5repart
+[408/424] Linking C executable bin/h5ls
+[409/424] Linking C executable bin/h5mkgrp
+[410/424] Linking C executable bin/ph5diff
+[411/424] Linking C executable bin/h5diff
+[412/424] Linking C executable bin/h5clear
+[413/424] Linking C executable bin/h5import
+[414/424] Linking C executable bin/h5delete
+[415/424] Linking C executable bin/h5repack
+[416/424] Linking C executable bin/h5unjam
+[417/424] Linking C executable bin/h5jam
+[418/424] Linking C executable bin/h5copy
+[419/424] Linking C executable bin/h5stat
+[420/424] Linking C executable bin/h5dump
+[421/424] Linking C executable bin/h5format_convert
+[422/424] Linking C executable bin/h5perf
+[423/424] Linking C executable bin/h5perf_serial
+[424/424] Linking C executable bin/h5watch
+ninja: build stopped: subcommand failed.
