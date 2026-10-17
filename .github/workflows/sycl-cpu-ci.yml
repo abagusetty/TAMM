@@ -120,13 +120,13 @@ jobs:
             wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB | gpg --dearmor | sudo tee /usr/share/keyrings/oneAPI.gpg > /dev/null
             echo "deb [signed-by=/usr/share/keyrings/oneAPI.gpg] https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
             sudo apt-get update
-            # 2026.2.0 packages verified via apt Packages (2026.2.0-178/299/603/631)
+            # 2026.2.0 packages verified via apt Packages; TBB/OpenCL have different naming
             sudo apt-get install -y \
               intel-oneapi-compiler-dpcpp-cpp-2026.2 \
               intel-oneapi-compiler-fortran-2026.2 \
               intel-oneapi-mkl-devel-2026.2 \
-              intel-oneapi-tbb-devel-2026.2 \
-              intel-oneapi-runtime-opencl-2026.2
+              intel-oneapi-tbb-devel \
+              intel-oneapi-runtime-opencl
             # Source oneAPI env for subsequent steps in this job
             source /opt/intel/oneapi/setvars.sh
             icpx --version; icx --version; ifx --version
