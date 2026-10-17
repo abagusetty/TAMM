@@ -1,0 +1,697 @@
+=== ctest env ===
+LD_LIBRARY_PATH=/home/runner/micromamba/envs/sycl-ci/lib:/opt/intel/oneapi/tcm/1.6/lib:/opt/intel/oneapi/umf/1.2/lib:/opt/intel/oneapi/tcm/1.6/env/../lib:/opt/intel/oneapi/tbb/2023.2/env/../lib/intel64/gcc4.8:/opt/intel/oneapi/mpi/2021.19/lib:/opt/intel/oneapi/mkl/2026.2/lib:/opt/intel/oneapi/libfabric/2.6/lib:/opt/intel/oneapi/debugger/2026.2/opt/debugger/lib:/opt/intel/oneapi/compiler/2026.2/opt/compiler/lib:/opt/intel/oneapi/compiler/2026.2/lib
+MKLROOT=/opt/intel/oneapi/mkl/2026.2
+MPIEXEC=/home/runner/micromamba/envs/sycl-ci/bin/mpiexec (mpiexec (Open MPI) 5.0.11)
+/opt/intel/oneapi/compiler/latest/lib/libifport.a
+/opt/intel/oneapi/compiler/latest/lib/libifport.so
+/opt/intel/oneapi/compiler/latest/lib/libifport.so.5
+/opt/intel/oneapi/compiler/latest/lib/libifport_msan.a
+	libmpi_usempif08.so.40 => /home/runner/micromamba/envs/sycl-ci/lib/libmpi_usempif08.so.40 (0x00007f5d72cd4000)
+	libmpi_usempi_ignore_tkr.so.40 => /home/runner/micromamba/envs/sycl-ci/lib/libmpi_usempi_ignore_tkr.so.40 (0x00007f5d76e22000)
+	libmpi_mpifh.so.40 => /home/runner/micromamba/envs/sycl-ci/lib/libmpi_mpifh.so.40 (0x00007f5d71d8d000)
+	libmpi.so.40 => /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40 (0x00007f5d69c00000)
+	libifport.so.5 => /opt/intel/oneapi/compiler/2026.2/lib/libifport.so.5 (0x00007f5d72caa000)
+	libifcoremt.so.5 => /opt/intel/oneapi/compiler/2026.2/lib/libifcoremt.so.5 (0x00007f5d69a8e000)
+	libsycl.so.9 => /opt/intel/oneapi/compiler/2026.2/lib/libsycl.so.9 (0x00007f5d69400000)
+	libsvml.so => /opt/intel/oneapi/compiler/2026.2/lib/libsvml.so (0x00007f5d67200000)
+	libirng.so => /opt/intel/oneapi/compiler/2026.2/lib/libirng.so (0x00007f5d71c8f000)
+	libimf.so => /opt/intel/oneapi/compiler/2026.2/lib/libimf.so (0x00007f5d66c00000)
+=== ctest ===
+UpdateCTestConfiguration  from :/home/runner/work/TAMM/TAMM/build/DartConfiguration.tcl
+Test project /home/runner/work/TAMM/TAMM/build
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+      Start  1: Test_IndexSpace
+
+1: Test command: /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_IndexSpace
+1: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+1: Test timeout computed to be: 10000000
+1: [doctest] doctest version is "2.4.11"
+1: [doctest] run with "--help" for options
+1: self-comparison
+1: is1 == is2
+1: is1 != is2
+1: is1 != is4
+1: is3 != is4
+1: is1 == is5
+1: is1 == is6
+1: is1 == is7
+1: is2 == is5
+1: is2 == is6
+1: is2 == is7
+1: is5 == is5
+1: is5 == is6
+1: is5 == is7
+1: is6 == is7
+1: ===============================================================================
+1: [doctest] test cases:  15 |  15 passed | 0 failed | 0 skipped
+1: [doctest] assertions: 975 | 975 passed | 0 failed |
+1: [doctest] Status: SUCCESS!
+ 1/35 Test  #1: Test_IndexSpace ..................   Passed    0.47 sec
+test 2
+      Start  2: Test_IndexLoopNest
+
+2: Test command: /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_IndexLoopNest
+2: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+2: Test timeout computed to be: 10000000
+2: [doctest] doctest version is "2.4.11"
+2: [doctest] run with "--help" for options
+2: ===============================================================================
+2: [doctest] test cases:   15 |   15 passed | 0 failed | 0 skipped
+2: [doctest] assertions: 1235 | 1235 passed | 0 failed |
+2: [doctest] Status: SUCCESS!
+ 2/35 Test  #2: Test_IndexLoopNest ...............   Passed    0.46 sec
+test 3
+      Start  3: Test_Tensors
+
+3: Test command: /home/runner/micromamba/envs/sycl-ci/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Tensors"
+3: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+3: Test timeout computed to be: 10000000
+3: ERROR: GPU devices not available! ... terminating program.
+3: 
+ 3/35 Test  #3: Test_Tensors .....................***Failed    0.57 sec
+ERROR: GPU devices not available! ... terminating program.
+
+
+test 4
+      Start  4: Test_Ops
+
+4: Test command: /home/runner/micromamba/envs/sycl-ci/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Ops"
+4: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+4: Test timeout computed to be: 10000000
+4: ERROR: GPU devices not available! ... terminating program.
+4: 
+ 4/35 Test  #4: Test_Ops .........................***Failed    0.57 sec
+ERROR: GPU devices not available! ... terminating program.
+
+
+test 5
+      Start  5: Test_DependentSpace
+
+5: Test command: /home/runner/micromamba/envs/sycl-ci/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_DependentSpace"
+5: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+5: Test timeout computed to be: 10000000
+5: ERROR: GPU devices not available! ... terminating program.
+5: 
+ 5/35 Test  #5: Test_DependentSpace ..............***Failed    0.57 sec
+ERROR: GPU devices not available! ... terminating program.
+
+
+test 6
+      Start  6: Test_Utils
+
+6: Test command: /home/runner/micromamba/envs/sycl-ci/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Utils"
+6: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+6: Test timeout computed to be: 10000000
+6: ERROR: GPU devices not available! ... terminating program.
+6: 
+ 6/35 Test  #6: Test_Utils .......................***Failed    0.57 sec
+ERROR: GPU devices not available! ... terminating program.
+
+
+test 7
+      Start  7: Test_Mult_Ops
+
+7: Test command: /home/runner/micromamba/envs/sycl-ci/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Mult_Ops" "50" "20"
+7: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+7: Test timeout computed to be: 10000000
+7: ERROR: GPU devices not available! ... terminating program.
+7: 
+ 7/35 Test  #7: Test_Mult_Ops ....................***Failed    0.57 sec
+ERROR: GPU devices not available! ... terminating program.
+
+
+test 8
+      Start  8: Test_DLPNO_Ops
+
+8: Test command: /home/runner/micromamba/envs/sycl-ci/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_DLPNO_Ops" "10" "2"
+8: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+8: Test timeout computed to be: 10000000
+8: ERROR: GPU devices not available! ... terminating program.
+8: 
+ 8/35 Test  #8: Test_DLPNO_Ops ...................***Failed    0.57 sec
+ERROR: GPU devices not available! ... terminating program.
+
+
+test 9
+      Start  9: Test_OpDAG
+
+9: Test command: /home/runner/micromamba/envs/sycl-ci/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_OpDAG"
+9: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+9: Test timeout computed to be: 10000000
+9: ERROR: GPU devices not available! ... terminating program.
+9: 
+ 9/35 Test  #9: Test_OpDAG .......................***Failed    0.57 sec
+ERROR: GPU devices not available! ... terminating program.
+
+
+test 10
+      Start 10: Test_Opmin
+
+10: Test command: /home/runner/micromamba/envs/sycl-ci/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Opmin"
+10: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+10: Test timeout computed to be: 10000000
+10: ERROR: GPU devices not available! ... terminating program.
+10: 
+10/35 Test #10: Test_Opmin .......................***Failed    0.57 sec
+ERROR: GPU devices not available! ... terminating program.
+
+
+test 11
+      Start 11: Test_IO
+
+11: Test command: /home/runner/micromamba/envs/sycl-ci/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_IO" "10" "10"
+11: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+11: Test timeout computed to be: 10000000
+11: ERROR: GPU devices not available! ... terminating program.
+11: 
+11/35 Test #11: Test_IO ..........................***Failed    0.57 sec
+ERROR: GPU devices not available! ... terminating program.
+
+
+test 12
+      Start 12: Test_EVP
+
+12: Test command: /home/runner/micromamba/envs/sycl-ci/bin/mpiexec "-n" "5" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_EVP" "100" "80" "200"
+12: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+12: Test timeout computed to be: 10000000
+12: --------------------------------------------------------------------------
+12: There are not enough slots available in the system to satisfy the 5
+12: slots that were requested by the application:
+12: 
+12:   /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_EVP
+12: 
+12: Either request fewer procs for your application, or make more slots
+12: available for use.
+12: 
+12: A "slot" is the PRRTE term for an allocatable unit where we can
+12: launch a process.  The number of slots available are defined by the
+12: environment in which PRRTE processes are run:
+12: 
+12:   1. Hostfile, via "slots=N" clauses (N defaults to number of
+12:      processor cores if not provided)
+12:   2. The --host command line parameter, via a ":N" suffix on the
+12:      hostname (N defaults to 1 if not provided)
+12:   3. Resource manager (e.g., SLURM, PBS/Torque, LSF, etc.)
+12:   4. If none of a hostfile, the --host command line parameter, or an
+12:      RM is present, PRRTE defaults to the number of processor cores
+12: 
+12: In all the above cases, if you want PRRTE to default to the number
+12: of hardware threads instead of the number of processor cores, use the
+12: --use-hwthread-cpus option.
+12: 
+12: Alternatively, you can use the --map-by :OVERSUBSCRIBE option to ignore the
+12: number of available slots when deciding the number of processes to
+12: launch.
+12: --------------------------------------------------------------------------
+12: 
+12/35 Test #12: Test_EVP .........................***Failed    0.02 sec
+--------------------------------------------------------------------------
+There are not enough slots available in the system to satisfy the 5
+slots that were requested by the application:
+
+  /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_EVP
+
+Either request fewer procs for your application, or make more slots
+available for use.
+
+A "slot" is the PRRTE term for an allocatable unit where we can
+launch a process.  The number of slots available are defined by the
+environment in which PRRTE processes are run:
+
+  1. Hostfile, via "slots=N" clauses (N defaults to number of
+     processor cores if not provided)
+  2. The --host command line parameter, via a ":N" suffix on the
+     hostname (N defaults to 1 if not provided)
+  3. Resource manager (e.g., SLURM, PBS/Torque, LSF, etc.)
+  4. If none of a hostfile, the --host command line parameter, or an
+     RM is present, PRRTE defaults to the number of processor cores
+
+In all the above cases, if you want PRRTE to default to the number
+of hardware threads instead of the number of processor cores, use the
+--use-hwthread-cpus option.
+
+Alternatively, you can use the --map-by :OVERSUBSCRIBE option to ignore the
+number of available slots when deciding the number of processes to
+launch.
+--------------------------------------------------------------------------
+
+
+test 13
+      Start 13: Test_SVD
+
+13: Test command: /home/runner/micromamba/envs/sycl-ci/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_SVD" "40" "20" "10"
+13: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+13: Test timeout computed to be: 10000000
+13: ERROR: GPU devices not available! ... terminating program.
+13: 
+13/35 Test #13: Test_SVD .........................***Failed    0.57 sec
+ERROR: GPU devices not available! ... terminating program.
+
+
+test 14
+      Start 14: Test_Unit_Tiled_View_Tensor
+
+14: Test command: /home/runner/micromamba/envs/sycl-ci/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Unit_Tiled_View_Tensor"
+14: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+14: Test timeout computed to be: 10000000
+14: ERROR: GPU devices not available! ... terminating program.
+14: 
+14/35 Test #14: Test_Unit_Tiled_View_Tensor ......***Failed    0.57 sec
+ERROR: GPU devices not available! ... terminating program.
+
+
+test 15
+      Start 15: Test_Mem_Profiler
+
+15: Test command: /home/runner/micromamba/envs/sycl-ci/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Mem_Profiler"
+15: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+15: Test timeout computed to be: 10000000
+15: ERROR: GPU devices not available! ... terminating program.
+15: 
+15/35 Test #15: Test_Mem_Profiler ................***Failed    0.57 sec
+ERROR: GPU devices not available! ... terminating program.
+
+
+test 16
+      Start 16: Test_LocalTensor
+
+16: Test command: /home/runner/micromamba/envs/sycl-ci/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_LocalTensor" "50" "20"
+16: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+16: Test timeout computed to be: 10000000
+16: ERROR: GPU devices not available! ... terminating program.
+16: 
+16/35 Test #16: Test_LocalTensor .................***Failed    0.57 sec
+ERROR: GPU devices not available! ... terminating program.
+
+
+test 17
+      Start 17: Test_Binding_Equivalence
+
+17: Test command: /home/runner/micromamba/envs/sycl-ci/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Binding_Equivalence"
+17: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+17: Test timeout computed to be: 10000000
+17: ERROR: GPU devices not available! ... terminating program.
+17: 
+17/35 Test #17: Test_Binding_Equivalence .........***Failed    0.57 sec
+ERROR: GPU devices not available! ... terminating program.
+
+
+test 18
+      Start 18: Test_PG_Collectives
+
+18: Test command: /home/runner/micromamba/envs/sycl-ci/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_PG_Collectives"
+18: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+18: Test timeout computed to be: 10000000
+18: ERROR: GPU devices not available! ... terminating program.
+18: 
+18/35 Test #18: Test_PG_Collectives ..............***Failed    0.57 sec
+ERROR: GPU devices not available! ... terminating program.
+
+
+test 19
+      Start 19: Test_Scheduler_Deps
+
+19: Test command: /home/runner/micromamba/envs/sycl-ci/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Scheduler_Deps" "6" "3"
+19: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+19: Test timeout computed to be: 10000000
+19: ERROR: GPU devices not available! ... terminating program.
+19: 
+19/35 Test #19: Test_Scheduler_Deps ..............***Failed    0.57 sec
+ERROR: GPU devices not available! ... terminating program.
+
+
+test 20
+      Start 20: Test_StrongNum
+
+20: Test command: /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_StrongNum
+20: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+20: Test timeout computed to be: 10000000
+20: [doctest] doctest version is "2.4.11"
+20: [doctest] run with "--help" for options
+20: ===============================================================================
+20: [doctest] test cases: 11 | 11 passed | 0 failed | 0 skipped
+20: [doctest] assertions: 56 | 56 passed | 0 failed |
+20: [doctest] Status: SUCCESS!
+20/35 Test #20: Test_StrongNum ...................   Passed    0.46 sec
+test 21
+      Start 21: Test_BoundVec
+
+21: Test command: /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_BoundVec
+21: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+21: Test timeout computed to be: 10000000
+21: [doctest] doctest version is "2.4.11"
+21: [doctest] run with "--help" for options
+21: ===============================================================================
+21: [doctest] test cases: 15 | 15 passed | 0 failed | 0 skipped
+21: [doctest] assertions: 58 | 58 passed | 0 failed |
+21: [doctest] Status: SUCCESS!
+21/35 Test #21: Test_BoundVec ....................   Passed    0.46 sec
+test 22
+      Start 22: Test_BlockSpan
+
+22: Test command: /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_BlockSpan
+22: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+22: Test timeout computed to be: 10000000
+22: [doctest] doctest version is "2.4.11"
+22: [doctest] run with "--help" for options
+22: ===============================================================================
+22: [doctest] test cases:  8 |  8 passed | 0 failed | 0 skipped
+22: [doctest] assertions: 54 | 54 passed | 0 failed |
+22: [doctest] Status: SUCCESS!
+22/35 Test #22: Test_BlockSpan ...................   Passed    0.46 sec
+test 23
+      Start 23: Test_MemoryPool
+
+23: Test command: /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_MemoryPool
+23: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+23: Test timeout computed to be: 10000000
+23: mbind: Invalid argument
+23: mbind: Invalid argument
+23: mbind: Invalid argument
+23: mbind: Invalid argument
+23: mbind: Invalid argument
+23: mbind: Invalid argument
+23: mbind: Invalid argument
+23: mbind: Invalid argument
+23: mbind: Invalid argument
+23: mbind: Invalid argument
+23: mbind: Invalid argument
+23: mbind: Invalid argument
+23: mbind: Invalid argument
+23: mbind: Invalid argument
+23: mbind: Invalid argument
+23: mbind: Invalid argument
+23: mbind: Invalid argument
+23: mbind: Invalid argument
+23: mbind: Invalid argument
+23: mbind: Invalid argument
+23: [doctest] doctest version is "2.4.11"
+23: [doctest] run with "--help" for options
+23: ===============================================================================
+23: [doctest] test cases:   22 |   22 passed | 0 failed | 0 skipped
+23: [doctest] assertions: 9067 | 9067 passed | 0 failed |
+23: [doctest] Status: SUCCESS!
+23/35 Test #23: Test_MemoryPool ..................   Passed    0.47 sec
+test 24
+      Start 24: Test_IndexPermute
+
+24: Test command: /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_IndexPermute
+24: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+24: Test timeout computed to be: 10000000
+24: [doctest] doctest version is "2.4.11"
+24: [doctest] run with "--help" for options
+24: ===============================================================================
+24: [doctest] test cases:      9 |      9 passed | 0 failed | 0 skipped
+24: [doctest] assertions: 117522 | 117522 passed | 0 failed |
+24: [doctest] Status: SUCCESS!
+24/35 Test #24: Test_IndexPermute ................   Passed    0.47 sec
+test 25
+      Start 25: Test_CCSD
+
+25: Test command: /home/runner/micromamba/envs/sycl-ci/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_CCSD" "10" "40" "60" "40"
+25: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+25: Test timeout computed to be: 10000000
+25: ERROR: GPU devices not available! ... terminating program.
+25: 
+25/35 Test #25: Test_CCSD ........................***Failed    0.57 sec
+ERROR: GPU devices not available! ... terminating program.
+
+
+test 26
+      Start 26: Test_CCSD_V4_BlockSparse
+
+26: Test command: /home/runner/micromamba/envs/sycl-ci/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_CCSD_V4_BlockSparse" "10" "40" "60" "40"
+26: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+26: Test timeout computed to be: 10000000
+26: ERROR: GPU devices not available! ... terminating program.
+26: 
+26/35 Test #26: Test_CCSD_V4_BlockSparse .........***Failed    0.57 sec
+ERROR: GPU devices not available! ... terminating program.
+
+
+test 27
+      Start 27: Test_CCSD_V4
+
+27: Test command: /home/runner/micromamba/envs/sycl-ci/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_CCSD_V4" "10" "40" "60" "40"
+27: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+27: Test timeout computed to be: 10000000
+27: ERROR: GPU devices not available! ... terminating program.
+27: 
+27/35 Test #27: Test_CCSD_V4 .....................***Failed    0.57 sec
+ERROR: GPU devices not available! ... terminating program.
+
+
+test 28
+      Start 28: Test_LabeledTensor
+
+28: Test command: /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_LabeledTensor
+28: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+28: Test timeout computed to be: 10000000
+28: [doctest] doctest version is "2.4.11"
+28: [doctest] run with "--help" for options
+28: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/labeled_tensor.hpp:257 in 'void tamm::LabeledTensor<double>::unpack(size_t, const std::string &, Args...) [T = double, Args = <>]': EXPECTS failed [index < tensor_.num_modes()]
+28: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/labeled_tensor.hpp:267 in 'void tamm::LabeledTensor<double>::unpack(size_t, const TiledIndexLabel &, Args...) [T = double, Args = <>]': EXPECTS failed [index < tensor_.num_modes()]
+28: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/labeled_tensor.hpp:257 in 'void tamm::LabeledTensor<double>::unpack(size_t, const std::string &, Args...) [T = double, Args = <>]': EXPECTS failed [index < tensor_.num_modes()]
+28: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/labeled_tensor.hpp:267 in 'void tamm::LabeledTensor<double>::unpack(size_t, const TiledIndexLabel &, Args...) [T = double, Args = <>]': EXPECTS failed [index < tensor_.num_modes()]
+28: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/labeled_tensor.hpp:249 in 'void tamm::LabeledTensor<double>::unpack(size_t) [T = double]': EXPECTS failed [index == tensor_.num_modes()]
+28: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/labeled_tensor.hpp:249 in 'void tamm::LabeledTensor<double>::unpack(size_t) [T = double]': EXPECTS failed [index == tensor_.num_modes()]
+28: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/labeled_tensor.hpp:257 in 'void tamm::LabeledTensor<double>::unpack(size_t, const std::string &, Args...) [T = double, Args = <>]': EXPECTS failed [index < tensor_.num_modes()]
+28: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/labeled_tensor.hpp:267 in 'void tamm::LabeledTensor<double>::unpack(size_t, const TiledIndexLabel &, Args...) [T = double, Args = <>]': EXPECTS failed [index < tensor_.num_modes()]
+28: /home/runner/work/TAMM/TAMM/src/tamm/tensor_base.cpp:38 in 'tamm::TensorBase::TensorBase(const std::vector<TiledIndexSpace> &)': EXPECTS failed [!tis.is_dependent()]
+28: /home/runner/work/TAMM/TAMM/src/tamm/tensor_base.hpp:217 in 'void tamm::TensorBase::construct_dep_map()': EXPECTS failed [pos != til]
+28: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/labeled_tensor.hpp:249 in 'void tamm::LabeledTensor<double>::unpack(size_t) [T = double]': EXPECTS failed [index == tensor_.num_modes()]
+28: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/labeled_tensor.hpp:249 in 'void tamm::LabeledTensor<double>::unpack(size_t) [T = double]': EXPECTS failed [index == tensor_.num_modes()]
+28: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/labeled_tensor.hpp:249 in 'void tamm::LabeledTensor<double>::unpack(size_t) [T = double]': EXPECTS failed [index == tensor_.num_modes()]
+28: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/labeled_tensor.hpp:154 in 'void tamm::LabeledTensor<double>::validate() [T = double]': EXPECTS failed [ilv_[i].tiled_index_space().is_compatible_with(tensor_.tiled_index_spaces()[i])]
+28: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/labeled_tensor.hpp:249 in 'void tamm::LabeledTensor<double>::unpack(size_t) [T = double]': EXPECTS failed [index == tensor_.num_modes()]
+28: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/labeled_tensor.hpp:249 in 'void tamm::LabeledTensor<double>::unpack(size_t) [T = double]': EXPECTS failed [index == tensor_.num_modes()]
+28: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/labeled_tensor.hpp:249 in 'void tamm::LabeledTensor<double>::unpack(size_t) [T = double]': EXPECTS failed [index == tensor_.num_modes()]
+28: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/labeled_tensor.hpp:249 in 'void tamm::LabeledTensor<double>::unpack(size_t) [T = double]': EXPECTS failed [index == tensor_.num_modes()]
+28: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/labeled_tensor.hpp:249 in 'void tamm::LabeledTensor<double>::unpack(size_t) [T = double]': EXPECTS failed [index == tensor_.num_modes()]
+28: ===============================================================================
+28: [doctest] test cases: 16 | 16 passed | 0 failed | 0 skipped
+28: [doctest] assertions: 31 | 31 passed | 0 failed |
+28: [doctest] Status: SUCCESS!
+28/35 Test #28: Test_LabeledTensor ...............   Passed    0.46 sec
+test 29
+      Start 29: Test_TiledIndexSpace
+
+29: Test command: /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_TiledIndexSpace
+29: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+29: Test timeout computed to be: 10000000
+29: [doctest] doctest version is "2.4.11"
+29: [doctest] run with "--help" for options
+29: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/tiled_index_space.hpp:1406 in 'size_t tamm::TiledIndexSpace::info_translate(size_t, const TiledIndexSpaceInfo &) const': EXPECTS failed [id >= 0 && id < tiled_info_->ref_indices_.size()]
+29: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/tiled_index_space.hpp:1406 in 'size_t tamm::TiledIndexSpace::info_translate(size_t, const TiledIndexSpaceInfo &) const': EXPECTS failed [id >= 0 && id < tiled_info_->ref_indices_.size()]
+29: tSubAO_AO_Q Dependency Map
+29: ( 0 ) -> { 0 3 4 }
+29: ( 1 ) -> { 0 3 6 }
+29: ( 2 ) -> { 1 3 5 }
+29: ( 3 ) -> { }
+29: inv_tSubAO_AO_Q Dependency Map
+29: ( 0 ) -> { 0 1 }
+29: ( 1 ) -> { 2 }
+29: ( 2 ) -> { }
+29: ( 3 ) -> { 0 1 2 }
+29: ( 4 ) -> { 0 }
+29: ( 5 ) -> { 2 }
+29: ( 6 ) -> { 1 }
+29: tSubAO_AO_D Dependency Map
+29: ( 0 ) -> { 1 3 5 }
+29: ( 1 ) -> { 0 1 2 }
+29: ( 2 ) -> { 0 2 4 }
+29: ( 3 ) -> { 1 6 }
+29: ( 4 ) -> { 3 5 }
+29: ( 5 ) -> { }
+29: ( 6 ) -> { 0 1 2 }
+29: comp_tSubAO_AO_Q_D Dependency Map
+29: ( 0 ) -> { 1 3 5 6 }
+29: ( 1 ) -> { 0 1 2 3 5 6 }
+29: ( 2 ) -> { 0 1 2 6 }
+29: ( 3 ) -> { }
+29: tSubAO_AO_D Dependency Map
+29: ( 0 ) -> { 1 3 5 }
+29: ( 1 ) -> { 0 1 2 }
+29: ( 2 ) -> { 0 2 4 }
+29: ( 3 ) -> { 1 6 }
+29: ( 4 ) -> { 3 5 }
+29: ( 5 ) -> { }
+29: ( 6 ) -> { 0 1 2 }
+29: tSubAO_AO_C Dependency Map
+29: ( 0 ) -> { 3 }
+29: ( 1 ) -> { }
+29: ( 2 ) -> { 0 2 }
+29: ( 3 ) -> { 1 }
+29: ( 4 ) -> { 3 5 }
+29: ( 5 ) -> { }
+29: ( 6 ) -> { 2 }
+29: union_tSubAO_AO_D_C Dependency Map
+29: ( 0 ) -> { 1 3 5 }
+29: ( 1 ) -> { 0 1 2 }
+29: ( 2 ) -> { 0 2 4 }
+29: ( 3 ) -> { 1 6 }
+29: ( 4 ) -> { 3 5 }
+29: ( 5 ) -> { }
+29: ( 6 ) -> { 0 1 2 }
+29: test_tis Dependency Map
+29: ( 0 0 ) -> { 0 3 4 }
+29: ( 0 1 ) -> { }
+29: ( 0 2 ) -> { }
+29: ( 0 3 ) -> { }
+29: ( 0 4 ) -> { }
+29: ( 0 5 ) -> { }
+29: ( 0 6 ) -> { }
+29: ( 1 0 ) -> { }
+29: ( 1 1 ) -> { }
+29: ( 1 2 ) -> { }
+29: ( 1 3 ) -> { }
+29: ( 1 4 ) -> { }
+29: ( 1 5 ) -> { 0 3 6 }
+29: ( 1 6 ) -> { }
+29: ( 2 0 ) -> { 1 3 5 }
+29: ( 2 1 ) -> { }
+29: ( 2 2 ) -> { }
+29: ( 2 3 ) -> { }
+29: ( 2 4 ) -> { }
+29: ( 2 5 ) -> { 0 5 }
+29: ( 2 6 ) -> { }
+29: ( 3 0 ) -> { }
+29: ( 3 1 ) -> { }
+29: ( 3 2 ) -> { }
+29: ( 3 3 ) -> { }
+29: ( 3 4 ) -> { }
+29: ( 3 5 ) -> { }
+29: ( 3 6 ) -> { }
+29: project_test_tis Dependency Map
+29: ( 0 ) -> { 0 1 3 4 5 }
+29: ( 1 ) -> { }
+29: ( 2 ) -> { }
+29: ( 3 ) -> { }
+29: ( 4 ) -> { }
+29: ( 5 ) -> { 0 3 5 6 }
+29: ( 6 ) -> { }
+29: tSubAO_AO_Q Dependency Map
+29: ( 0 ) -> { 0 3 4 }
+29: ( 1 ) -> { 0 3 6 }
+29: ( 2 ) -> { 1 3 5 }
+29: ( 3 ) -> { }
+29: project_MO_Q 
+29: { 0 1 3 4 5 6 }
+29: u_tis12 
+29: { 1 2 3 5 6 }
+29: ===============================================================================
+29: [doctest] test cases:   8 |   8 passed | 0 failed | 0 skipped
+29: [doctest] assertions: 218 | 218 passed | 0 failed |
+29: [doctest] Status: SUCCESS!
+29/35 Test #29: Test_TiledIndexSpace .............   Passed    0.46 sec
+test 30
+      Start 30: Test_GACreate
+
+30: Test command: /home/runner/micromamba/envs/sycl-ci/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_GACreate" "10"
+30: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+30: Test timeout computed to be: 10000000
+30: GA size = 7.45058e-05GiB
+30: GA create successful
+30: GA create time = 6.8319e-05s
+30/35 Test #30: Test_GACreate ....................   Passed    0.55 sec
+test 31
+      Start 31: Test_GA_Alloc
+
+31: Test command: /home/runner/micromamba/envs/sycl-ci/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_GA_Alloc"
+31: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+31: Test timeout computed to be: 10000000
+31: 
+31: Allocation test running on 1 processors
+31: 
+31: Array dimension is 1048576
+31: 
+31: Total elapsed time in allocation: 0.000063
+31/35 Test #31: Test_GA_Alloc ....................   Passed    0.56 sec
+test 32
+      Start 32: Test_MPI_Barrier
+
+32: Test command: /home/runner/micromamba/envs/sycl-ci/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_MPI_Barrier"
+32: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+32: Test timeout computed to be: 10000000
+32: Time (s) for MPI Barrier on MPI_COMM_WORLD with 2 ranks: 2.9791e-05
+32: Time (s) for MPI Barrier on GA_MPI_Comm with 1 ranks: 2.81e-07
+32/35 Test #32: Test_MPI_Barrier .................   Passed    0.55 sec
+test 33
+      Start 33: Test_MPI_allgather
+
+33: Test command: /home/runner/micromamba/envs/sycl-ci/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_MPI_allgather"
+33: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+33: Test timeout computed to be: 10000000
+33: Testing Allgather on 2 ranks
+33: 
+33: Total time in Allgather in place:             0.000000
+33: Total time in Allgather using buffer:         0.000000
+33/35 Test #33: Test_MPI_allgather ...............   Passed    0.54 sec
+test 34
+      Start 34: Test_MPI_allgather2
+
+34: Test command: /home/runner/micromamba/envs/sycl-ci/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_MPI_allgather2"
+34: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+34: Test timeout computed to be: 10000000
+34: Times from MPI calls in setup:
+34:     Time in first barrier:                    0.000012
+34:     Time in all gather:                       0.000004
+34:     Time in split:                            0.000039
+34:     Time in second barrier:                   0.000001
+34: Testing Allgather on working processors 1 ranks
+34: 
+34: Total time in Allgather in place:             0.000000
+34: Total time in Allgather using buffer:         0.000000
+34: Testing Allgather on all processors 2 ranks
+34: 
+34: Total time in Allgather in place:             0.000001
+34: Total time in Allgather using buffer:         0.000001
+34: Total time in test program:                       0.000300
+34/35 Test #34: Test_MPI_allgather2 ..............   Passed    0.54 sec
+test 35
+      Start 35: Test_Layout
+
+35: Test command: /home/runner/micromamba/envs/sycl-ci/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Layout"
+35: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+35: Test timeout computed to be: 10000000
+35: node runnervm8k3b6, pid 0/2 , core 1
+35: node runnervm8k3b6, pid 1/2 , core 3
+35: node runnervm8k3b6, pid 0/2 , core 1, GA_Nodeid 0
+35/35 Test #35: Test_Layout ......................   Passed    4.56 sec
+
+43% tests passed, 20 tests failed out of 35
+
+Label Time Summary:
+MPIUnitTest    =  18.12 sec*proc (26 tests)
+UnitTest       =   4.18 sec*proc (9 tests)
+
+Total Test time (real) =  22.32 sec
+
+The following tests FAILED:
+	  3 - Test_Tensors (Failed)                             MPIUnitTest
+	  4 - Test_Ops (Failed)                                 MPIUnitTest
+	  5 - Test_DependentSpace (Failed)                      MPIUnitTest
+	  6 - Test_Utils (Failed)                               MPIUnitTest
+	  7 - Test_Mult_Ops (Failed)                            MPIUnitTest
+	  8 - Test_DLPNO_Ops (Failed)                           MPIUnitTest
+	  9 - Test_OpDAG (Failed)                               MPIUnitTest
+	 10 - Test_Opmin (Failed)                               MPIUnitTest
+	 11 - Test_IO (Failed)                                  MPIUnitTest
+	 12 - Test_EVP (Failed)                                 MPIUnitTest
+	 13 - Test_SVD (Failed)                                 MPIUnitTest
+	 14 - Test_Unit_Tiled_View_Tensor (Failed)              MPIUnitTest
+	 15 - Test_Mem_Profiler (Failed)                        MPIUnitTest
+	 16 - Test_LocalTensor (Failed)                         MPIUnitTest
+	 17 - Test_Binding_Equivalence (Failed)                 MPIUnitTest
+	 18 - Test_PG_Collectives (Failed)                      MPIUnitTest
+	 19 - Test_Scheduler_Deps (Failed)                      MPIUnitTest
+	 25 - Test_CCSD (Failed)                                MPIUnitTest
+	 26 - Test_CCSD_V4_BlockSparse (Failed)                 MPIUnitTest
+	 27 - Test_CCSD_V4 (Failed)                             MPIUnitTest
+Errors while running CTest

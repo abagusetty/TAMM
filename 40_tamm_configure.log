@@ -1,0 +1,178 @@
+-- The C compiler identification is IntelLLVM 2026.2.0
+-- The CXX compiler identification is IntelLLVM 2026.2.0
+-- The Fortran compiler identification is IntelLLVM 2026.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /opt/intel/oneapi/compiler/2026.2/bin/icx - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /opt/intel/oneapi/compiler/2026.2/bin/icpx - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting Fortran compiler ABI info
+-- Detecting Fortran compiler ABI info - done
+-- Check for working Fortran compiler: /opt/intel/oneapi/compiler/2026.2/bin/ifx - skipped
+-- Found MPI_C: /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so (found version "3.1")
+-- Found MPI_CXX: /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so (found version "3.1")
+-- Found MPI_Fortran: /home/runner/micromamba/envs/sycl-ci/lib/libmpi_usempif08.so (found version "3.1")
+-- Found MPI: TRUE (found version "3.1")
+-- Setting value of CMAKE_CXX_STANDARD to default : 20
+-- Setting value of BLAS_INT4 to default : ON
+-- Value of LINALG_VENDOR was set by user to : IntelMKL
+-- Setting value of ENABLE_COVERAGE to default : OFF
+-- Setting value of CMAKE_CXX_EXTENSIONS to default : OFF
+-- Value of CMAKE_BUILD_TYPE was set by user to : Release
+-- Setting value of USE_HDF5 to default : ON
+-- Setting value of USE_OPENMP to default : OFF
+-- Setting value of CMakeBuild_ENABLE_CUDA to default : OFF
+-- Setting value of CMakeBuild_ENABLE_HIP to default : OFF
+-- Setting value of CMakeBuild_ENABLE_DPCPP to default : OFF
+-- Setting value of USE_TAMM_DEV to default : OFF
+-- Setting value of USE_GA_PROFILER to default : OFF
+-- Setting value of GA_ENABLE_SYSV to default : OFF
+-- Setting value of CMakeBuild_ENABLE_PYTHON to default : OFF
+-- Setting value of CMakeBuild_ENABLE_ELPA to default : OFF
+-- Setting value of USE_SCALAPACK to default : OFF
+-- Setting value of USE_NWQSIM to default : OFF
+-- Setting value of GA_RUNTIME to default : MPI_PROGRESS_RANK
+-- Setting value of CUDA_MAXREGCOUNT to default : 128
+-- Setting value of BUILD_SHARED_LIBS to default : OFF
+-- Setting value of LINK_STATIC_GPU_LIBS to default : OFF
+-- Setting value of ENABLE_DEV_MODE to default : OFF
+-- Setting value of CMSB_ENABLE_WARNINGS to default : ON
+-- Setting value of CMAKE_POLICY_VERSION_MINIMUM to default : 3.5
+-- Setting value of ENABLE_OFFLINE_BUILD to default : OFF
+-- Setting value of USE_UPCXX to default : OFF
+-- Setting value of USE_LIBNUMA to default : OFF
+-- Performing Test __C_COMPILER_SUPPORTS_MARCH
+-- Performing Test __C_COMPILER_SUPPORTS_MARCH - Success
+-- Performing Test __CXX_COMPILER_SUPPORTS_MARCH
+-- Performing Test __CXX_COMPILER_SUPPORTS_MARCH - Success
+-- Performing Test __Fort_COMPILER_SUPPORTS_MARCH
+-- Performing Test __Fort_COMPILER_SUPPORTS_MARCH - Success
+********************************************************************************
+*                            Configuration Options                             *
+********************************************************************************
+-- Setting value of CMAKE_POSITION_INDEPENDENT_CODE to default : TRUE
+-- Value of BUILD_TESTS was set by user to : OFF
+-- Value of BUILD_METHODS was set by user to : OFF
+-- Setting value of CMSB_DEBUG_CMAKE to default : TRUE
+-- Setting value of CMAKE_EXPORT_COMPILE_COMMANDS to default : ON
+-- Value of CMAKE_VERBOSE_MAKEFILE was set by user to : FALSE
+-- Setting value of CMAKE_FIND_PACKAGE_NO_PACKAGE_REGISTRY to default : TRUE
+********************************************************************************
+*                              CMSB Module Paths                               *
+********************************************************************************
+-- Setting value of CMSB_PROJECTS to default : CMakeBuild
+-- Setting value of CMakeBuild_SRC_DIR to default : /home/runner/work/TAMM/TAMM/build/_deps/cmakebuild-src/CMakeBuild
+-- Setting value of CMakeBuild_TEST_DIR to default : /home/runner/work/TAMM/TAMM/build/_deps/cmakebuild-src/CMakeBuild_Test
+-- Setting value of CMakeBuild_PYTHON_DIR to default : /home/runner/work/TAMM/TAMM/build/_deps/cmakebuild-src/CMakeBuild/python
+-- Setting value of CMakeBuild_DEPENDENCIES to default : 
+********************************************************************************
+*                  Locating Dependencies and Creating Targets                  *
+********************************************************************************
+********************************************************************************
+*                Summary of CMakeBuild Configuration Settings:                 *
+********************************************************************************
+-- Found the following dependencies: 
+-- Will build the following dependencies: 
+-- Setting value of CMAKE_CXX_STANDARD to default : 20
+-- Setting value of BLAS_INT4 to default : ON
+-- Value of LINALG_VENDOR was set by user to : IntelMKL
+-- Setting value of ENABLE_COVERAGE to default : OFF
+-- Setting value of CMAKE_CXX_EXTENSIONS to default : OFF
+-- Value of CMAKE_BUILD_TYPE was set by user to : Release
+-- Setting value of USE_HDF5 to default : ON
+-- Setting value of USE_OPENMP to default : OFF
+-- Setting value of TAMM_ENABLE_CUDA to default : OFF
+-- Setting value of TAMM_ENABLE_HIP to default : OFF
+-- Value of TAMM_ENABLE_DPCPP was set by user to : ON
+-- Setting value of USE_TAMM_DEV to default : OFF
+-- Setting value of USE_GA_PROFILER to default : OFF
+-- Setting value of GA_ENABLE_SYSV to default : OFF
+-- Setting value of TAMM_ENABLE_PYTHON to default : OFF
+-- Setting value of TAMM_ENABLE_ELPA to default : OFF
+-- Setting value of USE_SCALAPACK to default : OFF
+-- Setting value of USE_NWQSIM to default : OFF
+-- Setting value of GA_RUNTIME to default : MPI_PROGRESS_RANK
+-- Setting value of CUDA_MAXREGCOUNT to default : 128
+-- Setting value of BUILD_SHARED_LIBS to default : OFF
+-- Setting value of LINK_STATIC_GPU_LIBS to default : OFF
+-- Setting value of ENABLE_DEV_MODE to default : OFF
+-- Setting value of CMSB_ENABLE_WARNINGS to default : ON
+-- Setting value of CMAKE_POLICY_VERSION_MINIMUM to default : 3.5
+-- Setting value of ENABLE_OFFLINE_BUILD to default : OFF
+-- Setting value of USE_UPCXX to default : OFF
+-- Setting value of USE_LIBNUMA to default : ON
+-- DPCPP Option Enabled: Setting BLAS_INT4=OFF
+********************************************************************************
+*                            Configuration Options                             *
+********************************************************************************
+-- Setting value of CMAKE_POSITION_INDEPENDENT_CODE to default : TRUE
+-- Setting value of BUILD_TESTS to default : ON
+-- Value of BUILD_METHODS was set by user to : OFF
+-- Setting value of CMSB_DEBUG_CMAKE to default : TRUE
+-- Setting value of CMAKE_EXPORT_COMPILE_COMMANDS to default : ON
+-- Value of CMAKE_VERBOSE_MAKEFILE was set by user to : FALSE
+-- Setting value of CMAKE_FIND_PACKAGE_NO_PACKAGE_REGISTRY to default : TRUE
+********************************************************************************
+*                              CMSB Module Paths                               *
+********************************************************************************
+-- Value of CMSB_PROJECTS was set by user to : TAMM
+-- Value of TAMM_SRC_DIR was set by user to : /home/runner/work/TAMM/TAMM/src/tamm
+-- Value of TAMM_TEST_DIR was set by user to : /home/runner/work/TAMM/TAMM/tests/
+-- Value of TAMM_PYTHON_DIR was set by user to : /home/runner/work/TAMM/TAMM/src/python
+-- Value of TAMM_DEPENDENCIES was set by user to : NJSON;DOCTEST;SPDLOG;Eigen3;HDF5;numactl;GlobalArrays
+********************************************************************************
+*                  Locating Dependencies and Creating Targets                  *
+********************************************************************************
+-- Could NOT find nlohmann_json (missing: nlohmann_json_DIR)
+-- Could NOT find nlohmann_json (missing: nlohmann_json_DIR)
+-- Unable to locate NJSON.  Building one instead.
+-- Could NOT find doctest (missing: doctest_DIR)
+-- Could NOT find doctest (missing: doctest_DIR)
+-- Unable to locate DOCTEST.  Building one instead.
+-- Could NOT find spdlog (missing: spdlog_DIR)
+-- Could NOT find spdlog (missing: spdlog_DIR)
+-- Unable to locate SPDLOG.  Building one instead.
+-- Could NOT find Eigen3 (missing: Eigen3_DIR)
+-- Could NOT find Eigen3 (missing: Eigen3_DIR)
+-- Unable to locate Eigen3.  Building one instead.
+-- Could NOT find HDF5 (missing: HDF5_DIR)
+-- Could NOT find HDF5 (missing: HDF5_DIR)
+-- Unable to locate HDF5.  Building one instead.
+-- Could NOT find numactl (missing: numactl_DIR)
+-- Could NOT find numactl (missing: numactl_DIR)
+-- Could NOT find numactl (missing: numactl_LIBRARY numactl_INCLUDE_DIR) 
+-- Unable to locate numactl.  Building one instead.
+-- Could NOT find GlobalArrays (missing: GlobalArrays_DIR)
+-- Could NOT find GlobalArrays (missing: GlobalArrays_DIR)
+-- Unable to locate GlobalArrays.  Building one instead.
+-- GlobalArrays CMake Options: -DCMAKE_CXX_COMPILER=/opt/intel/oneapi/compiler/2026.2/bin/icpx;-DCMAKE_C_COMPILER=/opt/intel/oneapi/compiler/2026.2/bin/icx;-DSUPER_PROJECT_BINARY_DIR=/home/runner/work/TAMM/TAMM/build;-DCMAKE_Fortran_COMPILER=/opt/intel/oneapi/compiler/2026.2/bin/ifx;-DCMAKE_BUILD_TYPE=Release;-DBUILD_SHARED_LIBS=OFF;-DCMAKE_C_FLAGS_RELEASE=-O3 -DNDEBUG -march=native;-DCMAKE_CXX_FLAGS_RELEASE=-O3 -DNDEBUG -march=native;-DCMAKE_Fortran_FLAGS_RELEASE=-O3 -march=native;-DCMAKE_POLICY_VERSION_MINIMUM=3.5;-DCMAKE_INSTALL_RPATH=/home/runner/work/TAMM/TAMM/install/lib;/home/runner/work/TAMM/TAMM/install/lib64;-DCMAKE_BUILD_WITH_INSTALL_RPATH=TRUE;-DCMAKE_INSTALL_PREFIX=/home/runner/work/TAMM/TAMM/install;-DCMAKE_CXX_STANDARD=20;-DCMAKE_VERSION=4.4.4;-DPROJECT_VERSION=0.0.0;-DCMAKE_POSITION_INDEPENDENT_CODE=TRUE;-DCMAKE_VERBOSE_MAKEFILE=FALSE;-DCMAKE_CXX_EXTENSIONS=OFF;-DCMAKE_FIND_PACKAGE_NO_PACKAGE_REGISTRY=TRUE;-DCMAKE_EXPORT_COMPILE_COMMANDS=ON;-DMPIEXEC_EXECUTABLE=/home/runner/micromamba/envs/sycl-ci/bin/mpiexec;-DCMAKE_C_FLAGS_INIT=  ;-DCMAKE_CXX_FLAGS_INIT=  ;-DBLAS_INT4=OFF;-DLINALG_VENDOR=IntelMKL;-DLINALG_PREFIX=/opt/intel/oneapi/mkl/2026.2;-DENABLE_COVERAGE=OFF;-DUSE_SCALAPACK=OFF;-DUSE_HDF5=ON;-DUSE_LIBNUMA=ON;-DUSE_NWQSIM=OFF     -DENABLE_BLAS=ON -DLINALG_VENDOR=IntelMKL -DLINALG_PREFIX=/opt/intel/oneapi/mkl/2026.2     -DENABLE_DPCPP=ON -DGA_RUNTIME=MPI_PROGRESS_RANK -DENABLE_SYSV=OFF     -DENABLE_PROFILING=OFF       -DLINALG_THREAD_LAYER=sequential      -DLINALG_REQUIRED_COMPONENTS=ilp64         
+********************************************************************************
+*                   Summary of TAMM Configuration Settings:                    *
+********************************************************************************
+-- Found the following dependencies: 
+-- Will build the following dependencies: 
+--     NJSON
+--     DOCTEST
+--     SPDLOG
+--     Eigen3
+--     HDF5
+--     numactl
+--     GlobalArrays
+-- Configuring done (3.9s)
+-- Generating done (0.0s)
+CMake Warning (unused-cli):
+  Manually-specified variables were not used by the project:
+
+    BUILD_TESTING
+
+
+-- Build files have been written to: /home/runner/work/TAMM/TAMM/build
+=== GPU_ARCH / SYCL targets in cache ===
+GPU_ARCH:UNINITIALIZED=spir64
+TAMM_CXX_FLAGS:UNINITIALIZED=
+TAMM_ENABLE_DPCPP:UNINITIALIZED=ON
