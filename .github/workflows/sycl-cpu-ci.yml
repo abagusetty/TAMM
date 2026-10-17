@@ -1,11 +1,10 @@
 name: SYCL CPU CI
 
 # Sanity-verifies the DPCPP/SYCL build on a CPU-only GitHub-hosted runner
-# using the Intel OpenCL CPU device (no GPU present, none needed). The whole
-# toolchain comes from one conda environment (.github/sycl-cpu-ci-env.yml):
-# oneAPI 2026.2.0 compilers + MKL SYCL + TBB + OpenCL CPU runtime from Intel's
-# conda channel, plus OpenMPI/OpenBLAS from conda-forge. Nothing is built from
-# source except TAMM itself.
+# using the Intel OpenCL CPU device (no GPU present, none needed).
+# oneAPI 2026.2.0 (icx/icpx/ifx, MKL, TBB, OpenCL runtime) comes from
+# apt.repos.intel.com/oneapi (conda channel max is 2025.0.4); conda provides
+# only OpenMPI/OpenBLAS/HDF5/CMake. Nothing is built from source except TAMM.
 #
 # Production TAMM builds AOT-compile for Intel PVC (GPU_ARCH=intel_gpu_pvc
 # with -fsycl-targets=intel_gpu_pvc); that cannot run here, so the build
@@ -106,7 +105,7 @@ jobs:
           ref: ${{ github.event_name == 'issue_comment' && github.event.issue.pull_request && format('refs/pull/{0}/head', github.event.issue.number) || github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || '' }}
           fetch-depth: 1
 
-      - name: Create conda environment (oneAPI 2026.2.0 + OpenMPI)
+      - name: Create conda environment (OpenMPI + tools)
         uses: mamba-org/setup-micromamba@v2
         with:
           environment-file: .github/sycl-cpu-ci-env.yml
@@ -114,9 +113,37 @@ jobs:
           cache-environment: false
           post-cleanup: none
 
+      - name: Install Intel oneAPI 2026.2.0 (apt)
+        run: |
+          set -o pipefail; mkdir -p /tmp/logs
+          {
+            wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB | gpg --dearmor | sudo tee /usr/share/keyrings/oneAPI.gpg > /dev/null
+            echo "deb [signed-by=/usr/share/keyrings/oneAPI.gpg] https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
+            sudo apt-get update
+            # 2026.2.0 packages verified via apt Packages (2026.2.0-178/299/603/631)
+            sudo apt-get install -y \
+              intel-oneapi-compiler-dpcpp-cpp-2026.2 \
+              intel-oneapi-compiler-fortran-2026.2 \
+              intel-oneapi-mkl-devel-2026.2 \
+              intel-oneapi-tbb-devel-2026.2 \
+              intel-oneapi-runtime-opencl-2026.2
+            # Source oneAPI env for subsequent steps in this job
+            source /opt/intel/oneapi/setvars.sh
+            icpx --version; icx --version; ifx --version
+            ls /opt/intel/oneapi/mkl/latest/lib/*sycl* | head
+          } 2>&1 | tee /tmp/logs/05_oneapi_apt.log
+          # Persist for next steps via $GITHUB_ENV
+          echo "ONEAPI_ROOT=/opt/intel/oneapi" >> $GITHUB_ENV
+          echo "MKLROOT=/opt/intel/oneapi/mkl/latest" >> $GITHUB_ENV
+          echo "TBBROOT=/opt/intel/oneapi/tbb/latest" >> $GITHUB_ENV
+          echo "CMPLR_ROOT=/opt/intel/oneapi/compiler/latest" >> $GITHUB_ENV
+          echo "/opt/intel/oneapi/compiler/latest/bin" >> $GITHUB_PATH
+          echo "/opt/intel/oneapi/mkl/latest/bin" >> $GITHUB_PATH
+
       - name: Toolchain and OpenCL CPU device
         run: |
           set -o pipefail; mkdir -p /tmp/logs
+          source /opt/intel/oneapi/setvars.sh || true
           {
             echo "=== compilers ==="
             which icpx icx ifx cmake ninja mpirun
@@ -126,10 +153,13 @@ jobs:
             cmake --version
             ninja --version
             mpirun --version || mpiexec --version || true
+            echo "=== oneAPI env ==="
+            echo "MKLROOT=$MKLROOT CMPLR_ROOT=$CMPLR_ROOT ONEAPI_ROOT=$ONEAPI_ROOT"
             echo "=== SYCL devices ==="
             sycl-ls || true
             # micromamba list filtered
-            micromamba list | grep -E 'dpcpp|ifx|mkl|tbb|intel-opencl|intel-sycl|openmpi|cmake|ccache|openblas|hdf5' || true
+            micromamba list | grep -E 'openmpi|cmake|ccache|openblas|hdf5' || true
+            dpkg -l | grep -E 'intel-oneapi.*2026.2' || true
             # Verify 2026.2.0 pin
             icpx --version | head -n1
             # Minimal SYCL probe: compile and run a trivial queue on opencl:cpu
@@ -163,12 +193,14 @@ jobs:
           CC: icx
           CXX: icpx
           FC: ifx
-          CMAKE_PREFIX_PATH: ${{ env.CONDA_PREFIX }}
+          MKLROOT: /opt/intel/oneapi/mkl/latest
+          TBBROOT: /opt/intel/oneapi/tbb/latest
         run: |
           set -o pipefail; mkdir -p /tmp/logs
-          export MKLROOT="$CONDA_PREFIX" TBBROOT="$CONDA_PREFIX"
+          source /opt/intel/oneapi/setvars.sh
           echo "MKLROOT=$MKLROOT"
           echo "CONDA_PREFIX=$CONDA_PREFIX"
+          echo "CMPLR_ROOT=$CMPLR_ROOT"
           cmake --version
           # TAMM uses CMakeBuild superbuild; GPU_ARCH=spir64 requests generic JIT
           # image. TAMM_CXX_FLAGS override drops Aurora SPR tuning.
