@@ -67,6 +67,11 @@ env:
   CCACHE_DIR: "/home/runner/.ccache"
   CCACHE_MAXSIZE: "6G"
   OMPI_MCA_rmaps_base_oversubscribe: "1"
+  OMPI_MCA_pml: "ob1"
+  OMPI_MCA_btl: "self,vader,tcp"
+  OMPI_MCA_btl_tcp_if_include: "lo"
+  OMPI_MCA_oob_tcp_if_include: "lo"
+  UCX_TLS: "tcp"
   OMPI_ALLOW_RUN_AS_ROOT: "1"
   OMPI_ALLOW_RUN_AS_ROOT_CONFIRM: "1"
 
