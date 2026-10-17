@@ -1,0 +1,47 @@
+--2026-10-17 15:16:10--  https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+Resolving apt.repos.intel.com (apt.repos.intel.com)... 23.6.181.13, 2600:1406:2e00:98d::a87, 2600:1406:2e00:983::a87
+Connecting to apt.repos.intel.com (apt.repos.intel.com)|23.6.181.13|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 4738 (4.6K) [application/vnd.exstream-package]
+Saving to: ‘STDOUT’
+
+     0K ....                                                  100%  871M=0s
+
+2026-10-17 15:16:10 (871 MB/s) - written to stdout [4738/4738]
+
+deb [signed-by=/usr/share/keyrings/oneAPI.gpg] https://apt.repos.intel.com/oneapi all main
+Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+Get:7 https://apt.repos.intel.com/oneapi all InRelease [5684 B]
+Get:8 https://packages.microsoft.com/ubuntu/24.04/prod noble/main armhf Packages [12.4 kB]
+Get:9 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [556 kB]
+Get:10 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [617 kB]
+Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1397 kB]
+Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [308 kB]
+Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1704 kB]
+Get:14 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [342 kB]
+Get:15 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1805 kB]
+Get:16 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [411 kB]
+Get:17 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1144 kB]
+Get:18 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [231 kB]
+Get:19 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1222 kB]
+Get:20 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [246 kB]
+Get:21 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1713 kB]
+Get:22 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [392 kB]
+Get:23 https://apt.repos.intel.com/oneapi all/main all Packages [211 kB]
+Get:24 https://apt.repos.intel.com/oneapi all/main amd64 Packages [744 kB]
+Fetched 13.4 MB in 1s (9257 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package intel-oneapi-tbb-devel-2026.2
+E: Couldn't find any package by glob 'intel-oneapi-tbb-devel-2026.2'
+E: Couldn't find any package by regex 'intel-oneapi-tbb-devel-2026.2'
+E: Unable to locate package intel-oneapi-runtime-opencl-2026.2
+E: Couldn't find any package by glob 'intel-oneapi-runtime-opencl-2026.2'
+E: Couldn't find any package by regex 'intel-oneapi-runtime-opencl-2026.2'
