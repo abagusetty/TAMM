@@ -1,0 +1,24 @@
+-- The C compiler identification is IntelLLVM 2026.2.0
+-- The CXX compiler identification is IntelLLVM 2026.2.0
+-- The Fortran compiler identification is IntelLLVM 2026.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /opt/intel/oneapi/compiler/2026.2/bin/icx - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /opt/intel/oneapi/compiler/2026.2/bin/icpx - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting Fortran compiler ABI info
+-- Detecting Fortran compiler ABI info - done
+-- Check for working Fortran compiler: /opt/intel/oneapi/compiler/2026.2/bin/ifx - skipped
+CMake Error at cmake/check_user_env.cmake:10 (message):
+  TAMM cannot be reliably built in CONDA environments.  Please deactivate
+  CONDA or use ALLOW_CONDA=ON to override
+Call Stack (most recent call first):
+  CMakeLists.txt:6 (include)
+
+
+-- Configuring incomplete, errors occurred!
