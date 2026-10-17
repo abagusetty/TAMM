@@ -2,6 +2,9 @@ name: TAMM_CI
 
 on:
   push:
+    branches-ignore:
+      - "feature/sycl-cpu-ci-2026.2.0"
+      - "feature/sycl*"
     paths-ignore:
       - docs
   pull_request:

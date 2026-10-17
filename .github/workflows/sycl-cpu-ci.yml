@@ -13,17 +13,34 @@ name: SYCL CPU CI
 # device can execute. TAMM_CXX_FLAGS is overridden to drop Aurora-specific
 # -march=sapphirerapids tuning that is irrelevant on GH runners.
 #
-# Triggers (CI-driven, not on every push):
-#   - workflow_run: after TAMM_CI completes on main / sycl* branches (github
-#     only delivers this to the default branch copy; keep this file on main).
-#   - repository_dispatch: type backend_automation (existing TAMM pattern, lets
-#     external CI dispatch).
-#   - workflow_dispatch: manual from Actions tab.
-#   - issue_comment @sycl-runner: manual PR trigger (same pattern as
-#     gpu4pyscf's sycl-cpu-ci.yml); requires file on default branch.
+# Triggers:
+# Production (after this branch merges): TAMM_CI + SYCL CI run in parallel
+# on every push/PR (both workflows file on main). During branch testing we
+# keep push/pull_request only on this feature branch so TAMM_CI is suppressed
+# (see c-cpp.yaml branches-ignore) and only SYCL CI runs.
+#   - push / pull_request: parallel with TAMM_CI (final state)
+#   - workflow_run: optional CI-driven after TAMM_CI (kept for dispatch)
+#   - workflow_dispatch / issue_comment @sycl-runner: manual
 
 on:
   workflow_dispatch: {}
+  push:
+    branches:
+      - "feature/sycl-cpu-ci-2026.2.0"
+      - "feature/sycl*"
+      - "sycl*"
+      - main
+    paths-ignore:
+      - docs/**
+      - "*.md"
+  pull_request:
+    branches:
+      - main
+      - "feature/sycl*"
+      - "sycl*"
+    paths-ignore:
+      - docs/**
+      - "*.md"
   workflow_run:
     workflows: ["TAMM_CI"]
     types: [completed]
