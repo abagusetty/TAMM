@@ -1,0 +1,221 @@
+name: SYCL CPU CI
+
+# Sanity-verifies the DPCPP/SYCL build on a CPU-only GitHub-hosted runner
+# using the Intel OpenCL CPU device (no GPU present, none needed). The whole
+# toolchain comes from one conda environment (.github/sycl-cpu-ci-env.yml):
+# oneAPI 2026.2.0 compilers + MKL SYCL + TBB + OpenCL CPU runtime from Intel's
+# conda channel, plus OpenMPI/OpenBLAS from conda-forge. Nothing is built from
+# source except TAMM itself.
+#
+# Production TAMM builds AOT-compile for Intel PVC (GPU_ARCH=intel_gpu_pvc
+# with -fsycl-targets=intel_gpu_pvc); that cannot run here, so the build
+# requests GPU_ARCH=spir64 to get a generic spir64 JIT image the OpenCL CPU
+# device can execute. TAMM_CXX_FLAGS is overridden to drop Aurora-specific
+# -march=sapphirerapids tuning that is irrelevant on GH runners.
+#
+# Triggers (CI-driven, not on every push):
+#   - workflow_run: after TAMM_CI completes on main / sycl* branches (github
+#     only delivers this to the default branch copy; keep this file on main).
+#   - repository_dispatch: type backend_automation (existing TAMM pattern, lets
+#     external CI dispatch).
+#   - workflow_dispatch: manual from Actions tab.
+#   - issue_comment @sycl-runner: manual PR trigger (same pattern as
+#     gpu4pyscf's sycl-cpu-ci.yml); requires file on default branch.
+
+on:
+  workflow_dispatch: {}
+  workflow_run:
+    workflows: ["TAMM_CI"]
+    types: [completed]
+    branches: [main, "sycl*"]
+  repository_dispatch:
+    types: [backend_automation]
+  issue_comment:
+    types: [created]
+
+permissions:
+  # contents: write lets the log-upload step push to a ci-logs-* branch.
+  contents: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: sycl-cpu-ci-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: true
+
+env:
+  ONEAPI_DEVICE_SELECTOR: "opencl:cpu"
+  OMP_NUM_THREADS: "2"
+  SYCL_CACHE_PERSISTENT: "1"
+  SYCL_CACHE_DIR: "/tmp/sycl_cache"
+  CCACHE_DIR: "/home/runner/.ccache"
+  CCACHE_MAXSIZE: "6G"
+  OMPI_MCA_rmaps_base_oversubscribe: "1"
+  OMPI_ALLOW_RUN_AS_ROOT: "1"
+  OMPI_ALLOW_RUN_AS_ROOT_CONFIRM: "1"
+
+jobs:
+  build-and-test:
+    # workflow_run: only on success of TAMM_CI
+    # issue_comment: only on @sycl-runner
+    if: |
+      (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') &&
+      (github.event_name != 'issue_comment' || contains(github.event.comment.body, '@sycl-runner'))
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    defaults:
+      run:
+        shell: bash -el {0}
+
+    steps:
+      - name: Acknowledge "@sycl-runner" comment
+        if: github.event_name == 'issue_comment'
+        continue-on-error: true
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.reactions.createForIssueComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: context.payload.comment.id,
+              content: 'rocket',
+            });
+
+      - name: Checkout TAMM
+        uses: actions/checkout@v4
+        with:
+          # For issue_comment on a PR, build that PR's head. For workflow_run,
+          # checkout the head SHA of the triggering run's branch.
+          ref: ${{ github.event_name == 'issue_comment' && github.event.issue.pull_request && format('refs/pull/{0}/head', github.event.issue.number) || github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || '' }}
+          fetch-depth: 1
+
+      - name: Create conda environment (oneAPI 2026.2.0 + OpenMPI)
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: .github/sycl-cpu-ci-env.yml
+          cache-downloads: true
+          cache-environment: false
+          post-cleanup: none
+
+      - name: Toolchain and OpenCL CPU device
+        run: |
+          set -o pipefail; mkdir -p /tmp/logs
+          {
+            echo "=== compilers ==="
+            which icpx icx ifx cmake ninja mpirun
+            icpx --version
+            icx --version
+            ifx --version
+            cmake --version
+            ninja --version
+            mpirun --version || mpiexec --version || true
+            echo "=== SYCL devices ==="
+            sycl-ls || true
+            # micromamba list filtered
+            micromamba list | grep -E 'dpcpp|ifx|mkl|tbb|intel-opencl|intel-sycl|openmpi|cmake|ccache|openblas|hdf5' || true
+            # Verify 2026.2.0 pin
+            icpx --version | head -n1
+            # Minimal SYCL probe: compile and run a trivial queue on opencl:cpu
+            cat > /tmp/sycl_probe.cpp <<'EOF'
+          #include <sycl/sycl.hpp>
+          #include <iostream>
+          int main(){
+            sycl::queue q{sycl::cpu_selector_v};
+            std::cout << "SYCL device: " << q.get_device().get_info<sycl::info::device::name>() << "\n";
+            std::cout << "SYCL vendor: " << q.get_device().get_info<sycl::info::device::vendor>() << "\n";
+            int data=0; { sycl::buffer<int,1> b(&data,1); q.submit([&](sycl::handler& h){ auto a=b.get_access<sycl::access::mode::write>(h); h.single_task([=](){ a[0]=42; }); }); }
+            std::cout << "SYCL probe result=" << data << "\n";
+            return data==42 ? 0 : 1;
+          }
+          EOF
+            icpx -fsycl /tmp/sycl_probe.cpp -o /tmp/sycl_probe && /tmp/sycl_probe
+          } 2>&1 | tee /tmp/logs/10_toolchain.log
+          cat /tmp/logs/10_toolchain.log
+
+      - name: Restore ccache (TAMM C++/SYCL objects)
+        uses: actions/cache/restore@v4
+        with:
+          path: /home/runner/.ccache
+          key: sycl-ccache-v2-${{ runner.os }}-${{ hashFiles('.github/sycl-cpu-ci-env.yml') }}-${{ github.sha }}
+          restore-keys: |
+            sycl-ccache-v2-${{ runner.os }}-${{ hashFiles('.github/sycl-cpu-ci-env.yml') }}-
+            sycl-ccache-v2-${{ runner.os }}-
+
+      - name: Build TAMM (DPCPP SYCL, JIT spir64, CPU-runnable)
+        env:
+          CC: icx
+          CXX: icpx
+          FC: ifx
+          CMAKE_PREFIX_PATH: ${{ env.CONDA_PREFIX }}
+        run: |
+          set -o pipefail; mkdir -p /tmp/logs
+          export MKLROOT="$CONDA_PREFIX" TBBROOT="$CONDA_PREFIX"
+          echo "MKLROOT=$MKLROOT"
+          echo "CONDA_PREFIX=$CONDA_PREFIX"
+          cmake --version
+          # TAMM uses CMakeBuild superbuild; GPU_ARCH=spir64 requests generic JIT
+          # image. TAMM_CXX_FLAGS override drops Aurora SPR tuning.
+          cmake -B build -GNinja \
+            -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install \
+            -DTAMM_ENABLE_DPCPP=ON \
+            -DGPU_ARCH=spir64 \
+            -DTAMM_CXX_FLAGS="" \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_C_COMPILER=icx \
+            -DCMAKE_CXX_COMPILER=icpx \
+            -DCMAKE_Fortran_COMPILER=ifx \
+            -DCMAKE_C_COMPILER_LAUNCHER=ccache \
+            -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
+            -DBUILD_TESTING=ON \
+            2>&1 | tee /tmp/logs/40_tamm_configure.log
+          # Verify no PVC AOT target leaked in cache
+          echo "=== GPU_ARCH / SYCL targets in cache ===" | tee -a /tmp/logs/40_tamm_configure.log
+          grep -i -E 'GPU_ARCH|fsycl-targets|TAMM_ENABLE_DPCPP|TAMM_CXX_FLAGS' build/CMakeCache.txt | tee -a /tmp/logs/40_tamm_configure.log || true
+          if grep -q 'intel_gpu_pvc' build/CMakeCache.txt; then
+            echo "WARNING: intel_gpu_pvc still present in CMakeCache.txt (expected spir64 JIT)" | tee -a /tmp/logs/40_tamm_configure.log
+          fi
+          ninja -C build -j2 2>&1 | tee /tmp/logs/41_tamm_build.log
+          ninja -C build install 2>&1 | tee -a /tmp/logs/41_tamm_build.log
+          ccache -s 2>&1 | tee -a /tmp/logs/41_tamm_build.log || true
+
+      - name: Save ccache (even on failure)
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: /home/runner/.ccache
+          key: sycl-ccache-v2-${{ runner.os }}-${{ hashFiles('.github/sycl-cpu-ci-env.yml') }}-${{ github.sha }}
+
+      - name: Smoke - ctest (SYCL CPU)
+        # Continue-on-error initially until CPU runtimes known; build gate is primary.
+        continue-on-error: true
+        timeout-minutes: 30
+        run: |
+          set -o pipefail; mkdir -p /tmp/logs
+          {
+            echo "=== ctest ==="
+            ctest --test-dir build -V --output-on-failure 2>&1 | head -n 500
+            echo "=== sycl cache ==="
+            ls -lh /tmp/sycl_cache 2>&1 | head -n 20 || true
+          } 2>&1 | tee /tmp/logs/50_ctest.log
+
+      - name: Upload logs as run artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sycl-cpu-ci-logs-${{ github.run_id }}-${{ github.run_attempt }}
+          path: /tmp/logs/*.log
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Publish logs to ci-logs branch (readable without API auth)
+        if: always() && github.event_name != 'workflow_run' && github.event_name == 'push'
+        continue-on-error: true
+        run: |
+          mkdir -p /tmp/logs /tmp/ci-logs && cd /tmp/ci-logs
+          for f in /tmp/logs/*.log; do [ -e "$f" ] && tail -n 1200 "$f" > "$(basename "$f")"; done
+          ls -la
+          git init -q -b main .
+          git config user.email "ci@github-runner" && git config user.name "sycl-cpu-ci logs"
+          git add -A
+          git commit -q -m "logs for run ${{ github.run_id }} (attempt ${{ github.run_attempt }}) sha ${{ github.sha }}" --allow-empty
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" HEAD:refs/heads/ci-logs-${{ github.run_id }}

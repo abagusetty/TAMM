@@ -1,0 +1,26 @@
+# Conda environment for .github/workflows/sycl-cpu-ci.yml.
+# Pins to oneAPI 2026.2.0 (Intel channel). The SYCL toolchain (icx/icpx/ifx,
+# MKL SYCL, TBB, OpenCL CPU runtime) and SYCL runtime come from one channel so
+# the compiler and runtime that TAMM links always match.
+# Keep version pin on every Intel package: conda-forge would otherwise float
+# to latest nightlies.
+name: sycl-ci
+channels:
+  - https://software.repos.intel.com/python/conda
+  - conda-forge
+dependencies:
+  - python=3.12
+  - dpcpp_linux-64=2026.2.0
+  - ifx_linux-64=2026.2.0
+  - mkl-devel-dpcpp=2026.2.0
+  - tbb-devel=2026.2.0
+  - intel-opencl-rt=2026.2.0
+  - cmake>=3.26
+  - ninja
+  - ccache
+  - pkg-config
+  - openmpi
+  - openblas
+  - hdf5
+  - scipy
+  - numpy
