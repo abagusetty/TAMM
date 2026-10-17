@@ -67,7 +67,12 @@ public:
     sycl::device* myDev         = get_sycl_device(current_devID);
 
     mtotal = myDev->get_info<sycl::info::device::global_mem_size>();
-    mfree  = myDev->get_info<sycl::ext::intel::info::device::free_memory>();
+    try {
+      mfree = myDev->get_info<sycl::ext::intel::info::device::free_memory>();
+    } catch(...) {
+      // CPU device does not support free_memory (Intel extension); approximate
+      mfree = mtotal;
+    }
 
     *m_free  = mfree;
     *m_total = mtotal;
@@ -90,6 +95,14 @@ private:
   dev_mgr() {
     std::vector<sycl::device> sycl_all_devs =
       sycl::device::get_devices(sycl::info::device_type::gpu);
+    // SYCL CPU CI fallback: GH runners have only opencl:cpu (no GPU). Respect
+    // ONEAPI_DEVICE_SELECTOR by falling back to cpu/all devices when no GPUs.
+    if(sycl_all_devs.empty()) {
+      sycl_all_devs = sycl::device::get_devices(sycl::info::device_type::cpu);
+    }
+    if(sycl_all_devs.empty()) {
+      sycl_all_devs = sycl::device::get_devices(sycl::info::device_type::all);
+    }
     for(auto& dev: sycl_all_devs) {
       _devs.push_back(
         std::make_pair(std::make_shared<device_ext>(dev), std::make_shared<sycl::context>(dev)));
