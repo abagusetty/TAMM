@@ -1,0 +1,1200 @@
+  327 | public void FATR f2c_trace_(value)
+      |                  ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.h:50:41: note: expanded from macro 'f2c_trace_'
+   50 | #define f2c_trace_                      F77_FUNC_(f2c_trace,F2C_TRACE)
+      |                                         ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External-build/config.h:74:30: note: expanded from macro 'F77_FUNC_'
+   74 | #define F77_FUNC_(name,NAME) name ## _
+      |                              ^
+<scratch space>:36:1: note: expanded from here
+   36 | f2c_trace_
+      | ^
+29 warnings generated.
+[558/969] Building C object ma/CMakeFiles/ma.dir/ma.c.o
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:504:17: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+  504 | private Boolean ad_big_enough(ad, ar)
+      |                 ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:536:17: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+  536 | private Boolean ad_eq(ad, ad_target)
+      |                 ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:549:17: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+  549 | private Boolean ad_gt(ad, ad_target)
+      |                 ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:562:17: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+  562 | private Boolean ad_le(ad, ad_target)
+      |                 ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:575:17: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+  575 | private Boolean ad_lt(ad, ad_target)
+      |                 ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:588:14: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+  588 | private void ad_print(ad, block_type)
+      |              ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:617:14: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+  617 | private void balloc_after(ar, address, client_space, nbytes)
+      |              ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:733:14: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+  733 | private void balloc_before(ar, address, client_space, nbytes)
+      |              ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:842:14: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+  842 | private void block_free_heap(ad)
+      |              ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:900:13: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+  900 | private AD *block_split(ad, bytes_needed, insert_free)
+      |             ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:952:16: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+  952 | private ulongi checksum(ad)
+      |                ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:1040:17: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+ 1040 | private Boolean guard_check(ad)
+      |                 ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:1066:14: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+ 1066 | private void guard_set(ad)
+      |              ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:1089:14: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+ 1089 | private void list_coalesce(list)
+      |              ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:1122:13: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+ 1122 | private AD *list_delete(ad, list)
+      |             ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:1137:13: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+ 1137 | private int list_delete_many(list, pred, closure, action)
+      |             ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:1187:13: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+ 1187 | private AD *list_delete_one(list, pred, closure)
+      |             ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:1227:14: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+ 1227 | private void list_insert(ad, list)
+      |              ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:1244:14: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+ 1244 | private void list_insert_ordered(ad, list, pred)
+      |              ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:1295:17: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+ 1295 | private Boolean list_member(ad, list)
+      |                 ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:1317:13: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+ 1317 | private int list_print(list, block_type, index_base)
+      |             ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:1355:14: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+ 1355 | private void list_verify(list, block_type, preamble, blocks,
+      |              ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:1472:17: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+ 1472 | private Integer ma_max_heap_frag_nelem(datatype, min_nelem)
+      |                 ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:1531:17: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+ 1531 | private Integer ma_nelem(address, length, datatype)
+      |                 ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:1573:14: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+ 1573 | private void ma_preinitialize(caller)
+      |              ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:1600:17: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+ 1600 | private Boolean mh2ad(memhandle, adout, location, caller)
+      |                 ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:1743:14: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+ 1743 | private void mh_free(ad)
+      |              ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:1767:16: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+ 1767 | private size_t mai_round(value, unit)
+      |                ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:1784:14: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+ 1784 | private void str_ncopy(to, from, maxchars)
+      |              ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:1812:16: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+ 1812 | public Boolean MAi_inform_base(datatype, address1, address2)
+      |                ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ma/ma.c:1870:13: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+ 1870 | public void MAi_summarize_allocated_blocks(index_base)
+      |             ^
+31 warnings generated.
+[559/969] Building Fortran preprocessed ma/CMakeFiles/testf.x.dir/testf.F-pp.f
+[560/969] Building Fortran object ma/CMakeFiles/ma.dir/maf.F.o
+[561/969] Building C object pario/CMakeFiles/sf.dir/sf/sf_capi.c.o
+[562/969] Building C object pario/CMakeFiles/sf.dir/sf/shared.files.c.o
+[563/969] Building C object pario/CMakeFiles/sf.dir/sf/sf_fortran.c.o
+[564/969] Building C object pario/CMakeFiles/dra.dir/dra/capi.c.o
+[565/969] Building C object comex/CMakeFiles/armci_comex.dir/src-mpi-pr/comex.c.o
+[566/969] Building C object pario/CMakeFiles/dra.dir/dra/disk.param.c.o
+[567/969] Building C object pario/CMakeFiles/dra.dir/dra/env.c.o
+[568/969] Building C object pario/CMakeFiles/dra.dir/dra/fortran.c.o
+[569/969] Building C object pario/CMakeFiles/dra.dir/dra/patch.util.c.o
+[570/969] Building C object pario/CMakeFiles/dra.dir/dra/buffers.c.o
+[571/969] Building C object pario/CMakeFiles/eaf.dir/eaf/eaf_f2c.c.o
+[572/969] Building C object pario/CMakeFiles/eaf.dir/eaf/eaf.c.o
+[573/969] Building C object pario/CMakeFiles/elio.dir/elio/stat.c.o
+[574/969] Building Fortran preprocessed global/testing/CMakeFiles/bin.x.dir/bin.F-pp.f
+[575/969] Building Fortran preprocessed global/testing/CMakeFiles/bin.x.dir/ffflush.F-pp.f
+[576/969] Building C object pario/CMakeFiles/elio.dir/elio/elio.c.o
+[577/969] Building Fortran preprocessed global/testing/CMakeFiles/blktest.x.dir/blktest.F-pp.f
+[578/969] Building Fortran preprocessed global/testing/CMakeFiles/blktest.x.dir/ffflush.F-pp.f
+[579/969] Building Fortran preprocessed global/testing/CMakeFiles/g2test.x.dir/g2test.F-pp.f
+[580/969] Building Fortran preprocessed global/testing/CMakeFiles/g2test.x.dir/ffflush.F-pp.f
+[581/969] Building Fortran preprocessed global/testing/CMakeFiles/g3test.x.dir/g3test.F-pp.f
+[582/969] Building Fortran preprocessed global/testing/CMakeFiles/ga_shift.x.dir/ga_shift.F-pp.f
+[583/969] Building Fortran preprocessed global/testing/CMakeFiles/g3test.x.dir/ffflush.F-pp.f
+[584/969] Building Fortran preprocessed global/testing/CMakeFiles/ga_shift.x.dir/ffflush.F-pp.f
+[585/969] Building Fortran preprocessed global/testing/CMakeFiles/ghosts.x.dir/ghosts.F-pp.f
+[586/969] Building Fortran preprocessed global/testing/CMakeFiles/ghosts.x.dir/ffflush.F-pp.f
+[587/969] Building Fortran preprocessed global/testing/CMakeFiles/jacobi.x.dir/ffflush.F-pp.f
+[588/969] Building Fortran preprocessed global/testing/CMakeFiles/jacobi.x.dir/jacobi.F-pp.f
+[589/969] Building Fortran preprocessed global/testing/CMakeFiles/mir_perf2.x.dir/mir_perf2.F-pp.f
+[590/969] Building Fortran preprocessed global/testing/CMakeFiles/mir_perf2.x.dir/ffflush.F-pp.f
+[591/969] Building Fortran preprocessed global/testing/CMakeFiles/mmatrix.x.dir/ffflush.F-pp.f
+[592/969] Building Fortran preprocessed global/testing/CMakeFiles/mmatrix.x.dir/mmatrix.F-pp.f
+[593/969] Building Fortran preprocessed global/testing/CMakeFiles/mulmatpatch.x.dir/ffflush.F-pp.f
+[594/969] Building Fortran preprocessed global/testing/CMakeFiles/mulmatpatch.x.dir/mulmatpatch.F-pp.f
+[595/969] Building C object global/src/CMakeFiles/ga_src.dir/sparse.array.c.o
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/src/sparse.array.c:511:82: warning: format specifies type 'int' but the argument has type 'Integer' (aka 'long') [-Wformat]
+  511 |         printf("p[%ld] (assemble) nblocks: %ld iblock: %d\n",me,SPA[hdl].nblocks,i);
+      |                                                        ~~                        ^
+      |                                                        %ld
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/src/sparse.array.c:512:64: warning: format specifies type 'int' but the argument has type 'Integer' (aka 'long') [-Wformat]
+  512 |         printf("p[%ld] (assemble) blksize[%d]: %ld j: %d\n",me,i,SPA[hdl].blksize[i],j);
+      |                                           ~~                   ^
+      |                                           %ld
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/src/sparse.array.c:512:86: warning: format specifies type 'int' but the argument has type 'Integer' (aka 'long') [-Wformat]
+  512 |         printf("p[%ld] (assemble) blksize[%d]: %ld j: %d\n",me,i,SPA[hdl].blksize[i],j);
+      |                                                       ~~                             ^
+      |                                                       %ld
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/src/sparse.array.c:2282:11: warning: format specifies type 'int' but the argument has type 'Integer' (aka 'long') [-Wformat]
+ 2281 |       printf("p[%d] irow: %d icol: %d iblk: %d ilo: %d ihi: %d jlo: %d jhi: %d len: %d\n",
+      |                 ~~
+      |                 %ld
+ 2282 |           pnga_nodeid(),irow,icol,index,*ilo,*ihi,*jlo,*jhi,len);
+      |           ^~~~~~~~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/src/sparse.array.c:2282:25: warning: format specifies type 'int' but the argument has type 'Integer' (aka 'long') [-Wformat]
+ 2281 |       printf("p[%d] irow: %d icol: %d iblk: %d ilo: %d ihi: %d jlo: %d jhi: %d len: %d\n",
+      |                           ~~
+      |                           %ld
+ 2282 |           pnga_nodeid(),irow,icol,index,*ilo,*ihi,*jlo,*jhi,len);
+      |                         ^~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/src/sparse.array.c:2282:30: warning: format specifies type 'int' but the argument has type 'Integer' (aka 'long') [-Wformat]
+ 2281 |       printf("p[%d] irow: %d icol: %d iblk: %d ilo: %d ihi: %d jlo: %d jhi: %d len: %d\n",
+      |                                    ~~
+      |                                    %ld
+ 2282 |           pnga_nodeid(),irow,icol,index,*ilo,*ihi,*jlo,*jhi,len);
+      |                              ^~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/src/sparse.array.c:2282:41: warning: format specifies type 'int' but the argument has type 'Integer' (aka 'long') [-Wformat]
+ 2281 |       printf("p[%d] irow: %d icol: %d iblk: %d ilo: %d ihi: %d jlo: %d jhi: %d len: %d\n",
+      |                                                     ~~
+      |                                                     %ld
+ 2282 |           pnga_nodeid(),irow,icol,index,*ilo,*ihi,*jlo,*jhi,len);
+      |                                         ^~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/src/sparse.array.c:2282:46: warning: format specifies type 'int' but the argument has type 'Integer' (aka 'long') [-Wformat]
+ 2281 |       printf("p[%d] irow: %d icol: %d iblk: %d ilo: %d ihi: %d jlo: %d jhi: %d len: %d\n",
+      |                                                             ~~
+      |                                                             %ld
+ 2282 |           pnga_nodeid(),irow,icol,index,*ilo,*ihi,*jlo,*jhi,len);
+      |                                              ^~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/src/sparse.array.c:2282:51: warning: format specifies type 'int' but the argument has type 'Integer' (aka 'long') [-Wformat]
+ 2281 |       printf("p[%d] irow: %d icol: %d iblk: %d ilo: %d ihi: %d jlo: %d jhi: %d len: %d\n",
+      |                                                                     ~~
+      |                                                                     %ld
+ 2282 |           pnga_nodeid(),irow,icol,index,*ilo,*ihi,*jlo,*jhi,len);
+      |                                                   ^~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/src/sparse.array.c:2282:56: warning: format specifies type 'int' but the argument has type 'Integer' (aka 'long') [-Wformat]
+ 2281 |       printf("p[%d] irow: %d icol: %d iblk: %d ilo: %d ihi: %d jlo: %d jhi: %d len: %d\n",
+      |                                                                             ~~
+      |                                                                             %ld
+ 2282 |           pnga_nodeid(),irow,icol,index,*ilo,*ihi,*jlo,*jhi,len);
+      |                                                        ^~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/src/sparse.array.c:2282:61: warning: format specifies type 'int' but the argument has type 'int64_t' (aka 'long') [-Wformat]
+ 2281 |       printf("p[%d] irow: %d icol: %d iblk: %d ilo: %d ihi: %d jlo: %d jhi: %d len: %d\n",
+      |                                                                                     ~~
+      |                                                                                     %ld
+ 2282 |           pnga_nodeid(),irow,icol,index,*ilo,*ihi,*jlo,*jhi,len);
+      |                                                             ^~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/src/sparse.array.c:2307:10: warning: equality comparison result unused [-Wunused-comparison]
+ 2307 |     *idx == NULL;
+      |     ~~~~~^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/src/sparse.array.c:2307:10: note: use '=' to turn this equality comparison into an assignment
+ 2307 |     *idx == NULL;
+      |          ^~
+      |          =
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/src/sparse.array.c:2308:10: warning: equality comparison result unused [-Wunused-comparison]
+ 2308 |     *jdx == NULL;
+      |     ~~~~~^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/src/sparse.array.c:2308:10: note: use '=' to turn this equality comparison into an assignment
+ 2308 |     *jdx == NULL;
+      |          ^~
+      |          =
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/src/sparse.array.c:2309:11: warning: equality comparison result unused [-Wunused-comparison]
+ 2309 |     *data == NULL;
+      |     ~~~~~~^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/src/sparse.array.c:2309:11: note: use '=' to turn this equality comparison into an assignment
+ 2309 |     *data == NULL;
+      |           ^~
+      |           =
+14 warnings generated.
+[596/969] Building Fortran preprocessed global/testing/CMakeFiles/nbtest.x.dir/ffflush.F-pp.f
+[597/969] Building Fortran preprocessed global/testing/CMakeFiles/nbtest.x.dir/nbtest.F-pp.f
+[598/969] Building Fortran preprocessed global/testing/CMakeFiles/mulmatpatch.x.dir/testblas.F-pp.f
+[599/969] Building Fortran preprocessed global/testing/CMakeFiles/nb2test.x.dir/nb2test.F-pp.f
+[600/969] Building Fortran preprocessed global/testing/CMakeFiles/nb2test.x.dir/ffflush.F-pp.f
+[601/969] Building Fortran preprocessed global/testing/CMakeFiles/ndim.x.dir/ffflush.F-pp.f
+[602/969] Building Fortran preprocessed global/testing/CMakeFiles/ndim.x.dir/ndim.F-pp.f
+[603/969] Building Fortran preprocessed global/testing/CMakeFiles/patch.x.dir/patch.F-pp.f
+[604/969] Building Fortran preprocessed global/testing/CMakeFiles/patch.x.dir/ffflush.F-pp.f
+[605/969] Building Fortran preprocessed global/testing/CMakeFiles/patch.x.dir/testblas.F-pp.f
+[606/969] Building Fortran preprocessed global/testing/CMakeFiles/patch2.x.dir/patch2.F-pp.f
+[607/969] Building Fortran preprocessed global/testing/CMakeFiles/patch2.x.dir/ffflush.F-pp.f
+[608/969] Building Fortran preprocessed global/testing/CMakeFiles/patch_enumf.x.dir/patch_enumf.F-pp.f
+[609/969] Building Fortran preprocessed global/testing/CMakeFiles/patch_enumf.x.dir/ffflush.F-pp.f
+[610/969] Building Fortran preprocessed global/testing/CMakeFiles/perfmod.x.dir/ffflush.F-pp.f
+[611/969] Building Fortran preprocessed global/testing/CMakeFiles/perfmod.x.dir/perfmod.F-pp.f
+[612/969] Building Fortran preprocessed global/testing/CMakeFiles/perform.x.dir/ffflush.F-pp.f
+[613/969] Building Fortran preprocessed global/testing/CMakeFiles/perform.x.dir/perform.F-pp.f
+[614/969] Building Fortran preprocessed global/testing/CMakeFiles/perf.x.dir/ffflush.F-pp.f
+[615/969] Building Fortran preprocessed global/testing/CMakeFiles/perf.x.dir/perf.F-pp.f
+[616/969] Building Fortran preprocessed global/testing/CMakeFiles/pg2test.x.dir/ffflush.F-pp.f
+[617/969] Building Fortran preprocessed global/testing/CMakeFiles/pg2test.x.dir/pg2test.F-pp.f
+[618/969] Building Fortran preprocessed global/testing/CMakeFiles/pgtest.x.dir/ffflush.F-pp.f
+[619/969] Building Fortran preprocessed global/testing/CMakeFiles/scan.x.dir/ffflush.F-pp.f
+[620/969] Building Fortran preprocessed global/testing/CMakeFiles/scan.x.dir/scan.F-pp.f
+[621/969] Building Fortran preprocessed global/testing/CMakeFiles/pgtest.x.dir/pgtest.F-pp.f
+[622/969] Building Fortran preprocessed global/testing/CMakeFiles/sparse.x.dir/sparse.F-pp.f
+[623/969] Building Fortran preprocessed global/testing/CMakeFiles/sparse.x.dir/ffflush.F-pp.f
+[624/969] Building Fortran preprocessed global/testing/CMakeFiles/sprsmatmult.x.dir/ffflush.F-pp.f
+[625/969] Building Fortran preprocessed global/testing/CMakeFiles/sprsmatmult.x.dir/sprsmatmult.F-pp.f
+[626/969] Building Fortran preprocessed global/testing/CMakeFiles/sprs_testf.x.dir/ffflush.F-pp.f
+[627/969] Building Fortran preprocessed global/testing/CMakeFiles/sprs_testf.x.dir/sprs_testf.F-pp.f
+[628/969] Building Fortran preprocessed global/testing/CMakeFiles/stride.x.dir/stride.F-pp.f
+[629/969] Building Fortran preprocessed global/testing/CMakeFiles/stride.x.dir/ffflush.F-pp.f
+[630/969] Building C object global/src/CMakeFiles/ga_src.dir/sparse.c.o
+[631/969] Building Fortran preprocessed global/testing/CMakeFiles/test.x.dir/ffflush.F-pp.f
+[632/969] Building Fortran preprocessed global/testing/CMakeFiles/testmatmult.x.dir/testmatmult.F-pp.f
+[633/969] Building Fortran preprocessed global/testing/CMakeFiles/test.x.dir/test.F-pp.f
+[634/969] Building Fortran preprocessed global/testing/CMakeFiles/testmatmult.x.dir/ffflush.F-pp.f
+[635/969] Building Fortran preprocessed global/testing/CMakeFiles/testsolve.x.dir/ffflush.F-pp.f
+[636/969] Building Fortran preprocessed global/testing/CMakeFiles/overlay.x.dir/ffflush.F-pp.f
+[637/969] Building C object global/src/CMakeFiles/ga_src.dir/global.npatch.c.o
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/src/global.npatch.c:2640:6: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+ 2640 | void pnga_add_patch(alpha, g_a, alo, ahi, beta,  g_b, blo, bhi,
+      |      ^
+1 warning generated.
+[638/969] Building Fortran preprocessed global/testing/CMakeFiles/testsolve.x.dir/testsolve.F-pp.f
+[639/969] Building Fortran preprocessed global/testing/CMakeFiles/testeig.x.dir/testeig.F-pp.f
+[640/969] Building Fortran preprocessed global/testing/CMakeFiles/testeig.x.dir/ffflush.F-pp.f
+[641/969] Building Fortran preprocessed global/testing/CMakeFiles/simple_groups.x.dir/simple_groups.F-pp.f
+[642/969] Building Fortran preprocessed global/testing/CMakeFiles/simple_groups.x.dir/ffflush.F-pp.f
+[643/969] Building Fortran preprocessed global/testing/CMakeFiles/overlay.x.dir/overlay.F-pp.f
+[644/969] Building Fortran preprocessed global/testing/CMakeFiles/simple_groups_comm.x.dir/simple_groups_comm.F-pp.f
+[645/969] Building Fortran preprocessed global/testing/CMakeFiles/simple_groups_comm.x.dir/ffflush.F-pp.f
+[646/969] Building Fortran preprocessed global/testing/CMakeFiles/nga-onesided.x.dir/ffflush.F-pp.f
+[647/969] Building Fortran preprocessed global/testing/CMakeFiles/nga-patch.x.dir/ffflush.F-pp.f
+[648/969] Building Fortran preprocessed global/testing/CMakeFiles/nga-periodic.x.dir/ffflush.F-pp.f
+[649/969] Building Fortran preprocessed global/testing/CMakeFiles/nga-scatter.x.dir/ffflush.F-pp.f
+[650/969] Building Fortran preprocessed global/testing/CMakeFiles/nga-scatter.x.dir/__/__/nga-scatter.F-pp.f
+[651/969] Building Fortran preprocessed global/testing/CMakeFiles/ngatest.x.dir/ffflush.F-pp.f
+[652/969] Building Fortran preprocessed global/testing/CMakeFiles/nga-periodic.x.dir/__/__/nga-periodic.F-pp.f
+[653/969] Building Fortran preprocessed global/testing/CMakeFiles/nga-util.x.dir/ffflush.F-pp.f
+[654/969] Building Fortran preprocessed global/testing/CMakeFiles/nga-util.x.dir/__/__/nga-util.F-pp.f
+[655/969] Building Fortran preprocessed global/testing/CMakeFiles/nga-patch.x.dir/__/__/nga-patch.F-pp.f
+[656/969] Building CXX object ga++/CMakeFiles/ga++.dir/src/GAServices.cc.o
+[657/969] Building Fortran preprocessed global/testing/CMakeFiles/nga-onesided.x.dir/__/__/nga-onesided.F-pp.f
+[658/969] Building CXX object ga++/CMakeFiles/ga++.dir/src/init_term.cc.o
+[659/969] Building CXX object ga++/CMakeFiles/ga++.dir/src/overload.cc.o
+[660/969] Generating Fortran dyndep file ma/CMakeFiles/testf.x.dir/Fortran.dd
+[661/969] Generating Fortran dyndep file global/testing/CMakeFiles/bin.x.dir/Fortran.dd
+[662/969] Generating Fortran dyndep file global/testing/CMakeFiles/blktest.x.dir/Fortran.dd
+[663/969] Generating Fortran dyndep file global/testing/CMakeFiles/g2test.x.dir/Fortran.dd
+[664/969] Building CXX object ga++/CMakeFiles/ga++.dir/src/GlobalArray.cc.o
+[665/969] Generating Fortran dyndep file global/testing/CMakeFiles/g3test.x.dir/Fortran.dd
+[666/969] Generating Fortran dyndep file global/testing/CMakeFiles/ga_shift.x.dir/Fortran.dd
+[667/969] Generating Fortran dyndep file global/testing/CMakeFiles/ghosts.x.dir/Fortran.dd
+[668/969] Generating Fortran dyndep file global/testing/CMakeFiles/mir_perf2.x.dir/Fortran.dd
+[669/969] Building CXX object ga++/CMakeFiles/ga++.dir/src/PGroup.cc.o
+[670/969] Generating Fortran dyndep file global/testing/CMakeFiles/jacobi.x.dir/Fortran.dd
+[671/969] Generating Fortran dyndep file global/testing/CMakeFiles/mmatrix.x.dir/Fortran.dd
+[672/969] Generating Fortran dyndep file global/testing/CMakeFiles/mulmatpatch.x.dir/Fortran.dd
+[673/969] Generating Fortran dyndep file global/testing/CMakeFiles/nbtest.x.dir/Fortran.dd
+[674/969] Generating Fortran dyndep file global/testing/CMakeFiles/ndim.x.dir/Fortran.dd
+[675/969] Generating Fortran dyndep file global/testing/CMakeFiles/nb2test.x.dir/Fortran.dd
+[676/969] Generating Fortran dyndep file global/testing/CMakeFiles/patch.x.dir/Fortran.dd
+[677/969] Generating Fortran dyndep file global/testing/CMakeFiles/patch2.x.dir/Fortran.dd
+[678/969] Building CXX object ga++/CMakeFiles/ga++.dir/src/services.cc.o
+[679/969] Generating Fortran dyndep file global/testing/CMakeFiles/patch_enumf.x.dir/Fortran.dd
+[680/969] Generating Fortran dyndep file global/testing/CMakeFiles/perfmod.x.dir/Fortran.dd
+[681/969] Generating Fortran dyndep file global/testing/CMakeFiles/perform.x.dir/Fortran.dd
+[682/969] Generating Fortran dyndep file global/testing/CMakeFiles/pg2test.x.dir/Fortran.dd
+[683/969] Generating Fortran dyndep file global/testing/CMakeFiles/pgtest.x.dir/Fortran.dd
+[684/969] Generating Fortran dyndep file global/testing/CMakeFiles/perf.x.dir/Fortran.dd
+[685/969] Generating Fortran dyndep file global/testing/CMakeFiles/scan.x.dir/Fortran.dd
+[686/969] Generating Fortran dyndep file global/testing/CMakeFiles/sparse.x.dir/Fortran.dd
+[687/969] Generating Fortran dyndep file global/testing/CMakeFiles/sprsmatmult.x.dir/Fortran.dd
+[688/969] Generating Fortran dyndep file global/testing/CMakeFiles/sprs_testf.x.dir/Fortran.dd
+[689/969] Generating Fortran dyndep file global/testing/CMakeFiles/stride.x.dir/Fortran.dd
+[690/969] Generating Fortran dyndep file global/testing/CMakeFiles/test.x.dir/Fortran.dd
+[691/969] Generating Fortran dyndep file global/testing/CMakeFiles/testmatmult.x.dir/Fortran.dd
+[692/969] Generating Fortran dyndep file global/testing/CMakeFiles/testsolve.x.dir/Fortran.dd
+[693/969] Generating Fortran dyndep file global/testing/CMakeFiles/overlay.x.dir/Fortran.dd
+[694/969] Generating Fortran dyndep file global/testing/CMakeFiles/testeig.x.dir/Fortran.dd
+[695/969] Generating Fortran dyndep file global/testing/CMakeFiles/simple_groups.x.dir/Fortran.dd
+[696/969] Generating Fortran dyndep file global/testing/CMakeFiles/simple_groups_comm.x.dir/Fortran.dd
+[697/969] Generating Fortran dyndep file global/testing/CMakeFiles/nga-onesided.x.dir/Fortran.dd
+[698/969] Generating Fortran dyndep file global/testing/CMakeFiles/nga-periodic.x.dir/Fortran.dd
+[699/969] Generating Fortran dyndep file global/testing/CMakeFiles/nga-patch.x.dir/Fortran.dd
+[700/969] Generating Fortran dyndep file global/testing/CMakeFiles/nga-scatter.x.dir/Fortran.dd
+[701/969] Generating Fortran dyndep file global/testing/CMakeFiles/nga-util.x.dir/Fortran.dd
+[702/969] Building C object comex/CMakeFiles/armci.dir/src-armci/groups.c.o
+[703/969] Building C object pario/CMakeFiles/dra.dir/dra/disk.arrays.c.o
+[704/969] Building C object comex/CMakeFiles/armci.dir/src-armci/capi.c.o
+[705/969] Building Fortran preprocessed global/testing/CMakeFiles/ngatest.x.dir/__/__/ngatest.F-pp.f
+[706/969] Generating Fortran dyndep file global/testing/CMakeFiles/ngatest.x.dir/Fortran.dd
+[707/969] Building C object comex/CMakeFiles/armci.dir/src-armci/iterator.c.o
+[708/969] Linking CXX static library libga.a
+[709/969] Building C object comex/CMakeFiles/armci.dir/src-mpi-pr/groups.c.o
+[710/969] Building C object comex/CMakeFiles/armci.dir/src-armci/message.c.o
+[711/969] Building C object comex/CMakeFiles/armci.dir/src-armci/armci.c.o
+[712/969] Building C object comex/CMakeFiles/armci.dir/src-mpi-pr/reg_cache.c.o
+[713/969] Building C object comex/CMakeFiles/comex.dir/src-mpi-pr/groups.c.o
+[714/969] Linking CXX static library ga++/libga++.a
+[715/969] Building C object comex/CMakeFiles/comex.dir/src-mpi-pr/reg_cache.c.o
+[716/969] Building CXX object ga++/CMakeFiles/ntestc_cpp.x.dir/testing/ntestc.cc.o
+[717/969] Building CXX object ga++/CMakeFiles/mtest_cpp.x.dir/testing/mtest.cc.o
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:181:14: warning: variable 'r' set but not used [-Wunused-but-set-variable]
+  181 |       double r, m;
+      |              ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:181:17: warning: variable 'm' set but not used [-Wunused-but-set-variable]
+  181 |       double r, m;
+      |                 ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:171:5: warning: variable 'max' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  171 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:175:35: note: uninitialized use occurs here
+  175 |   g_c->selectElem ((char *)"max", max, index);
+      |                                   ^~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:42:18: note: initialize the variable 'max' to silence this warning
+   42 |   void *min, *max;
+      |                  ^
+      |                   = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:171:5: warning: variable 'min' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  171 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:176:35: note: uninitialized use occurs here
+  176 |   g_c->selectElem ((char *)"min", min, index);
+      |                                   ^~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:42:12: note: initialize the variable 'min' to silence this warning
+   42 |   void *min, *max;
+      |            ^
+      |             = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:129:5: warning: variable 'val' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  129 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:137:13: note: uninitialized use occurs here
+  137 |   g_a->fill(val);
+      |             ^~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:61:12: note: initialize the variable 'val' to silence this warning
+   61 |   void *val;
+      |            ^
+      |             = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:129:5: warning: variable 'val2' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  129 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:145:13: note: uninitialized use occurs here
+  145 |   g_b->fill(val2);
+      |             ^~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:67:13: note: initialize the variable 'val2' to silence this warning
+   67 |   void *val2;
+      |             ^
+      |              = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:103:5: warning: variable 'alpha' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  103 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:147:12: note: uninitialized use occurs here
+  147 |   g_c->add(alpha, g_a, beta, g_b);
+      |            ^~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:50:14: note: initialize the variable 'alpha' to silence this warning
+   50 |   void *alpha, *beta;
+      |              ^
+      |               = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:103:5: warning: variable 'beta' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  103 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:147:24: note: uninitialized use occurs here
+  147 |   g_c->add(alpha, g_a, beta, g_b);
+      |                        ^~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:50:21: note: initialize the variable 'beta' to silence this warning
+   50 |   void *alpha, *beta;
+      |                     ^
+      |                      = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:396:14: warning: variable 'r' set but not used [-Wunused-but-set-variable]
+  396 |       double r, m;
+      |              ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:396:17: warning: variable 'm' set but not used [-Wunused-but-set-variable]
+  396 |       double r, m;
+      |                 ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:386:5: warning: variable 'max' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  386 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:390:35: note: uninitialized use occurs here
+  390 |   g_c->selectElem ((char *)"max", max, index);
+      |                                   ^~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:258:18: note: initialize the variable 'max' to silence this warning
+  258 |   void *min, *max;
+      |                  ^
+      |                   = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:386:5: warning: variable 'min' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  386 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:391:35: note: uninitialized use occurs here
+  391 |   g_c->selectElem ((char *)"min", min, index);
+      |                                   ^~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:258:12: note: initialize the variable 'min' to silence this warning
+  258 |   void *min, *max;
+      |            ^
+      |             = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:344:5: warning: variable 'val' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  344 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:353:14: note: uninitialized use occurs here
+  353 |   g_a->fill (val);
+      |              ^~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:276:12: note: initialize the variable 'val' to silence this warning
+  276 |   void *val;
+      |            ^
+      |             = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:344:5: warning: variable 'val2' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  344 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:361:14: note: uninitialized use occurs here
+  361 |   g_b->fill (val2);
+      |              ^~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:282:13: note: initialize the variable 'val2' to silence this warning
+  282 |   void *val2;
+      |             ^
+      |              = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:318:5: warning: variable 'alpha' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  318 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:363:13: note: uninitialized use occurs here
+  363 |   g_c->add (alpha, g_a, beta, g_b);
+      |             ^~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:266:14: note: initialize the variable 'alpha' to silence this warning
+  266 |   void *alpha, *beta;
+      |              ^
+      |               = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:318:5: warning: variable 'beta' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  318 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:363:25: note: uninitialized use occurs here
+  363 |   g_c->add (alpha, g_a, beta, g_b);
+      |                         ^~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:266:21: note: initialize the variable 'beta' to silence this warning
+  266 |   void *alpha, *beta;
+      |                     ^
+      |                      = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:644:14: warning: variable 'r' set but not used [-Wunused-but-set-variable]
+  644 |       double r, m;
+      |              ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:644:17: warning: variable 'm' set but not used [-Wunused-but-set-variable]
+  644 |       double r, m;
+      |                 ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:634:5: warning: variable 'max' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  634 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:638:35: note: uninitialized use occurs here
+  638 |   g_e->selectElem ((char *)"max", max, index);
+      |                                   ^~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:475:18: note: initialize the variable 'max' to silence this warning
+  475 |   void *min, *max;
+      |                  ^
+      |                   = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:634:5: warning: variable 'min' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  634 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:639:35: note: uninitialized use occurs here
+  639 |   g_e->selectElem ((char *)"min", min, index);
+      |                                   ^~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:475:12: note: initialize the variable 'min' to silence this warning
+  475 |   void *min, *max;
+      |            ^
+      |             = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:583:5: warning: variable 'val' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  583 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:596:29: note: uninitialized use occurs here
+  596 |   g_a->fillPatch (alo, ahi, val);
+      |                             ^~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:491:12: note: initialize the variable 'val' to silence this warning
+  491 |   void *val;
+      |            ^
+      |             = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:583:5: warning: variable 'val2' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  583 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:597:29: note: uninitialized use occurs here
+  597 |   g_b->fillPatch (blo, bhi, val2);
+      |                             ^~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:498:13: note: initialize the variable 'val2' to silence this warning
+  498 |   void *val2;
+      |             ^
+      |              = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:583:5: warning: variable 'val3' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  583 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:598:29: note: uninitialized use occurs here
+  598 |   g_c->fillPatch (alo, bhi, val3);
+      |                             ^~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:505:13: note: initialize the variable 'val3' to silence this warning
+  505 |   void *val3;
+      |             ^
+      |              = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:541:5: warning: variable 'alpha' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  541 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:610:18: note: uninitialized use occurs here
+  610 |   g_e->addPatch (alpha, g_c, clo, chi, beta, g_m, mlo, mhi, alo, ahi);
+      |                  ^~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:483:14: note: initialize the variable 'alpha' to silence this warning
+  483 |   void *alpha, *beta;
+      |              ^
+      |               = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:541:5: warning: variable 'beta' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  541 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:610:40: note: uninitialized use occurs here
+  610 |   g_e->addPatch (alpha, g_c, clo, chi, beta, g_m, mlo, mhi, alo, ahi);
+      |                                        ^~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:483:21: note: initialize the variable 'beta' to silence this warning
+  483 |   void *alpha, *beta;
+      |                     ^
+      |                      = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:888:14: warning: variable 'r' set but not used [-Wunused-but-set-variable]
+  888 |       double r, m;
+      |              ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:888:17: warning: variable 'm' set but not used [-Wunused-but-set-variable]
+  888 |       double r, m;
+      |                 ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:879:5: warning: variable 'max' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  879 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:883:35: note: uninitialized use occurs here
+  883 |   g_e->selectElem ((char *)"max", max, index);
+      |                                   ^~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:723:18: note: initialize the variable 'max' to silence this warning
+  723 |   void *min, *max;
+      |                  ^
+      |                   = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:879:5: warning: variable 'min' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  879 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:884:35: note: uninitialized use occurs here
+  884 |   g_e->selectElem ((char *)"min", min, index);
+      |                                   ^~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:723:12: note: initialize the variable 'min' to silence this warning
+  723 |   void *min, *max;
+      |            ^
+      |             = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:830:5: warning: variable 'val' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  830 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:842:14: note: uninitialized use occurs here
+  842 |   g_a->fill (val);
+      |              ^~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:739:12: note: initialize the variable 'val' to silence this warning
+  739 |   void *val;
+      |            ^
+      |             = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:830:5: warning: variable 'val2' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  830 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:843:14: note: uninitialized use occurs here
+  843 |   g_b->fill (val2);
+      |              ^~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:746:13: note: initialize the variable 'val2' to silence this warning
+  746 |   void *val2;
+      |             ^
+      |              = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:830:5: warning: variable 'val3' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  830 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:844:14: note: uninitialized use occurs here
+  844 |   g_c->fill (val3);
+      |              ^~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:753:13: note: initialize the variable 'val3' to silence this warning
+  753 |   void *val3;
+      |             ^
+      |              = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:788:5: warning: variable 'alpha' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  788 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:855:13: note: uninitialized use occurs here
+  855 |   g_e->add (alpha, g_c, beta, g_m);
+      |             ^~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:731:14: note: initialize the variable 'alpha' to silence this warning
+  731 |   void *alpha, *beta;
+      |              ^
+      |               = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:788:5: warning: variable 'beta' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  788 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:855:25: note: uninitialized use occurs here
+  855 |   g_e->add (alpha, g_c, beta, g_m);
+      |                         ^~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:731:21: note: initialize the variable 'beta' to silence this warning
+  731 |   void *alpha, *beta;
+      |                     ^
+      |                      = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:997:5: warning: variable 'val' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  997 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:1003:14: note: uninitialized use occurs here
+ 1003 |   g_a->fill (val);
+      |              ^~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:964:12: note: initialize the variable 'val' to silence this warning
+  964 |   void *val;
+      |            ^
+      |             = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:1080:5: warning: variable 'val' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+ 1080 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:1086:14: note: uninitialized use occurs here
+ 1086 |   g_a->fill (val);
+      |              ^~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:1047:12: note: initialize the variable 'val' to silence this warning
+ 1047 |   void *val;
+      |            ^
+      |             = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:1167:5: warning: variable 'val' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+ 1167 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:1174:14: note: uninitialized use occurs here
+ 1174 |   g_a->fill (val);
+      |              ^~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:1131:12: note: initialize the variable 'val' to silence this warning
+ 1131 |   void *val;
+      |            ^
+      |             = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:1306:5: warning: variable 'val' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+ 1306 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:1314:14: note: uninitialized use occurs here
+ 1314 |   g_v->fill (val);
+      |              ^~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:1268:12: note: initialize the variable 'val' to silence this warning
+ 1268 |   void *val;
+      |            ^
+      |             = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:1454:5: warning: variable 'val' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+ 1454 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:1462:14: note: uninitialized use occurs here
+ 1462 |   g_v->fill (val);
+      |              ^~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:1418:12: note: initialize the variable 'val' to silence this warning
+ 1418 |   void *val;
+      |            ^
+      |             = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:1588:5: warning: variable 'val' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+ 1588 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:1597:23: note: uninitialized use occurs here
+ 1597 |   g_a->shiftDiagonal (val);
+      |                       ^~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/mtest.cc:1551:12: note: initialize the variable 'val' to silence this warning
+ 1551 |   void *val;
+      |            ^
+      |             = nullptr
+40 warnings generated.
+[718/969] Building CXX object ga++/CMakeFiles/elempatch_cpp.x.dir/testing/elempatch.cc.o
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/elempatch.cc:326:5: warning: variable 'max' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  326 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/elempatch.cc:330:30: note: uninitialized use occurs here
+  330 |   g_e->selectElem (name_max, max, index);
+      |                              ^~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/elempatch.cc:76:18: note: initialize the variable 'max' to silence this warning
+   76 |   void *min, *max;
+      |                  ^
+      |                   = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/elempatch.cc:326:5: warning: variable 'min' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  326 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/elempatch.cc:331:30: note: uninitialized use occurs here
+  331 |   g_e->selectElem (name_min, min, index);
+      |                              ^~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/elempatch.cc:76:12: note: initialize the variable 'min' to silence this warning
+   76 |   void *min, *max;
+      |            ^
+      |             = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/elempatch.cc:152:5: warning: variable 'val' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+  152 |     default:
+      |     ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/elempatch.cc:157:27: note: uninitialized use occurs here
+  157 |   g_a->fillPatch (lo, hi, val);
+      |                           ^~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/elempatch.cc:62:12: note: initialize the variable 'val' to silence this warning
+   62 |   void *val;
+      |            ^
+      |             = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/elempatch.cc:387:14: warning: variable 'ok' set but not used [-Wunused-but-set-variable]
+  387 |   int d, op, ok = 1;
+      |              ^
+4 warnings generated.
+[719/969] Building CXX object ga++/CMakeFiles/thread-safe_cpp.x.dir/testing/thread-safe.cc.o
+[720/969] Building CXX object ga++/CMakeFiles/testmult_cpp.x.dir/testing/testmult.cc.o
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/testmult.cc:76:3: warning: variable 'alpha' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+   76 |   default:
+      |   ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/testmult.cc:89:30: note: uninitialized use occurs here
+   89 |   g_c->matmulPatch('N', 'N', alpha, beta,
+      |                              ^~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/testmult.cc:46:32: note: initialize the variable 'alpha' to silence this warning
+   46 |   void *value1, *value2, *alpha, *beta;
+      |                                ^
+      |                                 = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/testmult.cc:76:3: warning: variable 'beta' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+   76 |   default:
+      |   ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/testmult.cc:89:37: note: uninitialized use occurs here
+   89 |   g_c->matmulPatch('N', 'N', alpha, beta,
+      |                                     ^~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/testmult.cc:46:39: note: initialize the variable 'beta' to silence this warning
+   46 |   void *value1, *value2, *alpha, *beta;
+      |                                       ^
+      |                                        = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/testmult.cc:76:3: warning: variable 'value1' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+   76 |   default:
+      |   ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/testmult.cc:84:13: note: uninitialized use occurs here
+   84 |   g_a->fill(value1);
+      |             ^~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/testmult.cc:46:15: note: initialize the variable 'value1' to silence this warning
+   46 |   void *value1, *value2, *alpha, *beta;
+      |               ^
+      |                = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/testmult.cc:76:3: warning: variable 'value2' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+   76 |   default:
+      |   ^~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/testmult.cc:85:14: note: uninitialized use occurs here
+   85 |   g_b->fill( value2);
+      |              ^~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/testmult.cc:46:24: note: initialize the variable 'value2' to silence this warning
+   46 |   void *value1, *value2, *alpha, *beta;
+      |                        ^
+      |                         = nullptr
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/ga++/testing/testmult.cc:187:17: warning: variable 'time' set but not used [-Wunused-but-set-variable]
+  187 | DoublePrecision time;
+      |                 ^
+5 warnings generated.
+[721/969] Building C object ma/CMakeFiles/test-coalesce.x.dir/test-coalesce.c.o
+[722/969] Building C object ma/CMakeFiles/test-inquire.x.dir/test-inquire.c.o
+[723/969] Building CXX object ga++/CMakeFiles/testc_cpp.x.dir/testing/testc.cc.o
+[724/969] Building C object global/testing/CMakeFiles/mulmatpatchc.x.dir/mulmatpatchc.c.o
+[725/969] Building Fortran object ma/CMakeFiles/testf.x.dir/testf.F.o
+[726/969] Building C object comex/CMakeFiles/comex.dir/src-mpi-pr/comex.c.o
+[727/969] Building C object global/testing/CMakeFiles/getmem.x.dir/getmem.c.o
+[728/969] Building C object global/testing/CMakeFiles/getmem.x.dir/util.c.o
+[729/969] Building C object global/testing/CMakeFiles/mtest.x.dir/mtest.c.o
+[730/969] Building C object global/testing/CMakeFiles/mulmatpatchc.x.dir/util.c.o
+[731/969] Building C object comex/CMakeFiles/armci.dir/src-mpi-pr/comex.c.o
+[732/969] Building C object global/testing/CMakeFiles/elempatch.x.dir/util.c.o
+[733/969] Building C object global/testing/CMakeFiles/mtest.x.dir/util.c.o
+[734/969] Building C object global/testing/CMakeFiles/normc.x.dir/normc.c.o
+[735/969] Building C object global/testing/CMakeFiles/ntestc.x.dir/ntestc.c.o
+[736/969] Building C object global/testing/CMakeFiles/matrixc.x.dir/matrixc.c.o
+[737/969] Building C object global/testing/CMakeFiles/nbtestc.x.dir/nbtestc.c.o
+[738/969] Building C object global/testing/CMakeFiles/print.x.dir/print.c.o
+[739/969] Building C object global/testing/CMakeFiles/normc.x.dir/util.c.o
+[740/969] Building C object global/testing/CMakeFiles/ntestfc.x.dir/ntestfc.c.o
+[741/969] Building C object global/testing/CMakeFiles/packc.x.dir/util.c.o
+[742/969] Building C object global/testing/CMakeFiles/print.x.dir/util.c.o
+[743/969] Building C object global/testing/CMakeFiles/scan_addc.x.dir/util.c.o
+[744/969] Building C object global/testing/CMakeFiles/elempatch.x.dir/elempatch.c.o
+[745/969] Building C object global/testing/CMakeFiles/testc.x.dir/testc.c.o
+[746/969] Building C object global/testing/CMakeFiles/testmult.x.dir/testmult.c.o
+[747/969] Building C object global/testing/CMakeFiles/scan_copyc.x.dir/util.c.o
+[748/969] Building C object global/testing/CMakeFiles/testc.x.dir/util.c.o
+[749/969] Building C object global/testing/CMakeFiles/testmatmultc.x.dir/testmatmultc.c.o
+[750/969] Building C object global/testing/CMakeFiles/testmultrect.x.dir/testmultrect.c.o
+[751/969] Building C object global/testing/CMakeFiles/testmult.x.dir/util.c.o
+[752/969] Building C object global/testing/CMakeFiles/read_only.x.dir/read_only.c.o
+[753/969] Building C object global/testing/CMakeFiles/cache_test.x.dir/cache_test.c.o
+[754/969] Building C object global/testing/CMakeFiles/packc.x.dir/packc.c.o
+[755/969] Building C object global/testing/CMakeFiles/perf2.x.dir/perf2.c.o
+[756/969] Building C object global/testing/CMakeFiles/unpackc.x.dir/util.c.o
+[757/969] Building C object global/testing/CMakeFiles/ga-mpi.x.dir/ga-mpi.c.o
+[758/969] Building C object global/testing/CMakeFiles/lock.x.dir/lock.c.o
+[759/969] Building C object global/testing/CMakeFiles/gemmtest.x.dir/gemmtest.c.o
+[760/969] Building C object global/testing/CMakeFiles/comm_init.x.dir/comm_init.c.o
+[761/969] Building C object global/testing/CMakeFiles/ga-mpi.x.dir/util.c.o
+[762/969] Building C object global/testing/CMakeFiles/lock.x.dir/util.c.o
+[763/969] Building C object global/testing/CMakeFiles/comm_init.x.dir/util.c.o
+[764/969] Building C object global/testing/CMakeFiles/scan_copyc.x.dir/scan_copyc.c.o
+[765/969] Building C object global/testing/CMakeFiles/sprs_test.x.dir/util.c.o
+[766/969] Building C object global/testing/CMakeFiles/sprs_perf.x.dir/sprs_perf.c.o
+[767/969] Building C object global/testing/CMakeFiles/patch_enumc.x.dir/patch_enumc.c.o
+[768/969] Building C object global/testing/CMakeFiles/scan_addc.x.dir/scan_addc.c.o
+[769/969] Building C object global/testing/CMakeFiles/sprs_perf.x.dir/util.c.o
+[770/969] Building C object global/testing/CMakeFiles/simple_groups_commc.x.dir/simple_groups_commc.c.o
+[771/969] Building C object global/testing/CMakeFiles/thread_perf_contig.x.dir/thread_perf_contig.c.o
+[772/969] Building C object global/testing/CMakeFiles/thread_perf_strided.x.dir/thread_perf_strided.c.o
+[773/969] Building C object global/testing/CMakeFiles/patch_enumc.x.dir/util.c.o
+[774/969] Building C object global/testing/CMakeFiles/simple_groups_commc.x.dir/util.c.o
+[775/969] Building C object global/testing/CMakeFiles/thread_perf_contig.x.dir/util.c.o
+[776/969] Building C object global/testing/CMakeFiles/threadsafec.x.dir/threadsafec.c.o
+[777/969] Building C object global/testing/CMakeFiles/unpackc.x.dir/unpackc.c.o
+[778/969] Building C object global/testing/CMakeFiles/thread_perf_strided.x.dir/util.c.o
+[779/969] Building C object global/testing/CMakeFiles/ga_lu.x.dir/ga_lu.c.o
+[780/969] Building Fortran object global/testing/CMakeFiles/bin.x.dir/ffflush.F.o
+[781/969] Building Fortran object global/testing/CMakeFiles/blktest.x.dir/ffflush.F.o
+[782/969] Building C object global/testing/CMakeFiles/ga_lu.x.dir/util.c.o
+[783/969] Building C object global/testing/CMakeFiles/threadsafec.x.dir/util.c.o
+[784/969] Building Fortran object global/testing/CMakeFiles/g2test.x.dir/ffflush.F.o
+[785/969] Building Fortran object global/testing/CMakeFiles/bin.x.dir/bin.F.o
+[786/969] Building Fortran object global/testing/CMakeFiles/g3test.x.dir/ffflush.F.o
+[787/969] Building Fortran object global/testing/CMakeFiles/blktest.x.dir/blktest.F.o
+[788/969] Building C object global/testing/CMakeFiles/g2test.x.dir/util.c.o
+[789/969] Building Fortran object global/testing/CMakeFiles/ga_shift.x.dir/ffflush.F.o
+[790/969] Building C object global/testing/CMakeFiles/g3test.x.dir/util.c.o
+[791/969] Building Fortran object global/testing/CMakeFiles/ga_shift.x.dir/ga_shift.F.o
+[792/969] Building Fortran object global/testing/CMakeFiles/ghosts.x.dir/ffflush.F.o
+[793/969] Building Fortran object global/testing/CMakeFiles/g2test.x.dir/g2test.F.o
+[794/969] Building Fortran object global/testing/CMakeFiles/ghosts.x.dir/ghosts.F.o
+[795/969] Building Fortran object global/testing/CMakeFiles/jacobi.x.dir/ffflush.F.o
+[796/969] Building Fortran object global/testing/CMakeFiles/g3test.x.dir/g3test.F.o
+[797/969] Building Fortran object global/testing/CMakeFiles/mir_perf2.x.dir/ffflush.F.o
+[798/969] Building Fortran object global/testing/CMakeFiles/jacobi.x.dir/jacobi.F.o
+[799/969] Building Fortran object global/testing/CMakeFiles/mmatrix.x.dir/ffflush.F.o
+[800/969] Building C object global/testing/CMakeFiles/ghosts.x.dir/util.c.o
+[801/969] Building C object global/testing/CMakeFiles/mir_perf2.x.dir/util.c.o
+[802/969] Building Fortran object global/testing/CMakeFiles/mulmatpatch.x.dir/ffflush.F.o
+[803/969] Building Fortran object global/testing/CMakeFiles/mmatrix.x.dir/mmatrix.F.o
+[804/969] Building Fortran object global/testing/CMakeFiles/mir_perf2.x.dir/mir_perf2.F.o
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/mir_perf2.F(166): remark #8291: Recommended relationship between field width 'W' and the number of fractional digits 'D' in this edit descriptor is 'W>=D+7'.
+77    format(i7, i7,1x, 3(1x,d8.3,1x,d8.3))
+------------------------------^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/mir_perf2.F(166): remark #8291: Recommended relationship between field width 'W' and the number of fractional digits 'D' in this edit descriptor is 'W>=D+7'.
+77    format(i7, i7,1x, 3(1x,d8.3,1x,d8.3))
+--------------------------------------^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/mir_perf2.F(416): remark #8291: Recommended relationship between field width 'W' and the number of fractional digits 'D' in this edit descriptor is 'W>=D+7'.
+77    format(i7, i7,1x, 3(1x,d8.3,1x,d8.3))
+------------------------------^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/mir_perf2.F(416): remark #8291: Recommended relationship between field width 'W' and the number of fractional digits 'D' in this edit descriptor is 'W>=D+7'.
+77    format(i7, i7,1x, 3(1x,d8.3,1x,d8.3))
+--------------------------------------^
+[805/969] Building Fortran object global/testing/CMakeFiles/nbtest.x.dir/ffflush.F.o
+[806/969] Building C object global/testing/CMakeFiles/mmatrix.x.dir/util.c.o
+[807/969] Building Fortran object global/testing/CMakeFiles/mulmatpatch.x.dir/mulmatpatch.F.o
+[808/969] Building Fortran object global/testing/CMakeFiles/nbtest.x.dir/nbtest.F.o
+[809/969] Building Fortran object global/testing/CMakeFiles/nb2test.x.dir/ffflush.F.o
+[810/969] Building C object global/testing/CMakeFiles/sprs_test.x.dir/sprs_test.c.o
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/sprs_test.c:1042:22: warning: format specifies type 'int' but the argument has type 'int64_t' (aka 'long') [-Wformat]
+ 1040 |               if (ok) printf("(int) block [%d,%d] element i: %d j: %d"
+      |                                               ~~
+      |                                               %ld
+ 1041 |                   " expected: %d actual: %d\n",
+ 1042 |                   me,k,i,jdx[idx[i-ilo]+j],((int*)a)[i*dim+jdx[idx[i-ilo]+j]],
+      |                      ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/sprs_test.c:1042:24: warning: format specifies type 'int' but the argument has type 'int64_t' (aka 'long') [-Wformat]
+ 1040 |               if (ok) printf("(int) block [%d,%d] element i: %d j: %d"
+      |                                                              ~~
+      |                                                              %ld
+ 1041 |                   " expected: %d actual: %d\n",
+ 1042 |                   me,k,i,jdx[idx[i-ilo]+j],((int*)a)[i*dim+jdx[idx[i-ilo]+j]],
+      |                        ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/sprs_test.c:1042:26: warning: format specifies type 'int' but the argument has type 'int64_t' (aka 'long') [-Wformat]
+ 1040 |               if (ok) printf("(int) block [%d,%d] element i: %d j: %d"
+      |                                                                    ~~
+      |                                                                    %ld
+ 1041 |                   " expected: %d actual: %d\n",
+ 1042 |                   me,k,i,jdx[idx[i-ilo]+j],((int*)a)[i*dim+jdx[idx[i-ilo]+j]],
+      |                          ^~~~~~~~~~~~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/sprs_test.c:1051:22: warning: format specifies type 'int' but the argument has type 'int64_t' (aka 'long') [-Wformat]
+ 1049 |               printf("(long) block [%d,%d] element i: %d j: %d"
+      |                                        ~~
+      |                                        %ld
+ 1050 |                   " expected: %ld actual: %ld\n",
+ 1051 |                   me,k,i,jdx[idx[i-ilo]+j],((long*)a)[i*dim
+      |                      ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/sprs_test.c:1051:24: warning: format specifies type 'int' but the argument has type 'int64_t' (aka 'long') [-Wformat]
+ 1049 |               printf("(long) block [%d,%d] element i: %d j: %d"
+      |                                                       ~~
+      |                                                       %ld
+ 1050 |                   " expected: %ld actual: %ld\n",
+ 1051 |                   me,k,i,jdx[idx[i-ilo]+j],((long*)a)[i*dim
+      |                        ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/sprs_test.c:1051:26: warning: format specifies type 'int' but the argument has type 'int64_t' (aka 'long') [-Wformat]
+ 1049 |               printf("(long) block [%d,%d] element i: %d j: %d"
+      |                                                             ~~
+      |                                                             %ld
+ 1050 |                   " expected: %ld actual: %ld\n",
+ 1051 |                   me,k,i,jdx[idx[i-ilo]+j],((long*)a)[i*dim
+      |                          ^~~~~~~~~~~~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/sprs_test.c:1060:22: warning: format specifies type 'int' but the argument has type 'int64_t' (aka 'long') [-Wformat]
+ 1058 |               printf("(long long) block [%d,%d] element i: %d j: %d"
+      |                                             ~~
+      |                                             %ld
+ 1059 |                   " expected: %ld actual: %ld\n",
+ 1060 |                   me,k,i,jdx[idx[i-ilo]+j],
+      |                      ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/sprs_test.c:1060:24: warning: format specifies type 'int' but the argument has type 'int64_t' (aka 'long') [-Wformat]
+ 1058 |               printf("(long long) block [%d,%d] element i: %d j: %d"
+      |                                                            ~~
+      |                                                            %ld
+ 1059 |                   " expected: %ld actual: %ld\n",
+ 1060 |                   me,k,i,jdx[idx[i-ilo]+j],
+      |                        ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/sprs_test.c:1060:26: warning: format specifies type 'int' but the argument has type 'int64_t' (aka 'long') [-Wformat]
+ 1058 |               printf("(long long) block [%d,%d] element i: %d j: %d"
+      |                                                                  ~~
+      |                                                                  %ld
+ 1059 |                   " expected: %ld actual: %ld\n",
+ 1060 |                   me,k,i,jdx[idx[i-ilo]+j],
+      |                          ^~~~~~~~~~~~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/sprs_test.c:1070:22: warning: format specifies type 'int' but the argument has type 'int64_t' (aka 'long') [-Wformat]
+ 1068 |               printf("(float) block [%d,%d] element i: %d j: %d"
+      |                                         ~~
+      |                                         %ld
+ 1069 |                   " expected: %f actual: %f\n",
+ 1070 |                   me,k,i,jdx[idx[i-ilo]+j],((float*)a)[i*dim
+      |                      ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/sprs_test.c:1070:24: warning: format specifies type 'int' but the argument has type 'int64_t' (aka 'long') [-Wformat]
+ 1068 |               printf("(float) block [%d,%d] element i: %d j: %d"
+      |                                                        ~~
+      |                                                        %ld
+ 1069 |                   " expected: %f actual: %f\n",
+ 1070 |                   me,k,i,jdx[idx[i-ilo]+j],((float*)a)[i*dim
+      |                        ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/sprs_test.c:1070:26: warning: format specifies type 'int' but the argument has type 'int64_t' (aka 'long') [-Wformat]
+ 1068 |               printf("(float) block [%d,%d] element i: %d j: %d"
+      |                                                              ~~
+      |                                                              %ld
+ 1069 |                   " expected: %f actual: %f\n",
+ 1070 |                   me,k,i,jdx[idx[i-ilo]+j],((float*)a)[i*dim
+      |                          ^~~~~~~~~~~~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/sprs_test.c:1079:22: warning: format specifies type 'int' but the argument has type 'int64_t' (aka 'long') [-Wformat]
+ 1077 |               printf("(double) block [%d,%d] element i: %d j: %d"
+      |                                          ~~
+      |                                          %ld
+ 1078 |                   " expected: %f actual: %f\n",
+ 1079 |                   me,k,i,jdx[idx[i-ilo]+j],((double*)a)[i*dim
+      |                      ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/sprs_test.c:1079:24: warning: format specifies type 'int' but the argument has type 'int64_t' (aka 'long') [-Wformat]
+ 1077 |               printf("(double) block [%d,%d] element i: %d j: %d"
+      |                                                         ~~
+      |                                                         %ld
+ 1078 |                   " expected: %f actual: %f\n",
+ 1079 |                   me,k,i,jdx[idx[i-ilo]+j],((double*)a)[i*dim
+      |                        ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/sprs_test.c:1079:26: warning: format specifies type 'int' but the argument has type 'int64_t' (aka 'long') [-Wformat]
+ 1077 |               printf("(double) block [%d,%d] element i: %d j: %d"
+      |                                                               ~~
+      |                                                               %ld
+ 1078 |                   " expected: %f actual: %f\n",
+ 1079 |                   me,k,i,jdx[idx[i-ilo]+j],((double*)a)[i*dim
+      |                          ^~~~~~~~~~~~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/sprs_test.c:1090:22: warning: format specifies type 'int' but the argument has type 'int64_t' (aka 'long') [-Wformat]
+ 1088 |               printf("(single complex) block [%d,%d] element i: %d j: %d"
+      |                                                  ~~
+      |                                                  %ld
+ 1089 |                   " expected: (%f,%f) actual: (%f,%f)\n",
+ 1090 |                   me,k,i,jdx[idx[i-ilo]+j],
+      |                      ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/sprs_test.c:1090:24: warning: format specifies type 'int' but the argument has type 'int64_t' (aka 'long') [-Wformat]
+ 1088 |               printf("(single complex) block [%d,%d] element i: %d j: %d"
+      |                                                                 ~~
+      |                                                                 %ld
+ 1089 |                   " expected: (%f,%f) actual: (%f,%f)\n",
+ 1090 |                   me,k,i,jdx[idx[i-ilo]+j],
+      |                        ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/sprs_test.c:1090:26: warning: format specifies type 'int' but the argument has type 'int64_t' (aka 'long') [-Wformat]
+ 1088 |               printf("(single complex) block [%d,%d] element i: %d j: %d"
+      |                                                                       ~~
+      |                                                                       %ld
+ 1089 |                   " expected: (%f,%f) actual: (%f,%f)\n",
+ 1090 |                   me,k,i,jdx[idx[i-ilo]+j],
+      |                          ^~~~~~~~~~~~~~~~~
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/sprs_test.c:1104:22: warning: format specifies type 'int' but the argument has type 'int64_t' (aka 'long') [-Wformat]
+ 1102 |               printf("(double complex) block [%d,%d] element i: %d j: %d"
+      |                                                  ~~
+      |                                                  %ld
+ 1103 |                   " expected: (%f,%f) actual: (%f,%f)\n",
+ 1104 |                   me,k,i,jdx[idx[i-ilo]+j],
+      |                      ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/sprs_test.c:1104:24: warning: format specifies type 'int' but the argument has type 'int64_t' (aka 'long') [-Wformat]
+ 1102 |               printf("(double complex) block [%d,%d] element i: %d j: %d"
+      |                                                                 ~~
+      |                                                                 %ld
+ 1103 |                   " expected: (%f,%f) actual: (%f,%f)\n",
+ 1104 |                   me,k,i,jdx[idx[i-ilo]+j],
+      |                        ^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/sprs_test.c:1104:26: warning: format specifies type 'int' but the argument has type 'int64_t' (aka 'long') [-Wformat]
+ 1102 |               printf("(double complex) block [%d,%d] element i: %d j: %d"
+      |                                                                       ~~
+      |                                                                       %ld
+ 1103 |                   " expected: (%f,%f) actual: (%f,%f)\n",
+ 1104 |                   me,k,i,jdx[idx[i-ilo]+j],
+      |                          ^~~~~~~~~~~~~~~~~
+21 warnings generated.
+[811/969] Building Fortran object global/testing/CMakeFiles/ndim.x.dir/ffflush.F.o
+[812/969] Building C object global/testing/CMakeFiles/nbtest.x.dir/util.c.o
+[813/969] Building C object global/testing/CMakeFiles/nb2test.x.dir/util.c.o
+[814/969] Building Fortran object global/testing/CMakeFiles/patch.x.dir/ffflush.F.o
+[815/969] Building Fortran object global/testing/CMakeFiles/nb2test.x.dir/nb2test.F.o
+[816/969] Building Fortran object global/testing/CMakeFiles/ndim.x.dir/ndim.F.o
+[817/969] Building Fortran object global/testing/CMakeFiles/patch2.x.dir/ffflush.F.o
+[818/969] Building C object global/testing/CMakeFiles/ndim.x.dir/util.c.o
+[819/969] Building Fortran object global/testing/CMakeFiles/patch_enumf.x.dir/ffflush.F.o
+[820/969] Building Fortran object global/testing/CMakeFiles/patch2.x.dir/patch2.F.o
+[821/969] Building Fortran object global/testing/CMakeFiles/mulmatpatch.x.dir/testblas.F.o
+[822/969] Building Fortran object global/testing/CMakeFiles/perfmod.x.dir/ffflush.F.o
+[823/969] Building Fortran object global/testing/CMakeFiles/patch_enumf.x.dir/patch_enumf.F.o
+[824/969] Building Fortran object global/testing/CMakeFiles/perform.x.dir/ffflush.F.o
+[825/969] Building C object global/testing/CMakeFiles/perfmod.x.dir/util.c.o
+[826/969] Building Fortran object global/testing/CMakeFiles/perfmod.x.dir/perfmod.F.o
+[827/969] Building Fortran object global/testing/CMakeFiles/perf.x.dir/ffflush.F.o
+[828/969] Building C object global/testing/CMakeFiles/perform.x.dir/util.c.o
+[829/969] Building Fortran object global/testing/CMakeFiles/perform.x.dir/perform.F.o
+[830/969] Building Fortran object global/testing/CMakeFiles/pg2test.x.dir/ffflush.F.o
+[831/969] Building Fortran object global/testing/CMakeFiles/patch.x.dir/patch.F.o
+[832/969] Building C object global/testing/CMakeFiles/pg2test.x.dir/util.c.o
+[833/969] Building Fortran object global/testing/CMakeFiles/pgtest.x.dir/ffflush.F.o
+[834/969] Building C object global/testing/CMakeFiles/perf.x.dir/util.c.o
+[835/969] Building Fortran object global/testing/CMakeFiles/perf.x.dir/perf.F.o
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/perf.F(183): remark #8291: Recommended relationship between field width 'W' and the number of fractional digits 'D' in this edit descriptor is 'W>=D+7'.
+77    format(i7, i7,1x, 3(1x,e8.3,1x,e8.3))
+------------------------------^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/perf.F(183): remark #8291: Recommended relationship between field width 'W' and the number of fractional digits 'D' in this edit descriptor is 'W>=D+7'.
+77    format(i7, i7,1x, 3(1x,e8.3,1x,e8.3))
+--------------------------------------^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/perf.F(456): remark #8291: Recommended relationship between field width 'W' and the number of fractional digits 'D' in this edit descriptor is 'W>=D+7'.
+77    format(i7, i7,1x, 3(1x,e8.3,1x,e8.3))
+------------------------------^
+/home/runner/work/TAMM/TAMM/build/GlobalArrays_External-prefix/src/GlobalArrays_External/global/testing/perf.F(456): remark #8291: Recommended relationship between field width 'W' and the number of fractional digits 'D' in this edit descriptor is 'W>=D+7'.
+77    format(i7, i7,1x, 3(1x,e8.3,1x,e8.3))
+--------------------------------------^
+[836/969] Building Fortran object global/testing/CMakeFiles/patch.x.dir/testblas.F.o
+[837/969] Building Fortran object global/testing/CMakeFiles/scan.x.dir/ffflush.F.o
+[838/969] Building Fortran object global/testing/CMakeFiles/sparse.x.dir/ffflush.F.o
+[839/969] Building C object global/testing/CMakeFiles/pgtest.x.dir/util.c.o
+[840/969] Building Fortran object global/testing/CMakeFiles/sprsmatmult.x.dir/ffflush.F.o
+[841/969] Building Fortran object global/testing/CMakeFiles/sparse.x.dir/sparse.F.o
+[842/969] Building Fortran object global/testing/CMakeFiles/sprs_testf.x.dir/ffflush.F.o
+[843/969] Building Fortran object global/testing/CMakeFiles/scan.x.dir/scan.F.o
+[844/969] Building Fortran object global/testing/CMakeFiles/sprsmatmult.x.dir/sprsmatmult.F.o
+[845/969] Building Fortran object global/testing/CMakeFiles/stride.x.dir/ffflush.F.o
+[846/969] Building Fortran object global/testing/CMakeFiles/sprs_testf.x.dir/sprs_testf.F.o
+[847/969] Building Fortran object global/testing/CMakeFiles/stride.x.dir/stride.F.o
+[848/969] Building Fortran object global/testing/CMakeFiles/test.x.dir/ffflush.F.o
+[849/969] Building Fortran object global/testing/CMakeFiles/testmatmult.x.dir/ffflush.F.o
+[850/969] Building C object global/testing/CMakeFiles/testmatmult.x.dir/util.c.o
+[851/969] Building C object global/testing/CMakeFiles/test.x.dir/util.c.o
+[852/969] Building Fortran object global/testing/CMakeFiles/testmatmult.x.dir/testmatmult.F.o
+[853/969] Building Fortran object global/testing/CMakeFiles/pg2test.x.dir/pg2test.F.o
+[854/969] Building Fortran object global/testing/CMakeFiles/testsolve.x.dir/ffflush.F.o
+[855/969] Building Fortran object global/testing/CMakeFiles/overlay.x.dir/ffflush.F.o
+[856/969] Building Fortran object global/testing/CMakeFiles/testeig.x.dir/testeig.F.o
+[857/969] Building Fortran object global/testing/CMakeFiles/pgtest.x.dir/pgtest.F.o
+[858/969] Building Fortran object global/testing/CMakeFiles/testeig.x.dir/ffflush.F.o
+[859/969] Building Fortran object global/testing/CMakeFiles/simple_groups.x.dir/ffflush.F.o
+[860/969] Building Fortran object global/testing/CMakeFiles/testsolve.x.dir/testsolve.F.o
+[861/969] Building Fortran object global/testing/CMakeFiles/simple_groups.x.dir/simple_groups.F.o
+[862/969] Building Fortran object global/testing/CMakeFiles/simple_groups_comm.x.dir/ffflush.F.o
+[863/969] Building C object global/testing/CMakeFiles/overlay.x.dir/util.c.o
+[864/969] Building Fortran object global/testing/CMakeFiles/nga-onesided.x.dir/ffflush.F.o
+[865/969] Building Fortran object global/testing/CMakeFiles/simple_groups_comm.x.dir/simple_groups_comm.F.o
+[866/969] Building Fortran object global/testing/CMakeFiles/nga-patch.x.dir/ffflush.F.o
+[867/969] Building C object global/testing/CMakeFiles/nga-onesided.x.dir/util.c.o
+[868/969] Building C object global/testing/CMakeFiles/nga-patch.x.dir/util.c.o
+[869/969] Building Fortran object global/testing/CMakeFiles/nga-periodic.x.dir/ffflush.F.o
+[870/969] Building C object global/testing/CMakeFiles/nga-periodic.x.dir/util.c.o
+[871/969] Building Fortran object global/testing/CMakeFiles/test.x.dir/test.F.o
+[872/969] Building Fortran object global/testing/CMakeFiles/nga-scatter.x.dir/ffflush.F.o
+[873/969] Building C object global/testing/CMakeFiles/nga-scatter.x.dir/util.c.o
+[874/969] Building Fortran object global/testing/CMakeFiles/overlay.x.dir/overlay.F.o
+[875/969] Building Fortran object global/testing/CMakeFiles/ngatest.x.dir/ffflush.F.o
+[876/969] Building C object global/testing/CMakeFiles/ngatest.x.dir/util.c.o
+[877/969] Building Fortran object global/testing/CMakeFiles/nga-periodic.x.dir/__/__/nga-periodic.F.o
+[878/969] Building Fortran object global/testing/CMakeFiles/nga-util.x.dir/ffflush.F.o
+[879/969] Building C object global/testing/CMakeFiles/nga-util.x.dir/util.c.o
+[880/969] Building Fortran object global/testing/CMakeFiles/nga-util.x.dir/__/__/nga-util.F.o
+[881/969] Linking C static library comex/libarmci.a
+[882/969] Linking C static library comex/libcomex.a
+[883/969] Building Fortran object global/testing/CMakeFiles/nga-scatter.x.dir/__/__/nga-scatter.F.o
+[884/969] Building C object global/examples/CMakeFiles/lennard.x.dir/lennard-jones/lennard.c.o
+[885/969] Linking C executable ga++/mtest_cpp.x
+[886/969] Linking C executable ga++/elempatch_cpp.x
+[887/969] Linking C executable ga++/ntestc_cpp.x
+[888/969] Linking C executable ga++/thread-safe_cpp.x
+[889/969] Linking C executable ga++/testmult_cpp.x
+[890/969] Linking C executable ga++/testc_cpp.x
+[891/969] Linking Fortran executable ma/testf.x
+[892/969] Linking C executable ma/test-inquire.x
+[893/969] Linking C executable ma/test-coalesce.x
+[894/969] Linking C executable global/testing/mulmatpatchc.x
+[895/969] Linking C executable global/testing/getmem.x
+[896/969] Linking C executable global/testing/elempatch.x
+[897/969] Linking C executable global/testing/mtest.x
+[898/969] Linking C executable global/testing/matrixc.x
+[899/969] Linking C executable global/testing/normc.x
+[900/969] Linking C executable global/testing/ntestc.x
+[901/969] Linking C executable global/testing/nbtestc.x
+[902/969] Linking C executable global/testing/packc.x
+[903/969] Building Fortran object global/testing/CMakeFiles/nga-onesided.x.dir/__/__/nga-onesided.F.o
+[904/969] Linking C executable global/testing/print.x
+[905/969] Linking C executable global/testing/ntestfc.x
+[906/969] Linking C executable global/testing/scan_addc.x
+[907/969] Linking C executable global/testing/testc.x
+[908/969] Linking C executable global/testing/scan_copyc.x
+[909/969] Linking C executable global/testing/testmult.x
+[910/969] Linking C executable global/testing/testmatmultc.x
+[911/969] Linking C executable global/testing/gemmtest.x
+[912/969] Linking C executable global/testing/testmultrect.x
+[913/969] Linking C executable global/testing/read_only.x
+[914/969] Linking C executable global/testing/cache_test.x
+[915/969] Linking C executable global/testing/perf2.x
+[916/969] Linking C executable global/testing/ga-mpi.x
+[917/969] Linking C executable global/testing/unpackc.x
+[918/969] Linking C executable global/testing/lock.x
+[919/969] Linking C executable global/testing/comm_init.x
+[920/969] Linking C executable global/testing/sprs_test.x
+[921/969] Linking C executable global/testing/sprs_perf.x
+[922/969] Linking C executable global/testing/patch_enumc.x
+[923/969] Linking C executable global/testing/simple_groups_commc.x
+[924/969] Linking C executable global/testing/thread_perf_contig.x
+[925/969] Linking C executable global/testing/thread_perf_strided.x
+[926/969] Linking C executable global/testing/threadsafec.x
+[927/969] Linking C executable global/testing/ga_lu.x
+[928/969] Linking Fortran executable global/testing/bin.x
+[929/969] Building Fortran object global/testing/CMakeFiles/nga-patch.x.dir/__/__/nga-patch.F.o
+[930/969] Linking Fortran executable global/testing/g3test.x
+[931/969] Linking Fortran executable global/testing/ga_shift.x
+[932/969] Linking Fortran executable global/testing/blktest.x
+[933/969] Linking Fortran executable global/testing/ghosts.x
+[934/969] Linking Fortran executable global/testing/g2test.x
+[935/969] Linking Fortran executable global/testing/jacobi.x
+[936/969] Linking Fortran executable global/testing/mulmatpatch.x
+[937/969] Linking Fortran executable global/testing/mir_perf2.x
+[938/969] Linking Fortran executable global/testing/mmatrix.x
+[939/969] Linking Fortran executable global/testing/nbtest.x
+[940/969] Linking Fortran executable global/testing/patch_enumf.x
+[941/969] Linking Fortran executable global/testing/patch2.x
+[942/969] Linking Fortran executable global/testing/nb2test.x
+[943/969] Linking Fortran executable global/testing/patch.x
+[944/969] Linking Fortran executable global/testing/ndim.x
+[945/969] Linking Fortran executable global/testing/perform.x
+[946/969] Linking Fortran executable global/testing/perfmod.x
+[947/969] Linking Fortran executable global/testing/perf.x
+[948/969] Linking Fortran executable global/testing/pgtest.x
+[949/969] Linking Fortran executable global/testing/pg2test.x
+[950/969] Linking Fortran executable global/testing/scan.x
+[951/969] Linking Fortran executable global/testing/sprs_testf.x
+[952/969] Linking Fortran executable global/testing/stride.x
+[953/969] Linking Fortran executable global/testing/sparse.x
+[954/969] Linking Fortran executable global/testing/sprsmatmult.x
+[955/969] Linking Fortran executable global/testing/testmatmult.x
+[956/969] Linking Fortran executable global/testing/test.x
+[957/969] Linking Fortran executable global/testing/testsolve.x
+[958/969] Linking Fortran executable global/testing/overlay.x
+[959/969] Linking Fortran executable global/testing/testeig.x
+[960/969] Linking Fortran executable global/testing/simple_groups.x
+[961/969] Linking Fortran executable global/testing/nga-patch.x
+[962/969] Linking Fortran executable global/testing/nga-onesided.x
+[963/969] Linking Fortran executable global/testing/simple_groups_comm.x
+[964/969] Linking Fortran executable global/testing/nga-periodic.x
+[965/969] Linking C executable global/examples/lennard.x
+[966/969] Linking Fortran executable global/testing/nga-scatter.x
+[967/969] Linking Fortran executable global/testing/nga-util.x
+[968/969] Building Fortran object global/testing/CMakeFiles/ngatest.x.dir/__/__/ngatest.F.o
+[969/969] Linking Fortran executable global/testing/ngatest.x
+ninja: build stopped: subcommand failed.
