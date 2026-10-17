@@ -1,0 +1,1200 @@
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/type_traits:2651:29: note: while substituting deduced template arguments into function template '_S_test' [with _Fn = (lambda at /usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/variant:496:24), _Args = (no value)]
+ 2651 |       using type = decltype(_S_test<_Functor, _ArgTypes...>(0));
+      |                             ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/type_traits:2657:14: note: in instantiation of template class 'std::__result_of_impl<false, false, (lambda at /usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/variant:496:24), tamm::Tensor<double> &>' requested here
+ 2657 |     : public __result_of_impl<
+      |              ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/type_traits:3020:29: note: (skipping 11 contexts in backtrace; use -ftemplate-backtrace-limit=0 to see all)
+ 3020 |                                __void_t<typename _Result::type>>
+      |                                                  ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/variant:691:7: note: in defaulted copy constructor for 'std::__detail::__variant::_Move_ctor_base<false, tamm::Tensor<double>>' first required here
+  691 |       _Copy_assign_base(const _Copy_assign_base&) = default;
+      |       ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/variant:745:7: note: in defaulted copy constructor for 'std::__detail::__variant::_Copy_assign_base<false, tamm::Tensor<double>>' first required here
+  745 |       _Move_assign_base(const _Move_assign_base&) = default;
+      |       ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/variant:776:7: note: in defaulted copy constructor for 'std::__detail::__variant::_Move_assign_base<false, tamm::Tensor<double>>' first required here
+  776 |       _Variant_base(const _Variant_base&) = default;
+      |       ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/variant:1434:7: note: in defaulted copy constructor for 'std::__detail::__variant::_Variant_base<tamm::Tensor<double>>' first required here
+ 1434 |       variant(const variant& __rhs) = default;
+      |       ^
+/home/runner/work/TAMM/TAMM/src/tamm/tensor_variant.hpp:21:36: note: in defaulted copy constructor for 'std::variant<tamm::Tensor<double>>' first required here
+   21 |   TensorVariant(TensorType value): value_{value} {}
+      |                                    ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:88:15: note: qualify call to silence this warning
+   88 |         __location->~_Tp();
+      |                      ^
+In file included from /home/runner/work/TAMM/TAMM/src/tamm/kernels/gpu_blas.cpp:1:
+In file included from /home/runner/work/TAMM/TAMM/src/tamm/utils.hpp:3:
+In file included from /home/runner/work/TAMM/TAMM/src/tamm/iteration.hpp:3:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/vector:62:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_algobase.h:67:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_iterator.h:78:
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:88:2: warning: destructor called on non-final 'tamm::TileLabelElement' that has virtual functions but non-virtual destructor [-Wdelete-non-abstract-non-virtual-dtor]
+   88 |         __location->~_Tp();
+      |         ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:149:12: note: in instantiation of function template specialization 'std::destroy_at<tamm::TileLabelElement>' requested here
+  149 |       std::destroy_at(__pointer);
+      |            ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:163:11: note: in instantiation of function template specialization 'std::_Destroy<tamm::TileLabelElement>' requested here
+  163 |             std::_Destroy(std::__addressof(*__first));
+      |                  ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:193:35: note: in instantiation of function template specialization 'std::_Destroy_aux<false>::__destroy<tamm::TileLabelElement *>' requested here
+  193 |         return std::_Destroy_aux<false>::__destroy(__first, __last);
+      |                                          ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/alloc_traits.h:944:12: note: in instantiation of function template specialization 'std::_Destroy<tamm::TileLabelElement *>' requested here
+  944 |       std::_Destroy(__first, __last);
+      |            ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_vector.h:735:7: note: in instantiation of function template specialization 'std::_Destroy<tamm::TileLabelElement *, tamm::TileLabelElement>' requested here
+  735 |         std::_Destroy(this->_M_impl._M_start, this->_M_impl._M_finish,
+      |              ^
+/home/runner/work/TAMM/TAMM/src/tamm/tiled_index_space.hpp:1634:73: note: in instantiation of member function 'std::vector<tamm::TileLabelElement>::~vector' requested here
+ 1634 |                   const std::vector<TileLabelElement>& secondary_labels = {}):
+      |                                                                         ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:88:15: note: qualify call to silence this warning
+   88 |         __location->~_Tp();
+      |                      ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:88:2: warning: destructor called on non-final 'tamm::TiledIndexLabel' that has virtual functions but non-virtual destructor [-Wdelete-non-abstract-non-virtual-dtor]
+   88 |         __location->~_Tp();
+      |         ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:149:12: note: in instantiation of function template specialization 'std::destroy_at<tamm::TiledIndexLabel>' requested here
+  149 |       std::destroy_at(__pointer);
+      |            ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:163:11: note: in instantiation of function template specialization 'std::_Destroy<tamm::TiledIndexLabel>' requested here
+  163 |             std::_Destroy(std::__addressof(*__first));
+      |                  ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:193:35: note: in instantiation of function template specialization 'std::_Destroy_aux<false>::__destroy<tamm::TiledIndexLabel *>' requested here
+  193 |         return std::_Destroy_aux<false>::__destroy(__first, __last);
+      |                                          ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/alloc_traits.h:944:12: note: in instantiation of function template specialization 'std::_Destroy<tamm::TiledIndexLabel *>' requested here
+  944 |       std::_Destroy(__first, __last);
+      |            ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_vector.h:735:7: note: in instantiation of function template specialization 'std::_Destroy<tamm::TiledIndexLabel *, tamm::TiledIndexLabel>' requested here
+  735 |         std::_Destroy(this->_M_impl._M_start, this->_M_impl._M_finish,
+      |              ^
+/home/runner/work/TAMM/TAMM/src/tamm/tiled_index_space.hpp:1662:72: note: in instantiation of member function 'std::vector<tamm::TiledIndexLabel>::~vector' requested here
+ 1662 |                   const std::vector<TiledIndexLabel>& secondary_labels = {}):
+      |                                                                        ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:88:15: note: qualify call to silence this warning
+   88 |         __location->~_Tp();
+      |                      ^
+In file included from /home/runner/work/TAMM/TAMM/src/tamm/scalapack_grid.cpp:2:
+In file included from /home/runner/work/TAMM/TAMM/src/tamm/tamm.hpp:33:
+In file included from /home/runner/work/TAMM/TAMM/src/tamm/tamm_utils.hpp:3:
+/home/runner/work/TAMM/TAMM/src/tamm/tamm_io.hpp:99:13: warning: variable length arrays in C++ are a Clang extension [-Wvla-cxx-extension]
+   99 |   int ranks[subranks]; //,ranks_world[subranks];
+      |             ^~~~~~~~
+/home/runner/work/TAMM/TAMM/src/tamm/tamm_io.hpp:99:13: note: function parameter 'subranks' with unknown value cannot be used in a constant expression
+/home/runner/work/TAMM/TAMM/src/tamm/tamm_io.hpp:95:69: note: declared here
+   95 | static inline void subcomm_from_subranks(ExecutionContext& gec, int subranks, MPI_Comm& subcomm) {
+      |                                                                     ^
+/home/runner/work/TAMM/TAMM/src/tamm/tamm_io.hpp:357:17: warning: variable 'ret' set but not used [-Wunused-but-set-variable]
+  357 |         herr_t  ret    = H5Sselect_hyperslab(file_dataspace, H5S_SELECT_SET, &file_offset, &stride,
+      |                 ^
+/home/runner/work/TAMM/TAMM/src/tamm/tamm_io.hpp:407:17: warning: variable 'ret' set but not used [-Wunused-but-set-variable]
+  407 |         herr_t  ret    = H5Sselect_hyperslab(file_dataspace, H5S_SELECT_SET, &file_offset, &stride,
+      |                 ^
+/home/runner/work/TAMM/TAMM/src/tamm/tamm_io.hpp:284:9: warning: variable 'ierr' set but not used [-Wunused-but-set-variable]
+  284 |     int ierr;
+      |         ^
+/home/runner/work/TAMM/TAMM/src/tamm/tamm_io.hpp:615:19: warning: variable 'ret' set but not used [-Wunused-but-set-variable]
+  615 |           herr_t  ret = H5Sselect_hyperslab(file_dataspace, H5S_SELECT_SET, &file_offset, &stride,
+      |                   ^
+/home/runner/work/TAMM/TAMM/src/tamm/tamm_io.hpp:545:13: warning: variable 'ierr' set but not used [-Wunused-but-set-variable]
+  545 |         int ierr;
+      |             ^
+/home/runner/work/TAMM/TAMM/src/tamm/tamm_io.hpp:858:17: warning: variable 'ret' set but not used [-Wunused-but-set-variable]
+  858 |         herr_t  ret    = H5Sselect_hyperslab(file_dataspace, H5S_SELECT_SET, &file_offset, &stride,
+      |                 ^
+/home/runner/work/TAMM/TAMM/src/tamm/tamm_io.hpp:912:17: warning: variable 'ret' set but not used [-Wunused-but-set-variable]
+  912 |         herr_t  ret    = H5Sselect_hyperslab(file_dataspace, H5S_SELECT_SET, &file_offset, &stride,
+      |                 ^
+/home/runner/work/TAMM/TAMM/src/tamm/tamm_io.hpp:792:9: warning: variable 'ierr' set but not used [-Wunused-but-set-variable]
+  792 |     int ierr;
+      |         ^
+/home/runner/work/TAMM/TAMM/src/tamm/tamm_io.hpp:1120:19: warning: variable 'ret' set but not used [-Wunused-but-set-variable]
+ 1120 |           herr_t  ret = H5Sselect_hyperslab(file_dataspace, H5S_SELECT_SET, &file_offset, &stride,
+      |                   ^
+/home/runner/work/TAMM/TAMM/src/tamm/tamm_io.hpp:1055:13: warning: variable 'ierr' set but not used [-Wunused-but-set-variable]
+ 1055 |         int ierr;
+      |             ^
+In file included from /home/runner/work/TAMM/TAMM/src/tamm/scalapack_grid.cpp:1:
+In file included from /home/runner/work/TAMM/TAMM/src/tamm/scalapack_grid_impl.hpp:5:
+In file included from /home/runner/work/TAMM/TAMM/src/tamm/scalapack_grid.hpp:4:
+In file included from /home/runner/work/TAMM/TAMM/src/tamm/tensor.hpp:4:
+In file included from /home/runner/work/TAMM/TAMM/src/tamm/tensor_impl.hpp:5:
+In file included from /home/runner/work/TAMM/TAMM/src/tamm/distribution.hpp:13:
+In file included from /home/runner/work/TAMM/TAMM/src/tamm/tensor_base.hpp:5:
+/home/runner/work/TAMM/TAMM/src/tamm/index_loop_nest.hpp:366:24: warning: variable length arrays in C++ are a Clang extension [-Wvla-cxx-extension]
+  366 |       size_t      dims[ndim];
+      |                        ^~~~
+/home/runner/work/TAMM/TAMM/src/tamm/index_loop_nest.hpp:575:22: note: in instantiation of function template specialization 'tamm::IndexLoopNest::iterate<(lambda at /home/runner/work/TAMM/TAMM/src/tamm/distribution.hpp:221:25) &>' requested here
+  575 |     index_loop_nest_.iterate(func);
+      |                      ^
+/home/runner/work/TAMM/TAMM/src/tamm/distribution.hpp:221:17: note: in instantiation of function template specialization 'tamm::LabelLoopNest::iterate<(lambda at /home/runner/work/TAMM/TAMM/src/tamm/distribution.hpp:221:25)>' requested here
+  221 |       loop_nest.iterate([&](IndexVector blockid) {
+      |                 ^
+/home/runner/work/TAMM/TAMM/src/tamm/index_loop_nest.hpp:366:24: note: initializer of 'ndim' is not a constant expression
+  366 |       size_t      dims[ndim];
+      |                        ^
+/home/runner/work/TAMM/TAMM/src/tamm/index_loop_nest.hpp:362:15: note: declared here
+  362 |     const int ndim = iss_.size();
+      |               ^
+33 warnings generated.
+[ 83%] Building CXX object CMakeFiles/tamm.dir/kernels/gpu_lapack.cpp.o
+2 warnings generated.
+In file included from /home/runner/work/TAMM/TAMM/src/tamm/kernels/gpu_lapack.cpp:1:
+In file included from /home/runner/work/TAMM/TAMM/src/tamm/utils.hpp:3:
+In file included from /home/runner/work/TAMM/TAMM/src/tamm/iteration.hpp:3:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/vector:62:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_algobase.h:67:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_iterator.h:78:
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:88:2: warning: destructor called on non-final 'tamm::TileLabelElement' that has virtual functions but non-virtual destructor [-Wdelete-non-abstract-non-virtual-dtor]
+   88 |         __location->~_Tp();
+      |         ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:149:12: note: in instantiation of function template specialization 'std::destroy_at<tamm::TileLabelElement>' requested here
+  149 |       std::destroy_at(__pointer);
+      |            ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:163:11: note: in instantiation of function template specialization 'std::_Destroy<tamm::TileLabelElement>' requested here
+  163 |             std::_Destroy(std::__addressof(*__first));
+      |                  ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:193:35: note: in instantiation of function template specialization 'std::_Destroy_aux<false>::__destroy<tamm::TileLabelElement *>' requested here
+  193 |         return std::_Destroy_aux<false>::__destroy(__first, __last);
+      |                                          ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/alloc_traits.h:944:12: note: in instantiation of function template specialization 'std::_Destroy<tamm::TileLabelElement *>' requested here
+  944 |       std::_Destroy(__first, __last);
+      |            ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_vector.h:735:7: note: in instantiation of function template specialization 'std::_Destroy<tamm::TileLabelElement *, tamm::TileLabelElement>' requested here
+  735 |         std::_Destroy(this->_M_impl._M_start, this->_M_impl._M_finish,
+      |              ^
+/home/runner/work/TAMM/TAMM/src/tamm/tiled_index_space.hpp:1634:73: note: in instantiation of member function 'std::vector<tamm::TileLabelElement>::~vector' requested here
+ 1634 |                   const std::vector<TileLabelElement>& secondary_labels = {}):
+      |                                                                         ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:88:15: note: qualify call to silence this warning
+   88 |         __location->~_Tp();
+      |                      ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:88:2: warning: destructor called on non-final 'tamm::TiledIndexLabel' that has virtual functions but non-virtual destructor [-Wdelete-non-abstract-non-virtual-dtor]
+   88 |         __location->~_Tp();
+      |         ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:149:12: note: in instantiation of function template specialization 'std::destroy_at<tamm::TiledIndexLabel>' requested here
+  149 |       std::destroy_at(__pointer);
+      |            ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:163:11: note: in instantiation of function template specialization 'std::_Destroy<tamm::TiledIndexLabel>' requested here
+  163 |             std::_Destroy(std::__addressof(*__first));
+      |                  ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:193:35: note: in instantiation of function template specialization 'std::_Destroy_aux<false>::__destroy<tamm::TiledIndexLabel *>' requested here
+  193 |         return std::_Destroy_aux<false>::__destroy(__first, __last);
+      |                                          ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/alloc_traits.h:944:12: note: in instantiation of function template specialization 'std::_Destroy<tamm::TiledIndexLabel *>' requested here
+  944 |       std::_Destroy(__first, __last);
+      |            ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_vector.h:735:7: note: in instantiation of function template specialization 'std::_Destroy<tamm::TiledIndexLabel *, tamm::TiledIndexLabel>' requested here
+  735 |         std::_Destroy(this->_M_impl._M_start, this->_M_impl._M_finish,
+      |              ^
+/home/runner/work/TAMM/TAMM/src/tamm/tiled_index_space.hpp:1662:72: note: in instantiation of member function 'std::vector<tamm::TiledIndexLabel>::~vector' requested here
+ 1662 |                   const std::vector<TiledIndexLabel>& secondary_labels = {}):
+      |                                                                        ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:88:15: note: qualify call to silence this warning
+   88 |         __location->~_Tp();
+      |                      ^
+In file included from /home/runner/work/TAMM/TAMM/src/tamm/kernels/gpu_blas.cpp:1:
+In file included from /home/runner/work/TAMM/TAMM/src/tamm/utils.hpp:3:
+In file included from /home/runner/work/TAMM/TAMM/src/tamm/iteration.hpp:3:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/vector:62:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_algobase.h:67:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_iterator.h:78:
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:88:2: warning: destructor called on non-final 'tamm::TileLabelElement' that has virtual functions but non-virtual destructor [-Wdelete-non-abstract-non-virtual-dtor]
+   88 |         __location->~_Tp();
+      |         ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:149:12: note: in instantiation of function template specialization 'std::destroy_at<tamm::TileLabelElement>' requested here
+  149 |       std::destroy_at(__pointer);
+      |            ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:163:11: note: in instantiation of function template specialization 'std::_Destroy<tamm::TileLabelElement>' requested here
+  163 |             std::_Destroy(std::__addressof(*__first));
+      |                  ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:193:35: note: in instantiation of function template specialization 'std::_Destroy_aux<false>::__destroy<tamm::TileLabelElement *>' requested here
+  193 |         return std::_Destroy_aux<false>::__destroy(__first, __last);
+      |                                          ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/alloc_traits.h:944:12: note: in instantiation of function template specialization 'std::_Destroy<tamm::TileLabelElement *>' requested here
+  944 |       std::_Destroy(__first, __last);
+      |            ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_vector.h:735:7: note: in instantiation of function template specialization 'std::_Destroy<tamm::TileLabelElement *, tamm::TileLabelElement>' requested here
+  735 |         std::_Destroy(this->_M_impl._M_start, this->_M_impl._M_finish,
+      |              ^
+/home/runner/work/TAMM/TAMM/src/tamm/tiled_index_space.hpp:1634:73: note: in instantiation of member function 'std::vector<tamm::TileLabelElement>::~vector' requested here
+ 1634 |                   const std::vector<TileLabelElement>& secondary_labels = {}):
+      |                                                                         ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:88:15: note: qualify call to silence this warning
+   88 |         __location->~_Tp();
+      |                      ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:88:2: warning: destructor called on non-final 'tamm::TiledIndexLabel' that has virtual functions but non-virtual destructor [-Wdelete-non-abstract-non-virtual-dtor]
+   88 |         __location->~_Tp();
+      |         ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:149:12: note: in instantiation of function template specialization 'std::destroy_at<tamm::TiledIndexLabel>' requested here
+  149 |       std::destroy_at(__pointer);
+      |            ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:163:11: note: in instantiation of function template specialization 'std::_Destroy<tamm::TiledIndexLabel>' requested here
+  163 |             std::_Destroy(std::__addressof(*__first));
+      |                  ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:193:35: note: in instantiation of function template specialization 'std::_Destroy_aux<false>::__destroy<tamm::TiledIndexLabel *>' requested here
+  193 |         return std::_Destroy_aux<false>::__destroy(__first, __last);
+      |                                          ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/alloc_traits.h:944:12: note: in instantiation of function template specialization 'std::_Destroy<tamm::TiledIndexLabel *>' requested here
+  944 |       std::_Destroy(__first, __last);
+      |            ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_vector.h:735:7: note: in instantiation of function template specialization 'std::_Destroy<tamm::TiledIndexLabel *, tamm::TiledIndexLabel>' requested here
+  735 |         std::_Destroy(this->_M_impl._M_start, this->_M_impl._M_finish,
+      |              ^
+/home/runner/work/TAMM/TAMM/src/tamm/tiled_index_space.hpp:1662:72: note: in instantiation of member function 'std::vector<tamm::TiledIndexLabel>::~vector' requested here
+ 1662 |                   const std::vector<TiledIndexLabel>& secondary_labels = {}):
+      |                                                                        ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:88:15: note: qualify call to silence this warning
+   88 |         __location->~_Tp();
+      |                      ^
+2 warnings generated.
+2 warnings generated.
+[ 91%] Building CXX object CMakeFiles/tamm.dir/kernels/gpu_permute.cpp.o
+In file included from /home/runner/work/TAMM/TAMM/src/tamm/kernels/gpu_lapack.cpp:1:
+In file included from /home/runner/work/TAMM/TAMM/src/tamm/utils.hpp:3:
+In file included from /home/runner/work/TAMM/TAMM/src/tamm/iteration.hpp:3:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/vector:62:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_algobase.h:67:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_iterator.h:78:
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:88:2: warning: destructor called on non-final 'tamm::TileLabelElement' that has virtual functions but non-virtual destructor [-Wdelete-non-abstract-non-virtual-dtor]
+   88 |         __location->~_Tp();
+      |         ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:149:12: note: in instantiation of function template specialization 'std::destroy_at<tamm::TileLabelElement>' requested here
+  149 |       std::destroy_at(__pointer);
+      |            ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:163:11: note: in instantiation of function template specialization 'std::_Destroy<tamm::TileLabelElement>' requested here
+  163 |             std::_Destroy(std::__addressof(*__first));
+      |                  ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:193:35: note: in instantiation of function template specialization 'std::_Destroy_aux<false>::__destroy<tamm::TileLabelElement *>' requested here
+  193 |         return std::_Destroy_aux<false>::__destroy(__first, __last);
+      |                                          ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/alloc_traits.h:944:12: note: in instantiation of function template specialization 'std::_Destroy<tamm::TileLabelElement *>' requested here
+  944 |       std::_Destroy(__first, __last);
+      |            ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_vector.h:735:7: note: in instantiation of function template specialization 'std::_Destroy<tamm::TileLabelElement *, tamm::TileLabelElement>' requested here
+  735 |         std::_Destroy(this->_M_impl._M_start, this->_M_impl._M_finish,
+      |              ^
+/home/runner/work/TAMM/TAMM/src/tamm/tiled_index_space.hpp:1634:73: note: in instantiation of member function 'std::vector<tamm::TileLabelElement>::~vector' requested here
+ 1634 |                   const std::vector<TileLabelElement>& secondary_labels = {}):
+      |                                                                         ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:88:15: note: qualify call to silence this warning
+   88 |         __location->~_Tp();
+      |                      ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:88:2: warning: destructor called on non-final 'tamm::TiledIndexLabel' that has virtual functions but non-virtual destructor [-Wdelete-non-abstract-non-virtual-dtor]
+   88 |         __location->~_Tp();
+      |         ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:149:12: note: in instantiation of function template specialization 'std::destroy_at<tamm::TiledIndexLabel>' requested here
+  149 |       std::destroy_at(__pointer);
+      |            ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:163:11: note: in instantiation of function template specialization 'std::_Destroy<tamm::TiledIndexLabel>' requested here
+  163 |             std::_Destroy(std::__addressof(*__first));
+      |                  ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:193:35: note: in instantiation of function template specialization 'std::_Destroy_aux<false>::__destroy<tamm::TiledIndexLabel *>' requested here
+  193 |         return std::_Destroy_aux<false>::__destroy(__first, __last);
+      |                                          ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/alloc_traits.h:944:12: note: in instantiation of function template specialization 'std::_Destroy<tamm::TiledIndexLabel *>' requested here
+  944 |       std::_Destroy(__first, __last);
+      |            ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_vector.h:735:7: note: in instantiation of function template specialization 'std::_Destroy<tamm::TiledIndexLabel *, tamm::TiledIndexLabel>' requested here
+  735 |         std::_Destroy(this->_M_impl._M_start, this->_M_impl._M_finish,
+      |              ^
+/home/runner/work/TAMM/TAMM/src/tamm/tiled_index_space.hpp:1662:72: note: in instantiation of member function 'std::vector<tamm::TiledIndexLabel>::~vector' requested here
+ 1662 |                   const std::vector<TiledIndexLabel>& secondary_labels = {}):
+      |                                                                        ^
+/usr/lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/bits/stl_construct.h:88:15: note: qualify call to silence this warning
+   88 |         __location->~_Tp();
+      |                      ^
+2 warnings generated.
+[100%] Linking CXX static library libtamm.a
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_External-prefix/src/TAMM_External-build'
+[100%] Built target tamm
+make[4]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_External-prefix/src/TAMM_External-build'
+make[3]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_External-prefix/src/TAMM_External-build'
+[ 88%] Performing install step for 'TAMM_External'
+gmake[3]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_External-prefix/src/TAMM_External-build'
+gmake[3]: warning: jobserver unavailable: using -j1.  Add '+' to parent make rule.
+gmake[4]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_External-prefix/src/TAMM_External-build'
+gmake[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_External-prefix/src/TAMM_External-build'
+gmake[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_External-prefix/src/TAMM_External-build'
+[100%] Built target tamm
+gmake[4]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_External-prefix/src/TAMM_External-build'
+Install the project...
+-- Install configuration: "Release"
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/lib/libtamm.a
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/share/cmake/tamm/tamm-config.cmake
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/rmm_memory_pool.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/mr/device_memory_resource.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/mr/stream_ordered_memory_resource.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/mr/aligned.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/mr/new_delete_resource.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/mr/pool_memory_resource.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/mr/host_memory_resource.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/mr/coalescing_free_list.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/mr/free_list.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/atomic_counter.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/work.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/tamm.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/types.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/errors.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/strong_num.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/proc_grid.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/boundvec.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/index_space.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/tiled_index_space.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/index_space_interface.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/attribute.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/range.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/ops.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/scheduler.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/local_tensor.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/tensor.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/tensor_impl.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/tensor_base.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/tensor_info.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/distribution.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/labeled_tensor.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/execution_context.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/dag_impl.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/proc_group.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/memory_manager.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/memory_manager_ga.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/memory_manager_local.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/index_loop_nest.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/utils.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/tamm_io.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/tamm_utils.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/tamm_linalg.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/scalapack_grid.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/ga_over_upcxx.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/eigen_utils.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/eigen_includes.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/runtime_engine.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/block_buffer.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/block_scratch.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/lru_cache.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/kernels/assign.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/kernels/multiply.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/kernels/tamm_blas.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/kernels/gpu_permute.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/kernels/cpu_permute.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/op_dag.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/interfaces.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/op_profiler.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/mem_profiler.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/op_attributes.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/op_visitors.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/scalar.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/block_plan.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/block_set_plan.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/block_lambda_plan.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/block_assign_plan.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/block_mult_plan.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/block_span.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/blockops_cpu.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/perm.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/iteration.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/index_permute.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/blockops_blas.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/tensor_variant.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/op_executor.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/symbol.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/block_operations.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/setop.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/scanop.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/mapop.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/allocop.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/deallocop.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/addop.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/multop.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/op_base.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/label_translator.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/opmin.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/gpu_streams.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/mr/gpu_memory_resource.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/mr/pinned_memory_resource.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/mr/per_device_resource.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/sycl_device.hpp
+-- Installing: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/tamm/tamm_config.hpp
+gmake[3]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_External-prefix/src/TAMM_External-build'
+[ 90%] Completed 'TAMM_External'
+make[2]: Leaving directory '/home/runner/work/TAMM/TAMM/build'
+[ 90%] Built target TAMM_External
+make[2]: Entering directory '/home/runner/work/TAMM/TAMM/build'
+make[2]: Leaving directory '/home/runner/work/TAMM/TAMM/build'
+make[2]: Entering directory '/home/runner/work/TAMM/TAMM/build'
+[ 91%] Creating directories for 'TAMM_Tests_External'
+[ 92%] No download step for 'TAMM_Tests_External'
+[ 93%] No update step for 'TAMM_Tests_External'
+[ 95%] No patch step for 'TAMM_Tests_External'
+[ 96%] Performing configure step for 'TAMM_Tests_External'
+CMake Warning:
+  Ignoring extra path from command line:
+
+   "/home/runner/work/TAMM/TAMM/install/lib64"
+
+
+loading initial cache file /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/tmp/TAMM_Tests_External-cache-Release.cmake
+CMake Warning (author) at /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/tmp/TAMM_Tests_External-cache-Release.cmake:2 (set):
+  implicitly converting 'LIST' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/tmp/TAMM_Tests_External-cache-Release.cmake:3 (set):
+  implicitly converting 'LIST' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/tmp/TAMM_Tests_External-cache-Release.cmake:4 (set):
+  implicitly converting 'LIST' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/tmp/TAMM_Tests_External-cache-Release.cmake:5 (set):
+  implicitly converting 'LIST' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/tmp/TAMM_Tests_External-cache-Release.cmake:6 (set):
+  implicitly converting 'LIST' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/tmp/TAMM_Tests_External-cache-Release.cmake:43 (set):
+  implicitly converting 'LIST' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+-- The CXX compiler identification is IntelLLVM 2026.2.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /opt/intel/oneapi/compiler/2026.2/bin/icpx - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found CMakeBuild: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/share/cmake/CMakeBuild
+-- The C compiler identification is IntelLLVM 2026.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /opt/intel/oneapi/compiler/2026.2/bin/icx - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Found TAMM: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/lib/libtamm.a
+-- Found TAMM: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include
+-- MKL_VERSION: 2026.2.0
+-- MKL_ROOT: /opt/intel/oneapi/mkl/2026.2
+-- MKL_ARCH: intel64
+-- MKL_SYCL_LINK: None, set to ` dynamic` by default
+-- MKL_LINK: None, set to ` dynamic` by default
+-- MKL_SYCL_INTERFACE_FULL: intel_ilp64
+-- MKL_INTERFACE_FULL: intel_ilp64
+-- MKL_THREADING: sequential
+-- MKL_SYCL_MPI: None, set to ` intelmpi` by default
+-- MKL_MPI: None, set to ` intelmpi` by default
+-- Found /opt/intel/oneapi/mkl/2026.2/lib/libmkl_scalapack_ilp64.so
+-- Found /opt/intel/oneapi/mkl/2026.2/lib/libmkl_cdft_core.so
+-- Found /opt/intel/oneapi/mkl/2026.2/lib/libmkl_intel_ilp64.so
+-- Found /opt/intel/oneapi/mkl/2026.2/lib/libmkl_sequential.so
+-- Found /opt/intel/oneapi/mkl/2026.2/lib/libmkl_core.so
+-- Found /opt/intel/oneapi/mkl/2026.2/lib/libmkl_blacs_intelmpi_ilp64.so
+-- Could NOT find mkl_sycl_distributed_dft for target MKL::MKL_SYCL_DISTRIBUTED_DFT
+-- Found /opt/intel/oneapi/mkl/2026.2/lib/libmkl_sycl_blas.so
+-- Found /opt/intel/oneapi/mkl/2026.2/lib/libmkl_sycl_lapack.so
+-- Found /opt/intel/oneapi/mkl/2026.2/lib/libmkl_sycl_dft.so
+-- Found /opt/intel/oneapi/mkl/2026.2/lib/libmkl_sycl_sparse.so
+-- Found /opt/intel/oneapi/mkl/2026.2/lib/libmkl_sycl_data_fitting.so
+-- Found /opt/intel/oneapi/mkl/2026.2/lib/libmkl_sycl_rng.so
+-- Found /opt/intel/oneapi/mkl/2026.2/lib/libmkl_sycl_stats.so
+-- Found /opt/intel/oneapi/mkl/2026.2/lib/libmkl_sycl_vm.so
+-- Found nlohmann_json: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/share/cmake/nlohmann_json/nlohmann_jsonConfig.cmake
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Found numactl: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/lib/libnuma.so
+-- NUMACTL_LIBRARIES = /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/lib/libnuma.so
+-- The Fortran compiler identification is IntelLLVM 2026.2.0
+-- Detecting Fortran compiler ABI info
+-- Detecting Fortran compiler ABI info - done
+-- Check for working Fortran compiler: /opt/intel/oneapi/compiler/2026.2/bin/ifx - skipped
+-- BLAS_LIBRARIES Not Given: Will Perform Search
+-- Found IntelMKL: -Wl,--start-group;/opt/intel/oneapi/mkl/2026.2/lib/intel64/libmkl_intel_ilp64.a;/opt/intel/oneapi/mkl/2026.2/lib/intel64/libmkl_sequential.a;/opt/intel/oneapi/mkl/2026.2/lib/intel64/libmkl_core.a;-Wl,--end-group;m;dl;Threads::Threads (found version "2026.0.2") found components: ilp64 ilp64
+-- Performing Test BLAS_LOWER_UNDERSCORE
+-- Performing Test BLAS_LOWER_UNDERSCORE -- found
+-- Found BLAS: TRUE  found components: ilp64
+-- LAPACK_LIBRARIES Not Given: Checking for LAPACK in BLAS
+-- Performing Test LAPACK_LOWER_UNDERSCORE
+-- Performing Test LAPACK_LOWER_UNDERSCORE -- found
+-- BLAS Has A Full LAPACK Linker
+-- Found LAPACK: TRUE
+-- Found MPI_C: /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so (found version "3.1")
+-- Found MPI_CXX: /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so (found version "3.1")
+-- Found MPI_Fortran: /home/runner/micromamba/envs/sycl-ci/lib/libmpi_usempif08.so (found version "3.1")
+-- Found MPI: TRUE (found version "3.1")
+-- Found TAMM include paths: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include
+-- Found TAMM libraries: tamm::tamm
+-- Found TAMM compile options: -Wall;-DOMPI_SKIP_MPICXX;-DUSE_HDF5;-DUSE_DPCPP
+-- Found CMakeBuild: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/share/cmake/CMakeBuild
+Target: CMakeBuild_External
+-- Found TAMM: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/lib/libtamm.a
+-- Found TAMM: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include
+-- NUMACTL_LIBRARIES = /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/lib/libnuma.so
+-- Found TAMM include paths: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include
+-- Found TAMM libraries: tamm::tamm
+-- Found TAMM compile options: -Wall;-DOMPI_SKIP_MPICXX;-DUSE_HDF5;-DUSE_DPCPP
+Target: TAMM_External
+  INCLUDE_DIRECTORIES : /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include
+  LINK_LIBRARIES : tamm::tamm
+  COMPILE_OPTIONS : -Wall;-DOMPI_SKIP_MPICXX;-DUSE_HDF5;-DUSE_DPCPP
+-- Found nlohmann_json: /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/share/cmake/nlohmann_json/nlohmann_jsonConfig.cmake (found version "3.12.0")
+Target: NJSON_External
+  LINK_LIBRARIES : nlohmann_json::nlohmann_json
+Target: DOCTEST_External
+  LINK_LIBRARIES : doctest::doctest
+Target: SPDLOG_External
+  LINK_LIBRARIES : spdlog::spdlog
+Target: Eigen3_External
+  INCLUDE_DIRECTORIES : /home/runner/work/TAMM/TAMM/install/include/eigen3
+Target: HDF5_External
+  INCLUDE_DIRECTORIES : /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include
+  LINK_LIBRARIES : hdf5-static
+-- Could NOT find numactl (missing: numactl_DIR)
+-- Could NOT find numactl (missing: numactl_DIR)
+-- NUMACTL_LIBRARIES = /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/lib/libnuma.so
+Target: numactl_External
+  INCLUDE_DIRECTORIES : /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include
+  LINK_LIBRARIES : numactl-cmsb
+Target: GlobalArrays_External
+  INCLUDE_DIRECTORIES : /home/runner/work/TAMM/TAMM/build/stage/home/runner/work/TAMM/TAMM/install/include/ga;/home/runner/micromamba/envs/sycl-ci/include
+  LINK_LIBRARIES : GlobalArrays::ga
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- CMakeBuild already handled.
+-- TAMM already handled.
+-- NJSON already handled.
+-- DOCTEST already handled.
+-- SPDLOG already handled.
+-- Eigen3 already handled.
+-- HDF5 already handled.
+-- numactl already handled.
+-- GlobalArrays already handled.
+-- Configuring done (2.7s)
+-- Generating done (0.1s)
+CMake Warning (unused-cli):
+  Manually-specified variables were not used by the project:
+
+    STAGE_INSTALL_DIR
+    SUPER_PROJECT_BINARY_DIR
+    SUPER_PROJECT_ROOT
+
+
+-- Build files have been written to: /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build
+[ 97%] Performing build step for 'TAMM_Tests_External'
+make[3]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[4]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[  1%] Building CXX object CMakeFiles/Test_IndexSpace.dir/tamm/Test_IndexSpace.cpp.o
+[  2%] Building CXX object CMakeFiles/Test_IndexLoopNest.dir/tamm/Test_IndexLoopNest.cpp.o
+[  4%] Linking CXX executable Test_IndexSpace
+[  5%] Linking CXX executable Test_IndexLoopNest
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[  5%] Built target Test_IndexSpace
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[  7%] Building CXX object CMakeFiles/Test_Tensors.dir/tamm/Test_Tensors.cpp.o
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[  7%] Built target Test_IndexLoopNest
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[  8%] Building CXX object CMakeFiles/Test_Ops.dir/tamm/Test_Ops.cpp.o
+[ 10%] Linking CXX executable Test_Tensors
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 10%] Built target Test_Tensors
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 11%] Building CXX object CMakeFiles/Test_DependentSpace.dir/tamm/Test_DependentSpace.cpp.o
+[ 12%] Linking CXX executable Test_Ops
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 12%] Built target Test_Ops
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 14%] Building CXX object CMakeFiles/Test_Utils.dir/tamm/Test_Utils.cpp.o
+[ 15%] Linking CXX executable Test_DependentSpace
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 15%] Built target Test_DependentSpace
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 17%] Building CXX object CMakeFiles/Test_Mult_Ops.dir/tamm/Test_Mult_Ops.cpp.o
+[ 18%] Linking CXX executable Test_Utils
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 18%] Built target Test_Utils
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 20%] Building CXX object CMakeFiles/Test_DLPNO_Ops.dir/tamm/Test_DLPNO_Ops.cpp.o
+[ 21%] Linking CXX executable Test_Mult_Ops
+[ 22%] Linking CXX executable Test_DLPNO_Ops
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 22%] Built target Test_Mult_Ops
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 24%] Building CXX object CMakeFiles/Test_OpDAG.dir/tamm/Test_OpDAG.cpp.o
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 24%] Built target Test_DLPNO_Ops
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 25%] Building CXX object CMakeFiles/Test_Opmin.dir/tamm/Test_Opmin.cpp.o
+[ 27%] Linking CXX executable Test_Opmin
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 27%] Built target Test_Opmin
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 28%] Building CXX object CMakeFiles/Test_IO.dir/tamm/Test_IO.cpp.o
+[ 30%] Linking CXX executable Test_OpDAG
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 30%] Built target Test_OpDAG
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 31%] Building CXX object CMakeFiles/Test_EVP.dir/tamm/Test_EVP.cpp.o
+[ 32%] Linking CXX executable Test_IO
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 32%] Built target Test_IO
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 34%] Building CXX object CMakeFiles/Test_SVD.dir/tamm/Test_SVD.cpp.o
+[ 35%] Linking CXX executable Test_EVP
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 35%] Built target Test_EVP
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 37%] Building CXX object CMakeFiles/Test_Unit_Tiled_View_Tensor.dir/tamm/Test_Unit_Tiled_View_Tensor.cpp.o
+[ 38%] Linking CXX executable Test_SVD
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 38%] Built target Test_SVD
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 40%] Building CXX object CMakeFiles/Test_Mem_Profiler.dir/tamm/Test_Mem_Profiler.cpp.o
+[ 41%] Linking CXX executable Test_Unit_Tiled_View_Tensor
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 41%] Built target Test_Unit_Tiled_View_Tensor
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 42%] Building CXX object CMakeFiles/Test_LocalTensor.dir/tamm/Test_LocalTensor.cpp.o
+[ 44%] Linking CXX executable Test_Mem_Profiler
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 44%] Built target Test_Mem_Profiler
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 45%] Building CXX object CMakeFiles/Test_Binding_Equivalence.dir/tamm/Test_Binding_Equivalence.cpp.o
+[ 47%] Linking CXX executable Test_LocalTensor
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 47%] Built target Test_LocalTensor
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 48%] Building CXX object CMakeFiles/Test_PG_Collectives.dir/tamm/Test_PG_Collectives.cpp.o
+[ 50%] Linking CXX executable Test_PG_Collectives
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 50%] Built target Test_PG_Collectives
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 51%] Building CXX object CMakeFiles/Test_Scheduler_Deps.dir/tamm/Test_Scheduler_Deps.cpp.o
+[ 52%] Linking CXX executable Test_Binding_Equivalence
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 52%] Built target Test_Binding_Equivalence
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 54%] Building CXX object CMakeFiles/Test_StrongNum.dir/tamm/Test_StrongNum.cpp.o
+[ 55%] Linking CXX executable Test_StrongNum
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 55%] Built target Test_StrongNum
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 57%] Building CXX object CMakeFiles/Test_BoundVec.dir/tamm/Test_BoundVec.cpp.o
+[ 58%] Linking CXX executable Test_Scheduler_Deps
+[ 60%] Linking CXX executable Test_BoundVec
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 60%] Built target Test_Scheduler_Deps
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 61%] Building CXX object CMakeFiles/Test_BlockSpan.dir/tamm/Test_BlockSpan.cpp.o
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 61%] Built target Test_BoundVec
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 62%] Building CXX object CMakeFiles/Test_MemoryPool.dir/tamm/Test_MemoryPool.cpp.o
+[ 64%] Linking CXX executable Test_BlockSpan
+[ 65%] Linking CXX executable Test_MemoryPool
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 65%] Built target Test_BlockSpan
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 67%] Building CXX object CMakeFiles/Test_IndexPermute.dir/tamm/Test_IndexPermute.cpp.o
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 67%] Built target Test_MemoryPool
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 68%] Building CXX object CMakeFiles/Test_CCSD.dir/tamm/coupledcluster/Test_CCSD.cpp.o
+[ 70%] Linking CXX executable Test_IndexPermute
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 70%] Built target Test_IndexPermute
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 71%] Building CXX object CMakeFiles/Test_CCSD_V4_BlockSparse.dir/tamm/coupledcluster/Test_CCSD_V4_BlockSparse.cpp.o
+[ 72%] Linking CXX executable Test_CCSD
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 72%] Built target Test_CCSD
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 74%] Building CXX object CMakeFiles/Test_CCSD_V4.dir/tamm/coupledcluster/Test_CCSD_V4.cpp.o
+[ 75%] Linking CXX executable Test_CCSD_V4_BlockSparse
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 75%] Built target Test_CCSD_V4_BlockSparse
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 77%] Building CXX object CMakeFiles/Test_LabeledTensor.dir/tamm/Test_LabeledTensor.cpp.o
+[ 78%] Linking CXX executable Test_LabeledTensor
+[ 80%] Linking CXX executable Test_CCSD_V4
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 80%] Built target Test_LabeledTensor
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 81%] Building CXX object CMakeFiles/Test_TiledIndexSpace.dir/tamm/Test_TiledIndexSpace.cpp.o
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 81%] Built target Test_CCSD_V4
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 82%] Building CXX object CMakeFiles/Test_GACreate.dir/ga/Test_GACreate.cpp.o
+[ 84%] Linking CXX executable Test_GACreate
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 84%] Built target Test_GACreate
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 85%] Building CXX object CMakeFiles/Test_GA_Alloc.dir/ga/Test_GA_Alloc.cpp.o
+/home/runner/work/TAMM/TAMM/tests/ga/Test_GA_Alloc.cpp:37:42: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
+   37 |   g_src = NGA_Create64(C_LONG, 1, &size, "source", NULL);
+      |                                          ^
+/home/runner/work/TAMM/TAMM/tests/ga/Test_GA_Alloc.cpp:13:23: warning: unused variable 'j' [-Wunused-variable]
+   13 |   int      me, nproc, j, g_src;
+      |                       ^
+2 warnings generated.
+/home/runner/work/TAMM/TAMM/tests/ga/Test_GA_Alloc.cpp:37:42: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
+   37 |   g_src = NGA_Create64(C_LONG, 1, &size, "source", NULL);
+      |                                          ^
+/home/runner/work/TAMM/TAMM/tests/ga/Test_GA_Alloc.cpp:13:23: warning: unused variable 'j' [-Wunused-variable]
+   13 |   int      me, nproc, j, g_src;
+      |                       ^
+2 warnings generated.
+[ 87%] Linking CXX executable Test_GA_Alloc
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 87%] Built target Test_GA_Alloc
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 88%] Building CXX object CMakeFiles/Test_MPI_Barrier.dir/ga/Test_MPI_Barrier.cpp.o
+/home/runner/work/TAMM/TAMM/tests/ga/Test_MPI_Barrier.cpp:11:10: warning: variable 'ierr' set but not used [-Wunused-but-set-variable]
+   11 |   auto   ierr          = MPI_Barrier(MPI_COMM_WORLD);
+      |          ^
+1 warning generated.
+/home/runner/work/TAMM/TAMM/tests/ga/Test_MPI_Barrier.cpp:11:10: warning: variable 'ierr' set but not used [-Wunused-but-set-variable]
+   11 |   auto   ierr          = MPI_Barrier(MPI_COMM_WORLD);
+      |          ^
+1 warning generated.
+[ 90%] Linking CXX executable Test_MPI_Barrier
+[ 91%] Linking CXX executable Test_TiledIndexSpace
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 91%] Built target Test_MPI_Barrier
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 92%] Building CXX object CMakeFiles/Test_MPI_allgather.dir/ga/Test_MPI_allgather.cpp.o
+[ 94%] Linking CXX executable Test_MPI_allgather
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 94%] Built target Test_TiledIndexSpace
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 95%] Building CXX object CMakeFiles/Test_MPI_allgather2.dir/ga/Test_MPI_allgather2.cpp.o
+/home/runner/work/TAMM/TAMM/tests/ga/Test_MPI_allgather2.cpp:88:11: warning: variable 'k' set but not used [-Wunused-but-set-variable]
+   88 |       int k;
+      |           ^
+/home/runner/work/TAMM/TAMM/tests/ga/Test_MPI_allgather2.cpp:22:12: warning: variable 'progress' set but not used [-Wunused-but-set-variable]
+   22 |   int      progress = 0;
+      |            ^
+/home/runner/work/TAMM/TAMM/tests/ga/Test_MPI_allgather2.cpp:29:12: warning: unused variable 't_allgather' [-Wunused-variable]
+   29 |   double   t_allgather       = 0.0;
+      |            ^~~~~~~~~~~
+/home/runner/work/TAMM/TAMM/tests/ga/Test_MPI_allgather2.cpp:30:12: warning: unused variable 't_translate' [-Wunused-variable]
+   30 |   double   t_translate       = 0.0;
+      |            ^~~~~~~~~~~
+/home/runner/work/TAMM/TAMM/tests/ga/Test_MPI_allgather2.cpp:31:12: warning: unused variable 't_barrier' [-Wunused-variable]
+   31 |   double   t_barrier         = 0.0;
+      |            ^~~~~~~~~
+/home/runner/work/TAMM/TAMM/tests/ga/Test_MPI_allgather2.cpp:32:12: warning: variable 'ierr' set but not used [-Wunused-but-set-variable]
+   32 |   int      ierr;
+      |            ^
+6 warnings generated.
+/home/runner/work/TAMM/TAMM/tests/ga/Test_MPI_allgather2.cpp:88:11: warning: variable 'k' set but not used [-Wunused-but-set-variable]
+   88 |       int k;
+      |           ^
+/home/runner/work/TAMM/TAMM/tests/ga/Test_MPI_allgather2.cpp:22:12: warning: variable 'progress' set but not used [-Wunused-but-set-variable]
+   22 |   int      progress = 0;
+      |            ^
+/home/runner/work/TAMM/TAMM/tests/ga/Test_MPI_allgather2.cpp:29:12: warning: unused variable 't_allgather' [-Wunused-variable]
+   29 |   double   t_allgather       = 0.0;
+      |            ^~~~~~~~~~~
+/home/runner/work/TAMM/TAMM/tests/ga/Test_MPI_allgather2.cpp:30:12: warning: unused variable 't_translate' [-Wunused-variable]
+   30 |   double   t_translate       = 0.0;
+      |            ^~~~~~~~~~~
+/home/runner/work/TAMM/TAMM/tests/ga/Test_MPI_allgather2.cpp:31:12: warning: unused variable 't_barrier' [-Wunused-variable]
+   31 |   double   t_barrier         = 0.0;
+      |            ^~~~~~~~~
+/home/runner/work/TAMM/TAMM/tests/ga/Test_MPI_allgather2.cpp:32:12: warning: variable 'ierr' set but not used [-Wunused-but-set-variable]
+   32 |   int      ierr;
+      |            ^
+6 warnings generated.
+[ 97%] Linking CXX executable Test_MPI_allgather2
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 97%] Built target Test_MPI_allgather
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 98%] Building CXX object CMakeFiles/Test_Layout.dir/ga/Test_Layout.cpp.o
+[100%] Linking CXX executable Test_Layout
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[100%] Built target Test_MPI_allgather2
+make[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[100%] Built target Test_Layout
+make[4]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+make[3]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[ 98%] Performing install step for 'TAMM_Tests_External'
+gmake[3]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+gmake[3]: warning: jobserver unavailable: using -j1.  Add '+' to parent make rule.
+gmake[4]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+gmake[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+gmake[5]: Leaving directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+gmake[5]: Entering directory '/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build'
+[  1%] Linking CXX executable Test_IndexSpace
