@@ -182,10 +182,20 @@ static inline void getHardwareGPUCount(int* gpus_per_node) {
 #elif defined(USE_HIP)
   *gpus_per_node = amd_device_count();
 #elif defined(USE_DPCPP)
+  // CPU as hardware for SYCL CPU CI: opencl:cpu on GH runner has no drm gt
+  // devices. Detect cpu device_type and report 1 so ONEAPI_DEVICE_SELECTOR
+  // can switch level_zero:gpu ↔ opencl:cpu without new env vars.
+  auto dev0       = sycl_get_device(0);
+  auto dev0_type  = dev0->get_info<sycl::info::device::device_type>();
+  if(dev0_type == sycl::info::device_type::cpu) {
+    *gpus_per_node = 1;
+    return;
+  }
+
   std::array<char, 128> buffer;
   std::string           result, m_call;
 
-  sycl::platform pltf = sycl_get_device(0)->get_platform();
+  sycl::platform pltf = dev0->get_platform();
   if(pltf.get_backend() == sycl::backend::ext_oneapi_level_zero ||
      pltf.get_backend() == sycl::backend::opencl) {
     m_call = "cat /sys/class/drm/card*/gt/gt*/id | wc -l";

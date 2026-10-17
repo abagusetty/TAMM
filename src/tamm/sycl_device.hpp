@@ -93,16 +93,13 @@ private:
   mutable std::mutex m_mutex;
 
   dev_mgr() {
+    // Minimal runtime-switchable enumeration: SYCL respects ONEAPI_DEVICE_SELECTOR
+    // for get_devices(). Using `all` returns level_zero:gpu on Aurora and
+    // opencl:cpu on GH runner without new env vars. GH runner has only the CPU
+    // device, so `all` → 1 CPU device; Aurora has GPUs → GPUs only (selector
+    // filters). Keep opencl backend + cpu hardware logic for CPU CI stability.
     std::vector<sycl::device> sycl_all_devs =
-      sycl::device::get_devices(sycl::info::device_type::gpu);
-    // SYCL CPU CI fallback: GH runners have only opencl:cpu (no GPU). Respect
-    // ONEAPI_DEVICE_SELECTOR by falling back to cpu/all devices when no GPUs.
-    if(sycl_all_devs.empty()) {
-      sycl_all_devs = sycl::device::get_devices(sycl::info::device_type::cpu);
-    }
-    if(sycl_all_devs.empty()) {
-      sycl_all_devs = sycl::device::get_devices(sycl::info::device_type::all);
-    }
+      sycl::device::get_devices(sycl::info::device_type::all);
     for(auto& dev: sycl_all_devs) {
       _devs.push_back(
         std::make_pair(std::make_shared<device_ext>(dev), std::make_shared<sycl::context>(dev)));
