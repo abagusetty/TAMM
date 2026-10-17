@@ -1,0 +1,508 @@
+=== ctest env ===
+LD_LIBRARY_PATH=/opt/intel/oneapi/tcm/1.6/lib:/opt/intel/oneapi/umf/1.2/lib:/opt/intel/oneapi/tcm/1.6/env/../lib:/opt/intel/oneapi/tbb/2023.2/env/../lib/intel64/gcc4.8:/opt/intel/oneapi/mpi/2021.19/lib:/opt/intel/oneapi/mkl/2026.2/lib:/opt/intel/oneapi/libfabric/2.6/lib:/opt/intel/oneapi/debugger/2026.2/opt/debugger/lib:/opt/intel/oneapi/compiler/2026.2/opt/compiler/lib:/opt/intel/oneapi/compiler/2026.2/lib
+MKLROOT=/opt/intel/oneapi/mkl/2026.2
+/opt/intel/oneapi/compiler/latest/lib/libifport.a
+/opt/intel/oneapi/compiler/latest/lib/libifport.so
+/opt/intel/oneapi/compiler/latest/lib/libifport.so.5
+/opt/intel/oneapi/compiler/latest/lib/libifport_msan.a
+=== ctest ===
+UpdateCTestConfiguration  from :/home/runner/work/TAMM/TAMM/build/DartConfiguration.tcl
+Test project /home/runner/work/TAMM/TAMM/build
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+      Start  1: Test_IndexSpace
+
+1: Test command: /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_IndexSpace
+1: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+1: Test timeout computed to be: 10000000
+1: [doctest] doctest version is "2.4.11"
+1: [doctest] run with "--help" for options
+1: self-comparison
+1: is1 == is2
+1: is1 != is2
+1: is1 != is4
+1: is3 != is4
+1: is1 == is5
+1: is1 == is6
+1: is1 == is7
+1: is2 == is5
+1: is2 == is6
+1: is2 == is7
+1: is5 == is5
+1: is5 == is6
+1: is5 == is7
+1: is6 == is7
+1: ===============================================================================
+1: [doctest] test cases:  15 |  15 passed | 0 failed | 0 skipped
+1: [doctest] assertions: 975 | 975 passed | 0 failed |
+1: [doctest] Status: SUCCESS!
+ 1/35 Test  #1: Test_IndexSpace ..................   Passed    0.47 sec
+test 2
+      Start  2: Test_IndexLoopNest
+
+2: Test command: /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_IndexLoopNest
+2: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+2: Test timeout computed to be: 10000000
+2: [doctest] doctest version is "2.4.11"
+2: [doctest] run with "--help" for options
+2: ===============================================================================
+2: [doctest] test cases:   15 |   15 passed | 0 failed | 0 skipped
+2: [doctest] assertions: 1235 | 1235 passed | 0 failed |
+2: [doctest] Status: SUCCESS!
+ 2/35 Test  #2: Test_IndexLoopNest ...............   Passed    0.46 sec
+test 3
+      Start  3: Test_Tensors
+
+3: Test command: /opt/intel/oneapi/mpi/2021.19/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Tensors"
+3: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+3: Test timeout computed to be: 10000000
+3: No PMIx server was reachable, but a PMI1/2 was detected.
+3: If srun is being used to launch application,  2 singletons will be started.
+3: [runnervm8k3b6:40021] *** Process received signal ***
+3: [runnervm8k3b6:40021] Signal: Segmentation fault (11)
+3: [runnervm8k3b6:40021] Signal code: Address not mapped (1)
+3: [runnervm8k3b6:40021] Failing at address: 0x180
+3: [runnervm8k3b6:40021] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x45330)[0x7ff7d9445330]
+3: [runnervm8k3b6:40021] [ 1] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/libmlx-fi.so(+0x17c3b)[0x7ff7cb017c3b]
+3: [runnervm8k3b6:40021] [ 2] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/librxd-fi.so(+0x194f5)[0x7ff7d04194f5]
+3: [runnervm8k3b6:40021] [ 3] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mtl_ofi_add_procs+0x20f)[0x7ff7da5c52bf]
+3: [runnervm8k3b6:40021] [ 4] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(+0x977df)[0x7ff7da4977df]
+3: [runnervm8k3b6:40021] [ 5] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_instance_init+0x73)[0x7ff7da497b53]
+3: [runnervm8k3b6:40021] [ 6] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_init+0x7f)[0x7ff7da48f18f]
+3: [runnervm8k3b6:40021] [ 7] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(MPI_Init+0x5f)[0x7ff7da4be62f]
+3: [runnervm8k3b6:40021] [ 8] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Tensors[0x5028a1]
+3: [runnervm8k3b6:40021] [ 9] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Tensors[0x4623f8]
+3: [runnervm8k3b6:40021] [10] /lib/x86_64-linux-gnu/libc.so.6(+0x2a1ca)[0x7ff7d942a1ca]
+3: [runnervm8k3b6:40021] [11] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x8b)[0x7ff7d942a28b]
+3: [runnervm8k3b6:40021] [12] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Tensors[0x40e4c5]
+3: [runnervm8k3b6:40021] *** End of error message ***
+3: [runnervm8k3b6:40020] *** Process received signal ***
+3: [runnervm8k3b6:40020] Signal: Segmentation fault (11)
+3: [runnervm8k3b6:40020] Signal code: Address not mapped (1)
+3: [runnervm8k3b6:40020] Failing at address: 0x180
+3: [runnervm8k3b6:40020] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x45330)[0x7f4063045330]
+3: [runnervm8k3b6:40020] [ 1] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/libmlx-fi.so(+0x17c3b)[0x7f4054c17c3b]
+3: [runnervm8k3b6:40020] [ 2] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/librxd-fi.so(+0x194f5)[0x7f4055c194f5]
+3: [runnervm8k3b6:40020] [ 3] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mtl_ofi_add_procs+0x20f)[0x7f40641c52bf]
+3: [runnervm8k3b6:40020] [ 4] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(+0x977df)[0x7f40640977df]
+3: [runnervm8k3b6:40020] [ 5] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_instance_init+0x73)[0x7f4064097b53]
+3: [runnervm8k3b6:40020] [ 6] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_init+0x7f)[0x7f406408f18f]
+3: [runnervm8k3b6:40020] [ 7] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(MPI_Init+0x5f)[0x7f40640be62f]
+3: [runnervm8k3b6:40020] [ 8] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Tensors[0x5028a1]
+3: [runnervm8k3b6:40020] [ 9] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Tensors[0x4623f8]
+3: [runnervm8k3b6:40020] [10] /lib/x86_64-linux-gnu/libc.so.6(+0x2a1ca)[0x7f406302a1ca]
+3: [runnervm8k3b6:40020] [11] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x8b)[0x7f406302a28b]
+3: [runnervm8k3b6:40020] [12] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Tensors[0x40e4c5]
+3: [runnervm8k3b6:40020] *** End of error message ***
+3: 
+3: ===================================================================================
+3: =   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+3: =   RANK 0 PID 40020 RUNNING AT runnervm8k3b6
+3: =   KILLED BY SIGNAL: 11 (Segmentation fault)
+3: ===================================================================================
+3: 
+3: ===================================================================================
+3: =   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+3: =   RANK 1 PID 40021 RUNNING AT runnervm8k3b6
+3: =   KILLED BY SIGNAL: 11 (Segmentation fault)
+3: ===================================================================================
+ 3/35 Test  #3: Test_Tensors .....................***Failed    2.66 sec
+No PMIx server was reachable, but a PMI1/2 was detected.
+If srun is being used to launch application,  2 singletons will be started.
+[runnervm8k3b6:40021] *** Process received signal ***
+[runnervm8k3b6:40021] Signal: Segmentation fault (11)
+[runnervm8k3b6:40021] Signal code: Address not mapped (1)
+[runnervm8k3b6:40021] Failing at address: 0x180
+[runnervm8k3b6:40021] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x45330)[0x7ff7d9445330]
+[runnervm8k3b6:40021] [ 1] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/libmlx-fi.so(+0x17c3b)[0x7ff7cb017c3b]
+[runnervm8k3b6:40021] [ 2] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/librxd-fi.so(+0x194f5)[0x7ff7d04194f5]
+[runnervm8k3b6:40021] [ 3] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mtl_ofi_add_procs+0x20f)[0x7ff7da5c52bf]
+[runnervm8k3b6:40021] [ 4] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(+0x977df)[0x7ff7da4977df]
+[runnervm8k3b6:40021] [ 5] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_instance_init+0x73)[0x7ff7da497b53]
+[runnervm8k3b6:40021] [ 6] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_init+0x7f)[0x7ff7da48f18f]
+[runnervm8k3b6:40021] [ 7] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(MPI_Init+0x5f)[0x7ff7da4be62f]
+[runnervm8k3b6:40021] [ 8] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Tensors[0x5028a1]
+[runnervm8k3b6:40021] [ 9] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Tensors[0x4623f8]
+[runnervm8k3b6:40021] [10] /lib/x86_64-linux-gnu/libc.so.6(+0x2a1ca)[0x7ff7d942a1ca]
+[runnervm8k3b6:40021] [11] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x8b)[0x7ff7d942a28b]
+[runnervm8k3b6:40021] [12] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Tensors[0x40e4c5]
+[runnervm8k3b6:40021] *** End of error message ***
+[runnervm8k3b6:40020] *** Process received signal ***
+[runnervm8k3b6:40020] Signal: Segmentation fault (11)
+[runnervm8k3b6:40020] Signal code: Address not mapped (1)
+[runnervm8k3b6:40020] Failing at address: 0x180
+[runnervm8k3b6:40020] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x45330)[0x7f4063045330]
+[runnervm8k3b6:40020] [ 1] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/libmlx-fi.so(+0x17c3b)[0x7f4054c17c3b]
+[runnervm8k3b6:40020] [ 2] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/librxd-fi.so(+0x194f5)[0x7f4055c194f5]
+[runnervm8k3b6:40020] [ 3] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mtl_ofi_add_procs+0x20f)[0x7f40641c52bf]
+[runnervm8k3b6:40020] [ 4] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(+0x977df)[0x7f40640977df]
+[runnervm8k3b6:40020] [ 5] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_instance_init+0x73)[0x7f4064097b53]
+[runnervm8k3b6:40020] [ 6] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_init+0x7f)[0x7f406408f18f]
+[runnervm8k3b6:40020] [ 7] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(MPI_Init+0x5f)[0x7f40640be62f]
+[runnervm8k3b6:40020] [ 8] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Tensors[0x5028a1]
+[runnervm8k3b6:40020] [ 9] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Tensors[0x4623f8]
+[runnervm8k3b6:40020] [10] /lib/x86_64-linux-gnu/libc.so.6(+0x2a1ca)[0x7f406302a1ca]
+[runnervm8k3b6:40020] [11] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x8b)[0x7f406302a28b]
+[runnervm8k3b6:40020] [12] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Tensors[0x40e4c5]
+[runnervm8k3b6:40020] *** End of error message ***
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   RANK 0 PID 40020 RUNNING AT runnervm8k3b6
+=   KILLED BY SIGNAL: 11 (Segmentation fault)
+===================================================================================
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   RANK 1 PID 40021 RUNNING AT runnervm8k3b6
+=   KILLED BY SIGNAL: 11 (Segmentation fault)
+===================================================================================
+
+test 4
+      Start  4: Test_Ops
+
+4: Test command: /opt/intel/oneapi/mpi/2021.19/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Ops"
+4: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+4: Test timeout computed to be: 10000000
+4: No PMIx server was reachable, but a PMI1/2 was detected.
+4: If srun is being used to launch application,  2 singletons will be started.
+4: [runnervm8k3b6:40059] *** Process received signal ***
+4: [runnervm8k3b6:40059] Signal: Segmentation fault (11)
+4: [runnervm8k3b6:40059] Signal code: Address not mapped (1)
+4: [runnervm8k3b6:40059] Failing at address: 0x180
+4: [runnervm8k3b6:40059] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x45330)[0x7fc5ad445330]
+4: [runnervm8k3b6:40059] [ 1] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/libmlx-fi.so(+0x17c3b)[0x7fc59f017c3b]
+4: [runnervm8k3b6:40059] [ 2] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/librxd-fi.so(+0x194f5)[0x7fc5a44194f5]
+4: [runnervm8k3b6:40059] [ 3] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mtl_ofi_add_procs+0x20f)[0x7fc5ae5c52bf]
+4: [runnervm8k3b6:40059] [ 4] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(+0x977df)[0x7fc5ae4977df]
+4: [runnervm8k3b6:40059] [ 5] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_instance_init+0x73)[0x7fc5ae497b53]
+4: [runnervm8k3b6:40059] [ 6] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_init+0x7f)[0x7fc5ae48f18f]
+4: [runnervm8k3b6:40059] [ 7] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(MPI_Init+0x5f)[0x7fc5ae4be62f]
+4: [runnervm8k3b6:40059] [ 8] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Ops[0x5ccbc1]
+4: [runnervm8k3b6:40059] [ 9] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Ops[0x41a028]
+4: [runnervm8k3b6:40059] [10] /lib/x86_64-linux-gnu/libc.so.6(+0x2a1ca)[0x7fc5ad42a1ca]
+4: [runnervm8k3b6:40059] [11] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x8b)[0x7fc5ad42a28b]
+4: [runnervm8k3b6:40059] [12] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Ops[0x40e695]
+4: [runnervm8k3b6:40059] *** End of error message ***
+4: [runnervm8k3b6:40060] *** Process received signal ***
+4: [runnervm8k3b6:40060] Signal: Segmentation fault (11)
+4: [runnervm8k3b6:40060] Signal code: Address not mapped (1)
+4: [runnervm8k3b6:40060] Failing at address: 0x180
+4: [runnervm8k3b6:40060] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x45330)[0x7f19f2e45330]
+4: [runnervm8k3b6:40060] [ 1] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/libmlx-fi.so(+0x17c3b)[0x7f19e4c17c3b]
+4: [runnervm8k3b6:40060] [ 2] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/librxd-fi.so(+0x194f5)[0x7f19e5c194f5]
+4: [runnervm8k3b6:40060] [ 3] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mtl_ofi_add_procs+0x20f)[0x7f19f3dc52bf]
+4: [runnervm8k3b6:40060] [ 4] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(+0x977df)[0x7f19f3c977df]
+4: [runnervm8k3b6:40060] [ 5] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_instance_init+0x73)[0x7f19f3c97b53]
+4: [runnervm8k3b6:40060] [ 6] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_init+0x7f)[0x7f19f3c8f18f]
+4: [runnervm8k3b6:40060] [ 7] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(MPI_Init+0x5f)[0x7f19f3cbe62f]
+4: [runnervm8k3b6:40060] [ 8] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Ops[0x5ccbc1]
+4: [runnervm8k3b6:40060] [ 9] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Ops[0x41a028]
+4: [runnervm8k3b6:40060] [10] /lib/x86_64-linux-gnu/libc.so.6(+0x2a1ca)[0x7f19f2e2a1ca]
+4: [runnervm8k3b6:40060] [11] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x8b)[0x7f19f2e2a28b]
+4: [runnervm8k3b6:40060] [12] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Ops[0x40e695]
+4: [runnervm8k3b6:40060] *** End of error message ***
+4: 
+4: ===================================================================================
+4: =   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+4: =   RANK 0 PID 40059 RUNNING AT runnervm8k3b6
+4: =   KILLED BY SIGNAL: 11 (Segmentation fault)
+4: ===================================================================================
+4: 
+4: ===================================================================================
+4: =   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+4: =   RANK 1 PID 40060 RUNNING AT runnervm8k3b6
+4: =   KILLED BY SIGNAL: 11 (Segmentation fault)
+4: ===================================================================================
+ 4/35 Test  #4: Test_Ops .........................***Failed    2.32 sec
+No PMIx server was reachable, but a PMI1/2 was detected.
+If srun is being used to launch application,  2 singletons will be started.
+[runnervm8k3b6:40059] *** Process received signal ***
+[runnervm8k3b6:40059] Signal: Segmentation fault (11)
+[runnervm8k3b6:40059] Signal code: Address not mapped (1)
+[runnervm8k3b6:40059] Failing at address: 0x180
+[runnervm8k3b6:40059] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x45330)[0x7fc5ad445330]
+[runnervm8k3b6:40059] [ 1] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/libmlx-fi.so(+0x17c3b)[0x7fc59f017c3b]
+[runnervm8k3b6:40059] [ 2] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/librxd-fi.so(+0x194f5)[0x7fc5a44194f5]
+[runnervm8k3b6:40059] [ 3] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mtl_ofi_add_procs+0x20f)[0x7fc5ae5c52bf]
+[runnervm8k3b6:40059] [ 4] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(+0x977df)[0x7fc5ae4977df]
+[runnervm8k3b6:40059] [ 5] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_instance_init+0x73)[0x7fc5ae497b53]
+[runnervm8k3b6:40059] [ 6] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_init+0x7f)[0x7fc5ae48f18f]
+[runnervm8k3b6:40059] [ 7] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(MPI_Init+0x5f)[0x7fc5ae4be62f]
+[runnervm8k3b6:40059] [ 8] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Ops[0x5ccbc1]
+[runnervm8k3b6:40059] [ 9] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Ops[0x41a028]
+[runnervm8k3b6:40059] [10] /lib/x86_64-linux-gnu/libc.so.6(+0x2a1ca)[0x7fc5ad42a1ca]
+[runnervm8k3b6:40059] [11] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x8b)[0x7fc5ad42a28b]
+[runnervm8k3b6:40059] [12] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Ops[0x40e695]
+[runnervm8k3b6:40059] *** End of error message ***
+[runnervm8k3b6:40060] *** Process received signal ***
+[runnervm8k3b6:40060] Signal: Segmentation fault (11)
+[runnervm8k3b6:40060] Signal code: Address not mapped (1)
+[runnervm8k3b6:40060] Failing at address: 0x180
+[runnervm8k3b6:40060] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x45330)[0x7f19f2e45330]
+[runnervm8k3b6:40060] [ 1] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/libmlx-fi.so(+0x17c3b)[0x7f19e4c17c3b]
+[runnervm8k3b6:40060] [ 2] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/librxd-fi.so(+0x194f5)[0x7f19e5c194f5]
+[runnervm8k3b6:40060] [ 3] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mtl_ofi_add_procs+0x20f)[0x7f19f3dc52bf]
+[runnervm8k3b6:40060] [ 4] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(+0x977df)[0x7f19f3c977df]
+[runnervm8k3b6:40060] [ 5] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_instance_init+0x73)[0x7f19f3c97b53]
+[runnervm8k3b6:40060] [ 6] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_init+0x7f)[0x7f19f3c8f18f]
+[runnervm8k3b6:40060] [ 7] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(MPI_Init+0x5f)[0x7f19f3cbe62f]
+[runnervm8k3b6:40060] [ 8] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Ops[0x5ccbc1]
+[runnervm8k3b6:40060] [ 9] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Ops[0x41a028]
+[runnervm8k3b6:40060] [10] /lib/x86_64-linux-gnu/libc.so.6(+0x2a1ca)[0x7f19f2e2a1ca]
+[runnervm8k3b6:40060] [11] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x8b)[0x7f19f2e2a28b]
+[runnervm8k3b6:40060] [12] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Ops[0x40e695]
+[runnervm8k3b6:40060] *** End of error message ***
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   RANK 0 PID 40059 RUNNING AT runnervm8k3b6
+=   KILLED BY SIGNAL: 11 (Segmentation fault)
+===================================================================================
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   RANK 1 PID 40060 RUNNING AT runnervm8k3b6
+=   KILLED BY SIGNAL: 11 (Segmentation fault)
+===================================================================================
+
+test 5
+      Start  5: Test_DependentSpace
+
+5: Test command: /opt/intel/oneapi/mpi/2021.19/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_DependentSpace"
+5: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+5: Test timeout computed to be: 10000000
+5: No PMIx server was reachable, but a PMI1/2 was detected.
+5: If srun is being used to launch application,  2 singletons will be started.
+5: [runnervm8k3b6:40101] *** Process received signal ***
+5: [runnervm8k3b6:40101] Signal: Segmentation fault (11)
+5: [runnervm8k3b6:40101] Signal code: Address not mapped (1)
+5: [runnervm8k3b6:40101] Failing at address: 0x180
+5: [runnervm8k3b6:40101] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x45330)[0x7fde86c45330]
+5: [runnervm8k3b6:40101] [ 1] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/libmlx-fi.so(+0x17c3b)[0x7fde78817c3b]
+5: [runnervm8k3b6:40101] [ 2] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/librxd-fi.so(+0x194f5)[0x7fde798194f5]
+5: [runnervm8k3b6:40101] [ 3] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mtl_ofi_add_procs+0x20f)[0x7fde87dc52bf]
+5: [runnervm8k3b6:40101] [ 4] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(+0x977df)[0x7fde87c977df]
+5: [runnervm8k3b6:40101] [ 5] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_instance_init+0x73)[0x7fde87c97b53]
+5: [runnervm8k3b6:40101] [ 6] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_init+0x7f)[0x7fde87c8f18f]
+5: [runnervm8k3b6:40101] [ 7] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(MPI_Init+0x5f)[0x7fde87cbe62f]
+5: [runnervm8k3b6:40101] [ 8] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_DependentSpace[0x4c2301]
+5: [runnervm8k3b6:40101] [ 9] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_DependentSpace[0x419698]
+5: [runnervm8k3b6:40101] [10] /lib/x86_64-linux-gnu/libc.so.6(+0x2a1ca)[0x7fde86c2a1ca]
+5: [runnervm8k3b6:40101] [11] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x8b)[0x7fde86c2a28b]
+5: [runnervm8k3b6:40101] [12] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_DependentSpace[0x40dce5]
+5: [runnervm8k3b6:40101] *** End of error message ***
+5: [runnervm8k3b6:40100] *** Process received signal ***
+5: [runnervm8k3b6:40100] Signal: Segmentation fault (11)
+5: [runnervm8k3b6:40100] Signal code: Address not mapped (1)
+5: [runnervm8k3b6:40100] Failing at address: 0x180
+5: [runnervm8k3b6:40100] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x45330)[0x7f5031045330]
+5: [runnervm8k3b6:40100] [ 1] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/libmlx-fi.so(+0x17c3b)[0x7f5022c17c3b]
+5: [runnervm8k3b6:40100] [ 2] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/librxd-fi.so(+0x194f5)[0x7f5023c194f5]
+5: [runnervm8k3b6:40100] [ 3] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mtl_ofi_add_procs+0x20f)[0x7f5031fc52bf]
+5: [runnervm8k3b6:40100] [ 4] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(+0x977df)[0x7f5031e977df]
+5: [runnervm8k3b6:40100] [ 5] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_instance_init+0x73)[0x7f5031e97b53]
+5: [runnervm8k3b6:40100] [ 6] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_init+0x7f)[0x7f5031e8f18f]
+5: [runnervm8k3b6:40100] [ 7] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(MPI_Init+0x5f)[0x7f5031ebe62f]
+5: [runnervm8k3b6:40100] [ 8] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_DependentSpace[0x4c2301]
+5: [runnervm8k3b6:40100] [ 9] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_DependentSpace[0x419698]
+5: [runnervm8k3b6:40100] [10] /lib/x86_64-linux-gnu/libc.so.6(+0x2a1ca)[0x7f503102a1ca]
+5: [runnervm8k3b6:40100] [11] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x8b)[0x7f503102a28b]
+5: [runnervm8k3b6:40100] [12] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_DependentSpace[0x40dce5]
+5: [runnervm8k3b6:40100] *** End of error message ***
+5: 
+5: ===================================================================================
+5: =   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+5: =   RANK 0 PID 40100 RUNNING AT runnervm8k3b6
+5: =   KILLED BY SIGNAL: 11 (Segmentation fault)
+5: ===================================================================================
+5: 
+5: ===================================================================================
+5: =   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+5: =   RANK 1 PID 40101 RUNNING AT runnervm8k3b6
+5: =   KILLED BY SIGNAL: 11 (Segmentation fault)
+5: ===================================================================================
+ 5/35 Test  #5: Test_DependentSpace ..............***Failed    2.47 sec
+No PMIx server was reachable, but a PMI1/2 was detected.
+If srun is being used to launch application,  2 singletons will be started.
+[runnervm8k3b6:40101] *** Process received signal ***
+[runnervm8k3b6:40101] Signal: Segmentation fault (11)
+[runnervm8k3b6:40101] Signal code: Address not mapped (1)
+[runnervm8k3b6:40101] Failing at address: 0x180
+[runnervm8k3b6:40101] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x45330)[0x7fde86c45330]
+[runnervm8k3b6:40101] [ 1] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/libmlx-fi.so(+0x17c3b)[0x7fde78817c3b]
+[runnervm8k3b6:40101] [ 2] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/librxd-fi.so(+0x194f5)[0x7fde798194f5]
+[runnervm8k3b6:40101] [ 3] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mtl_ofi_add_procs+0x20f)[0x7fde87dc52bf]
+[runnervm8k3b6:40101] [ 4] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(+0x977df)[0x7fde87c977df]
+[runnervm8k3b6:40101] [ 5] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_instance_init+0x73)[0x7fde87c97b53]
+[runnervm8k3b6:40101] [ 6] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_init+0x7f)[0x7fde87c8f18f]
+[runnervm8k3b6:40101] [ 7] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(MPI_Init+0x5f)[0x7fde87cbe62f]
+[runnervm8k3b6:40101] [ 8] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_DependentSpace[0x4c2301]
+[runnervm8k3b6:40101] [ 9] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_DependentSpace[0x419698]
+[runnervm8k3b6:40101] [10] /lib/x86_64-linux-gnu/libc.so.6(+0x2a1ca)[0x7fde86c2a1ca]
+[runnervm8k3b6:40101] [11] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x8b)[0x7fde86c2a28b]
+[runnervm8k3b6:40101] [12] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_DependentSpace[0x40dce5]
+[runnervm8k3b6:40101] *** End of error message ***
+[runnervm8k3b6:40100] *** Process received signal ***
+[runnervm8k3b6:40100] Signal: Segmentation fault (11)
+[runnervm8k3b6:40100] Signal code: Address not mapped (1)
+[runnervm8k3b6:40100] Failing at address: 0x180
+[runnervm8k3b6:40100] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x45330)[0x7f5031045330]
+[runnervm8k3b6:40100] [ 1] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/libmlx-fi.so(+0x17c3b)[0x7f5022c17c3b]
+[runnervm8k3b6:40100] [ 2] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/librxd-fi.so(+0x194f5)[0x7f5023c194f5]
+[runnervm8k3b6:40100] [ 3] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mtl_ofi_add_procs+0x20f)[0x7f5031fc52bf]
+[runnervm8k3b6:40100] [ 4] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(+0x977df)[0x7f5031e977df]
+[runnervm8k3b6:40100] [ 5] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_instance_init+0x73)[0x7f5031e97b53]
+[runnervm8k3b6:40100] [ 6] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_init+0x7f)[0x7f5031e8f18f]
+[runnervm8k3b6:40100] [ 7] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(MPI_Init+0x5f)[0x7f5031ebe62f]
+[runnervm8k3b6:40100] [ 8] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_DependentSpace[0x4c2301]
+[runnervm8k3b6:40100] [ 9] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_DependentSpace[0x419698]
+[runnervm8k3b6:40100] [10] /lib/x86_64-linux-gnu/libc.so.6(+0x2a1ca)[0x7f503102a1ca]
+[runnervm8k3b6:40100] [11] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x8b)[0x7f503102a28b]
+[runnervm8k3b6:40100] [12] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_DependentSpace[0x40dce5]
+[runnervm8k3b6:40100] *** End of error message ***
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   RANK 0 PID 40100 RUNNING AT runnervm8k3b6
+=   KILLED BY SIGNAL: 11 (Segmentation fault)
+===================================================================================
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   RANK 1 PID 40101 RUNNING AT runnervm8k3b6
+=   KILLED BY SIGNAL: 11 (Segmentation fault)
+===================================================================================
+
+test 6
+      Start  6: Test_Utils
+
+6: Test command: /opt/intel/oneapi/mpi/2021.19/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Utils"
+6: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+6: Test timeout computed to be: 10000000
+6: No PMIx server was reachable, but a PMI1/2 was detected.
+6: If srun is being used to launch application,  2 singletons will be started.
+6: [runnervm8k3b6:40142] *** Process received signal ***
+6: [runnervm8k3b6:40142] Signal: Segmentation fault (11)
+6: [runnervm8k3b6:40142] Signal code: Address not mapped (1)
+6: [runnervm8k3b6:40142] Failing at address: 0x180
+6: [runnervm8k3b6:40142] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x45330)[0x7ff90e245330]
+6: [runnervm8k3b6:40142] [ 1] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/libmlx-fi.so(+0x17c3b)[0x7ff900017c3b]
+6: [runnervm8k3b6:40142] [ 2] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/librxd-fi.so(+0x194f5)[0x7ff9010194f5]
+6: [runnervm8k3b6:40142] [ 3] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mtl_ofi_add_procs+0x20f)[0x7ff90f1c52bf]
+6: [runnervm8k3b6:40142] [ 4] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(+0x977df)[0x7ff90f0977df]
+6: [runnervm8k3b6:40142] [ 5] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_instance_init+0x73)[0x7ff90f097b53]
+6: [runnervm8k3b6:40142] [ 6] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_init+0x7f)[0x7ff90f08f18f]
+6: [runnervm8k3b6:40142] [ 7] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(MPI_Init+0x5f)[0x7ff90f0be62f]
+6: [runnervm8k3b6:40142] [ 8] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Utils[0x4e9f71]
+6: [runnervm8k3b6:40142] [ 9] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Utils[0x40cb4b]
+6: [runnervm8k3b6:40142] [10] /lib/x86_64-linux-gnu/libc.so.6(+0x2a1ca)[0x7ff90e22a1ca]
+6: [runnervm8k3b6:40142] [11] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x8b)[0x7ff90e22a28b]
+6: [runnervm8k3b6:40142] [12] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Utils[0x40c7d5]
+6: [runnervm8k3b6:40142] *** End of error message ***
+6: [runnervm8k3b6:40141] *** Process received signal ***
+6: [runnervm8k3b6:40141] Signal: Segmentation fault (11)
+6: [runnervm8k3b6:40141] Signal code: Address not mapped (1)
+6: [runnervm8k3b6:40141] Failing at address: 0x180
+6: [runnervm8k3b6:40141] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x45330)[0x7fab9f245330]
+6: [runnervm8k3b6:40141] [ 1] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/libmlx-fi.so(+0x17c3b)[0x7fab91017c3b]
+6: [runnervm8k3b6:40141] [ 2] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/librxd-fi.so(+0x194f5)[0x7fab920194f5]
+6: [runnervm8k3b6:40141] [ 3] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mtl_ofi_add_procs+0x20f)[0x7faba01c52bf]
+6: [runnervm8k3b6:40141] [ 4] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(+0x977df)[0x7faba00977df]
+6: [runnervm8k3b6:40141] [ 5] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_instance_init+0x73)[0x7faba0097b53]
+6: [runnervm8k3b6:40141] [ 6] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_init+0x7f)[0x7faba008f18f]
+6: [runnervm8k3b6:40141] [ 7] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(MPI_Init+0x5f)[0x7faba00be62f]
+6: [runnervm8k3b6:40141] [ 8] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Utils[0x4e9f71]
+6: [runnervm8k3b6:40141] [ 9] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Utils[0x40cb4b]
+6: [runnervm8k3b6:40141] [10] /lib/x86_64-linux-gnu/libc.so.6(+0x2a1ca)[0x7fab9f22a1ca]
+6: [runnervm8k3b6:40141] [11] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x8b)[0x7fab9f22a28b]
+6: [runnervm8k3b6:40141] [12] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Utils[0x40c7d5]
+6: [runnervm8k3b6:40141] *** End of error message ***
+6: 
+6: ===================================================================================
+6: =   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+6: =   RANK 0 PID 40141 RUNNING AT runnervm8k3b6
+6: =   KILLED BY SIGNAL: 11 (Segmentation fault)
+6: ===================================================================================
+6: 
+6: ===================================================================================
+6: =   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+6: =   RANK 1 PID 40142 RUNNING AT runnervm8k3b6
+6: =   KILLED BY SIGNAL: 11 (Segmentation fault)
+6: ===================================================================================
+ 6/35 Test  #6: Test_Utils .......................***Failed    2.52 sec
+No PMIx server was reachable, but a PMI1/2 was detected.
+If srun is being used to launch application,  2 singletons will be started.
+[runnervm8k3b6:40142] *** Process received signal ***
+[runnervm8k3b6:40142] Signal: Segmentation fault (11)
+[runnervm8k3b6:40142] Signal code: Address not mapped (1)
+[runnervm8k3b6:40142] Failing at address: 0x180
+[runnervm8k3b6:40142] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x45330)[0x7ff90e245330]
+[runnervm8k3b6:40142] [ 1] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/libmlx-fi.so(+0x17c3b)[0x7ff900017c3b]
+[runnervm8k3b6:40142] [ 2] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/librxd-fi.so(+0x194f5)[0x7ff9010194f5]
+[runnervm8k3b6:40142] [ 3] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mtl_ofi_add_procs+0x20f)[0x7ff90f1c52bf]
+[runnervm8k3b6:40142] [ 4] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(+0x977df)[0x7ff90f0977df]
+[runnervm8k3b6:40142] [ 5] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_instance_init+0x73)[0x7ff90f097b53]
+[runnervm8k3b6:40142] [ 6] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_init+0x7f)[0x7ff90f08f18f]
+[runnervm8k3b6:40142] [ 7] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(MPI_Init+0x5f)[0x7ff90f0be62f]
+[runnervm8k3b6:40142] [ 8] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Utils[0x4e9f71]
+[runnervm8k3b6:40142] [ 9] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Utils[0x40cb4b]
+[runnervm8k3b6:40142] [10] /lib/x86_64-linux-gnu/libc.so.6(+0x2a1ca)[0x7ff90e22a1ca]
+[runnervm8k3b6:40142] [11] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x8b)[0x7ff90e22a28b]
+[runnervm8k3b6:40142] [12] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Utils[0x40c7d5]
+[runnervm8k3b6:40142] *** End of error message ***
+[runnervm8k3b6:40141] *** Process received signal ***
+[runnervm8k3b6:40141] Signal: Segmentation fault (11)
+[runnervm8k3b6:40141] Signal code: Address not mapped (1)
+[runnervm8k3b6:40141] Failing at address: 0x180
+[runnervm8k3b6:40141] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x45330)[0x7fab9f245330]
+[runnervm8k3b6:40141] [ 1] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/libmlx-fi.so(+0x17c3b)[0x7fab91017c3b]
+[runnervm8k3b6:40141] [ 2] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/librxd-fi.so(+0x194f5)[0x7fab920194f5]
+[runnervm8k3b6:40141] [ 3] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mtl_ofi_add_procs+0x20f)[0x7faba01c52bf]
+[runnervm8k3b6:40141] [ 4] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(+0x977df)[0x7faba00977df]
+[runnervm8k3b6:40141] [ 5] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_instance_init+0x73)[0x7faba0097b53]
+[runnervm8k3b6:40141] [ 6] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_init+0x7f)[0x7faba008f18f]
+[runnervm8k3b6:40141] [ 7] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(MPI_Init+0x5f)[0x7faba00be62f]
+[runnervm8k3b6:40141] [ 8] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Utils[0x4e9f71]
+[runnervm8k3b6:40141] [ 9] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Utils[0x40cb4b]
+[runnervm8k3b6:40141] [10] /lib/x86_64-linux-gnu/libc.so.6(+0x2a1ca)[0x7fab9f22a1ca]
+[runnervm8k3b6:40141] [11] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x8b)[0x7fab9f22a28b]
+[runnervm8k3b6:40141] [12] /home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Utils[0x40c7d5]
+[runnervm8k3b6:40141] *** End of error message ***
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   RANK 0 PID 40141 RUNNING AT runnervm8k3b6
+=   KILLED BY SIGNAL: 11 (Segmentation fault)
+===================================================================================
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   RANK 1 PID 40142 RUNNING AT runnervm8k3b6
+=   KILLED BY SIGNAL: 11 (Segmentation fault)
+===================================================================================
+
+test 7
+      Start  7: Test_Mult_Ops
+
+7: Test command: /opt/intel/oneapi/mpi/2021.19/bin/mpiexec "-n" "2" "/home/runner/work/TAMM/TAMM/build/TAMM_Tests_External-prefix/src/TAMM_Tests_External-build/Test_Mult_Ops" "50" "20"
+7: Working Directory: /home/runner/work/TAMM/TAMM/build/test_stage/home/runner/work/TAMM/TAMM/install/tests
+7: Test timeout computed to be: 10000000
+7: No PMIx server was reachable, but a PMI1/2 was detected.
+7: If srun is being used to launch application,  2 singletons will be started.
+7: [runnervm8k3b6:40180] *** Process received signal ***
+7: [runnervm8k3b6:40180] Signal: Segmentation fault (11)
+7: [runnervm8k3b6:40180] Signal code: Address not mapped (1)
+7: [runnervm8k3b6:40180] Failing at address: 0x180
+7: [runnervm8k3b6:40180] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x45330)[0x7f8b50e45330]
+7: [runnervm8k3b6:40180] [ 1] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/libmlx-fi.so(+0x17c3b)[0x7f8b42c17c3b]
+7: [runnervm8k3b6:40180] [ 2] /opt/intel/oneapi/libfabric/2.6/lib/libfabric/librxd-fi.so(+0x194f5)[0x7f8b43c194f5]
+7: [runnervm8k3b6:40180] [ 3] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mtl_ofi_add_procs+0x20f)[0x7f8b51fc52bf]
+7: [runnervm8k3b6:40180] [ 4] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(+0x977df)[0x7f8b51e977df]
+7: [runnervm8k3b6:40180] [ 5] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_instance_init+0x73)[0x7f8b51e97b53]
+7: [runnervm8k3b6:40180] [ 6] /home/runner/micromamba/envs/sycl-ci/lib/libmpi.so.40(ompi_mpi_init+0x7f)[0x7f8b51e8f18f]

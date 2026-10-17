@@ -1,0 +1,91 @@
+=== compilers ===
+/opt/intel/oneapi/compiler/2026.2/bin/icpx
+/opt/intel/oneapi/compiler/2026.2/bin/icx
+/opt/intel/oneapi/compiler/2026.2/bin/ifx
+/home/runner/micromamba/envs/sycl-ci/bin/cmake
+/home/runner/micromamba/envs/sycl-ci/bin/ninja
+/opt/intel/oneapi/mpi/2021.19/bin/mpirun
+Intel(R) oneAPI DPC++/C++ Compiler 2026.2.0 (2026.2.0.20261001)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /opt/intel/oneapi/compiler/2026.2/bin/compiler
+Configuration file: /opt/intel/oneapi/compiler/2026.2/bin/compiler/../icpx.cfg
+Intel(R) oneAPI DPC++/C++ Compiler 2026.2.0 (2026.2.0.20261001)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /opt/intel/oneapi/compiler/2026.2/bin/compiler
+Configuration file: /opt/intel/oneapi/compiler/2026.2/bin/compiler/../icx.cfg
+ifx (IFX) 2026.2.0 20261001
+Copyright (C) 1985-2026 Intel Corporation. All rights reserved.
+
+cmake version 4.4.4
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+1.13.2
+Intel(R) MPI Library for Linux* OS, Version 2021.19.0 Build 20260929 (id: 1821d9b)
+Copyright 2003-2026, Intel Corporation.
+=== oneAPI env ===
+MKLROOT=/opt/intel/oneapi/mkl/2026.2 CMPLR_ROOT=/opt/intel/oneapi/compiler/2026.2 ONEAPI_ROOT=/opt/intel/oneapi
+=== SYCL devices ===
+INFO: Output filtered by ONEAPI_DEVICE_SELECTOR environment variable, which is set to opencl:cpu.
+To see device ids, use the --ignore-device-selectors CLI option.
+
+[opencl:cpu] Intel(R) OpenCL, AMD EPYC 7763 64-Core Processor                 OpenCL 3.1 (Build 0) [2026.22.10.0.01_160000]
+  ccache             4.14.1        h420ae53_0             conda-forge
+  cmake              4.4.4         hff7ac6b_0             conda-forge
+  hdf5               2.2.0         nompi_hdbb200c_101     conda-forge
+  libblas            3.11.0        11_h4a7cf45_openblas   conda-forge
+  libcblas           3.11.0        11_h0358290_openblas   conda-forge
+  liblapack          3.11.0        11_h47877c9_openblas   conda-forge
+  libopenblas        0.3.34        pthreads_hf13c14d_2    conda-forge
+  mpi                1.0.1         openmpi                conda-forge
+  openblas           0.3.34        pthreads_h299a788_2    conda-forge
+  openmpi            5.0.11        hee33aa4_0             conda-forge
+ii  intel-oneapi-common-licensing-2026.2           2026.2.0-35                                      all          oneAPI Common License
+ii  intel-oneapi-common-oneapi-vars-2026.2         2026.2.0-35                                      all          oneAPI Common Toolkit Environment Script
+ii  intel-oneapi-common-vars                       2026.2.0-35                                      all          oneAPI Common Environment Scripts
+ii  intel-oneapi-compiler-cpp-eclipse-cfg-2026.2   2026.2.0-863                                     all          Intel® oneAPI DPC++/C++ Compiler 2026.2.0 for Linux* eclipse integration configuration file (C++)
+ii  intel-oneapi-compiler-dpcpp-cpp-2026.2         2026.2.0-863                                     amd64        Intel® oneAPI DPC++/C++ Compiler
+ii  intel-oneapi-compiler-dpcpp-cpp-common-2026.2  2026.2.0-863                                     all          Intel® oneAPI DPC++/C++ Compiler 2026.2.0 for Linux* common
+ii  intel-oneapi-compiler-dpcpp-cpp-runtime-2026.2 2026.2.0-863                                     amd64        Intel® oneAPI DPC++/C++ Compiler 2026.2.0 for Linux* runtime package for Intel(R) 64
+ii  intel-oneapi-compiler-dpcpp-eclipse-cfg-2026.2 2026.2.0-863                                     all          Intel® oneAPI DPC++/C++ Compiler 2026.2.0 for Linux* eclipse integration configuration file (DPC++)
+ii  intel-oneapi-compiler-fortran-2026.2           2026.2.0-863                                     amd64        Intel® Fortran Compiler 2026.2.0 for Linux* for Intel(R) 64
+ii  intel-oneapi-compiler-fortran-common-2026.2    2026.2.0-863                                     all          Intel® Fortran Compiler 2026.2.0 for Linux* common
+ii  intel-oneapi-compiler-fortran-runtime-2026.2   2026.2.0-863                                     amd64        Intel® Fortran Compiler 2026.2.0 for Linux* runtime package for Intel(R) 64
+ii  intel-oneapi-compiler-shared-2026.2            2026.2.0-863                                     amd64        Intel(R) Compiler Shared Files
+ii  intel-oneapi-compiler-shared-common-2026.2     2026.2.0-863                                     all          Intel(R) Compiler Shared Files
+ii  intel-oneapi-compiler-shared-runtime-2026.2    2026.2.0-863                                     amd64        Intel(R) Compiler Shared Files runtime contents
+ii  intel-oneapi-dev-utilities-2026.2              2026.2.0-51                                      amd64        Dev Utilities
+ii  intel-oneapi-dev-utilities-eclipse-cfg-2026.2  2026.2.0-51                                      all          intel-oneapi-dev-utilities-eclipse-cfg
+ii  intel-oneapi-dpcpp-cpp-2026.2                  2026.2.0-863                                     amd64        Intel® oneAPI DPC++/C++ Compiler 2026.2.0 for Linux* for Intel(R) 64
+ii  intel-oneapi-dpcpp-debugger-2026.2             2026.2.0-138                                     amd64        Intel® Distribution for GDB*
+ii  intel-oneapi-icc-eclipse-plugin-cpp-2026.2     2026.2.0-863                                     all          Standards driven high performance cross architecture DPC++/C++ compiler
+ii  intel-oneapi-mkl-classic-devel-2026.2          2026.2.0-881                                     amd64        Intel® oneAPI Math Kernel Library 2026.2.0 for Linux* classic development package for Intel(R) 64
+ii  intel-oneapi-mkl-classic-include-2026.2        2026.2.0-881                                     amd64        Intel® oneAPI Math Kernel Library 2026.2.0 for Linux* classic include package for Intel(R) 64
+ii  intel-oneapi-mkl-cluster-2026.2                2026.2.0-881                                     amd64        Intel® oneAPI Math Kernel Library 2026.2.0 for Linux* cluster package for Intel(R) 64
+ii  intel-oneapi-mkl-cluster-devel-2026.2          2026.2.0-881                                     amd64        Intel® oneAPI Math Kernel Library 2026.2.0 for Linux* cluster development package for Intel(R) 64
+ii  intel-oneapi-mkl-core-2026.2                   2026.2.0-881                                     amd64        Intel® oneAPI Math Kernel Library 2026.2.0 for Linux* core package for Intel(R) 64
+ii  intel-oneapi-mkl-core-devel-2026.2             2026.2.0-881                                     amd64        Intel® oneAPI Math Kernel Library 2026.2.0 for Linux* core development package for Intel(R) 64
+ii  intel-oneapi-mkl-devel-2026.2                  2026.2.0-881                                     amd64        Intel® oneAPI Math Kernel Library 2026.2.0 for Linux* development package for Intel(R) 64
+ii  intel-oneapi-mkl-sycl-2026.2                   2026.2.0-881                                     amd64        Intel® oneAPI Math Kernel Library 2026.2.0 for Linux* SYCL* package for Intel(R) 64
+ii  intel-oneapi-mkl-sycl-blas-2026.2              2026.2.0-881                                     amd64        Intel® oneAPI Math Kernel Library 2026.2.0 for Linux* SYCL* BLAS
+ii  intel-oneapi-mkl-sycl-data-fitting-2026.2      2026.2.0-881                                     amd64        Intel® oneAPI Math Kernel Library 2026.2.0 for Linux* SYCL* data fitting
+ii  intel-oneapi-mkl-sycl-devel-2026.2             2026.2.0-881                                     amd64        Intel® oneAPI Math Kernel Library 2026.2.0 for Linux* SYCL* development package for Intel(R) 64
+ii  intel-oneapi-mkl-sycl-dft-2026.2               2026.2.0-881                                     amd64        Intel® oneAPI Math Kernel Library 2026.2.0 for Linux* SYCL* DFT
+ii  intel-oneapi-mkl-sycl-include-2026.2           2026.2.0-881                                     amd64        Intel® oneAPI Math Kernel Library 2026.2.0 for Linux* SYCL* include package for Intel(R) 64
+ii  intel-oneapi-mkl-sycl-lapack-2026.2            2026.2.0-881                                     amd64        Intel® oneAPI Math Kernel Library 2026.2.0 for Linux* SYCL* LAPACK
+ii  intel-oneapi-mkl-sycl-rng-2026.2               2026.2.0-881                                     amd64        Intel® oneAPI Math Kernel Library 2026.2.0 for Linux* SYCL* random number generator functions (RNG)
+ii  intel-oneapi-mkl-sycl-sparse-2026.2            2026.2.0-881                                     amd64        Intel® oneAPI Math Kernel Library 2026.2.0 for Linux* SYCL* sparse solvers
+ii  intel-oneapi-mkl-sycl-stats-2026.2             2026.2.0-881                                     amd64        Intel® oneAPI Math Kernel Library 2026.2.0 for Linux* SYCL* summary statistics
+ii  intel-oneapi-mkl-sycl-vm-2026.2                2026.2.0-881                                     amd64        Intel® oneAPI Math Kernel Library 2026.2.0 for Linux* SYCL* vector math
+ii  intel-oneapi-openmp-2026.2                     2026.2.0-863                                     amd64        Intel® OpenMP* Runtime Library 2026.2.0 for Linux* for Intel(R) 64
+ii  intel-oneapi-openmp-common-2026.2              2026.2.0-863                                     all          Intel® OpenMP* Runtime Library 2026.2.0 for Linux* common
+ii  intel-oneapi-runtime-compilers                 2026.2.0-863                                     amd64        Intel® oneAPI DPC++/C++ Compiler runtime common files
+ii  intel-oneapi-runtime-compilers-common          2026.2.0-863                                     all          Intel® oneAPI DPC++/C++ Compiler runtime common files
+ii  intel-oneapi-runtime-dpcpp-sycl-opencl-cpu     2026.2.0-863                                     amd64        Intel® CPU Runtime for OpenCL(TM) Applications runtime
+ii  intel-oneapi-runtime-opencl                    2026.2.0-863                                     amd64        Intel® CPU Runtime for OpenCL(TM) Applications runtime
+ii  intel-oneapi-runtime-openmp                    2026.2.0-863                                     amd64        Intel® OpenMP* Runtime Library runtime
+Intel(R) oneAPI DPC++/C++ Compiler 2026.2.0 (2026.2.0.20261001)
+SYCL device: AMD EPYC 7763 64-Core Processor                
+SYCL vendor: Intel(R) Corporation
+SYCL probe result=42
