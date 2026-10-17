@@ -245,8 +245,15 @@ jobs:
         timeout-minutes: 30
         run: |
           set -o pipefail; mkdir -p /tmp/logs
+          source /opt/intel/oneapi/setvars.sh
           {
+            echo "=== ctest env ==="
+            echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+            echo "MKLROOT=$MKLROOT"
+            ldconfig -p | grep -E 'mkl|ifport|ifcore' | head -n 20 || true
+            ls /opt/intel/oneapi/compiler/latest/lib/libifport* 2>&1 | head -n 5 || true
             echo "=== ctest ==="
+            # Ensure Intel runtime libs visible (libifport.so.5 etc.)
             ctest --test-dir build -V --output-on-failure 2>&1 | head -n 500
             echo "=== sycl cache ==="
             ls -lh /tmp/sycl_cache 2>&1 | head -n 20 || true
