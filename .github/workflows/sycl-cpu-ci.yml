@@ -205,7 +205,8 @@ jobs:
           # TAMM uses CMakeBuild superbuild; GPU_ARCH=spir64 requests generic JIT
           # image. TAMM_CXX_FLAGS override drops Aurora SPR tuning.
           # Use Intel MKL from oneAPI (as in build_exachem_sunspot.sh:24) — OpenBLAS conda lacks ilp64
-          cmake -B build -GNinja \
+          # Use Unix Makefiles (not Ninja) — TAMM superbuild uses DESTDIR= ninja fails with DESTDIR target
+          cmake -B build \
             -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install \
             -DALLOW_CONDA=ON \
             -DLINALG_VENDOR=IntelMKL \
@@ -227,8 +228,8 @@ jobs:
           if grep -q 'intel_gpu_pvc' build/CMakeCache.txt; then
             echo "WARNING: intel_gpu_pvc still present in CMakeCache.txt (expected spir64 JIT)" | tee -a /tmp/logs/40_tamm_configure.log
           fi
-          ninja -C build -j2 2>&1 | tee /tmp/logs/41_tamm_build.log
-          ninja -C build install 2>&1 | tee -a /tmp/logs/41_tamm_build.log
+          make -C build -j2 2>&1 | tee /tmp/logs/41_tamm_build.log
+          make -C build install 2>&1 | tee -a /tmp/logs/41_tamm_build.log
           ccache -s 2>&1 | tee -a /tmp/logs/41_tamm_build.log || true
 
       - name: Save ccache (even on failure)
